@@ -1,0 +1,119 @@
+<form-input auto-height="true">
+	<form-input-body>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('ma_kh','Mã kho').text}}
+				<span style='color:red'>(*)</span></label>
+			<div class="col-sm-10">
+				<input type="text" style="text-transform:uppercase" class="form-control" ng-model='data.ma_kho' ng-required="true">
+
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('ten_kho','Tên kho').text}}
+				<span style='color:red'>(*)</span></label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" ng-model='data.ten_kho' ng-required="true">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-2">{{getLabel('dt_cong_no','Ghi nhận công nợ cho').text}}</label>
+			<div class="col-md-10">
+				<ng-typeahead module='dmkh' fields='ma_kh,ten_kh' field-model='ten_kh' field-label='ma_kh' ng-model='data.ten_kh' label='data.ma_kh'></ng-typeahead>
+				<div>
+					<small>Sử dụng trong trường hợp cần theo dõi công nợ theo các kho</small>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-2">{{getLabel('tk_cn','TK công nợ').text}}</label>
+			<div class="col-md-4">
+				<ng-typeahead module='dmtk' fields='tk,ten_tk' field-model='tk' field-label='ten_tk' ng-model='data.tk_cn' label='data.ten_tk_cn' condition="loai_tk:1"></ng-typeahead>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('dia_chi','Địa chỉ').text}}</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" ng-model='data.exfields.dia_chi'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('dien_thoai','Điện thoại').text}}</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" ng-model='data.exfields.dien_thoai'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('email','Email').text}}</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" ng-model='data.exfields.email'>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<div class="checkbox">
+					<label><input type="checkbox" ng-model="data.kho_dl"/>
+						{{getLabel('kho_dai_ly','Kho đại lý').text}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<div class="checkbox">
+					<label><input type="checkbox" ng-model="data.kho_dc"/>
+						{{getLabel('kho_dieu_chuyen','Kho điều chuyển').text}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 text-right">{{getLabel('co_gia_tri_voi','Có giá trị với').text}}
+			</label>
+			<div class="col-sm-10">
+				<label ng-repeat="item in [{v:0,t:'Mọi người'},{v:1,t:'Chỉ người tạo'},{v:2,t:'Những người sau'}]" style="padding-right:10px">
+					<input type='radio' ng-model='data.visible_to' name='visible_to' ng-value="item.v"/>
+					{{item.t}}
+				</label>
+				<ui-select ng-show='data.visible_to==2' multiple="multiple" ng-model="data.visible_to_users" theme="bootstrap" close-on-select="false" title="Chọn một user">
+					<ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+					<ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+
+						<small>
+							{{person.name}}
+
+						</small>
+					</ui-select-choices>
+				</ui-select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 text-right">{{getLabel('du_lieu_lien_quan','Dữ liệu liên quan').text}}
+			</label>
+			<div class="col-sm-10">
+				<label ng-repeat="item in [{v:0,t:'Mọi người'},{v:1,t:'Chỉ người tạo'},{v:2,t:'Những người sau'}]" style="padding-right:10px">
+					<input type='radio' ng-model='data.dataview_to' name='dataview_to' ng-value="item.v"/>
+					{{item.t}}
+				</label>
+				<ui-select ng-show='data.dataview_to==2' multiple="multiple" ng-model="data.dataview_to_users" theme="bootstrap" close-on-select="false" title="Chọn một user">
+					<ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+					<ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+
+						<small>
+							{{person.name}}
+
+						</small>
+					</ui-select-choices>
+				</ui-select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<div class="checkbox">
+					<label><input type="checkbox" ng-model="data.status"/>
+						{{getLabel('con_su_dung','Còn sử dụng').text}}</label>
+				</div>
+			</div>
+		</div>
+	</form-input-body>
+</form-input>

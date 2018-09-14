@@ -1,0 +1,138 @@
+<form-input>
+	<form-input-body>
+		<div class="form-group">
+			<div class="col-md-4" ng-style="!isMobile?{height:(innerHeight-90).toString()+'px'}:{}">
+				<div ng-class="!isMobile?'scrollable':''">
+					<div class="scrollable-content">
+						<uib-accordion close-others="true">
+							<uib-accordion-group heading="{{getLabel('Chung','Thông tin chung').text}}" is-open="true">
+								<div class="form-group">
+									<label class="control-label">{{getLabel('trang_thai','Trạng thái').text}}
+									<span class='required'>(*)</span></label>
+									<div>
+										<ng-selector module='trangthai' fields='ma_trang_thai,ten_trang_thai' field-model='ma_trang_thai' field-label='ten_trang_thai' condition="ma_ct:'LENHSX'" show-button-list="false" ng-model="data.trang_thai" ng-required="true"></ng-selector>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label">{{getLabel('ma_lenh','Mã lệnh sản xuất').text}} <span class='required'>(*)</span></label>
+									<div class="">
+										<input type="text" style='text-transform:uppercase' name='so_ct' class="form-control" ng-model='data.so_ct' ng-required="true" />
+									</div>
+
+									<label class="control-label"> {{getLabel('NGAY_lap','Ngày lập').text}} <span class='required'>(*)</span></label>
+									<div class="">
+										<ng-datepicker ng-model='data.ngay_ct' ng-required='true'></ng-datepicker>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label">{{getLabel('ngay_ke_hoach','Ngày kế hoạch').text}} <span class='required'>(*)</span></label>
+									<div class="">
+										<ng-datepicker ng-model='data.ngay_ke_hoach' ng-required="true"></ng-datepicker>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label">{{getLabel('hieu_luc_tu_ngay','Ngày bắt đầu').text}} <span class='required'>(*)</span></label>
+									<div class="">
+										<ng-datepicker ng-model='data.ngay_bat_dau' ng-required="true"></ng-datepicker>
+									</div>
+
+									<label class="control-label"> {{getLabel('hieu_luc_den_ngay','Ngày kết thúc').text}} <span class='required'>(*)</span></label>
+									<div class="">
+										<ng-datepicker ng-model='data.ngay_ket_thuc'  ng-required="true"></ng-datepicker>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label">{{getLabel('ngay_dong_bo_nvl','Ngày đồng bộ NVL').text}}</label>
+									<div class="">
+										<ng-datepicker ng-model='data.ngay_dong_bo_nvl'></ng-datepicker>
+									</div>
+								</div>
+
+
+
+
+								<div class="form-group">
+									<label class="control-label">{{getLabel('donhang','Đơn hàng/hợp đồng').text}}</label>
+									<div class="">
+										<ng-typeahead module='sale_contract' group="vouchers" field-model='so_ct' field-label='_id' fields='_id,so_ct,ngay_ct,ma_kh,ten_kh,ma_hd,ten_hd'
+										 ng-model='data.so_ct_contract' label='data.id_contract'>
+										</ng-typeahead>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label">{{getLabel('DIEN_GIAI','Diễn giải').text}}</label>
+									<div class="">
+										<input type="text" class="form-control" ng-model='data.dien_giai' />
+									</div>
+
+								</div>
+
+								<div class="form-group">
+
+									<label class="control-label">{{getLabel('DVCS','Đơn vị cơ sở').text}} <span class='required' title="{{getLabel('DVCS','Đơn vị cơ sở').text}} {{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+									<div class="">
+										<ng-selector module='dvcs' fields='_id,ten_dvcs' field-model='_id' field-label='ten_dvcs' options="item._id as item.ten_dvcs for item in items" ng-model="data.ma_dvcs" ng-required="true">
+										</ng-selector>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label">Có giá trị với </label>
+									<div class="">
+										<label ng-repeat="item in [{v:0,t:'Mọi người'},{v:1,t:'Chỉ người tạo'},{v:2,t:'Những người sau'}]" style="padding-right:10px">
+									<input type='radio' ng-model='data.visible_to' name='visible_to' ng-value="item.v"/> {{item.t}}
+								</label>
+										<ui-select ng-show='data.visible_to==2' multiple ng-model="data.visible_to_users" theme="bootstrap" close-on-select="false" title="Chọn một user">
+											<ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+											<ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+
+												<small>
+											 {{person.name}}
+
+										 </small>
+											</ui-select-choices>
+										</ui-select>
+									</div>
+								</div>
+							</uib-accordion-group>
+							<uib-accordion-group heading="{{getLabel('BO_XUNG','Đặc thù').text}} (*)" ng-show="data.options && data.options.fields && data.options.fields.length>0">
+								<!--extra fields-->
+								<div class="form-group" ng-repeat="field in  data.options.fields">
+									<label class="control-label col-md-3">{{field.title}} <span class="required" ng-show="field.required">(*)</span></label>
+									<div class="col-md-9">
+										<input type="text" ng-if="field.type=='text'" ng-model="data.exfields[field.name]" class="form-control" ng-required="field.required" />
+										<input type="text" format='number' ng-if="field.type=='number'" ng-model="data.exfields[field.name]" class="form-control" ng-required="field.required" />
+										<ng-datepicker ng-model="data.exfields[field.name]" ng-if="field.type=='date'" ng-required="field.required"></ng-datepicker>
+
+									</div>
+								</div>
+								<!--end extra fields-->
+							</uib-accordion-group>
+
+						</uib-accordion>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8" ng-style="!isMobile?{height:(innerHeight-100).toString()+'px'}:{}">
+				<div ng-class="!isMobile?'scrollable':''">
+					<div class="scrollable-content">
+						<uib-accordion close-others="true">
+							<uib-accordion-group heading="{{getLabel('chi_tiet','Chi tiết').text}}" is-open="true">
+								<lenhsx-detail-table ng-master-data='data'></lenhsx-detail-table>
+							</uib-accordion-group>
+						</uib-accordion>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form-input-body>
+	<form-input-footer>
+		<label class="control-label  col-md-offset-6 col-md-1  disable-small-screen">{{getLabel('TONG_SL','Tổng SL').text}} </label>
+		<div class="col-md-2  disable-small-screen">
+			<label class="form-control" ng-model='data.t_sl_sx' ng-sum="sl_sx" ng-data="data.details">{{data.t_sl_sx|number:f_sl}}</label>
+		</div>
+	</form-input-footer>
+</form-input>

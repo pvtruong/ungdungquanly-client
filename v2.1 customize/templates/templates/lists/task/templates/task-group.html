@@ -1,0 +1,16 @@
+<div  ba-panel ba-panel-class="with-scroll" ba-panel-title="{{$ctrl.title}}">
+	<div class="ui five doubling cards">
+		<div class="ui card btn" ng-repeat="r in $ctrl.list" ng-click="$ctrl.openUrl('task/dashboard/' + r._id)">
+			<div class="content" style="white-space: normal">
+				<a>{{r.group_name}}</a>
+				<div>(<small><span task-count group="{{r._id}}"></span> tasks</small>)</div>
+			</div>
+		</div>
+
+		<div class="ui card btn"  ng-click="$ctrl.add()">
+			<div class="content" style="white-space: normal">
+				<i class="fa fa-plus-circle" aria-hidden="true"></i>
+			</div>
+		</div>
+	</div>
+</div>

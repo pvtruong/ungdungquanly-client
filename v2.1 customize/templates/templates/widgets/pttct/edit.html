@@ -1,0 +1,26 @@
+<form role="form">
+   
+        <div class='form-group'>
+            <label>Mẫu <span class="required">*</span></label>
+            <div>
+                <ng-selector
+                    module="rptform" fields ="_id,rptform_name" field-model="_id" field-label="rptform_name" config="rptform_type:'PTTCT'"
+                    options ="item._id as item.rptform_name for item in items"  condition="rptform_type:'PTTCT'" default-values ="rptform_type:'PTTCT'"
+                    ng-model='config.id_rptform' ng-required="true">
+                </ng-selector>
+            </div>
+        </div>
+        <div class='form-group'>
+            <label>Từ ngày</label>
+            <div>
+                <ng-datepicker ng-model='config.tu_ngay'></ng-datepicker>
+            </div>
+        </div>
+        <div class='form-group'>
+            <label>Đến ngày</label>
+            <div>
+                <ng-datepicker ng-model='config.den_ngay'></ng-datepicker>
+            </div>
+        </div>
+   
+</form>

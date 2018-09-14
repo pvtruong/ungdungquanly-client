@@ -1,0 +1,27 @@
+﻿<voucher><voucher-body> <div class="table-responsive"  style="overflow: auto">
+	<table class ="table table-striped table-hover">
+		<tr><th class="text-center"  style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll" ng-change ="selectionAllChange(selectionAll)"/></th><th style="width:30px"></th><th>{{getLabel('stt','Số thứ tự').text}}</th><th>{{getLabel('DIEN_GIAI','Diễn giải').text}}</th><th>{{getLabel('tk_co','Tài khoản có').text}}</th><th>{{getLabel('ten_tk_co','Tên tài khoản có').text}}</th><th>{{getLabel('TIEN_CAN_PHAN_BO','Tiền cần phân bổ').text}}</th><th>{{getLabel('SO_KY_PHAN_BO','Số kỳ cần phân bổ').text}}</th></tr>
+		<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin"  drag-to-dismiss="delete(r._id,dismissCB)">
+			<td width='30px' class="text-center" ng-show="multiSelect"> <input type="checkbox" ng-model="r.sel"/> </td><td class="text-center" style="width:30px"><div  ng-include="'templates/sys/quick-actions.html'"></div></td>
+			<td   style='cursor:pointer' ng-click='edit(r._id)'>
+				<div>{{ r.stt }}</div>
+			</td>
+			<td   style='cursor:pointer' ng-click='edit(r._id)'>
+				{{STP.tructed(r.dien_giai,32,"left")}}
+			</td>
+			<td   style='cursor:pointer' ng-click='edit(r._id)'>
+				{{ r.tk_co}}
+			</td>
+		
+			<td   style='cursor:pointer' ng-click='edit(r._id)'>
+				{{ r.ten_tk_co }}
+			</td>
+		
+			<td   style='cursor:pointer' ng-click='edit(r._id)'>
+				{{ r.tien_can_phan_bo|number:0}}
+			</td>
+			<td   style='cursor:pointer' ng-click='edit(r._id)'>
+				{{ r.so_ky_phan_bo|number:0}}
+			</td>
+		</tr>
+	</table><ng-page></ng-page></div></voucher-body></voucher>

@@ -1,0 +1,105 @@
+<h3>Phân quyền<small> cho {{name||email}}</small></h3>
+
+<div class="row" style="height:100%">
+    <div class="col-md-3" style="border:1px solid silver;overflow:auto">
+        <ul>
+            <li ng-repeat="menu in commands">
+                <a ng-click="selectItems(menu.input,menu.title)"  ng-if="menu.type=='1'">{{menu.title}}</a>
+				<ul>
+					<li ng-repeat="cmd in menu.input" ng-if="cmd.items && cmd.items.length>0">
+						<a ng-click="selectItems(cmd.items,menu.title + ' / ' + cmd.header)">{{cmd.header}}</a>
+					</li>
+				</ul>
+				
+				<div  ng-if="menu.type=='2'">
+					<span>{{menu.title}}</span>
+					<ul>
+						<li ng-repeat="cmd in menu.input">
+							<a ng-click="selectItems(cmd.items,cmd.module)">{{cmd.module}}</a>
+						</li>
+					</ul>
+				</div>
+				<div ng-if="menu.type=='3'">
+					<span>{{menu.title}}</span>
+					<ul>
+						<li ng-repeat="cmd in menu.input">
+							<span>{{cmd.module}}</span>
+							<ul>
+								<li ng-repeat="group in cmd.items">
+									<a ng-click="selectItems(group.items,'Kế toán - ' + cmd.module + ' - ' + group.group)">{{group.group}}</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="col-md-9"  style="height:100%">
+		<!--<div class="text-right">
+			<button class="btn btn-md btn-danger" ng-click="save()">Lưu</button>
+		</div>-->
+        <h3>{{group_title}}</h3>
+        <div class="table-responsive">
+            <table class='table table-bordered' style="height:100%">
+                <tr>
+                    <th style='width:20px' class="text-center">Chọn</th>
+                    <th style='width:200px'>
+                        Chức năng
+                    </th>
+                    <th class='text-center' style='width:50px'>
+                        Xem
+                    </th>
+                    <th class='text-center' style='width:50px'>
+                        Thêm mới
+                    </th>
+                    <th class='text-center' style='width:50px'>
+                        Cập nhật
+                    </th>
+                    <th class='text-center' style='width:50px'>
+                        Xóa
+                    </th>
+					<th class='text-center' style='width:50px'>
+                        Xem dữ liệu của người khác
+                    </th>
+                    <th>Trạng thái</th>
+                </tr>
+                <tr ng-repeat="item in items" ng-show="item.type!='P' && !item.items">
+                    <td style='width:20px' class="text-center"><input type="checkbox" ng-model="item.sel"  ng-change="selectAllRight(item)"></td>
+                    <td style='width:200px'>
+                        {{item.header}}
+                    </td>
+                    <td class='text-center'  style='width:50px'>
+                        <input type='checkbox' ng-model='item.view' ng-change='change(item,"view")'/>
+                    </td>
+                    <td class='text-center'  style='width:50px'>
+                        <input type='checkbox' ng-hide='!(item.type=="V" || item.type=="L")' ng-model='item.add'  ng-change='change(item,"add")'/>
+                    </td>
+                    <td class='text-center'  style='width:50px'>
+                        <input type='checkbox'  ng-hide='!(item.type=="V" || item.type=="L")' ng-model='item.update'  ng-change='change(item,"update")'/>
+                    </td>
+                    <td class='text-center'  style='width:50px'>
+                        <input type='checkbox'  ng-hide='!(item.type=="V" || item.type=="L")' ng-model='item.delete'  ng-change='change(item,"delete")'/>
+                    </td>
+					<td class='text-center'  style='width:50px'>
+                        <input type='checkbox'  ng-hide='!(item.type=="V" || item.type=="L")' ng-model='item.viewOfOther'  ng-change='change(item,"viewOfOther")'/>
+                    </td>
+                    <td>
+                        <div ng-repeat ="trangthai in getTrangthai(item.module)">
+                            <label>
+                                <input type='checkbox' ng-model='item.trang_thai[trangthai.ma_trang_thai]' ng-change='change(item,trangthai.ma_trang_thai)'/>
+                                {{trangthai.ten_trang_thai}}
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,91 @@
+<div class="panel panel-default tasks-widget">
+	<div class="panel-heading row" style="padding:3px">
+		<div class="panel-title col-xs-4">
+			<i class="fa fa-check"></i> {{getLabel('DON_HANG','Đơn hàng').text}}
+		</div>
+		<div class="actions col-xs-8 text-right">
+			<div class="btn-group">
+				<a class="btn btn-sm" ng-click='add()'>
+					 {{getLabel('moi','Mới').text}}
+				</a>
+			</div>
+			<div class="btn-group">
+				<a class="btn  btn-sm" href="javascript:;" ng-click="toggleDropdown('filterSO1')" >
+				Lọc <i class="fa fa-angle-down"></i>
+				</a>
+				<ul class="dropdown-menu pull-right"
+					
+					
+					ui-show="filterSO1" 
+					ui-state="filterSO1"
+					ui-turn-off="filterSO1"
+					>
+					<li>
+						<a ng-click="filter({trang_thai:1,status:true})">
+						{{getLabel('DAT_HANG','Đặt hàng').text}} 
+						</a>
+					</li>
+					<li>
+						<a ng-click="filter({trang_thai:2,status:true})">
+						{{getLabel('XAC_NHAN','Xác nhận').text}}
+						</a>
+					</li>
+					<li>
+						<a ng-click="filter({trang_thai:3,status:true})">
+						{{getLabel('DANG_GIAO','Đang giao').text}}
+						</a>
+					</li>
+					<li>
+						<a ng-click="filter({trang_thai:4,status:true})">
+						{{getLabel('DA_GIAO_HANG','Đã giao').text}}
+						</a>
+					</li>
+					<li>
+						<a ng-click="filter({trang_thai:5,status:true})">
+						{{getLabel('HUY','Hủy').text}}
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="btn-group">
+				<a class="btn btn-default  btn-sm" ng-click="orders=[];filter({})">
+					 <i class="fa fa-refresh"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="panel-body">
+		<div>
+			<div class="scroller" >
+				<table class ="table table-hover">
+					<tr><th>{{getLabel('DON_HANG','Đơn hàng').text}}</th><th>{{getLabel('KHACH_HANG','Khách hàng').text}}</th><th>{{getLabel('SO_LUONG','Số lượng').text}}</th><th>{{getLabel('TIEN_HANG','Tiền hàng').text}}</th></tr>
+					<tr ng-repeat="r in orders|orderBy:'-ngay_ct'">
+						<td   style='cursor:pointer' ng-click='editOrder(r)'>
+							<div>{{getLabel('SO_CT','Số').text}}: {{ r.so_ct }} - {{getLabel('NGAY','ngày').text}} <b>{{ r.date_created|date:'dd/MM/yyyy - HH:mm:ss'}}</b></div>
+						   <div  ng-class="r.color?'label bg-'+r.color:''">{{ r.ten_trang_thai }}</div>
+                        </td>
+						
+						<td   style='cursor:pointer' ng-click='editOrder(r)'>
+							<div>{{r.ten_kh}}</div>
+							<div style="font-size:12px"><i>{{r.ma_kh}}</i></div>
+						</td>
+						
+						<td   style='cursor:pointer' ng-click='editOrder(r)'>
+							{{ r.t_sl|number:0 }}
+						</td>
+						
+						<td   style='cursor:pointer' ng-click='editOrder(r)'>
+							{{ r.t_tien|number:0 }}
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="task-footer">
+			<div class="btn-arrow-link pull-right">
+					<a href="#!/so1">{{getLabel('TAT_CA_DON_HANG','Xem tất cả đơn hàng').text}}</a>
+					<i class="icon-arrow-right"></i>
+				</div>
+		</div>
+	</div>
+</div>

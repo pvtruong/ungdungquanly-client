@@ -1,0 +1,55 @@
+<voucher options="text:getLabel('TUY_CHON','Tùy chọn').text" master-detail="true">
+	<voucher-body-master>
+		<div class="table-responsive">
+			<table class="table table-striped table-hover">
+				<tr>
+					<th class="text-center" style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll" ng-change="selectionAllChange(selectionAll)"/></th>
+					<th style="width:100px"></th>
+					<th><a ng-click="reverse=!reverse;order('ngay_ct',reverse)">{{getLabel('CHUNG_TU','Chứng từ').text}}</a></th>
+					<th><a ng-click="reverse=!reverse;order('tk_du',reverse)">{{getLabel('tk_du','TK đối ứng').text}}</a></th>
+					<th><a ng-click="reverse=!reverse;order('t_sl',reverse)">{{getLabel('SO_LUONG','Số lượng').text}}</a></th>
+					<th ng-show="app_info.show_gia_von"><a ng-click="reverse=!reverse;order('t_tien_xuat',reverse)">{{getLabel('tien_xuat','Tiền xuất').text}}</a></th>
+				</tr>
+				<tr ng-class="selectedRow && selectedRow._id===r._id?'active':''" ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)">
+					<td width='30px' class="text-center" ng-show="multiSelect">
+						<input type="checkbox" ng-model="r.sel"/>
+					</td>
+					<td class="text-center">
+						<div ng-include="'templates/sys/quick-actions2.html'"></div>
+					</td>
+					<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+						<div>
+							<span ng-if='r.ten_trang_thai' class="label bg-{{r.color}}">[{{ r.ten_trang_thai}}]</span>
+							<span>Số: {{ r.so_ct }}</span>
+
+							<span>, ngày: {{ r.ngay_ct|date:'dd/MM/yyyy'}}</span>
+
+						<div ng-if='r.dien_giai'>{{STP.tructed(r.dien_giai,32,"left")}}</div>
+					</td>
+
+					<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+						{{ r.tk_du }}
+					</td>
+					<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+						{{ r.t_sl|number:app_info.options.f_sl }}
+					</td>
+
+					<td style='cursor:pointer' ng-click='setSelectedRow(r,true)' ng-show="app_info.show_gia_von">
+						{{ r.t_tien_xuat|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt) }}
+					</td>
+
+				</tr>
+			</table>
+			<ng-page></ng-page>
+		</div>
+	</voucher-body-master>
+	<voucher-body-detail>
+		<uib-tabset>
+			<uib-tab  index="0" heading="{{getLabel('chi_tiet','Chi tiết').text}}">
+				<div  ng-if="selectedRow">
+					<pxk-detail-table ng-master-data='selectedRow'></pxk-detail-table>
+				</div>
+			</uib-tab>
+		</uib-tabset>
+	</voucher-body-detail>
+</voucher>

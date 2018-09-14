@@ -1,0 +1,85 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label class='control-label'>{{getLabel('thang','Tháng').text}}</label>
+			<div>
+				<select ng-model="condition.thang" class="form-control" ng-options="thang for thang in thangs" ng-required="true">
+					</select>
+
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label class='control-label'>{{getLabel('NAM','Năm').text}}</label>
+			<div>
+				<select ng-model="condition.nam" class="form-control" ng-options="nam for nam in nams" ng-required="true">
+					</select>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label class='control-label'>{{getLabel('bo_phan','Bộ phận').text}}</label>
+			<div>
+				<ng-typeahead module="dmbp" fields="ma_bp,ten_bp" field-model="ten_bp" field-label="ma_bp" ng-model='condition.ten_bp' label="condition.ma_bp">
+				</ng-typeahead>
+			</div>
+		</div>
+
+	</report-filter>
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<table class='table  table-striped  table-hover'>
+				<tr>
+					<th>{{getLabel('san_pham','Sản phẩm').text}}</th>
+
+					<th>{{getLabel('bo_phan','Bộ phận').text}}</th>
+					<th>{{getLabel('lsx','Lệnh SX').text}}</th>
+					<th>{{getLabel('sl_dd_dk','SL dở dang dk').text}}</th>
+					<th>{{getLabel('sl_sx_tk','SL sản xuất trong kỳ').text}}</th>
+					<th>{{getLabel('sl_dd_ck','SL dở dang ck').text}}</th>
+					<th>{{getLabel('sl_sp_nk','SL sản phẩm nhập kho').text}}</th>
+					<th ng-repeat="r in data.dsyt">{{r.ma_yt}}</th>
+					<th>{{getLabel('tong_gt','Tổng giá thành').text}}</th>
+					<th>{{getLabel('gia_thanh','Giá thành').text}}</th>
+				</tr>
+				<tr ng-repeat='r in data.report' ng-class="r.bold?'cbold':'cnormal'">
+					<td>
+						<div>{{::r.ten_sp}}</div>
+						<i>{{::r.ma_sp}}</i>
+					</td>
+					<td>
+						{{::r.ma_bp}}
+					</td>
+					<td>
+						{{::r.ma_lsx}}
+					</td>
+					<td>
+						{{::r.sl_dd_dk|number:2}}
+					</td>
+
+					<td>
+						{{::r.sl_sx_tk|number:2}}
+					</td>
+
+					<td>
+						{{::r.sl_dd_ck|number:2}}
+					</td>
+
+					<td>
+						{{::r.sl_nk_tk|number:2}}
+					</td>
+					<td ng-repeat="y in data.dsyt">
+						{{::r[y.ma_yt]|number:0}}
+					</td>
+					<td>
+						{{::r.t_gt|number:0}}
+					</td>
+					<td>
+						{{::r.gt|number:0}}
+					</td>
+
+				</tr>
+			</table>
+		</div>
+	</report-viewer>
+</report>

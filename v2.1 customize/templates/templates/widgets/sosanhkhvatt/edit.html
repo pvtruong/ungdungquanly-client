@@ -1,0 +1,56 @@
+<form role="form">
+  <div class="form-group">
+    <label>Kiểu đồ thị </label>
+    <div>
+      <select class="form-control" ng-model="config.type">
+        <option value="bar">Bar</option>
+        <option value="line">Line</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Đối tượng báo cáo </label>
+    <div>
+      <select class="form-control" ng-model="config.groupby">
+        <option value="ten_kho">Kho/cửa hàng</option>
+        <option value="ten_bp">Bộ phận</option>
+        <option value="ten_dt">Vụ việc/dự án</option>
+        <option value="thang">Tháng</option>
+        <option value="ten_nv">Nhân viên</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Nhóm kế hoạch </label>
+    <div>
+      <ng-selector ng-model='config.group_id' label='group_name'
+      module='group' fields='_id,group_name' field-model='_id' field-label='group_name' condition="group_type:'KEHOACH'" default-values="group_type:'KEHOACH'"></ng-selector>
+    </div>
+  </div>
+  <div class='form-group'>
+    <label>Năm <span class="required">*</span></label>
+    <div>
+      <input type="text" format="number" class="form-control" ng-model="config.nam" ng-required="true" min='1990' max="2999"/>
+    </div>
+
+
+  </div>
+  <div class='form-group'>
+
+    <label>Từ tháng <span class="required">*</span></label>
+    <div>
+      <input type="text" format="number" class="form-control" ng-model="config.tu_thang" ng-required="true" min='1' max="12"/>
+    </div>
+  </div>
+
+  <div class='form-group'>
+
+    <label>Đến tháng <span class="required">*</span></label>
+    <div>
+      <input type="text" format="number" class="form-control" ng-model="config.den_thang" ng-required="true" min='1' max="12"/>
+    </div>
+  </div>
+
+
+
+</form>

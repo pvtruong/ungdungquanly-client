@@ -1,0 +1,106 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}} <span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}} <span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('so_ct','Số chứng từ').text}}</label>
+			<div>
+				<input type='text' class='form-control' ng-model='condition.so_ct' />
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('tai_khoan','Tài khoản').text}}</label>
+			<div>
+				<ng-typeahead module="dmtk" fields="tk,ten_tk" field-model="tk" field-label="ten_tk" ng-model='condition.tk' label="condition.ten_tk">
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('tai_khoan_du','Tài khoản đối ứng').text}}</label>
+			<div>
+				<ng-typeahead module="dmtk" fields="tk,ten_tk" field-model="tk" field-label="ten_tk" ng-model='condition.tk_du' label="condition.ten_tk_du">
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('khach_hang','Khách hàng').text}}</label>
+			<div>
+				<ng-typeahead module="dmkh" fields="ma_kh,ten_kh" field-model="ten_kh" field-label="ma_kh" ng-model='condition.ten_kh' label="condition.ma_kh">
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('vu_viec','Vụ việc, dự án').text}}</label>
+			<div>
+				<ng-typeahead module="dmdt" fields="ma_dt,ten_dt" field-model="ten_dt" field-label="ma_dt" ng-model='condition.ten_dt' label="condition.ma_dt">
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('hop_dong','Hợp đồng').text}}</label>
+			<div>
+				<ng-typeahead module="contract" fields="so_hd,ten_hd" field-model="ten_hd" field-label="so_hd" ng-model='condition.ten_hd' label="condition.ma_hd">
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('phi','Mục phí').text}}</label>
+			<div>
+				<ng-typeahead module="dmphi" fields="ma_phi,ten_phi" field-model="ten_phi" field-label="ma_phi" ng-model='condition.ten_phi' label="condition.ma_phi">
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('nhan_vien','Nhân viên').text}}</label>
+			<div>
+				<ng-typeahead module="dmnv" fields="ma_nv,ten_nv" field-model="ten_nv" field-label="ma_nv" ng-model='condition.ten_nv' label="condition.ma_nv">
+				</ng-typeahead>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label>{{getLabel('kho','Kho hàng').text}}</label>
+			<div>
+				<ng-typeahead module="dmkho" fields="ma_kho,ten_kho" field-model="ten_kho" field-label="ma_kho" ng-model='condition.ten_kho' label="condition.ma_kho">
+				</ng-typeahead>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label>{{getLabel('dien_giai','Diễn giải').text}}</label>
+			<div>
+				<input type='text' class='form-control' ng-model='condition.dien_giai' />
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('DVCS','Đơn vị cơ sở').text}}</label>
+			<div>
+				<ng-selector module="dvcs" fields="_id,ten_dvcs" field-model="_id" field-label="ten_dvcs" options="item._id as item.ten_dvcs for item in items" ng-model='condition.ma_dvcs' empty-yn='true'>
+				</ng-selector>
+			</div>
+		</div>
+	</report-filter>
+	<report-viewer>
+		<uib-tabset>
+			<uib-tab heading="{{getLabel('Dữ liệu','Dữ liệu').text}}">
+				<bkct-view></bkct-view>
+			</uib-tab>
+			<uib-tab heading="{{getLabel('PIVOT','Báo cáo').text}}">
+				<div class="table-responsive">
+					<pivot-report id="rptId" sum-fields="['Tiền','Tiền ngoại tệ']" average-fields="['Tiền','Tiền ngoại tệ']" data='data_pivot' rows="['TK nợ','TK có','Diễn giải','Tiền']">
+					</pivot-report>
+				</div>
+			</uib-tab>
+		</uib-tabset>
+	</report-viewer>
+</report>

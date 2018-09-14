@@ -1,0 +1,96 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label class='control-label'>{{getLabel('loai','Loại').text}}</label>
+			<div>
+				<select ng-model="condition.ma_gd" class="form-control" ng-options="gd.ma_gd as gd.ten for gd in gds" ng-required="true">
+					</select>
+			</div>
+		</div>
+		<div class='form-group'>
+
+			<label class='control-label'>{{getLabel('NAM','Năm').text}}</label>
+			<div>
+				<select ng-model="condition.nam" class="form-control" ng-options="nam for nam in nams" ng-required="true">
+					</select>
+			</div>
+		</div>
+	</report-filter>
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<table class='table  table-striped  table-hover'>
+				<tr>
+					<th rowspan="3">{{getLabel('stt','STT').text}}</th>
+					<th colspan='7'>Ghi tăng tài sản</th>
+					<th colspan='3'>Khấu hao tài sản</th>
+					<th colspan='3'>Ghi giảm tài sản</th>
+
+				</tr>
+				<tr>
+					<th colspan="2">Chứng từ</th>
+					<th rowspan="2">Tên, đặc điểm, ký hiệu</th>
+					<th rowspan="2">Nước sản xuất</th>
+					<th rowspan="2">Tháng năm đưa vào sử dụng</th>
+					<th rowspan="2">Số hiệu</th>
+					<th rowspan="2">{{getLabel('nguyen_gia','Nguyên giá').text}}</th>
+					<th colspan="2">Khấu hao</th>
+					<th rowspan="2">Khấu hao đã tính đến thời điểm giảm tài sản</th>
+					<th colspan="2">Chứng từ</th>
+					<th rowspan="2">Lý do giảm</th>
+				</tr>
+				<tr>
+					<th>Số</th>
+					<th>{{getLabel('ngay','Ngày').text}}</th>
+					<th>Tỷ lệ(%) khấu hao</th>
+					<th>Mức khấu hao</th>
+					<th>Số</th>
+					<th>{{getLabel('ngay','Ngày').text}}</th>
+				</tr>
+				<tr ng-repeat='r in data' ng-click='viewVoucher(r.ma_ct,r._id)' ng-class="r.bold?'cbold':'cnormal'">
+					<td>
+						<div>{{::r.stt}}</div>
+					</td>
+					<td>
+						{{::r.so_ct}}
+					</td>
+					<td>
+						{{::r.ngay_tang|date:'dd/MM/yyyy'}}
+					</td>
+					<td>
+						{{::r.ten_ts}}
+					</td>
+					<td>
+						{{::r.nuoc_san_xuat}}
+					</td>
+					<td>
+						{{::r.ngay_su_dung|date:'dd/MM/yyyy'}}
+					</td>
+					<td>
+						{{::r.so_hieu}}
+					</td>
+					<td>
+						{{::r.nguyen_gia|number:0}}
+					</td>
+					<td>
+						{{::r.ty_le_kh}}
+					</td>
+					<td>
+						{{::r.muc_kh|number:0}}
+					</td>
+					<td>
+						{{::r.gia_tri_kh_luy_ke|number:0}}
+					</td>
+					<td>
+						{{::r.so_ct_giam}}
+					</td>
+					<td>
+						{{::r.ngay_giam|date:'dd/MM/yyyy'}}
+					</td>
+					<td>
+						{{::r.ly_do_giam}}
+					</td>
+				</tr>
+			</table>
+		</div>
+	</report-viewer>
+</report>

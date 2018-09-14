@@ -1,0 +1,10 @@
+<div class="text-center">
+    <div class="alert alert-info" ng-if="!collection">
+        Hãy chọn một đối tượng để đếm
+    </div>
+    <h3 ng-if="collection">
+        <a href="#!/{{collection}}"  style="text-decoration:none">
+            {{count?count:0|number:0}}
+        </a>
+    </h3>
+</div>

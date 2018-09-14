@@ -1,0 +1,35 @@
+<div class="scrollable">
+	<div class="scrollable-header">
+		<stplistheader></stplistheader>
+	</div>
+	<div class="row scrollable-content">
+		<div class="table-list">
+			<table class="table table-striped">
+				<tr>
+					<th>Báo cáo</th>
+					<th>Tên</th>
+					<th></th>
+				</tr>
+				<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)">
+					<td>
+						{{r.code_rpt}}
+					</td>
+					<td>
+						{{r.ma_obj}}
+						-
+						{{r.ten_obj}}
+					</td>
+
+					<td>
+						<div class='btn-group pull-right'>
+							<a class='btn btn-success btn-xs' ng-click='edit(r._id)' ng-show='current_user.appAdmin'>Sửa</a>
+							<a class='btn btn-danger btn-xs' ng-click='delete(r._id)' ng-show='current_user.appAdmin'>Xóa</a>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<ng-page></ng-page>
+		</div>
+
+	</div>
+</div>

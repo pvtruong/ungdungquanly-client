@@ -1,0 +1,134 @@
+<form-input>
+	<form-input-body>
+		<div class="form-group">
+			<div class="col-md-4" ng-style="!isMobile?{height:(innerHeight-90).toString()+'px'}:{}">
+				<div ng-class="!isMobile?'scrollable':''">
+					<div class="scrollable-content">
+						<uib-accordion close-others="true">
+							<uib-accordion-group heading="{{getLabel('Chung','Thông tin chung').text}}" is-open="true">
+								<div class="form-group">
+									<label class="control-label">{{getLabel('trang_thai','Trạng thái').text}}
+									<span class='required'>(*)</span></label>
+									<div>
+										<ng-selector module='trangthai' fields='ma_trang_thai,ten_trang_thai' field-model='ma_trang_thai' field-label='ten_trang_thai' condition="ma_ct:'KEHOACHMH'" show-button-list="false" ng-model="data.trang_thai" ng-required="true"></ng-selector>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label">{{getLabel('so_ct','Số kế hoạch').text}} <span class='required'>(*)</span></label>
+									<div class="">
+										<input type="text" style='text-transform:uppercase' name='so_ct' class="form-control" ng-model='data.so_ct' ng-required="true" />
+									</div>
+
+									<label class="control-label"> {{getLabel('NGAY_lap','Ngày lập').text}} <span class='required'>(*)</span></label>
+									<div class="">
+										<ng-datepicker ng-model='data.ngay_ct' ng-required='true'></ng-datepicker>
+									</div>
+								</div>
+
+								<div class="form-group">
+						      <label class="control-label">{{getLabel('loai_ke_hoach','Loại kế hoạch').text}}</label>
+						      <div class="">
+						        <select class="form-control" ng-model="data.loai_ke_hoach" ng-required="true" ng-options="v.m as v.t for v in [{m:1,t:'Từ lệnh sản xuất'},{m:2,t:'Tồn kho tối thiểu'}]">
+						        </select>
+						      </div>
+						    </div>
+
+								<div class="form-group">
+									<label class="control-label">{{getLabel('kh_tu_ngay','Kế hoạch từ ngày').text}} <span class='required'>(*)</span></label>
+									<div class="">
+										<ng-datepicker ng-model='data.kh_tu_ngay' ng-required="true"></ng-datepicker>
+									</div>
+
+									<label class="control-label"> {{getLabel('kh_den_ngay','Kế hoạch đến ngày').text}} <span class='required'>(*)</span></label>
+									<div class="">
+										<ng-datepicker ng-model='data.kh_den_ngay' ng-required="true"></ng-datepicker>
+									</div>
+								</div>
+								<div class="form-group">
+										<button type="button" class="btn btn-md btn-primary" ng-click="tinhKeHoach()">{{getLabel('Tinh_ke_hoach','Tính kế hoạch').text}}</button>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label">{{getLabel('DIEN_GIAI','Diễn giải').text}}</label>
+									<div class="">
+										<input type="text" class="form-control" ng-model='data.dien_giai' />
+									</div>
+
+								</div>
+
+								<div class="form-group">
+
+									<label class="control-label">{{getLabel('DVCS','Đơn vị cơ sở').text}} <span class='required' title="{{getLabel('DVCS','Đơn vị cơ sở').text}} {{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+									<div class="">
+										<ng-selector module='dvcs' fields='_id,ten_dvcs' field-model='_id' field-label='ten_dvcs' options="item._id as item.ten_dvcs for item in items" ng-model="data.ma_dvcs" ng-required="true">
+										</ng-selector>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label">{{getLabel('co_gia_tri_voi','Có giá trị với ').text}}</label>
+									<div class="">
+										<label ng-repeat="item in [{v:0,t:'Mọi người'},{v:1,t:'Chỉ người tạo'},{v:2,t:'Những người sau'}]"  class="control-label">
+									<input type='radio' ng-model='data.visible_to' name='visible_to' ng-value="item.v"/> {{item.t}}
+								</label>
+										<ui-select ng-show='data.visible_to==2' multiple ng-model="data.visible_to_users" theme="bootstrap" close-on-select="false" title="Chọn một user">
+											<ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+											<ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+
+												<small>
+											 {{person.name}}
+
+										 </small>
+											</ui-select-choices>
+										</ui-select>
+									</div>
+								</div>
+							</uib-accordion-group>
+							<uib-accordion-group heading="{{getLabel('BO_XUNG','Đặc thù').text}} (*)" ng-show="data.options && data.options.fields && data.options.fields.length>0">
+								<!--extra fields-->
+								<div class="form-group" ng-repeat="field in  data.options.fields">
+									<label class="control-label col-md-3">{{field.title}} <span class="required" ng-show="field.required">(*)</span></label>
+									<div class="col-md-9">
+										<input type="text" ng-if="field.type=='text'" ng-model="data.exfields[field.name]" class="form-control" ng-required="field.required" />
+										<input type="text" format='number' ng-if="field.type=='number'" ng-model="data.exfields[field.name]" class="form-control" ng-required="field.required" />
+										<ng-datepicker ng-model="data.exfields[field.name]" ng-if="field.type=='date'" ng-required="field.required"></ng-datepicker>
+
+									</div>
+								</div>
+								<!--end extra fields-->
+							</uib-accordion-group>
+
+						</uib-accordion>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8" ng-style="!isMobile?{height:(innerHeight-100).toString()+'px'}:{}">
+				<div ng-class="!isMobile?'scrollable':''">
+					<div class="scrollable-content">
+						<uib-accordion close-others="true">
+							<uib-accordion-group heading="{{getLabel('chi_tiet','Chi tiết').text}}" is-open="true">
+								<kehoachmh-detail-table ng-master-data='data'></kehoachmh-detail-table>
+							</uib-accordion-group>
+						</uib-accordion>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form-input-body>
+	<form-input-footer>
+		<label class="control-label col-md-2  disable-small-screen">{{getLabel('TONG_SL_nc','SL nhu cầu').text}} </label>
+		<div class="col-md-2  disable-small-screen">
+			<label class="form-control" ng-model='data.t_sl_nhu_cau' ng-sum="sl_nhu_cau" ng-data="data.details">{{data.t_sl_nhu_cau|number:f_sl}}</label>
+		</div>
+
+		<label class="control-label col-md-2  disable-small-screen">{{getLabel('TONG_SL_cap_phat','SL đã cấp phát').text}} </label>
+		<div class="col-md-2  disable-small-screen">
+			<label class="form-control" ng-model='data.t_sl_da_cap_phat' ng-sum="sl_da_cap_phat" ng-data="data.details">{{data.t_sl_da_cap_phat|number:f_sl}}</label>
+		</div>
+
+		<label class="control-label col-md-2  disable-small-screen">{{getLabel('TONG_SL_ke_hoach','SL kế hoạch').text}} </label>
+		<div class="col-md-2  disable-small-screen">
+			<label class="form-control" ng-model='data.t_sl_ke_hoach' ng-sum="sl_ke_hoach" ng-data="data.details">{{data.t_sl_ke_hoach|number:f_sl}}</label>
+		</div>
+
+	</form-input-footer>
+</form-input>

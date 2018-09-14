@@ -1,0 +1,121 @@
+<report btnprint="show:false" btnexcel="show:false" btnok="text:'Lấy phiếu chi'">
+	<report-filter>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label>{{getLabel('KHACHHANG','Khách hàng').text}}</label>
+			<div>
+				<ng-typeahead module="dmkh" fields="ma_kh,ten_kh" field-model="ten_kh" field-label="ma_kh" ng-model='condition.ten_kh' label="condition.ma_kh">
+				</ng-typeahead>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label>{{getLabel('DVCS','Đơn vị cơ sở').text}}</label>
+			<div>
+				<ng-selector module="dvcs" fields="_id,ten_dvcs" field-model="_id" field-label="ten_dvcs" options="item._id as item.ten_dvcs for item in items" ng-model='condition.ma_dvcs' empty-yn='true'>
+				</ng-selector>
+			</div>
+		</div>
+
+	</report-filter>
+	<report-viewer>
+		<div class="table-responsive">
+			<table class='table  table-striped  table-hover'>
+				<tr>
+					<th>{{getLabel('so_ct','Số chứng từ').text}}</th>
+					<th>{{getLabel('ngay_ct','Ngày chứng từ').text}}</th>
+					<th>{{getLabel('KHACHHANG','Khách hàng').text}}</th>
+					<th>{{getLabel('ma_nt','Ngoại tệ').text}}</th>
+					<th>{{getLabel('tien_chi','Tiền chi').text}}</th>
+					<th>{{getLabel('da_phan_bo','Đã phân bổ').text}}</th>
+					<th>{{getLabel('con_lai','Còn lại').text}}</th>
+					<th></th>
+				</tr>
+				<tr ng-repeat='r in data' ng-dblclick="viewVoucher(r.ma_ct,r._id)" ng-class="r.selected?'cbold':'cnormal'">
+					<td ng-click="select(r)">
+						{{r.so_ct}}
+					</td>
+					<td ng-click="select(r)">
+						{{r.ngay_ct|date:'dd/MM/yyyy'}}
+					</td>
+
+
+					<td>
+						<a href="#!/dmkh/view/{{r.id_kh}}">{{r.ten_kh}}</a>
+					</td>
+					<td class="text-center" ng-click="select(r)">
+						{{r.ma_nt}}
+					</td>
+					<td ng-click="select(r)">
+						{{r.t_tien_nt|number}}
+					</td>
+					<td ng-click="select(r)">
+						{{r.da_phan_bo_nt|number}}
+					</td>
+					<td ng-click="select(r)">
+						{{r.con_lai_nt|number}}
+					</td>
+
+					<td style="width:80px"><a class="btn btn-xs btn-danger" ng-show="invoices.length>0 && r.selected" ng-click="phanbotudong()">Phân bổ tự động</a></td>
+				</tr>
+			</table>
+		</div>
+		<div>
+			<h3>{{getLabel('danh_sach_hd','Danh sách hóa đơn').text}}</h3>
+			<div class="table-responsive">
+				<table class='table  table-striped  table-hover'>
+					<tr>
+						<th>{{getLabel('so_hd','Số hóa đơn').text}}</th>
+						<th>{{getLabel('ngay_hd','Ngày hóa đơn').text}}</th>
+						<th>{{getLabel('ma_nt','Ngoại tệ').text}}</th>
+						<th>{{getLabel('phai_tra','Phải trả').text}}</th>
+						<th>{{getLabel('da_tra','Đã trả').text}}</th>
+						<th>{{getLabel('con_lai','Còn lại').text}}</th>
+						<th>{{getLabel('tien_phan_bo','Tiền phân bổ').text}}</th>
+						<th>{{getLabel('tien_phan_bo_qd','Tiền phân bổ quy đổi').text}}</th>
+					</tr>
+					<tr ng-repeat='r in invoices' ng-dblclick="viewVoucher(r.ma_ct,r.id_hd)">
+						<td>
+							{{r.so_hd}}
+						</td>
+						<td>
+							{{r.ngay_hd|date:'dd/MM/yyyy'}}
+						</td>
+						<td class="text-center">
+							{{r.ma_nt_hd}}
+						</td>
+						<td>
+							{{r.tien_hd_nt|number}}
+						</td>
+						<td>
+							{{r.da_thanh_toan_nt|number}}
+						</td>
+						<td>
+							{{r.con_lai_nt|number}}
+						</td>
+						<td>
+							<input type="type" format="number" ng-model='r.tien_nt_alloc' ng-change="tinhthanhtoanqd(r)" />
+							<a class="btn btn-xs btn-danger" ng-click="allocate4invoice(r)" ng-show="r.tien_nt_alloc!=r.tien_nt">Lưu</a>
+						</td>
+						<td>
+							<input type="type" format="number" ng-model='r.thanh_toan_qd' />
+						</td>
+
+					</tr>
+				</table>
+			</div>
+		</div>
+	</report-viewer>
+</report>

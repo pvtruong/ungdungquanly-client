@@ -1,0 +1,53 @@
+<voucher options="text:getLabel('TUY_CHON','Tùy chọn').text">
+	<voucher-body>
+		<div class="table-responsive" style="overflow: auto">
+			<table class="table table-striped table-hover">
+				<tr>
+					<th class="text-center" style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll" ng-change="selectionAllChange(selectionAll)"/></th>
+					<th style="width:30px"></th>
+					<th>{{getLabel('lenh_sx','Lệnh sản xuất').text}}</th>
+
+					<th>{{getLabel('ngay_ke_hoach','Ngày kế hoạch').text}}</th>
+					<th>{{getLabel('ngay_bat_dau','Ngày bắt đầu').text}}</th>
+					<th>{{getLabel('ngay_ket_thuc','Ngày kết thúc').text}}</th>
+					<th>{{getLabel('ngay_dong_bo_nvl','Ngày đồng bộ NVL').text}}</th>
+					<th>{{getLabel('don_hang','Đơn hàng/hợp đồng').text}}</th>
+				</tr>
+				<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)">
+					<td width='30px' class="text-center" ng-show="multiSelect">
+						<input type="checkbox" ng-model="r.sel"/>
+					</td>
+					<td class="text-center" style="width:30px">
+						<div ng-include="'templates/sys/quick-actions.html'"></div>
+					</td>
+
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						<div>
+							<span ng-if='r.ten_trang_thai' class="label bg-{{r.color}}">[{{ r.ten_trang_thai}}]</span>
+							<span>Mã lệnh sản xuất: {{ r.so_ct }}</span>
+
+							<span>, ngày lập: {{ r.ngay_ct|date:'dd/MM/yyyy'}}</span>
+						</div>
+					</td>
+
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.ngay_ke_hoach|date:"dd/MM/yyyy" }}
+					</td>
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.ngay_bat_dau|date:"dd/MM/yyyy" }}
+					</td>
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.ngay_ket_thuc|date:"dd/MM/yyyy" }}
+					</td>
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.ngay_dong_bo_nvl|date:"dd/MM/yyyy" }}
+					</td>
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.so_ct_contract}}
+					</td>
+				</tr>
+			</table>
+			<ng-page></ng-page>
+		</div>
+	</voucher-body>
+</voucher>

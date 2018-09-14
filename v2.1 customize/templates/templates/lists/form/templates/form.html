@@ -1,0 +1,106 @@
+﻿<form-input>
+	<form-input-body>
+		<div class="row">
+			<div class="col-md-7" style="display:flex;overflow-y:auto"  ng-style="!isMobile?{height:(innerHeight-52).toString()+'px'}:{}">
+				<div  ng-style='{"overflow-y": "auto","flex":"1","background-color":"gray","margin":"1px","padding":"5px"}'>
+					<render-form data='data' design="true"></render-form>
+				</div>
+			</div>
+			<div class="col-md-5"  style="overflow-y:auto" ng-style="!isMobile?{height:(innerHeight-52).toString()+'px'}:{}">
+				<uib-accordion close-others="true">
+					<uib-accordion-group heading="Miêu tả" is-open="true">
+						<div class="form-group">
+							<label class="control-label">Tên form <span style='color:red' title='Không được trống'>(*)</span></label>
+							<div>
+								<input type="text"  class="form-control" ng-model='data.name' ng-required ="true">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Tiêu đề</label>
+							<div>
+								<input type="text" class="form-control" ng-model='data.title' >
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Tiêu đề phụ</label>
+							<div>
+								<input type="text" class="form-control" ng-model='data.subtitle' >
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Miêu tả</label>
+							<div>
+								<textarea type="text" class="form-control" ng-model='data.description' rows="2"></textarea>
+							</div>
+						</div>
+					</uib-accordion-group>
+					<uib-accordion-group heading="Trường dữ liệu" is-open="false">
+						<table class="table">
+							<tr>
+								<th>Kiểu</th>
+								<th>Tên trường</th>
+								<th  class="text-center">Yêu cầu nhập</th>
+								<th></th>
+							</tr>
+							<tr ng-repeat="field in data.fields">
+								<td>
+									<select class="form-control" ng-model='field.type'>
+										<option value="ten_lien_he">Họ và tên</option>
+										<option value="dien_thoai">Điện thoại</option>
+										<option value="email">Email</option>
+										<option value="dia_chi">Địa chỉ</option>
+
+										<option value="text">Kiểu chuỗi</option>
+										<option value="number">Kiểu số</option>
+										<option value="date">Kiểu ngày tháng</option>
+									</select>
+								</td>
+								<td>
+									<input type="text" class="form-control" ng-model='field.label' ng-required="true" placeholder ='Nhãn' >
+								</td>
+								<td class="text-center">
+									<input type="checkbox" ng-model='field.required' />
+								</td>
+								<td>
+									<button type="button" class="btn btn-danger btn-xs" ng-click="STP.reject(data.fields,{line:field.line})">Xóa</button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4">
+									<button type="button" class="btn btn-default btn-sm" ng-click="data.fields = STP.add(data.fields,{type:'text'})">Thêm trường mới</button>
+								</td>
+							</tr>
+						</table>
+					</uib-accordion-group>
+					<uib-accordion-group heading="Thông báo" is-open="false">
+						<div class="form-group">
+							<label class="control-label">Thông báo gửi thành công <span style='color:red' title='Không được trống'>(*)</span></label>
+							<div>
+								<textarea type="text" class="form-control" ng-model='data.success_message' rows="2"  ng-required="true"></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label">Thông báo lỗi <span style='color:red' title='Không được trống'>(*)</span></label>
+							<div>
+								<textarea class="form-control" ng-model='data.error_message' rows="2" ng-required="true"></textarea>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label">Trang web sẽ chuyển đến khi gửi thành công </label>
+							<div>
+								<input type="text" class="form-control" ng-model='data.url_forwarding_in_the_form'/>
+							</div>
+
+							<div class="checkbox">
+								<label><input type="checkbox" ng-model='data.exfields.openNewTab' /> Mở một cửa sổ mới</label>
+							</div>
+						</div>
+
+					</uib-accordion-group>
+				</uib-accordion>
+			</div>
+		</div>
+
+	</form-input-body>
+</form-input>

@@ -1,0 +1,20 @@
+<div class="scrollable"> <div class="scrollable-header"><stplistheader></stplistheader></div>
+<div class="row scrollable-content"> <div class="table-list">
+	<table class ="table">
+		<tbody>
+			<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)" >
+				<td width='30px' class="text-center">
+					<label><input type="checkbox" ng-model="r.sel"/> <span></span></label>
+				</td>
+				<td>
+					<div class="pull-left"  ng-include="'app/pages/templates/sys/quick-actions-list.html'"></div>
+					<div style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.group_name }}
+					</div>
+					<small>Mức tiêu biểu: {{r.muc_tieu_bieu||0}} điểm</small>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<ng-page></ng-page></div>
+</div></div>

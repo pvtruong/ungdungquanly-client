@@ -1,0 +1,88 @@
+<report btnok="text:'Tính'">
+	<report-filter>
+		<div class='form-group'>
+			<label class='control-label'>{{getLabel('thang','Tháng').text}}</label>
+			<div>
+				<select ng-model="condition.thang" class="form-control" ng-options="thang for thang in thangs" ng-required="true">
+					</select>
+
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label class='control-label'>{{getLabel('NAM','Năm').text}}</label>
+			<div>
+				<select ng-model="condition.nam" class="form-control" ng-options="nam for nam in nams" ng-required="true">
+					</select>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label class='control-label'>{{getLabel('bo_phan','Bộ phận').text}}</label>
+			<div>
+				<ng-typeahead module="dmbp" fields="ma_bp,ten_bp" field-model="ten_bp" field-label="ma_bp" ng-model='condition.ten_bp' label="condition.ma_bp">
+				</ng-typeahead>
+			</div>
+		</div>
+
+	</report-filter>
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<table class='table  table-striped  table-hover'>
+				<tr>
+					<th>{{getLabel('ma_sp','Mã sản phẩm').text}}</th>
+					<th>{{getLabel('ten_sp','Tên sản phẩm').text}}</th>
+					<th>Mã yếu tố</th>
+					<th>SL dở dang đầu kỳ</th>
+					<th>Chi phí dở dang đầu kỳ</th>
+					<th>SL sản xuất trong kỳ</th>
+					<th>Chi phí phát sinh trong kỳ</th>
+					<th>SL dở dang cuối kỳ</th>
+					<th>Chi phí dở dang cuối kỳ</th>
+					<th>SL sản phẩm nhập kho</th>
+					<th>Tổng giá thành</th>
+					<th>Giá thành</th>
+				</tr>
+				<tr ng-repeat='r in data'>
+					<td>
+						{{::r.ma_sp}}
+					</td>
+					<td>
+						{{::r.ten_sp}}
+					</td>
+					<td>
+						{{::r.ma_yt}}
+					</td>
+					<td>
+						{{::r.sl_dd_dk|number:2}}
+					</td>
+					<td>
+						{{::r.dd_dk|number:0}}
+					</td>
+					<td>
+						{{::r.sl_sx_tk|number:2}}
+					</td>
+					<td>
+						{{::r.ps_tk|number:0}}
+					</td>
+					<td>
+						{{::r.sl_dd_ck|number:2}}
+					</td>
+					<td>
+						{{::r.dd_ck|number:0}}
+					</td>
+					<td>
+						{{::r.sl_nk_tk|number:2}}
+					</td>
+					<td>
+						{{::r.t_gt|number:0}}
+					</td>
+					<td>
+						{{::r.gt|number:0}}
+					</td>
+
+				</tr>
+			</table>
+		</div>
+	</report-viewer>
+</report>

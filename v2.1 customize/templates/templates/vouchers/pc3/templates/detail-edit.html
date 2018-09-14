@@ -1,0 +1,19 @@
+<form-detail>
+  <form-detail-body>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2">{{getLabel('TIEN','Tiền').text}}
+        {{data.ma_nt}}</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" format="number" round="f_tien_nt" ng-model="dt_current.tien_nt" ng-required="true"/>
+      </div>
+
+      <label class="control-label col-sm-2" ng-show="data.ma_nt!='VND'">{{getLabel('TIEN_QUY_DOI','Tiền quy đổi').text}}</label>
+      <div class="col-sm-4" ng-show="data.ma_nt!='VND'">
+        <input type="text" class="form-control " format="number" round="f_tien" ng-model="dt_current.tien" ng-required="true"/>
+      </div>
+
+    </div>
+
+  </form-detail-body>
+</form-detail>

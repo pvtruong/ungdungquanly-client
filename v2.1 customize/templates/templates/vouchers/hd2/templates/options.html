@@ -1,0 +1,41 @@
+<div class="form-group">
+  <label class="control-label">Kho</label>
+  <div class="">
+    <ng-typeahead module='dmkho' field-model='ten_kho' field-label='ma_kho' fields='ma_kho,ten_kho' placeholder="Nhập mã hoặc tên kho..." ng-model='locals.ten_kho' label='locals.ma_kho'></ng-typeahead>
+  </div>
+</div>
+<div class="form-group">
+  <label class="control-label">TK nợ</label>
+  <div class="">
+    <ng-typeahead module='dmtk' field-model='tk' field-label='ten_tk' fields='tk,ten_tk' placeholder="Nhập tk hoặc tên tk..." ng-model='options.tk_no' condition="loai_tk:1" label='options.ten_tk_no'></ng-typeahead>
+  </div>
+
+</div>
+<div class="form-group">
+  <label class="control-label">TK doanh thu</label>
+  <div class="">
+    <ng-typeahead module='dmtk' field-model='tk' field-label='ten_tk' fields='tk,ten_tk' placeholder="Nhập tk hoặc tên tk..." ng-model='options.tk_dt' condition="loai_tk:1" label='options.ten_tk_dt'></ng-typeahead>
+  </div>
+
+</div>
+<div class="form-group">
+  <label class="control-label">TK chiết khấu</label>
+  <div class="">
+    <ng-typeahead module='dmtk' field-model='tk' field-label='ten_tk' fields='tk,ten_tk' placeholder="Nhập tk hoặc tên tk..." ng-model='options.tk_ck' condition="loai_tk:1" label='options.ten_tk_ck'></ng-typeahead>
+  </div>
+
+</div>
+<div class="form-group">
+  <label class="control-label">TK vật tư</label>
+  <div class="">
+    <ng-typeahead module='dmtk' field-model='tk' field-label='ten_tk' fields='tk,ten_tk' placeholder="Nhập tk hoặc tên tk..." ng-model='options.tk_vt' condition="loai_tk:1" label='options.ten_tk_vt'></ng-typeahead>
+  </div>
+
+</div>
+<div class="form-group">
+  <label class="control-label">TK giá vốn</label>
+  <div class="">
+    <ng-typeahead module='dmtk' field-model='tk' field-label='ten_tk' fields='tk,ten_tk' placeholder="Nhập tk hoặc tên tk..." ng-model='options.tk_gv' condition="loai_tk:1" label='options.ten_tk_gv'></ng-typeahead>
+  </div>
+
+</div>

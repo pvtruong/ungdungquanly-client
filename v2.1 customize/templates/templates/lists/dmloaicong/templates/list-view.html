@@ -1,0 +1,24 @@
+﻿<div class="table-list" style="padding:5px">
+	<div class="ui five doubling cards">
+		<div   style="cursor:pointer"  ng-click='edit(r._id)' ng-class="r.ma_loai_cong===selectedRow.ma_loai_cong?'ui red card':'ui card'" ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin">
+		 
+		  <div class="content" style="background-color:{{r.color}}">
+			<span><div class="ui header">{{r.ten_loai_cong}}</div>
+			</span>
+			
+		  </div>
+		  
+		</div>
+		<div   style="cursor:pointer"  ng-click='add()' class='ui card' >
+		 
+		  <div class="content">
+			<span><div class="ui header">Thêm loại công</div>
+			</span>
+			
+		  </div>
+		  
+		</div>
+	</div>
+	<ng-page></ng-page>
+	
+</div>

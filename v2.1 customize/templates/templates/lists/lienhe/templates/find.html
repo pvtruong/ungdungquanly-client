@@ -1,0 +1,67 @@
+﻿<div class="modal-header">
+	<button type="button" class="close" ng-click ='cancelFind()' aria-hidden="true"> &times;</button>
+	<h4 class="modal-title" id="findModalLabel">
+	   {{getLabel('TIM_LIEN_HE','Tìm liên hệ').text}}
+	</h4>
+ </div>
+ <div class="modal-body">
+	<form name="formFind" novalidate class="css-form form-horizontal">
+		<div class="form-group">
+			
+			
+			
+			<label class="control-label col-md-2">{{getLabel('ten_lien_he','Tên liên hệ').text}}</label>
+			<div class="col-md-8">
+				<input type='text' class='form-control' ng-model='vcondition.ten_lien_he'/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-2">{{getLabel('dia_chi','Địa chỉ').text}}</label>
+			<div class="col-md-3">
+				<input type='text' class='form-control' ng-model='vcondition.dia_chi'/>
+			</div>
+			
+			<label class="control-label col-md-2">{{getLabel('dien_thoai','Điện thoại').text}}</label>
+			<div class="col-md-3">
+				<input type='text' class='form-control' ng-model='vcondition.dien_thoai'/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-2">{{getLabel('fax','Fax').text}}</label>
+			<div class="col-md-3">
+				<input type='text' class='form-control' ng-model='vcondition.fax'/>
+			</div>
+			
+			<label class="control-label col-md-2">{{getLabel('email','Email').text}}</label>
+			<div class="col-md-3">
+				<input type='text' class='form-control' ng-model='vcondition.email'/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-2">{{getLabel('NHOM','Nhóm').text}}</label>
+			<div class="col-md-3">
+				<ng-selector
+					module="group" fields="_id,group_name" field-model="_id" field-label = "group_name"
+					condition ="group_type:'CONTACT'"  ng-model='vcondition.nh_lh' default-values="group_type:'CONTACT'">
+				</ng-selector>
+			</div>
+			
+			<label class="control-label col-sm-2">Tổ chức/công ty</label>
+			<div class="col-sm-3">
+				<ng-typeahead 
+					module='dmkh' fields='_id,ten_kh' field-model='ten_kh' field-label='_id'
+					ng-model='ten_kh' label='vcondition.id_kh'>
+				</ng-typeahead>
+			</div>
+		</div>
+		
+		
+		
+	</form>
+ </div>
+ <div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="okFind()" ng-disabled='formFind.$invalid'  ng-disabled="formFind.$invalid">
+	   {{getLabel('TIM','Tìm').text}}
+	</button>
+	<button type="button" class="btn btn-default" ng-click='cancelFind()'>{{getLabel('HUY','Hủy').text}}</button>
+ </div>

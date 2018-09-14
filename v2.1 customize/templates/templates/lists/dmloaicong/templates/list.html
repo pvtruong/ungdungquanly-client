@@ -1,0 +1,23 @@
+﻿<list><list-body>
+ <div class="table-list">
+	<table class ="table">
+		<tr><th class="text-center"  style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll"></th><th style="width:30px"></th>
+			<th>Loại công</th>
+			<th>Ngày công</th>
+			<th>Ngày phép</th>
+			<th>Ngày không lương</th>
+			<th>Ngày không phép</th>
+		</tr>
+		<tr  class="bg-{{r.color}}" ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)" >
+			<td width='30px' class="text-center" ng-show="multiSelect"> <input type="checkbox" ng-model="r.sel"/> </td><td class="text-center" style="width:30px"><div  ng-include="'templates/sys/quick-actions-list.html'"></div></td>
+			<td   style='cursor:pointer' ng-click='edit(r._id)'>
+				<b>{{ r.ma_loai_cong}} </b> - {{ r.ten_loai_cong }}
+				
+			</td>
+			<td ng-click='edit(r._id)'>{{r.ngay_cong}}</td>
+			<td ng-click='edit(r._id)'>{{r.ngay_phep}}</td>
+			<td ng-click='edit(r._id)'>{{r.ngay_khong_luong}}</td>
+			<td ng-click='edit(r._id)'>{{r.ngay_khong_phep}}</td>
+		</tr>
+	</table><ng-page></ng-page></div>
+</list-body></list>

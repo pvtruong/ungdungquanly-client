@@ -1,0 +1,18 @@
+﻿<div class="scrollable-header"><stplistheader  btnadd="show:false"></stplistheader></div>
+<div class="row scrollable-content"> <div class="table-list">
+	<table class ="table table-striped">
+		<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)" >
+			<td width='30px'> <input type="checkbox" ng-model="r.sel"/> </td>
+			
+			<td    style='cursor:pointer' ng-click='view(r._id)'>
+				<div ng-class="r.read?'cnormal':'cbold'">{{ r.subject }}  <i ng-show="r.attachments" class="glyphicon glyphicon-paperclip"></i></div>
+				<div><small><span  parse-html="r.small_text">{{r.small_text}}</span></small></div>
+				<small>Gửi bởi <a href="#!/mailsent/add?to=[{name:'{{r.from[0].name}}',address:'{{r.from[0].address}}'}]">{{r.from[0].name}}</a> lúc {{r.date_created|date:"dd/MM/yyyy HH:mm:ss"}}</small>
+				
+			</td>
+		</tr>
+	</table>
+	<ng-page></ng-page>
+</div>
+
+</div></div>

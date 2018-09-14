@@ -1,0 +1,105 @@
+<report btnok="text:'Tính'">
+	<report-filter>
+		<div class='form-group'>
+			<label class='control-label'>Từ tháng</label>
+			<div>
+				<select ng-model="condition.tu_thang" class="form-control" ng-options="thang for thang in thangs" ng-required="true">
+					</select>
+
+			</div>
+		</div>
+		<div class='form-group'>
+			<label class='control-label'>Đến tháng</label>
+			<div>
+				<select ng-model="condition.den_thang" class="form-control" ng-options="thang for thang in thangs" ng-required="true">
+					</select>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label class='control-label'>{{getLabel('NAM','Năm').text}}</label>
+			<div>
+				<select ng-model="condition.nam" class="form-control" ng-options="nam for nam in nams" ng-required="true">
+					</select>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label class='control-label'>Vật tư</label>
+			<div>
+				<ng-typeahead module="dmvt" fields="ma_vt,ten_vt" field-model="ten_vt" field-label="ma_vt" ng-model='condition.ten_vt' label="condition.ma_vt">
+				</ng-typeahead>
+			</div>
+
+		</div>
+		<div class="form-group">
+			<label class="control-label">Nhóm</label>
+			<div>
+				<ng-typeahead module='dmnvt' fields='_id,ten_nvt,bac,sysorder' field-model='ten_nvt' field-label='_id' ng-model="condition.ten_nvt" label="condition.ma_nvt">
+				</ng-typeahead>
+			</div>
+
+		</div>
+		<div class="form-group">
+
+			<label class="control-label">Nhà cung cấp </label>
+			<div>
+				<ng-typeahead module='dmkh' fields='ma_kh,ten_kh' field-model='ten_kh' field-label='ma_kh' ng-model='condition.ten_ncc' label='condition.ma_ncc'>
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label class='control-label'>Kho</label>
+			<div>
+				<ng-typeahead module="dmkho" fields="ma_kho,ten_kho" field-model="ten_kho" field-label="ma_kho" ng-model='condition.ten_kho' label="condition.ma_kho">
+				</ng-typeahead>
+			</div>
+		</div>
+
+	</report-filter>
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<table class='table  table-striped  table-hover'>
+				<tr>
+					<th>Mã vật tư</th>
+					<th>Tên vật tư</th>
+					<th>Tồn đầu</th>
+					<th>Dư đầu</th>
+					<th>SL nhập</th>
+					<th>Tiền nhập</th>
+					<th>Tổng SL</th>
+					<th>Tổng tiền</th>
+					<th>Giá trung bình</th>
+				</tr>
+				<tr ng-repeat='r in data'>
+					<td>
+						{{::r.ma_vt}}
+					</td>
+					<td>
+						{{::r.ten_vt}}
+					</td>
+					<td>
+						{{::r.ton_dau|number:2}}
+					</td>
+					<td>
+						{{::r.du_dau|number:0}}
+					</td>
+					<td>
+						{{::r.sl_nhap|number:2}}
+					</td>
+					<td>
+						{{::r.tien_nhap|number:0}}
+					</td>
+					<td>
+						{{::r.tong_sl|number:2}}
+					</td>
+					<td>
+						{{::r.tong_tien|number:0}}
+					</td>
+					<td>
+						{{::r.gia|number:0}}
+					</td>
+
+				</tr>
+			</table>
+		</div>
+	</report-viewer>
+</report>

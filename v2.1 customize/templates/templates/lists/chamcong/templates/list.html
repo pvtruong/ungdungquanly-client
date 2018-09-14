@@ -1,0 +1,16 @@
+﻿<div class="row" style="height:100%">
+	<div class="col-md-4 disable-small-screen" style="height:100%" >
+		<dmnv-list-view template-url="list-view" selected-row="{ma_nv:ma_nv}" parameters="{cham_cong:true}" on-list-item-click="chonNhanVien($item)"></dmnv-list-view>
+	</div>
+	<div class="col-md-8 scrollable" style="height:100%">
+		<div class="disable-medium-screen scrollable-header" style="padding:5px">
+			<ng-selector
+				module="dmnv" fields="ma_nv,ten_nv" field-model="ma_nv" field-label = "ten_nv"
+				ng-model="ma_nv" on-select ="chonNhanVien($item)" ng-required="true">
+			</ng-selector>
+		</div>
+		<div class="scrollable-content">
+			<div class="calendar" ng-model="eventSources"  style="padding:5px" calendar="myCalendar" ui-calendar="uiConfig.calendar" zevents="zevents"></div>
+		</div>
+	</div>
+</div>

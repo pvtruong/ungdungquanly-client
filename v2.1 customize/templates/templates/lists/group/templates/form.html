@@ -1,0 +1,47 @@
+﻿<form-input  auto-height="true"><form-input-body>
+	<div class="form-group">
+		<label class="control-label col-md-3">Tên nhóm <span class="required">(*)</span></label>
+		<div class="col-md-9">
+			<input type="text" name ='group_name' class="form-control input-md" placeholder='Nhập tên nhóm' ng-model='data.group_name' required>
+		</div>
+	</div>
+	<div class="form-group" ng-hide="true">
+		<label class="control-label col-md-3">Loại nhóm <span class="required">(*)</span></label>
+		<div class="col-md-9">
+			<input type="text" class="form-control input-md" placeholder='Nhập loại nhóm' ng-model='data.group_type'  required>
+		</div>
+	</div>
+	
+	
+	<div class="form-group">
+		<label class="control-label col-md-3">Giá trị mặc định</label>
+		<div class="col-md-9">
+			<input type="text" format ='number' class="form-control input-md"  ng-model='data.exfields.default_value' >
+		</div>
+	</div>
+	
+	
+	<div class="form-group">
+		<label class="control-label col-md-3">Cửa hàng</label>
+		<div class="col-md-9">
+			<input type="text" class="form-control input-md"  ng-model='data.ma_kho' >
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-md-3">Màu</label>
+		<div class="col-md-9" style=''>
+			<div ng-repeat="c in ['aqua','aquamarine','beige','bisque','blue','lightBlue','cornflowerBlue','green','yellow','Gold','red','brown','gray','silver']" ng-style="{'cursor':'pointer','float':'left','width':'50px','height':'50px','margin':'2px','border':'1px solid ' + (data.color==c?'black':c),'background-color':'{{c}}'}" ng-click="data.color=c">
+			</div>
+			
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<div class="col-md-offset-3 col-md-9">
+			<div class="checkbox">
+				<label><input type="checkbox" ng-model="data.status" /> Còn sử dụng</label>
+			</div>
+		</div>
+	</div>
+
+</form-input-body></form-input>

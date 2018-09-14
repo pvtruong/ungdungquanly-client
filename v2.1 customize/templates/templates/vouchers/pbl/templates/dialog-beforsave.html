@@ -1,0 +1,48 @@
+<div class="modal-body">
+	<div class="container-fluid">
+		<form name="form" novalidate="novalidate" class="css-form form-horizontal form-input">
+			<div class="form-group">
+				<label class="control-label col-xs-4">PT thanh toán</label>
+				<div class="col-xs-6">
+					<ng-selector
+						module='ptthanhtoan'
+						fields='_id,ten'
+						field-model='_id'
+						field-label='ten'
+						ng-model='data.pt_thanh_toan'
+						label='ten_pt_thanh_toan'
+						ng-required="true"
+						condition="ds_ma_kho:'{{data.ma_kho}}', hinh_thuc: {$in:[0,2,undefined]}"
+						show-button-list="false"></ng-selector>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-xs-4">Phải thu
+				</label>
+				<div class="col-xs-6">
+					<input type='text' format='number' ng-model='data.t_tt' class='form-control' ng-readonly="true" style='color:red'/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-xs-4">Tiền thu</label>
+				<div class="col-xs-6">
+					<input type="text" format='number' style="font-size:36px" autofocus="autofocus" class="form-control input-lg" ng-model='data.tien_thu'/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label col-xs-4">Còn nợ</label>
+				<div class="col-xs-6">
+					<input type="text" format='number' class="form-control" ng-model='data.con_no' ng-readonly='true'/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-6">
+					<a class="btn btn-md btn-primary" ng-click="save()">Nhận</a>
+					<a class="btn btn-md btn-default" ng-click="cancel()">Hủy</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

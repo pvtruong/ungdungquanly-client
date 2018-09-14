@@ -1,0 +1,136 @@
+<form-input save-text="Hẹn lịch gửi"><form-input-body>
+	<div class="row">
+		<div class="col-md-8">
+			<div class="form-group" ng-show="data.use_template==undefined || data.use_template==true">
+				<div class="col-md-12">
+					<label>Email mẫu</label>
+					<ng-selector 
+						header-text="Chọn một email mẫu"
+						module="mailtemplate" fields="_id,name,subject,mail,attachments" field-model="_id" field-label="name"
+						ng-model="data.id_template" label="data.name" ng-change="selectTemplate($item)">
+					</ng-selector>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-12">
+					<label>Tiêu đề <span class="required">(*)</span></label>
+					<input type="text"  class="form-control" placeholder='Nhập tiêu đề...' ng-model='data.subject' ng-required='true'>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-12">
+					<label>Gửi từ <span class="required">(*)</span></label>
+					<ng-selector 
+						module="mailaccount" fields="_id,username,fullname" field-model="_id" field-label="fullname"
+						options="item._id as (item.username?item.fullname + '<' + item.username +'>':item.fullname) for item in items"
+						ng-model="data.account_id" label="data.fullname" ng-required="true">
+					</ng-selector>
+				</div>
+			</div>
+            <div class="form-group">
+				<div class="col-md-12">
+					<label>Tới</label>
+					<input type="text"  class="form-control"  ng-model='data.address'>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-12">
+					<label>CC</label>
+					<input type="text"  class="form-control"  ng-model='data.cc'>
+				</div>
+			</div>
+            
+			<div class="form-group">
+				<div class="col-md-12">
+					<label>Nội dung</label>
+					 <div>
+						<textarea ui-tinymce="tinymceOptionsEmail" ng-model="data.mail.html"></textarea>
+					 </div>
+				</div>
+			</div>
+            <div class="form-group">
+				<fieldset><legend>File đính kèm</legend>
+					<ul class="media-list">
+						<li class="media" ng-repeat="r in data.attachments"  ng-mouseover='r.hover=1' ng-mouseleave='r.hover=0' style="border-bottom:1px solid #ddd;padding-bottom:5px">
+							<div class="pull-left">
+								<div style="padding-top:0px" ng-if="r.file.extension!='rar' && r.file.extension!='zip' && r.file.extension!='png' && r.file.extension!='jpg' && r.file.extension!='doc' && r.file.extension!='docx' && r.file.extension!='xls' && r.file.extension!='xlsx' && r.file.extension!='pdf'">
+									<!--<i class="fa fa-file-o" style="font-size:32px"></i>-->
+									<img src ='images/file.png' style="width:32px;height:32px" />
+								</div>
+								<div style="padding-top:0px" ng-if="r.file.extension=='zip'"  target="_blank">
+									<!--<i class="fa fa-file-word-o" style="font-size:32px"></i>-->
+									<img src ='images/zip.png' style="width:32px;height:32px" />
+									
+								</div>
+								<div style="padding-top:0px" ng-if="r.file.extension=='rar'"  target="_blank">
+									<!--<i class="fa fa-file-word-o" style="font-size:32px"></i>-->
+									<img src ='images/rar.png' style="width:32px;height:32px" />
+									
+								</div>
+								<div style="padding-top:0px" ng-if="r.file.extension=='doc' || r.file.extension=='docx'" target="_blank">
+									<!--<i class="fa fa-file-word-o" style="font-size:32px"></i>-->
+									<img src ='images/docx.png' style="width:32px;height:32px" />
+									
+								</div>
+								<div style="padding-top:0px" ng-if="r.file.extension=='pdf'" target="_blank">
+									<!--<i class="fa fa-file-pdf-o" style="font-size:32px"></i>-->
+									<img src ='images/pdf.png' style="width:32px;height:32px" />
+								</div>
+								<div style="padding-top:0px" ng-if="r.file.extension=='xlsx' || r.file.extension=='xls'">
+									<!--<i class="fa fa-file-excel-o" style="font-size:32px"></i>-->
+									<img src ='images/xlsx.png' style="width:32px;height:32px" />
+									
+									
+								</div>
+								<div style="padding-top:0px" ng-if="r.file.extension=='png' || r.file.extension=='jpg'">
+									<!--<i class="fa fa-file-photo-o" style="font-size:28px"></i>-->
+									<img ng-src ='{{server_url}}/api/{{id_app}}/file/download/{{r._id}}?access_token={{token}}' style="width:32px;height:32px" />
+									
+								</div>
+							</div>
+							<div class="media-body">
+							  <div class="pull-left">
+								<a href="javascript:;" ng-click="downloadFile(r)" style="text-decoration:none">
+									 {{ r.file.originalname }}
+								</a>
+								<span ng-show='r.hover==1'>
+									<a class="btn btn-xs btn-default"  ng-click='data.attachments = STP.reject(data.attachments,{_id:r._id})'><img src='images/mini-delete.png'></a>
+								</span>
+							  </div>
+							 
+							 
+							</div>
+						</li>
+					</ul>
+					 <div  file-upload-progress>
+						<div class="throbber-loader"></div>
+						<br/>
+					 </div>
+					<input type="file" file-upload  list ='data.attachments'/>
+				</fieldset>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div>
+				<label>Gửi tới ({{data.to.length}}) <span class="required">(*)</span></label>
+				<ng-typeahead 
+					module="lienhe" fields="email,ten_lien_he" field-model="email" field-label="ten_lien_he"
+					condition="email:{$ne:''}"
+					placeholder="Chọn người nhận.."
+					ng-model="email" label="ten_lien_he" on-select="selectContact($item)">
+				</ng-typeahead>
+				<br/>
+				<ul class="list-group">
+					<li class="list-group-item row" ng-repeat="to in data.to">
+						<div class="col-xs-11">
+							<div>{{to.name}}</div>
+							<small>{{to.address}}</small>
+							
+						</div>
+						<div class="col-xs-1 text-right"><i ng-click="removeContact(to)" class="glyphicon glyphicon-remove"></i></div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</form-input-body></form-input>

@@ -1,0 +1,27 @@
+﻿<div class="scrollable">
+	<div class="scrollable-header">
+		<ng-selector header-text="<Tất cả nhân viên>"
+			module="dmbp" fields="ma_bp,ten_bp" field-model="ma_bp" field-label = "ten_bp"
+			ng-model="bophan" on-select ="search($item.ma_bp?{ma_bp:$item.ma_bp}:{})">
+		</ng-selector>
+	</div>
+	<div class="scrollable-content">
+		<table class ="table table-striped ">
+			<tr ng-repeat="r in list track by r._id" drag-to-dismiss="delete(r._id,dismissCB)" >
+				
+					<td ng-style="{'cursor':'pointer','background-color':r.ma_nv===selectedRow.ma_nv?'#D9EDF7':''}" ng-click='view(r._id)'>
+						<img class="ui avatar image" style="width:24px" ng-if="r.exfields.picture_thumb"   img-cache ic-src="{{server_url}}{{r.exfields.picture_thumb}}">
+						<img class="ui avatar image" style="width:24px" ng-if="!r.exfields.picture_thumb"   img-cache ic-src="images/{{r.gioi_tinh?r.gioi_tinh:'NAM'}}.png">
+						<span><b>{{ r.ten_nv }}</b><br/>
+						<i>{{ r.ten_bp }}</i><br/>
+						<!--<small><i>{{ r.ma_nv }}</i></small></span>-->
+						<i>{{ r.ten_chuc_vu }}</i></span>
+						
+						
+					</td>
+					
+			</tr>
+		</table>
+		<ng-page></ng-page>
+	</div>
+</div>

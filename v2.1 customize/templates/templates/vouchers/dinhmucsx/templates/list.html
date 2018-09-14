@@ -1,0 +1,53 @@
+<voucher options="text:getLabel('TUY_CHON','Tùy chọn').text">
+	<voucher-body>
+		<div class="table-responsive">
+			<table class="table table-striped table-hover">
+				<tr>
+					<th class="text-center" style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll" ng-change="selectionAllChange(selectionAll)"/></th>
+					<th style="width:30px"></th>
+					<th>{{getLabel('Dinh_muc','Định mức').text}}</th>
+
+					<th>{{getLabel('san_pham','Sản phẩm').text}}</th>
+					<th>{{getLabel('dvt','Đơn vị tính').text}}</th>
+
+					<th>{{getLabel('hieu_luc_tu','Hiệu lực từ ngày').text}}</th>
+					<th>{{getLabel('hieu_luc_den','Hiệu lực đến ngày').text}}</th>
+				</tr>
+				<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)">
+					<td width='30px' class="text-center" ng-show="multiSelect">
+						<input type="checkbox" ng-model="r.sel"/>
+					</td>
+					<td class="text-center" style="width:30px">
+						<div ng-include="'templates/sys/quick-actions.html'"></div>
+					</td>
+
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						<div>
+							<span ng-if='r.ten_trang_thai' class="label bg-{{r.color}}">[{{ r.ten_trang_thai}}]</span>
+							<span>Mã định mức: {{ r.so_ct }}</span>
+
+							<span>, ngày lập: {{ r.ngay_ct|date:'dd/MM/yyyy'}}</span>
+						</div>
+					</td>
+
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.ten_sp}} ({{r.ma_sp}})
+					</td>
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.ma_dvt_sp}}
+					</td>
+
+
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.hieu_luc_tu_ngay|date:"dd/MM/yyyy" }}
+					</td>
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.hieu_luc_den_ngay|date:"dd/MM/yyyy" }}
+					</td>
+
+				</tr>
+			</table>
+			<ng-page></ng-page>
+		</div>
+	</voucher-body>
+</voucher>

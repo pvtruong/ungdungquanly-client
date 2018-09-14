@@ -1,0 +1,46 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('kho','Kho').text}}</label>
+			<div>
+				<ng-selector module="dmkho" fields="ma_kho,ten_kho" field-model="ma_kho" field-label="ten_kho" ng-model='condition.ma_kho' empty-yn='true'>
+				</ng-selector>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('DVCS','Đơn vị cơ sở').text}}</label>
+			<div>
+				<ng-selector module="dvcs" fields="_id,ten_dvcs" field-model="_id" field-label="ten_dvcs" options="item._id as item.ten_dvcs for item in items" ng-model='condition.ma_dvcs' empty-yn='true'>
+				</ng-selector>
+			</div>
+		</div>
+	</report-filter>
+
+	<report-viewer>
+		<uib-tabset>
+			<uib-tab heading="{{getLabel('Dữ liệu','Dữ liệu').text}}">
+				<div class="table-responsive">
+					<react-t-table data="data" structure-code="{{rptId}}" sortable="true" on-cell-click="viewVoucher($row.ma_ct,$row.id_ct)"></react-t-table>
+				</div>
+			</uib-tab>
+			<uib-tab heading="{{getLabel('PIVOT','Báo cáo').text}}">
+				<div class="table-responsive">
+					<pivot-report id="rptId" sum-fields="['SL bán','Tiền hàng','Tiền chiết khấu','Doanh thu','SL trả lại','Tiền trả lại','Tiền vốn','Lãi']" data='data_pivot'>
+					</pivot-report>
+				</div>
+			</uib-tab>
+		</uib-tabset>
+	</report-viewer>
+</report>

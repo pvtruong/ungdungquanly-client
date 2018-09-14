@@ -1,0 +1,1 @@
+var dmnhkhModule = new baseInput('dmnhkh','dmnhkh',["group_name"],'Nhóm khách hàng',{cache_data:false});

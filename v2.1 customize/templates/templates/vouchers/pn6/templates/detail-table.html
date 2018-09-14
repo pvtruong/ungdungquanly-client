@@ -1,0 +1,46 @@
+﻿<div class="table-responsive detail-table">
+	<table class="table">
+		<tr>
+			<th class='text-center'>
+			<th>{{getLabel('TK_NO','TK nợ').text}} <span class="required">(*)</span></th>
+			<th>{{getLabel('TK_CO','TK có').text}}</th>
+
+
+			<th>{{getLabel('tien_hang','Tiền hàng/dịch vụ').text}}</th>
+
+		 </tr>
+		<tr ng-repeat="r in ngMasterData.details">
+			<td class="action-buttons">
+				<div>
+					<button class="btn btn-default btn-sm" style="border:none!important" ng-click='editDetail(r.line)' title="Sửa chi tiết">
+						<i class="fa fa-pencil" aria-hidden="true"></i>
+					</button>
+					<button class="btn btn-default btn-sm"  style="border:none!important"  title="Xóa dòng này" ng-click="delete1Row(r)">&times;</button>
+				</div>
+			</td>
+			<td>
+				<ng-typeahead
+					module='dmtk' field-model='tk' field-label='ten_tk' fields='tk,ten_tk'
+					placeholder="Nhập tk hoặc tên tk..."
+					ng-model='r.tk_no' condition="loai_tk:1" label='r.ten_tk_no' ng-required='true'>
+				</ng-typeahead>
+			</td>
+			<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+
+				<span class="form-control" ng-disabled="true">{{r.tk_co}}</span>
+			</td>
+			<td  style='cursor:pointer'>
+				<input type="text" format="number" ng-model="r.tien_nt" round="f_tien_nt" class="form-control"/>
+				<span class="form-control" ng-show="false">{{r.tien = STP.round(r.tien_nt*data.ty_gia,f_tien)}}</span>
+			</td>
+		</tr>
+	</table>
+</div>
+<div style='padding-bottom:13px;padding-left:10px;padding-top:10px'>
+	<div class='btn-group'>
+		<button type="button" class='btn btn-xs btn-primary'  ng-click="addDetail()">
+			<i class="fa fa-plus-square-o" aria-hidden="true"></i> {{getLabel('dong_moi','Thêm dòng mới').text}}
+		</button>
+
+	</div>
+</div>

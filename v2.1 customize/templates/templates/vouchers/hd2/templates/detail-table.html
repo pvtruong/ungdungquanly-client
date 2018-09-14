@@ -1,0 +1,112 @@
+<div class="table-responsive detail-table">
+	<table class="table table-form">
+		<tr>
+			<th>{{getLabel('SO_LUONG_XUAT','SL xuất').text}}</th>
+			<th>{{getLabel('GIA_BAN','Giá bán').text}}</th>
+
+			<th>{{getLabel('DOANH_THU','Doanh thu').text}}</th>
+
+			<th>{{getLabel('TIEN_CK','Tiền CK').text}}</th>
+			<th>{{getLabel('quy_cach','Quy cách, chất liệu...').text}}</th>
+
+		</tr>
+		<tbody ng-repeat="r in ngMasterData.details">
+			<tr>
+				<td colspan="17" style=''>
+					<div style='padding-right:10px;font-size: 18px;' title="Xóa dòng này" class="pull-left close" ng-click="delete1Row(r)">
+
+						&times;
+					</div>
+					<div style='cursor:pointer;' ng-click='editDetail(r.line)'>
+						<b>{{r.ten_vt}}
+							-
+							{{r.ma_vt}}</b>
+						({{r.ma_dvt}})
+						<!--<span ng-if='r.ma_kho'>, {{getLabel('KHO','Kho').text}}: {{r.ma_kho}}</span>-->
+						<span ng-if='r.ma_lo'>,
+							{{getLabel('LO','Lô').text}}:
+							{{r.ma_lo}}</span>
+						<span ng-if='r.han_sd'>,
+							{{getLabel('hsd','HSD').text}}:
+							{{r.han_sd|date:'dd/MM/yyyy'}}</span>
+						<span ng-if='r.ma_tt1'>,
+							{{getLabel('TT1','TT1').text}}:
+							{{r.ma_tt1}}</span>
+						<span ng-if='r.ma_tt2'>,
+							{{getLabel('TT2','TT2').text}}:
+							{{r.ma_tt2}}</span>
+						<span ng-if='r.ma_tt3'>,
+							{{getLabel('TT3','TT3').text}}:
+							{{r.ma_tt3}}</span>
+						<span>,
+							{{getLabel('TK_DOANH_THU','TK doanh thu').text}}:
+							{{r.tk_dt}}</span>
+
+						<span>,
+							{{getLabel('TK_VT','TK vật tư').text}}:
+							{{r.tk_vt}}</span>
+						<span>,
+							{{getLabel('TK_GV','TK giá vốn').text}}:
+							{{r.tk_gv}}</span>
+						<span ng-if='r.ty_le_ck'>,
+							{{getLabel('ty_le_ck','Tỷ lệ CK').text}}:
+							{{r.ty_le_ck}}%</span>
+						<span ng-if='r.tien_ck_nt'>,
+							{{getLabel('TK_CK','TK chiết khấu').text}}:
+							{{r.tk_ck}}</span>
+
+						<span>,
+							{{getLabel('ton_kho','Tồn kho').text}}:
+							{{r.ton_kho|number:f_sl}}</span>
+
+						<div ng-show='r.so_luong' style="color:green">
+							SL hợp đồng:
+							{{r.so_luong|number:f_sl}}
+							<span ng-if='r.sl_da_xuat'>,
+								{{getLabel('da_xuat','Đã xuất').text}}:
+								{{r.sl_da_xuat|number:f_sl}}</span>
+						</div>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td style="">
+					<input type='text' style='min-width:80px' format='number' round="f_sl" ng-model='r.sl_xuat' class='form-control' ng-change='onChange({$item:r})'/>
+				</td>
+
+				<td style="">
+					<input type='text' format='number' round="f_gia_nt" ng-model='r.gia_ban_nt' class='form-control' ng-change='onChange({$item:r})'/>
+
+				</td>
+
+				<td style="">
+					<span class='form-control' ng-readonly='true' style='cursor:pointer' ng-click='editDetail(r.line)'>{{r.tien_nt|number:f_tien_nt}}</span>
+				</td>
+
+				<td style="">
+					<span class='form-control' ng-readonly='true' style='cursor:pointer' ng-click='editDetail(r.line)'>{{r.tien_ck_nt|number:f_tien_nt}}</span>
+				</td>
+				<td style="min-width:100px">
+					<input type='text' class="form-control" ng-model="r.dien_giai" placeholder="{{getLabel('quy_cach','Quy cách, chất liệu...').text}}"/>
+				</td>
+			</tr>
+			<tr ng-click='editDetail(r.line)'>
+				<td style="cursor:pointer" colspan="17">
+					<span ng-repeat="(key,value) in r.exfields_detail" ng-show="key.indexOf('tien_phi')<0">
+						{{getLabel(key,key).text + ': ' +  value}},
+					</span>
+				</td>
+			</tr>
+		</tbody>
+
+	</table>
+</div>
+<div style='padding-bottom:13px;padding-left:10px;padding-top:10px'>
+	<div class='btn-group'>
+		<button type="button" class='btn btn-xs btn-primary'  ng-click="addDetail()">
+			<i class="fa fa-plus-square-o" aria-hidden="true"></i> {{getLabel('dong_moi','Thêm dòng mới').text}}
+		</button>
+
+	</div>
+</div>

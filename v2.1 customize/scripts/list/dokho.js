@@ -1,0 +1,1 @@
+var dokhoModule = new baseInput('dokho','dokho',["ten_dokho"],'Độ khó công việc');

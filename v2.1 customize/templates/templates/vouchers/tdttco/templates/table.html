@@ -1,0 +1,65 @@
+﻿<div>
+	<div class="table-responsive detail-table">
+		<table class="table">
+			<tr>
+				<th class="text-center"></th>
+				<th>{{getLabel('SO_HOA_DON','Số hóa đơn').text}}</th>
+				<th>{{getLabel('NGAY_HOA_DON','Ngày hóa đơn').text}}</th>
+				<th>{{getLabel('tk_no','TK nợ').text}}</th>
+				<th>{{getLabel('PHAI_TRA','Phải trả').text}}</th>
+				<th>{{getLabel('NGOAI_TE','Ngoại tệ').text}}</th>
+				<th>{{getLabel('DA_TRA','Đã trả').text}}</th>
+				<th>{{getLabel('CON_LAI','Còn lại').text}}</th>
+				<th>{{getLabel('TIEN_TRA','Tiền trả').text}} {{ngMasterData.ma_nt}}</th>
+
+				<th>{{getLabel('TIEN_TRA_QD','Tiền trả quy đổi').text}}</th>
+			</tr>
+			<tr ng-repeat ="r in ngData">
+				<td class="action-buttons">
+					<div>
+						<button class="btn btn-default btn-sm" style="border:none!important" ng-click='editDetail(r)' title="Sửa chi tiết">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+						</button>
+						<button class="btn btn-default btn-sm"  style="border:none!important"  title="Xóa dòng này" ng-click="delete1Row(r)">&times;</button>
+					</div>
+				</td>
+				<td>
+					<span class="form-control" ng-readonly="true">{{r.so_hd}}</span>
+				</td>
+				<td>
+					<span class="form-control" ng-readonly="true">{{r.ngay_hd|date:'dd/MM/yyyy'}}</span>
+				</td>
+				<td>
+					<span class="form-control" ng-readonly="true">{{r.tk_no}}</span>
+				</td>
+				<td>
+					<span class="form-control" ng-readonly="true">{{r.tien_hd_nt|number}}</span>
+				</td>
+				<td>
+					<span class="form-control" ng-readonly="true">{{r.ma_nt_hd}}</span>
+				</td>
+				<td>
+					<span class="form-control" ng-readonly="true">{{r.da_thanh_toan_nt|number}}</span>
+				</td>
+				<td>
+					<span class="form-control" ng-readonly="true">{{r.con_lai_nt|number}}</span>
+				</td>
+				<td>
+					<input type="text" format="number" round="f_tien_nt" class="form-control" ng-model="r.tien_nt"/>
+					<span ng-show="false">{{r.tien = STP.round(r.tien_nt * ngMasterData.ty_gia,f_tien)}}</span>
+				</td>
+
+				<td>
+					<span class="form-control" ng-readonly="true">{{r.thanh_toan_qd=STP.round(r.tien/r.ty_gia_hd,f_tien_nt)|number}}</span>
+				</td>
+			</tr>
+
+		</table>
+	</div>
+	<div style='padding-bottom:13px;padding-left:10px;padding-top:10px'>
+		<div class='btn-group'>
+			<button type="button" class='btn btn-xs btn-primary'  ng-click="getInvoice()">{{getLabel('LAY_HOA_DON','Lấy hóa đơn').text}}</button>
+
+		</div>
+	</div>
+</div>

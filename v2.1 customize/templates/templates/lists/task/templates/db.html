@@ -1,0 +1,57 @@
+<div>
+	<div class="scroll-body">
+		<div class="media">
+			<input type="text" class="form-control" placeholder="Gõ nội dung cần tìm rồi nhấn enter" ng-model='task_msg' ng-keypress="searchTask($event)"/>
+			<div ng-show="task_msg" style="margin:10px" class="text-center">
+					<a href ng-click="addTask(task_msg)"><small>Thêm công việc "{{task_msg}}"</small></a>
+			</div>
+		</div>
+		<div class="list-group">
+			<div class="list-group-item" ng-repeat="task in dscv|orderBy:'-date_created'">
+				<div class="task-title">
+
+					<div class="media">
+						<div class="media-body">
+							<div class="pull-left" ng-click="viewTask(task)"  style="cursor:pointer">
+								{{task.ten_cv}}
+								<span class="task-bell" ng-if="task.reminder">
+									<i class="fa fa-bell-o"></i>
+								</span>
+								<span style="color:white;background-color:red" ng-if="task.is_new">
+									&nbsp;mới&nbsp;
+								</span>
+						 </div>
+						 <div class="pull-right" >
+							 <span style='margin-left:1px;cursor:pointer' ng-click="viewTask(task)">
+								 <span  class='label label-sm label-default' ng-show='task.todos && task.todos.length>0'><i class="fa fa-tasks" aria-hidden="true"></i> {{task.todo_done}} / {{task.todos.length||0}}</span>
+							 </span>
+
+							 <span style='margin-left:1px;cursor:pointer' ng-click="viewTask(task)">
+								 <span class='label label-sm label-default'><i class="fa fa-user-o" aria-hidden="true"></i> {{task.phu_trach.split('@')[0]}}</span>
+							 </span>
+
+							 <span style='margin-left:1px;cursor:pointer' ng-click="viewTask(task)">
+								 <span ng-show='task.progress==0'  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='label label-info dropdown-toggle'>Chưa thực hiện</span>
+								 <span ng-show='task.progress==1'  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='label  label-primary dropdown-toggle'>Đang thực hiện</span>
+								 <span ng-show='task.progress==2'  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='label  label-success dropdown-toggle'>Hoàn thành</span>
+								 <span ng-show='task.progress==3'  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='label  label-danger dropdown-toggle'>Tạm dừng</span>
+								 <span ng-show='task.progress==4'  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='label  label-warning dropdown-toggle'>Đang chờ</span>
+							</span>
+						</div>
+
+						<div class="clearfix"></div>
+						<div ng-if='task.ten_kh'><a href='#!/dmkh/view/{{task.id_kh}}'>{{task.ten_kh}}</a></div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="task-footer">
+	<div class="btn-arrow-link pull-right">
+			<a href="#!/task">Xem tất cả các công việc</a>
+			<i class="icon-arrow-right"></i>
+		</div>
+</div>

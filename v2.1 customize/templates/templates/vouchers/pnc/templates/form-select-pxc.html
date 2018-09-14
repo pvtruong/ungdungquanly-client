@@ -1,0 +1,67 @@
+<form-detail>
+	<form-detail-toolbar>
+		<button type="button" class="btn btn-default" ng-click ='cancel()' aria-hidden="true">{{getLabel('huy','Hủy').text}}</button>
+	 </form-detail-toolbar>
+	 <form-detail-title>
+	   {{getLabel('chon_pxc','Chọn phiếu xuất điều chuyển').text}}
+	</form-detail-title>
+    
+	<form-detail-body>
+				<!--condition-->
+				<div>
+					<form name="form_getinvoice" novalidate class ="css-form form-horizontal form-input">
+						<div class="form-group">
+							<label class="control-label col-md-1">{{getLabel('tu_ngay','Từ ngày').text}} <span class='required' title="Không được trống">(*)</span></label>
+							<div class="col-md-2">
+								<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+							</div>
+							<label class="control-label col-md-1">{{getLabel('den_ngay','Đến ngày').text}} <span class='required' title="Không được trống">(*)</span></label>
+							<div class="col-md-2">
+								<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+							</div>
+							
+							<label class="control-label col-md-1">{{getLabel('so_ct','Số chứng từ').text}} </label>
+							<div class="col-md-1">
+								<input type="input" class="form-control" ng-model="condition.so_ct"/>
+							</div>
+							
+							<div class="col-md-1">
+								<button class="btn btn-success btn-md" ng-disabled="form_getinvoice.$invalid" ng-click="loadPXC()">{{getLabel('tim','Tìm').text}}</button>
+							</div>
+						</div>
+						
+					</form>
+				</div>
+                <div class="row">
+                    <!--master-->
+                    <div  class="table-responsive col-md-12">
+                        <table class="table table-striped table-hover ">
+                            <tr>
+                                <th></th>
+                                <th>{{getLabel('so_ct','Số chứng từ').text}}</th>
+                                <th>{{getLabel('ngay_ct','Ngày chứng từ').text}}</th>
+                                <th>{{getLabel('ma_kho_x','Kho xuất').text}}</th>
+                                <th>{{getLabel('ma_kho_n','Kho nhập').text}}</th>
+                                <th>{{getLabel('dien_giai','Diễn giải').text}}</th>
+                            </tr>
+                            <tr ng-repeat="r in masters">
+                                <td width='100px' ng-click="invoiceClick(r._id)">
+                                    <button type="button" class="btn btn-sm btn-default" ng-click="ok(r)">
+                                        {{getLabel('chon','Chọn').text}}
+                                    </button>
+                                </td>
+                                <td  style='cursor:pointer' ng-click="invoiceClick(r._id)">{{r.so_ct}}</td>
+                                <td  style='cursor:pointer' ng-click="invoiceClick(r._id)">{{r.ngay_ct|date:'dd/MM/yyyy'}}</td>
+                                <td  style='cursor:pointer' ng-click="invoiceClick(r._id)">{{r.ma_kho_x}}</td>
+                                <td  style='cursor:pointer' ng-click="invoiceClick(r._id)">{{r.ma_kho_n}}</td>
+                                <td  style='cursor:pointer' ng-click="invoiceClick(r._id)">{{r.dien_giai}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                </div>
+				
+				
+				
+	</form-detail-body>
+</form-detail>

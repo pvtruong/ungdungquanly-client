@@ -1,0 +1,40 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}} <span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+
+		</div>
+		<div class='form-group'>
+
+			<label>{{getLabel('den_ngay','Đến ngày').text}} <span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('so_ct','Số chứng từ').text}}</label>
+			<div>
+				<input type='text' class='form-control' ng-model='condition.so_ct' />
+			</div>
+
+
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('DVCS','Đơn vị cơ sở').text}}</label>
+			<div>
+				<ng-selector module="dvcs" fields="_id,ten_dvcs" field-model="_id" field-label="ten_dvcs" options="item._id as item.ten_dvcs for item in items" ng-model='condition.ma_dvcs' empty-yn='true'>
+				</ng-selector>
+			</div>
+
+		</div>
+
+	</report-filter>
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<react-t-table data="data" structure-code="{{rptId}}" sortable="true" on-cell-click="viewVoucher($row.ma_ct,$row.id_ct)"></react-t-table>
+		</div>
+	</report-viewer>
+</report>

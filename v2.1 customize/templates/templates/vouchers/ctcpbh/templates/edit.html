@@ -1,0 +1,34 @@
+﻿<form-detail>
+	<form-detail-body>
+		
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('MA_PHI','Mã phí').text}} <span class='required' title="Không được trống">(*)</span></label>
+			<div class="col-sm-4">
+				<ng-typeahead module='dmcpmh' fields='ma_cp,ten_cp' field-model='ma_cp' field-label='ten_cp'
+					ng-model='dt_current.ma_cp' label='dt_current.dien_giai'>
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('dien_giai','Diễn giải').text}}</label>
+			<div class="col-sm-10">
+				<input type="input" class="form-control" ng-model="dt_current.dien_giai"/>
+			</div>	
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('TIEN','Tiền').text}} {{ngMasterData.ma_nt}} <span class='required' title="Không được trống">(*)</span></label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" format="number" round="f_tien_nt" ng-model="dt_current.tien_cp_nt"   ng-required="true"/>
+			</div>
+
+			<label class="control-label col-sm-2" ng-show="ngMasterData.ma_nt!='VND'">{{getLabel('TIEN','Tiền').text}} VND</label>
+			<div class="col-sm-4" ng-show="ngMasterData.ma_nt!='VND'">
+				<input type="text" class="form-control" format="number" round="f_tien" ng-model="dt_current.tien_cp"  ng-required="true"/>
+			</div>
+		</div>
+		
+		
+	</form-detail-body>
+ </form-detail>
+ 

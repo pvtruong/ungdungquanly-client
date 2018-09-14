@@ -1,0 +1,147 @@
+<list btnimport ="text:'Nhập dữ liệu từ excel'">
+<list-ext-filter>
+	<li role="presentation" class="divider" ng-show='groups.length>0'></li>
+	<li role="presentation" ng-repeat='group in groups' >
+		<a class='dropdown-header' ng-click="changeFilter({filter:{nh_co_hoi:group._id},title:group.group_name})">{{group.group_name}}</a>
+	</li>
+	<li role="presentation" class="divider"></li>
+	<li role="presentation" >
+		<div class='dropdown-header' ng-repeat ="status_opp in status_opps">
+			<input type="checkbox" ng-model="status_opp.sel"> {{status_opp.text}}
+		</div>
+
+	</li>
+</list-ext-filter>
+<list-ext-toolbar>
+
+</list-ext-toolbar>
+<list-body>
+
+		<div class="table-list col-md-12">
+			<table class ="table table-striped">
+				<tr   class="disable-small-screen">
+					<th class="text-center"  style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll"   ng-change ="selectionAllChange(selectionAll)"></th><th style="width:30px"></th>
+					<th class="text-left"><a ng-click="reverse=!reverse;order('ten_co_hoi',reverse)">Cơ hội</a></th>
+					<th><a ng-click="reverse=!reverse;order('ten_kh',reverse)">Khách hàng</a></th>
+					<th style="max-width:120px"><a ng-click="reverse=!reverse;order('status_opp',reverse)">Trạng thái</a></th>
+
+				</tr>
+				<tr   class="disable-small-screen">
+					<td  ng-show="multiSelect"></td>
+					<td></td>
+					<td><input type="text" class="form-control" ng-model="advCondition.ten_co_hoi" ng-keyup="enter($event)"/></td>
+					<td><input type="text" class="form-control" ng-model="advCondition.ten_kh"  ng-keyup="enter($event)"/></td>
+					<td  style="max-width:120px">
+						<select type="text" class="form-control"  ng-model="advCondition.status_opp"  ng-change="searchAVR()">
+							<option value=''>Tất cả</option>
+							<option value='0'>Đang theo dõi</option>
+							<option value='1'>Thành công</option>
+							<option value='2'>Thất bại</option>
+							<option value='3'>Tạm dừng</option>
+							<option value='4'>Quên</option>
+						</select>
+					</td>
+
+				</tr>
+				<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)" >
+					<td width='30px' class="text-center" ng-show="multiSelect"> <input type="checkbox" ng-model="r.sel"/> </td><td class="text-center" style="width:30px"><div  ng-include="'templates/sys/quick-actions-list.html'"></div></td>
+					<td>
+						<div style='cursor:pointer' ng-click='view(r._id)'>
+							<b> {{ r.ten_co_hoi }}</b>
+							<div></div><small parse-text="r.mieu_ta" limit="50"></small></div>
+
+						Phụ trách:
+						<a editable-select="r.phu_trach"  e-ng-options ="r.email as r.name for r in members"  onaftersave="update(r)">
+							{{r.phu_trach.split('@')[0]}} <i class="fa fa-pencil-square-o"></i>
+						</a>
+                        <div  class="disable-medium-screen"><a href="#!/dmkh/view/{{r.id_kh}}" target="_blank">{{r.ten_kh}}</a></div>
+					</td>
+					<td  class="disable-small-screen">
+						<a href="#!/dmkh/view/{{r.id_kh}}" target="_blank">{{r.ten_kh}}</a>
+					</td>
+					<td  style="max-width:120px"   class="disable-small-screen">
+							<div class="dropdown"   ng-click="toggleDropdown('hd' + r._id)">
+
+							  <span ng-show='r.status_opp==0'  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='btn btn-xs btn-info dropdown-toggle'>Đang theo dõi</span>
+							  <span ng-show='r.status_opp==1'  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='btn btn-xs btn-primary dropdown-toggle'>Thành công</span>
+							  <span ng-show='r.status_opp==2'  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='btn btn-xs btn-success dropdown-toggle'>Thất bại</span>
+							  <span ng-show='r.status_opp==3'  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='btn btn-xs btn-danger dropdown-toggle'>Tạm dừng</span>
+							  <span ng-show='r.status_opp==4'  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='btn btn-xs btn-warning dropdown-toggle'>Quên</span>
+
+
+							  <ul class="dropdown-menu" role="menu"  ui-show="hd{{r._id}}"
+							ui-state="hd{{r._id}}">
+
+								<li role="presentation" ng-show='r.status_opp!=1'><a role="menuitem" tabindex="-1" ng-click="changeStatus_opp(r,1)">Thành công</a></li>
+								<li role="presentation" ng-show='r.status_opp!=2'><a role="menuitem" tabindex="-1" ng-click="changeStatus_opp(r,2)">Thất bại</a></li>
+								<li role="presentation" ng-show='r.status_opp!=3'><a role="menuitem" tabindex="-1" ng-click="changeStatus_opp(r,3)">Tạm dừng</a></li>
+								<li role="presentation" ng-show='r.status_opp!=4'><a role="menuitem" tabindex="-1" ng-click="changeStatus_opp(r,4)">Chờ</a></li>
+								<li role="presentation" ng-show='r.status_opp!=0'><a role="menuitem" tabindex="-1" ng-click="changeStatus_opp(r,0)">Đang theo dõi</a></li>
+							  </ul>
+							</div>
+
+					</td>
+
+				</tr>
+			</table>
+			<ng-page></ng-page>
+
+
+
+		</div>
+		<button-slide width="300" actions ="buttonSlideActions">
+				<btn-content>
+
+					<div  style='padding-bottom:5px' class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="filterLabelAll"  ng-change='toggleMultiSel(contactLabels,filterLabelAll);searchAVR()'/> <b>Nhãn</b>
+						</label>
+					</div>
+					<div class="list-group">
+						<div role="presentation" ng-repeat='label in contactLabels' >
+							<div class="list-group-item checkbox">
+								<label>
+									<input type="checkbox" ng-model='label.sel' ng-change='searchAVR()'/> {{label.label_name?label.label_name:'Khác'}}
+								</label>
+							</div>
+						</div>
+					</div>
+					<!--loc theo phu trach-->
+					<div  style='padding-bottom:5px' class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="filterPhuTrachAll"  ng-change='toggleMultiSel(members,filterPhuTrachAll);searchAVR()'/> <b>Phụ trách</b>
+						</label>
+					</div>
+					<div class="list-group">
+
+
+						<div role="presentation" ng-repeat='member in members' >
+							<div class="list-group-item checkbox">
+								<label>
+									<input type="checkbox" ng-model='member.sel' ng-change='searchAVR()'/> {{member.name}}
+								</label>
+							</div>
+						</div>
+					</div>
+					<!--loc theo nhom-->
+					<div  style='padding-bottom:5px' class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="filterNhomAll"  ng-change='toggleMultiSel(groups,filterNhomAll);searchAVR()'/> <b>Nhóm hợp đồng</b>
+						</label>
+					</div>
+					<div class="list-group">
+						<div role="presentation" ng-repeat='group in groups' >
+							<div class="list-group-item checkbox">
+								<label>
+									<input type="checkbox" ng-model='group.sel' ng-change='searchAVR()'/> {{group.group_name}}
+								</label>
+							</div>
+						</div>
+					</div>
+
+				</btn-content>
+			</button-slide>
+
+
+</list-body>
+</list>

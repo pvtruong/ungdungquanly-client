@@ -1,0 +1,91 @@
+<ul class="disable-medium-screen" ng-if="!isListView && (add_show || import_show || delete_show)" mfb-menu position="br" effect="zoomin" bgcolor='#34AADC' active-icon="glyphicon glyphicon-pencil" resting-icon="glyphicon glyphicon-menu-hamburger" toggling-method="hover">
+  <li mfb-button mfb-button-close bgcolor="red" ng-show='add_show' icon="glyphicon glyphicon-plus" ng-click="add()" label="{{getLabel('moi',add_text).text}}"></li>
+  <li mfb-button mfb-button-close bgcolor="#009688" ng-show='import_show' icon="glyphicon glyphicon-save-file" ng-click="importhtml5()" label="{{getLabel('nhap_tu_excel','Nhập từ Excel').text}}"></li>
+  <li mfb-button mfb-button-close bgcolor="#5D4037" ng-show='delete_show' icon="glyphicon glyphicon-trash" ng-click="delete()" label="{{getLabel('xoa','Xóa').text}}"></li>
+</ul>
+<div class="scrollable">
+  <div class="scrollable-header" ng-if="toolbar_show==true">
+    <nav class="" ng-show="boxSearch || add_show || delete_show || export_show || import_show || options_show">
+
+      <div class="navbar navbar-default"  style="border-left:none;border-right:none;border-top:none">
+        <form class="navbar-form navbar-left disable-small-screen" style="border:0px">
+          <div class="form-group">
+            <div class="checkbox" ng-show="multiSelect" style="padding-left:10px!important">
+              <label><input type="checkbox" ng-model="selectionAll"  ng-change ="selectionAllChange(selectionAll)" /> <span style="font-weight:normal">{{getLabel('chon_tat_ca','Chọn tất cả').text}}</span></label>
+            </div>
+            <div ng-show="!multiSelect" class="disable-small-screen">
+              <button class="btn btn-default btn-flat" ng-click="toggleMultiSel()"><i class="fa fa-check" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </form>
+        <form class="navbar-form navbar-right" style="border:0px">
+          <!--<div  class="form-group disable-small-screen" style="padding-left:10px" ng-show="boxSearch">
+						từ {{(current_page-1) * limit+1}} đến {{(current_page-1)*limit + list.length}} của {{rows_number|number}} dòng
+						</div>-->
+
+          <div ng-if="!isListView" class="btn form-group disable-small-screen" ng-show="boxSearch">
+            <select ng-model="limit" ng-change="changeLimit(limit)" class="form-control" ng-options="n.v as n.t for n in [{v:5,t:'5 dòng/trang'},{v:10,t:'10 dòng/trang'},{v:20,t:'20 dòng/trang'},{v:30,t:'30 dòng/trang'},{v:50,t:'50 dòng/trang'},{v:200,t:'200 dòng/trang'}]">
+
+							</select>
+          </div>
+
+          <div class="input-group form-group">
+            <input ng-if="boxSearch" type='text' ng-model="condition" ng-keyup="searchKeyup($event,condition)" class="form-control" placeholder="{{getLabel('tim','Tìm').text}}..." />
+            <!--<span class='btn  input-group-addon'  ng-click="search(condition)">{{getLabel('tim','Tìm').text}}</span>-->
+
+            <a ng-if="boxSearch && isMobile" class="btn  input-group-addon" ng-click="searchBarcode()" title="Quét mã vạch"><i class="fa fa-barcode" aria-hidden="true"></i></a>
+
+            <!--<div class="btn input-group-addon">
+									<a class="dropdown-toggle" style="text-decoration:none"  ng-click="toggleDropdown('listFilter')">{{filter_title?filter_title:getLabel('tat_ca','Tất cả').text}} <span class="caret"></span></a>
+									<ul class="dropdown-menu" role="menu"
+									ui-outer-click="turnOffDropdown('listFilter')"
+									ui-outer-click-if="Ui.active('listFilter')"
+									ui-show="listFilter"
+									ui-state="listFilter"
+									ui-turn-off="listFilter">
+										<li   role="presentation">
+											<a role="menuitem" ng-click="changeFilter({title:'Tất cả'})">{{getLabel('tat_ca','Tất cả').text}}</a>
+										</li>
+										<li  role="presentation" ng-if="!isListView">
+											<a role="menuitem" ng-click="changeFilter({filter:{follow:1},title:getLabel('dang_theo_doi','Đang theo dõi').text})">{{getLabel('dang_theo_doi','Đang theo dõi').text}}</a>
+										</li>
+										<div ng-transclude="extFilter">
+										</div>
+										<li role="presentation" class="divider" ng-if="advSearch_show"></li>
+										<li   role="presentation" ng-if="advSearch_show">
+											<a role="menuitem" ng-click="find()">{{getLabel('adv_search','Tìm nâng cao').text}}</a>
+										</li>
+									 </ul>
+								</div>-->
+            <a ng-if="advSearch_show" class="btn  input-group-addon" ng-click="find()" title="{{getLabel('adv_search','Tìm nâng cao').text}}">
+									<i class="fa fa-search" aria-hidden="true"></i>
+								</a>
+
+            <a class="btn input-group-addon disable-small-screendi" ng-click="add()" ng-if='add_show' title="Ctrl+M"><i class="fa fa-file-o"></i></a>
+            <a class="btn  input-group-addon disable-small-screen" ng-if="delete_show" ng-click="delete()" title="Ctrl+D" style="color:#34AADC"><i class="glyphicon glyphicon-trash"></i></a>
+            <div class="btn input-group-addon" ng-if="showExtraToolbar || export_show || options_show || import_show">
+              <a class="dropdown-toggle" style="text-decoration:none" ui-turn-on='extraButton'><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+              <div class="dropdown-menu list-group" role="menu" ui-outer-click="Ui.turnOff('extraButton')" ui-outer-click-if="Ui.active('extraButton')" ui-show="extraButton" ui-state="extraButton" ui-turn-off="extraButton">
+                <a class="list-group-item" ng-click="importhtml5()" ng-show='import_show'>{{getLabel('nhap_tu_excel','Nhập từ excel').text}}</a>
+                <a class="list-group-item" ng-click="export2excel()" ng-show='export_show'>{{getLabel('xuat_excel','Xuất Excel').text}}</a>
+                <a class="list-group-item" ng-click="options()" ng-show='options_show'>{{getLabel('tuy_chon',option_text).text}}</a>
+                <a class="list-group-item" ng-click="deleteAll()" ng-if='delete_show'>{{getLabel('deleteall','Xóa tất cả').text}}</a>
+                <a class="list-group-item" ng-click="xemDeleted()">{{getLabel('deleted_item','Thùng rác').text}}</a>
+                <div class="extra-button" ng-transclude="extToolbar"></div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </nav>
+  </div>
+  <div class="scrollable-content"  ui-scroll-bottom="loadPage()">
+    <div class="col-sm-12">
+      <div>
+        <div ng-transclude="body">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-transclude="footer" class="scrollable-footer"></div>
+</div>

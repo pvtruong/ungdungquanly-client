@@ -1,0 +1,99 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('ncc','Nhà cung cấp').text}}</label>
+			<div>
+				<ng-typeahead module='dmkh' fields='ma_kh,ten_kh' field-model='ten_kh' field-label='ma_kh' ng-model='condition.ten_kh' label='condition.ma_kh'>
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('DVCS','Đơn vị cơ sở').text}}</label>
+			<div>
+				<ng-selector module="dvcs" fields="_id,ten_dvcs" field-model="_id" field-label="ten_dvcs" options="item._id as item.ten_dvcs for item in items" ng-model='condition.ma_dvcs' empty-yn='true'>
+				</ng-selector>
+			</div>
+		</div>
+
+	</report-filter>
+	<report-viewer>
+		<uib-tabset>
+			<uib-tab heading="{{getLabel('Dữ liệu','Dữ liệu').text}}">
+				<div ng-class="table-responsive table-report">
+					<table class='table table-hover' id='exportable'>
+						<tr>
+							<th>{{getLabel('ngay','Ngày').text}}</th>
+							<th>{{getLabel('so_phieu','Số phiếu').text}}</th>
+							<th>{{getLabel('san_pham','Sản phẩm').text}}</th>
+
+							<th>{{getLabel('so_luong','Số lượng').text}}</th>
+							<th ng-show="app_info.show_gia_von">{{getLabel('tien_hang','Tiền hàng').text}}</th>
+							<th ng-show="app_info.show_gia_von">{{getLabel('chiet_khau','Chiết khấu').text}}</th>
+							<th ng-show="app_info.show_gia_von">{{getLabel('phi','Phí').text}}</th>
+							<th ng-show="app_info.show_gia_von">{{getLabel('tien_nhap','Tiền nhập').text}}</th>
+
+
+						</tr>
+						<tr ng-repeat='r in data' ng-click='viewVoucher(r.ma_ct,r.id_ct)' ng-class="r.bold?'cbold':'cnormal'">
+
+							<td>
+								{{::r.ngay_ct|date:'dd/MM/yyyy'}}
+							</td>
+							<td>
+								{{::r.so_ct}}
+							</td>
+							<td>
+								{{::r.ten_vt}}
+								<div><small>
+                    <span ng-if='r.ma_kho'>{{getLabel('KHO','Kho').text}}: {{r.ten_kho}}</span>
+                    <span ng-if='r.ma_lo'>, {{getLabel('LO','Lô').text}}: {{r.ma_lo}}</span>
+                    <span ng-if='r.han_sd'>, {{getLabel('hsd','HSD').text}}: {{r.han_sd|date:'dd/MM/yyyy'}}</span>
+                    <span ng-if='r.ma_tt1'>, {{getLabel('TT1','TT1').text}}: {{r.ma_tt1}}</span>
+                    <span ng-if='r.ma_tt2'>, {{getLabel('TT2','TT2').text}}: {{r.ma_tt2}}</span>
+                    <span ng-if='r.ma_tt3'>, {{getLabel('TT3','TT3').text}}: {{r.ma_tt3}}</span>
+                    </small>
+								</div>
+							</td>
+
+							<td>
+								{{::r.sl_nhap|number:2}}
+							</td>
+							<td ng-show="app_info.show_gia_von">
+								{{::r.tien_hang|number:0}}
+							</td>
+							<td ng-show="app_info.show_gia_von">
+								{{::r.tien_ck|number:0}}
+							</td>
+							<td ng-show="app_info.show_gia_von">
+								{{::r.tien_phi|number:0}}
+							</td>
+							<td ng-show="app_info.show_gia_von">
+								{{::r.tien_nhap|number:0}}
+							</td>
+
+
+						</tr>
+					</table>
+				</div>
+			</uib-tab>
+			<uib-tab heading="{{getLabel('PIVOT','Báo cáo').text}}">
+				<div class="table-responsive table-report">
+					<pivot-report id="rptId" sum-fields="['SL mua','Tiền hàng','Tiền phí','Tiền chiết khấu','Tiền nhập']" data='data_pivot'>
+					</pivot-report>
+				</div>
+			</uib-tab>
+		</uib-tabset>
+	</report-viewer>
+</report>

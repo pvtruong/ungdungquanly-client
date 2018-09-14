@@ -1,0 +1,63 @@
+﻿<list btnimport ="text:'Nhập dữ liệu từ excel'" adv-search="true">
+<list-ext-filter>
+	<li role="presentation" class="divider" ng-show='groups.length>0'></li>
+		<li role="presentation" ng-repeat='group in groups' >
+			<a class='dropdown-header' ng-click="changeFilter({filter:{nh_nv:group._id},title:group.group_name})">{{group.group_name}}</a>
+		</li>
+		<li role="presentation" class="divider"></li>
+		<li role="presentation" >
+			<a class='dropdown-header' ng-click="changeFindBy({findBy:'ten_nv',title:'Tìm theo tên'})">Tìm theo tên nhân viên</a>
+			<a class='dropdown-header' ng-click="changeFindBy({findBy:'ma_nv',title:'Tìm theo mã'})">Tìm theo mã nhân viên</a>
+			<a class='dropdown-header' ng-click="changeFindBy({findBy:'dia_chi',title:'Tìm theo địa chỉ'})">Tìm theo địa chỉ</a>
+			<a class='dropdown-header' ng-click="changeFindBy({findBy:'dien_thoai',title:'Tìm theo điện thoại'})">Tìm theo điện thoại</a>
+			<a class='dropdown-header' ng-click="changeFindBy({findBy:'email',title:'Tìm theo email'})">Tìm theo email</a>
+		</li>
+</list-ext-filter>
+<list-ext-toolbar>
+</list-ext-toolbar>
+<list-body>
+	<div class="table-list col-md-12">
+		<div class="ui six doubling cards" style="margin:2px">
+			<div class="ui card" ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin">
+			  
+			  <div class="image">
+				<a ng-click='edit(r._id)'>
+					<img ng-if="r.exfields.picture_thumb"   img-cache ic-src="{{server_url}}{{r.exfields.picture_thumb}}">
+					<img ng-if="!r.exfields.picture_thumb"   img-cache ic-src="images/{{r.gioi_tinh?r.gioi_tinh:'NAM'}}.png">
+				</a>
+			  </div>
+			  <div class="content">
+				<div class="ui right floated meta" ng-show="multiSelect"><input type="checkbox" ng-model="r.sel"/></div>
+				<div class="ui right floated meta"  ng-include="'templates/sys/quick-actions-list-right.html'"></div>
+				
+				<b   ng-click='edit(r._id)' style="cursor:pointer"><div class="ui sub header">{{r.ten_nv}}</div>
+				</b>
+				
+			  </div>
+			  
+			</div>
+		</div>
+
+		<ng-page></ng-page>
+		
+	</div>
+	<button-slide width="220" actions ="buttonSlideActions">
+		<btn-content>
+			<div style='padding-bottom:5px'><b>Phụ trách</b></div>
+			<div class="list-group">
+				
+				<a ng-class="phu_trach?'list-group-item':'list-group-item list-group-item-info'" ng-click="searchPhuTrach({});buttonSlideActions.hide()" >Tất cả</a>
+				<a ng-class="phu_trach==m.email?'list-group-item list-group-item-info':'list-group-item'" ng-click="searchPhuTrach(m);buttonSlideActions.hide()" ng-repeat="m in members"><img style="width:32px;height:32px" class="img-circle" img-cache ic-src='{{server_url}}/api/avatar?email={{m.email}}&access_token={{token}}'/> {{m.name}}</a>
+			</div>
+			<div style='padding-bottom:5px'><b>Nhóm</b></div>
+			<div class="list-group">
+				
+				<a ng-class="nh_nv?'list-group-item':'list-group-item list-group-item-info'" ng-click="searchGroup({});buttonSlideActions.hide()">Tất cả</a>
+				<div role="presentation" ng-repeat='group in groups' >
+					<a ng-class="nh_nv==group._id?'list-group-item list-group-item-info':'list-group-item'" ng-click="searchGroup(group);buttonSlideActions.hide()">{{group.group_name}}</a>
+				</div>
+			</div>
+		</btn-content>
+	</button-slide>
+</list-body>
+</list>

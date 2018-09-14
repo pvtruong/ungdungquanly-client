@@ -1,0 +1,35 @@
+<div class="modal-header">
+	<button type="button" class="close" ng-click ='close()' aria-hidden="true"> &times;</button>
+	<h4 class="modal-title" id="findModalLabel">
+	  {{getLabel('deleted','Thùng rác').text}}
+	</h4>
+  
+ </div> 
+<div class="modal-body">
+    <table class="table">
+        <tr>
+            <th>Người xoá</th>
+            <th>Ngày xoá</th>
+            <th>Nội dung</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat='r in data'>
+            <td>{{r.user_created}}</td>
+             <td>{{r.date_created|date:'dd/MM/yyyy HH:mm:ss'}}</td>
+            
+            <td>
+                <div ng-repeat="field in fields_find">
+                    <span ng-if='field==="so_ct" && r.data.data[field]'>Số chứng từ: </span>
+                    <span ng-if='field==="dien_giai" && r.data.data[field]'>Diễn giải: </span>
+                    {{r.data.data[field]}}
+                </div>
+                <div ng-if='r.data.data.ngay_ct'>Ngày chứng từ: {{r.data.data.ngay_ct|date:'dd/MM/yyyy'}}</div>
+                <div>Người tạo: {{r.data.data.user_created}}, Ngày tạo: {{r.data.data.date_created|date:'dd/MM/yyyy HH:mm:ss'}}</div>
+               
+            </td>
+            <td>
+                <button type='button' class='btn btn-default' ng-click='restore(r)'>Khôi phục</button>
+            </td>
+        </tr>
+    </table>
+ </div>

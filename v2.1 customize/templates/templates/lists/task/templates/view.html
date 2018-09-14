@@ -1,0 +1,189 @@
+<div class='container-fluid scrollable' style="height:{{innerHeight}}px">
+	<div class="scrollable-header">
+		<list-view-header header-title='ten_cv'>
+			<li role="presentation" class="divider"></li>
+			<li ng-show="data.progress!=2"><a class='dropdown-header' ng-click="complete()"><i class="fa fa-check"></i> Hoàn thành công việc này</a></li>
+			<li role="presentation" class="divider"></li>
+			<li>
+				<a class='dropdown-header' ng-click="addContact()">Thêm liên hệ</a>
+			</li>
+			<li>
+				<a class='dropdown-header' ng-click="addCustomer()">Thêm khách hàng</a>
+			</li>
+			<li>
+				<a class='dropdown-header' ng-click="addProject()">Thêm vụ việc, dự án, công trình</a>
+			</li>
+		</list-view-header>
+	</div>
+	<div class="scrollable-content">
+		<div class="col-sm-12">
+			<div class="page-frame tab-custom">
+				<uib-tabset>
+					<uib-tab heading='Chi tiết'>
+						<div class='form-horizontal'>
+							<fieldset>
+								<legend>Thông tin chi tiết</legend>
+								<div class='form-group'>
+									<label class='col-sm-2 control-label'>Tên công việc:</label>
+									<div class='col-sm-9 field-label' style="padding-left:10px!important">
+										<a editable-text="data.ten_cv" onaftersave="update(data)">{{data.ten_cv}} <i class="fa fa-pencil-square-o"></i></a>
+										<div class='pull-right'>
+
+											<div class="dropdown" ui-turn-on='taskstatus'>
+												<span ng-show='data.progress==0' id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='btn btn-xs btn-info dropdown-toggle'>Chưa thực hiện</span>
+												<span ng-show='data.progress==1' id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='btn btn-xs btn-primary dropdown-toggle'>Đang thực hiện</span>
+												<span ng-show='data.progress==2' id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='btn btn-xs btn-success dropdown-toggle'>Hoàn thành</span>
+												<span ng-show='data.progress==3' id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='btn btn-xs btn-danger dropdown-toggle'>Tạm dừng</span>
+												<span ng-show='data.progress==4' id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='btn btn-xs btn-warning dropdown-toggle'>Đang chờ</span>
+
+
+												<ul class="dropdown-menu" role="menu" aria-labelledby="taskstatus" ui-outer-click="Ui.turnOff('taskstatus')" ui-outer-click-if="Ui.active('taskstatus')" ui-show="taskstatus" ui-state="taskstatus" ui-turn-off="taskstatus">
+													<li role="presentation" ng-show='data.progress!=2'><a role="menuitem" tabindex="-1" ng-click="update({progress:2})">Hoàn thành</a></li>
+													<li role="presentation" ng-show='data.progress!=1'><a role="menuitem" tabindex="-1" ng-click="update({progress:1})">Đang thực hiện</a></li>
+													<li role="presentation" ng-show='data.progress!=3'><a role="menuitem" tabindex="-1" ng-click="update({progress:3})">Tạm dừng</a></li>
+													<li role="presentation" ng-show='data.progress!=4'><a role="menuitem" tabindex="-1" ng-click="update({progress:4})">Chờ</a></li>
+													<li role="presentation" ng-show='data.progress!=0'><a role="menuitem" tabindex="-1" ng-click="update({progress:0})">Chưa thực hiện</a></li>
+												</ul>
+											</div>
+
+										</div>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Việc cần làm</label>
+									<div class="col-sm-9">
+
+										<div class="input-group">
+											<input type="text" autofocus class="form-control" ng-model="newTodo.title" placeholder="Thêm việc" ng-keyup="addTodo($event,newTodo)" />
+											<a class='btn btn-default input-group-addon' ng-click='addTodo({keyCode:13},newTodo)'>+</a>
+										</div>
+
+
+										<div ng-show="max" style='padding-top:5px'>
+											<uib-progressbar max="max" value="dynamic"><span style="color:white; white-space:nowrap;">{{dynamic}} / {{max}}</span></uib-progressbar>
+										</div>
+										<div class="row" ng-repeat="todo in data.todos" style='padding-top:5px'>
+											<div class=" col-xs-10">
+												<label style='font-weight:normal'>
+									<input type="checkbox" ng-model='todo.sel' ng-change='refresh()'/> <span ng-style="todo.sel?{'text-decoration': 'line-through'}:{}">{{todo.title}}</span>
+								</label>
+											</div>
+											<div class="col-xs-2 text-right">
+												<div ng-click='STP.reject(data.todos,{line:todo.line})' class="close">&times;</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class='form-group'>
+									<label class='col-sm-2 control-label'>Phụ trách:</label>
+									<div class='col-sm-10 field-label' style="padding-left:10px!important">
+										<a ng-click="openProfile(data.phu_trach)">{{data.phu_trach}}</a>
+										<a editable-select="data.phu_trach" e-ng-options="r.email as r.name for r in members" onaftersave="update(data)">
+                  <i class="fa fa-pencil-square-o"></i>
+              </a>
+									</div>
+								</div>
+								<div class='form-group' ng-show='data.attendInfos && data.attendInfos.length>0'>
+									<label class='col-sm-2 control-label'>Tham gia:</label>
+									<div class='col-sm-10 field-label' style="padding-left:10px!important">
+
+										<a href="#!/" editable-checklist="data.attends" e-ng-options="r.email as r.name for r in members" onaftersave="update(data)">
+                  {{data.attends.join(", ")}} <i class="fa fa-pencil-square-o"></i>
+              </a>
+									</div>
+								</div>
+
+
+								<div class='form-group'>
+									<label class='col-sm-2 control-label'>Địa điểm:</label>
+									<div class='col-sm-10 field-label' style="padding-left:10px!important">
+										<a editable-text="data.location" onaftersave="update(data)">{{data.location}} <i class="fa fa-pencil-square-o"></i></a>
+									</div>
+								</div>
+								<div class='form-group' ng-show="data.ten_kh">
+									<label class='col-sm-2 control-label'>Khách hàng:</label>
+									<div class='col-sm-10 field-label' style="padding-left:10px!important">
+										<a href="#!/dmkh/view/{{data.id_kh}}?redirect={{location}}">{{data.ten_kh}}</a>
+									</div>
+								</div>
+								<div class='form-group' ng-show="data.ten_dt">
+									<label class='col-sm-2 control-label'>Vụ việc, dự án:</label>
+									<div class='col-sm-10 field-label' style="padding-left:10px!important"><a href="#!/dmdt/view/{{data.id_dt}}?redirect={{location}}">{{data.ten_dt}}</a></div>
+								</div>
+
+								<div class='form-group'>
+									<label class='col-sm-2 control-label'>Ngày bắt đầu:</label>
+									<div class='col-sm-4 field-label' style="padding-left:10px!important">
+										<a editable-date="data.start_date" onaftersave="update(data)">{{data.start_date|date:'dd/MM/yyyy'}} <i class="fa fa-pencil-square-o"></i></a>
+									</div>
+
+									<label class='col-sm-2 control-label'>Hoàn thành dự kiến:</label>
+									<div class='col-sm-4 field-label' style="padding-left:10px!important">
+										<a editable-date="data.due_date" onaftersave="update(data)">{{data.due_date|date:'dd/MM/yyyy'}} <i class="fa fa-pencil-square-o"></i></a>
+									</div>
+								</div>
+								<div class='form-group' ng-show='data.finished_date'>
+									<label class='col-sm-2 control-label'>Ngày hoàn thành:</label>
+									<div class='col-sm-4 field-label' style="padding-left:10px!important">
+										{{data.finished_date|date:'dd/MM/yyyy'}}
+									</div>
+
+								</div>
+
+								<div class='form-group'>
+									<label class='col-sm-2 control-label'>Mức ưu tiên:</label>
+									<div class='col-sm-10 field-label' style="padding-left:10px!important">
+										<a editable-select="data.priority" e-ng-options="r.id as r.name for r in [{id:1,name:'Cao'},{id:2,name:'Trung bình'},{id:3,name:'Thấp'}]" onaftersave="update(data)">
+              <span ng-show='data.priority==1'><span style="color:red; width:20px">!!!</span> Cao</span>
+							<span ng-show='data.priority==2'><span style="color:orange; width:20px">!!</span> Trung bình</span>
+							<span ng-show='data.priority==3'><span style="color:blue; width:20px">!</span> Thấp</span>
+                <i class="fa fa-pencil-square-o"></i>
+            </a>
+									</div>
+								</div>
+
+
+								<div class='form-group' ng-show='data.mieu_ta'>
+									<label class='col-sm-2 control-label'>Miêu tả:</label>
+									<div class='col-sm-10 field-label' style="padding-left:10px!important">
+										<span parse-html="data.mieu_ta"></span>
+									</div>
+								</div>
+								<div class='form-group' ng-show="data.date_created">
+									<label class='col-sm-2 control-label'>Ngày tạo:</label>
+									<div class='col-sm-10 field-label' style="padding-left:10px!important">{{data.date_created|date:'dd/MM/yyyy HH:mm:ss'}}</div>
+								</div>
+								<div class='form-group' ng-show="data.date_updated">
+									<label class='col-sm-2 control-label'>Ngày cập nhật:</label>
+									<div class='col-sm-10 field-label' style="padding-left:10px!important">{{data.date_updated|date:'dd/MM/yyyy HH:mm:ss'}}</div>
+								</div>
+							</fieldset>
+
+							<fieldset>
+								<legend>Liên kết</legend>
+								<div>
+									<stp-link link="data" collection='task' collections-link="lienhe:'ten_lien_he,dien_thoai,email',dmkh:'ten_kh,dia_chi,dien_thoai,email',dmdt:'ten_dt',task:'ten_cv'"></stp-link>
+								</div>
+							</fieldset>
+						</div>
+						<br/>
+						<file link='data'></file>
+						<br/>
+						<comment link='data' user='current_user' title="{{data.ten_cv}}"></comment>
+
+
+					</uib-tab>
+					<uib-tab heading="Ghi chú">
+						<note link='data'></note>
+					</uib-tab>
+
+					<uib-tab heading="Lịch sử">
+						<history link='data' module='task'></history>
+					</uib-tab>
+				</uib-tabset>
+			</div>
+		</div>
+	</div>
+</div>

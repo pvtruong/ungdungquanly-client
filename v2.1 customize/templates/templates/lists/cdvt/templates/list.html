@@ -1,0 +1,65 @@
+﻿<list adv-search="true" btnimport ="text:'Nhập dữ liệu từ excel'">
+<list-body>
+<div class="table-responsive">
+	<table class ="table table-striped">
+		<tr><th class="text-center"  style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll"></th><th style="width:30px"></th><th>Năm</th><th>Kho</th><th>Vật tư</th><th>Tồn đầu</th><th>Dư đầu</th><th>Lô</th><th>Thuộc tính</th><th class="disable-small-screen">Đơn vị cơ sở</th></tr>
+		<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)" >
+			<td width='30px' class="text-center" ng-show="multiSelect"> <input type="checkbox" ng-model="r.sel"/> </td><td class="text-center" style="width:30px"><div  ng-include="'templates/sys/quick-actions-list.html'"></div></td>
+			<td  style='cursor:pointer' ng-click='edit(r._id)'>
+				
+				{{ r.nam }}
+				
+				
+			</td>
+			<td  style='cursor:pointer' ng-click='edit(r._id)'>
+				
+				{{ r.ma_kho }}
+				
+				
+			</td>
+			<td  style='cursor:pointer' ng-click='edit(r._id)'>
+				
+				{{ r.ma_vt }} - {{ r.ten_vt }}
+				
+				
+			</td>
+			
+			<td  style='cursor:pointer' ng-click='edit(r._id)'>
+				
+				{{ r.ton00|number:2 }}
+				
+				
+			</td>
+			<td  style='cursor:pointer' ng-click='edit(r._id)'>
+				
+				{{ r.du00|number:0 }}
+				
+				
+			</td>
+			<td  style='cursor:pointer' ng-click='edit(r._id)'>
+				
+				{{r.ma_lo}} - <span ng-if="r.han_sd">HSD: {{r.han_sd|date:'dd/MM/yyyy'}}</span>
+				
+				
+			</td>
+			<td  style='cursor:pointer' ng-click='edit(r._id)'>
+				
+				<div ng-if="r.ma_tt1">TT1: {{r.ma_tt1}}</div>
+				<div ng-if="r.ma_tt2">TT2: {{r.ma_tt2}}</div>
+				<div ng-if="r.ma_tt3">TT3: {{r.ma_tt3}}</div>
+				
+				
+			</td>
+			
+			<td  style='cursor:pointer' class="disable-small-screen" ng-click='edit(r._id)'>
+				
+				{{r.ten_dvcs}}
+				
+				
+			</td>
+		</tr>
+	</table>
+	<ng-page></ng-page>
+</div>
+</list-body>
+</list>

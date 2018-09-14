@@ -1,0 +1,76 @@
+<div style='padding:5px' ng-disabled="loadding">
+<div class="modal-header">
+	<button type="button" class="close" ng-click ='cancel()' aria-hidden="true"> &times;</button>
+	<h3 class="modal-title"  id="detailModalLabel">{{ban.ten_ban}} - {{ vm.calendarTitle }}</h3>
+ </div>
+<div class="modal-body">
+	<div class="container-fluid">
+		  <div class="row">
+
+			<div class="col-md-3 text-center">
+			  <div class="btn-group">
+
+				<button
+				  class="btn btn-primary"
+				  mwl-date-modifier
+				  date="vm.viewDate"
+				  decrement="vm.calendarView">
+				  <<
+				</button>
+				<button
+				  class="btn btn-default"
+				  mwl-date-modifier
+				  date="vm.viewDate"
+				  set-to-today>
+				  {{getLabel('HOM_NAY','Hôm nay').text}}
+				</button>
+				<button
+				  class="btn btn-primary"
+				  mwl-date-modifier
+				  date="vm.viewDate"
+				  increment="vm.calendarView">
+				  >>
+				</button>
+			  </div>
+			</div>
+
+			<br class="visible-xs visible-sm">
+			<div class="col-md-9 text-center">
+			  <div class="btn-group">
+					<label class="btn btn-primary" ng-model="vm.calendarView" uib-btn-radio="'year'">{{getLabel('NAM','Năm').text}}</label>
+					<label class="btn btn-primary" ng-model="vm.calendarView" uib-btn-radio="'month'" >{{getLabel('THANG','Tháng').text}}</label>
+					<label class="btn btn-primary" ng-model="vm.calendarView" uib-btn-radio="'week'">{{getLabel('TUAN','Tuần').text}}</label>
+					<label class="btn btn-primary" ng-model="vm.calendarView" uib-btn-radio="'day'" >{{getLabel('NGAY','Ngày').text}}</label>
+			  </div>
+			<button class="btn btn-danger btn-md" ng-click='add()'>{{getLabel('MOI','Mới').text}}</button>
+
+			</div>
+			
+
+
+		  </div>
+
+		  <br>
+
+		  <mwl-calendar
+			events="vm.events"
+			view="vm.calendarView"
+			view-title="vm.calendarTitle"
+			view-date="vm.viewDate"
+			on-event-click="vm.eventClicked(calendarEvent)"
+			on-event-times-changed="vm.eventTimesChanged(calendarEvent); calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
+			edit-event-html="'<i class=\'glyphicon glyphicon-pencil\'></i>'"
+			delete-event-html="'<i class=\'glyphicon glyphicon-remove\'></i>'"
+			on-edit-event-click="vm.eventEdited(calendarEvent)"
+			on-delete-event-click="vm.eventDeleted(calendarEvent)"
+			cell-is-open="vm.isCellOpen"
+			day-view-start="00:00"
+			day-view-end="23:59"
+			day-view-split="30"
+			on-timespan-click="vm.timespanClicked(calendarDate)"
+			cell-modifier="vm.modifyCell(calendarCell)"
+			on-view-change-click="vm.viewChangeClicked(calendarDate, calendarNextView)"
+		  </mwl-calendar>
+	</div>
+</div>
+</div>

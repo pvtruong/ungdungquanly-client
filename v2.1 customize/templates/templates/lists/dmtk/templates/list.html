@@ -1,0 +1,47 @@
+<list>
+<list-ext-filter>
+</list-ext-filter>
+<list-ext-toolbar>
+</list-ext-toolbar>
+<list-body>
+<div class="table-list">
+	<table class ="table table-striped">
+		<tr  class="disable-small-screen"><th class="text-center"  style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll" ng-change ="selectionAllChange(selectionAll)"></th><th style="width:30px"></th><th>Tài khoản</th><th>Tên tài khoản</th><th>Tên tài khoản 2</th><th>Ngoại tệ</th><th>Tài khoản mẹ</th><th class="text-center">TK công nợ</th><th>Loại tài khoản</th></tr>
+		<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)" ng-class="r.loai_tk===0 || !r.tk_me?'cbold':''">
+			<td width='30px' class="text-center" ng-show="multiSelect"> <input type="checkbox" ng-model="r.sel"/> </td><td class="text-center" style="width:30px"><div  ng-include="'templates/sys/quick-actions-list.html'"></div></td>
+			<td  style='cursor:pointer' ng-click='view(r._id)'>
+					{{ r.tk }}
+			</td>
+			<td  style='cursor:pointer' ng-click='view(r._id)'>
+				
+					{{ r.ten_tk }}
+				
+			</td>
+			<td   class="disable-small-screen" style='cursor:pointer' ng-click='view(r._id)'>
+				
+					{{ r.ten_tk2 }}
+				
+			</td>
+			<td   class="disable-small-screen" style='cursor:pointer' ng-click='view(r._id)'>
+				
+					{{ r.ma_nt }}
+				
+			</td>
+			<td   class="disable-small-screen" style='cursor:pointer' ng-click='view(r._id)'>
+					{{ r.tk_me }}
+				
+			</td>
+			<td  class="disable-small-screen" class="text-center"  style='cursor:pointer' ng-click='view(r._id)'>
+				<input type='checkbox' ng-model="r.tk_cn" disabled="false"/>
+			</td>
+            <td   class="disable-small-screen" style='cursor:pointer' ng-click='view(r._id)'>
+					{{ r.loai_tk }}
+				
+			</td>
+			
+		</tr>
+	</table>
+	<ng-page></ng-page>
+</div>
+</list-body>
+</list>

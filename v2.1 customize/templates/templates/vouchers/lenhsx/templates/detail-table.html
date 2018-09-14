@@ -1,0 +1,81 @@
+
+<div class="table-responsive detail-table">
+	<table class="table table-form">
+		<tr>
+			<th></th>
+			<th>{{getLabel('san_pham','Sản phẩm').text}} <span class="required">(*)</span></th>
+			<th>{{getLabel('dvt','Đơn vị tính').text}}</th>
+
+			<!--<th>{{getLabel('ma_tt1_sp','Thuộc tính 1 SP').text}}</th>
+			<th>{{getLabel('ma_tt2_sp','Thuộc tính 2 SP').text}}</th>
+			<th>{{getLabel('ma_tt3_sp','Thuộc tính 3 SP').text}}</th>-->
+
+			<th>{{getLabel('sl_sx','Số lượng sản xuất').text}}  <span class="required">(*)</span></th>
+
+			<th>{{getLabel('ma_dinh_muc','Mã định mức').text}} <span class="required">(*)</span></th>
+
+			<th>{{getLabel('ngay_xuat_xuong','Ngày xuất xưởng').text}}</th>
+			<th>{{getLabel('ngay_giao','Ngày giao').text}}</th>
+
+		</tr>
+		<tbody ng-repeat="r in ngMasterData.details">
+			<tr>
+				<td class="action-buttons">
+					<div>
+						<button class="btn btn-default btn-sm" style="border:none!important" ng-click='editDetail(r.line)' title="Sửa chi tiết">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+						</button>
+						<button class="btn btn-default btn-sm"  style="border:none!important"  title="Xóa dòng này" ng-click="delete1Row(r)">&times;</button>
+					</div>
+				</td>
+				<td style="min-width:200px!important">
+					<ng-typeahead
+						module='dmvt' field-model='ten_vt' field-label='ma_vt' fields='ma_vt,ten_vt,ma_dvt'
+						ng-model='r.ten_sp'  label='r.ma_sp' ng-required='true'
+						on-select="r.ma_dvt_sp=$item.ma_dvt">
+					</ng-typeahead>
+				</td>
+
+				<td>
+					<span class="form-control">{{r.ma_dvt_sp}}</span>
+				</td>
+
+				<!--<td>
+					<input type="text" class="form-control " ng-model="r.ma_tt1_sp"/>
+				</td>
+				<td>
+					<input type="text" class="form-control " ng-model="r.ma_tt2_sp"/>
+				</td>
+				<td>
+					<input type="text" class="form-control " ng-model="r.ma_tt3_sp"/>
+				</td>-->
+
+				<td>
+					<input type='text' style='min-width:80px' format='number' round="f_sl" class='form-control' ng-model='r.sl_sx'/>
+				</td>
+
+				<td style="min-width:50px!important">
+					<ng-typeahead
+						module='dinhmucsx'  group="vouchers"  field-model='so_ct' field-label='_id' fields='so_ct,ngay_ct,dien_giai,ma_sp,ten_sp,id_contract,so_ct_contract,ma_tt1,ma_tt2,ma_tt3,_id'
+						ng-model='r.so_ct_dinhmucsx'  label='r.id_dinhmucsx' ng-required='true' condition="ma_sp:'{{r.ma_sp}}',id_contract:'{{ngMasterData.id_contract}}'">
+					</ng-typeahead>
+				</td>
+
+				<td>
+						<ng-datepicker ng-model='r.ngay_xuat_xuong'></ng-datepicker>
+				</td>
+				<td>
+						<ng-datepicker ng-model='r.ngay_giao'></ng-datepicker>
+				</td>
+
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div style='padding-bottom:13px;padding-left:10px;padding-top:10px'>
+	<div class='btn-group'>
+		<button type="button" class='btn btn-xs btn-primary'  ng-click="addDetail()">
+			<i class="fa fa-plus-square-o" aria-hidden="true"></i> {{getLabel('dong_moi','Thêm dòng mới').text}}
+		</button>
+	</div>
+</div>

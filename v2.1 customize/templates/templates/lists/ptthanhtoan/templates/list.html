@@ -1,0 +1,38 @@
+<div class="scrollable">
+	<div class="scrollable-header">
+		<stplistheader></stplistheader>
+	</div>
+	<div class="row scrollable-content">
+		<div class="table-list">
+			<table class="table table-striped">
+				<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)">
+					<td width='30px' class="text-center" ng-show="multiSelect">
+						<input type="checkbox" ng-model="r.sel"/>
+					</td>
+					<td class="text-center" style="width:30px">
+						<div ng-include="'templates/sys/quick-actions-list.html'"></div>
+					</td>
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						<b>{{ r.ten }}</b>
+						<div>
+							{{getLabel('hinh_thuc_ban_hang','Hình thức bán hàng').text}}:
+							<span ng-style="r.hinh_thuc?{'color':'green'}:{'color':'gray'}">
+								{{r.hinh_thuc==1?'Online':(r.hinh_thuc==2?'Cả hai':'Offline')}}</span>,
+							{{getLabel('tra_truoc','Trả trước').text}}:
+							<span ng-style="r.tra_truoc?{'color':'green'}:{'color':'gray'}">
+								{{r.tra_truoc?'Yes':'No'}}</span>
+							<span ng-if="r.ds_ma_kho && r.ds_ma_kho.length>0">,
+								{{getLabel('kho','Kho').text}}:
+								{{r.ds_ma_kho.join(",")}}</span>
+							<span ng-if="r.ten_kh">,
+								{{getLabel('dt_cong_no','Ghi nhận công nợ').text}}:
+								{{r.ten_kh}}</span>
+						</div>
+
+					</td>
+				</tr>
+			</table>
+			<ng-page></ng-page>
+		</div>
+	</div>
+</div>

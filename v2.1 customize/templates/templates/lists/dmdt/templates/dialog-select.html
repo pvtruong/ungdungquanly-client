@@ -1,0 +1,20 @@
+﻿<div class="modal-header">
+	<header-dialog-select title="Danh mục vụ việc"></header-dialog-select>
+ </div>
+ <div class="modal-body">
+	<div class="table-list">
+		<table  class ="table table-striped">
+			<tr ng-repeat ="item in items" style ='cursor:pointer'>
+				<td  ng-click="select(item)">
+					<div><b>{{item.ten_dt}}</b></div>
+					<i>{{item.ma_dt}}</i>
+					
+				</td>
+				<td style="width:50px" class='text-right'>
+					<a href='javascript:;' ng-click="quickedit(item)" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+					<a href='javascript:;' ng-click="delete(item)" ><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+ </div>

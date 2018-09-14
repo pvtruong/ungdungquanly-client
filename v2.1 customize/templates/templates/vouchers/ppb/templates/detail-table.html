@@ -1,0 +1,69 @@
+﻿<div class="table-responsive detail-table">
+	<table class="table">
+
+		<tr><th class='text-center'></th><th>{{getLabel('TK_NO','TK nợ').text}}</th>
+			<th>{{getLabel('TK_CO','TK có').text}}</th>
+			<th>{{getLabel('TIEN','Tiền').text}}</th>
+			<th>{{getLabel('KHACH_HANG','Khách hàng').text}}</th>
+			<th>{{getLabel('BO_PHAN','Bộ phận').text}}</th>
+			<th>{{getLabel('VU_VIEC','Vụ việc').text}}</th>
+			<th>{{getLabel('PHI','Phí').text}}</th>
+			<th>{{getLabel('HOP_DONG','Hợp đồng').text}}</th>
+		</tr>
+
+		<tr ng-repeat="r in ngMasterData.details">
+
+			<td class="action-buttons">
+				<div>
+					<button class="btn btn-default btn-sm" style="border:none!important" ng-click='editDetail(r.line)' title="Sửa chi tiết">
+						<i class="fa fa-pencil" aria-hidden="true"></i>
+					</button>
+					<button class="btn btn-default btn-sm"  style="border:none!important"  title="Xóa dòng này" ng-click="delete1Row(r)">&times;</button>
+				</div>
+			</td>
+
+			<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+
+				{{r.tk_no}}
+			</td>
+			<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+
+				{{r.tk_co}}
+			</td>
+			<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+				{{r.tien_nt|number:f_tien_nt}}
+			</td>
+
+			<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+				<div>{{r.ten_kh}}</div>
+				<i style="font-size:12px">{{r.ma_kh}}</i>
+			</td>
+			<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+				<div>{{r.ten_bp}}</div>
+				<i style="font-size:12px">{{r.ma_bp}}</i>
+			</td>
+			<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+				<div>{{r.ten_dt}}</div>
+				<i style="font-size:12px">{{r.ma_dt}}</i>
+			</td>
+			<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+				<div>{{r.ten_phi}}</div>
+				<i style="font-size:12px">{{r.ma_phi}}</i>
+			</td>
+			<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+				<div>{{r.ten_hd}}</div>
+				<i style="font-size:12px">{{r.ma_hd}}</i>
+			</td>
+
+		</tr>
+	</table>
+</div>
+<div style='padding-bottom:13px;padding-left:10px;padding-top:10px'>
+	<div class='btn-group'>
+		<button type="button" class='btn btn-xs btn-primary'  ng-click="createKC()"ng-disabled="!ngMasterData.ma_dvcs || !ngMasterData.ngay_ct">
+			{{getLabel('TAO_BUT_TOAN','Tạo bút toán').text}}
+		</button>
+		<a class='btn btn-xs btn-default'  ng-click="openUrl('kbbtpb')" ng-disabled="!ngMasterData.ma_dvcs || !ngMasterData.ngay_ct">{{getLabel('KHAI_BAO_BUT_TOAN','Khai báo bút toán').text}}</a>
+
+	</div>
+</div>

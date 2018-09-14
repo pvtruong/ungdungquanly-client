@@ -1,0 +1,34 @@
+<div class="page-header navbar navbar-fixed-top"  ng-if="!chv">
+	<!-- BEGIN HEADER INNER -->
+	<div class="page-header-inner">
+		<!-- BEGIN LOGO -->
+		<div class="page-logo" style="padding-top:10px">
+			<a ng-click="openPath('dashboard','DASHBOARD')" style="font-size:18px;font-weight:bold;text-decoration:none">
+				<span style="color:white">ỨNG DỤNG QUẢN LÝ</SPAN>
+			</a>
+		</div>
+		<!-- END LOGO -->
+		<!-- BEGIN HORIZANTAL MENU -->
+		<horizantal-menu></horizantal-menu>
+		<!-- END HORIZANTAL MENU -->
+		<!-- BEGIN HEADER SEARCH BOX -->
+		<!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
+		<div class="search-form">
+			<div class="input-group">
+				<input type="text"   ng-readonly="!app_info" class="form-control" placeholder="{{getLabel('TIM','Tìm').text}}..." ng-model='searchword' ng-keyup="searchAllKeyup($event,searchword)">
+				<span class="input-group-btn">
+					<a  ng-click="searchAll(searchword)" ng-disabled='!searchword' class="btn submit"><i class="icon-magnifier"></i></a>
+				</span>
+			</div>
+		</div>
+		<!-- END HEADER SEARCH BOX -->
+		<!-- BEGIN RESPONSIVE MENU TOGGLER -->
+		<a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+		</a>
+		<!-- END RESPONSIVE MENU TOGGLER -->
+		<!-- BEGIN TOP NAVIGATION MENU -->
+		<top-menu></top-menu>
+		<!-- END TOP NAVIGATION MENU -->
+	</div>
+	<!-- END HEADER INNER -->
+</div>

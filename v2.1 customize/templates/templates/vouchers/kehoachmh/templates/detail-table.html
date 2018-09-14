@@ -1,0 +1,152 @@
+
+<div class="table-responsive detail-table">
+	<table class="table table-form">
+		<tr>
+			<th></th>
+			<th>{{getLabel('nvl','Nguyên vật liệu').text}} <span class="required">(*)</span></th>
+			<th>{{getLabel('dvt','ĐVT').text}}</th>
+			<!--<th>{{getLabel('ma_tt1','Thuộc tính 1').text}}</th>
+			<th>{{getLabel('ma_tt2','Thuộc tính 2').text}}</th>
+			<th>{{getLabel('ma_tt3','Thuộc tính 3').text}}</th>-->
+
+			<th>{{getLabel('lenh_sx','Lệnh sản xuất').text}}</th>
+
+			<th>{{getLabel('sl_nhu_cau','Nhu cầu').text}}</th>
+			<th>{{getLabel('sl_da_cap_phat','Đã cấp phát').text}}</th>
+			<th>{{getLabel('sl_ke_hoach','Kế hoạch').text}}</th>
+			<th>{{getLabel('gia','Giá').text}}</th>
+			<th>{{getLabel('tien','Tiền').text}}</th>
+
+			<th>{{getLabel('contract','Đơn hàng/hợp đồng').text}}</th>
+			<th>{{getLabel('so_luong_contract','SL đơn hàng/hợp đồng').text}}</th>
+			<th>{{getLabel('sl_da_nhap','Đã nhập').text}}</th>
+
+			<th>{{getLabel('san_pham','Sản phẩm').text}}</th>
+			<th>{{getLabel('dvt','ĐVT').text}}</th>
+			<!--<th>{{getLabel('ma_tt1_sp','Thuộc tính 1 SP').text}}</th>
+			<th>{{getLabel('ma_tt2_SP','Thuộc tính 2 SP').text}}</th>
+			<th>{{getLabel('ma_tt3_SP','Thuộc tính 3 SP').text}}</th>-->
+
+			<th>{{getLabel('ma_cum_chi_tiet_tp','Mã cụm chi tiết').text}}</th>
+			<th>{{getLabel('ten_cum_chi_tiet_tp','Tên cụm chi tiết').text}}</th>
+			<th>{{getLabel('cong_doan','Công đoạn').text}}</th>
+
+			<th>{{getLabel('ncc','Nhà cung cấp').text}}</th>
+
+
+		</tr>
+		<tbody ng-repeat="r in ngMasterData.details">
+			<tr>
+				<td  class="action-buttons">
+					<div>
+						<button class="btn btn-default btn-sm" style="border:none!important" ng-click='editDetail(r.line)' title="Sửa chi tiết">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+						</button>
+						<button class="btn btn-default btn-sm"  style="border:none!important"  title="Xóa dòng này" ng-click="delete1Row(r)">&times;</button>
+					</div>
+				</td>
+				<td  style="min-width:200px!important">
+					<ng-typeahead
+						module='dmvt' field-model='ten_vt' field-label='ma_vt' fields='ma_vt,ten_vt,ma_dvt'
+						ng-model='r.ten_vt'  label='r.ma_vt' ng-required='true'
+						on-select="r.ma_dvt=$item.ma_dvt">
+					</ng-typeahead>
+				</td>
+				<td><span class="form-control">{{r.ma_dvt}}</span></td>
+				<!--<td>
+					<input type="text" class="form-control " ng-model="r.ma_tt1"/>
+				</td>
+				<td>
+					<input type="text" class="form-control " ng-model="r.ma_tt2"/>
+				</td>
+				<td>
+					<input type="text" class="form-control " ng-model="r.ma_tt3"/>
+				</td>-->
+
+				<td  style="min-width:50px!important">
+					<ng-typeahead
+						module='lenhsx' group="vouchers" field-model='so_ct' field-label='_id' fields='so_ct,ngay_ct,_id'
+						ng-model='r.so_ct_lenhsx'  label='r.id_lenhsx'
+						on-select="r.id_contract = $item.id_contract;r.so_ct_contract = $item.so_ct_contract">
+					</ng-typeahead>
+				</td>
+
+				<td>
+						<input type='text' style='min-width:80px' format='number' round="f_sl" class='form-control' ng-model='r.sl_nhu_cau'  ng-change="r.sl_ke_hoach=r.sl_nhu_cau-r.sl_da_cap_phat"/>
+				</td>
+				<td>
+					<input type='text' style='min-width:80px' format='number' round="f_sl" class='form-control' ng-model='r.sl_da_cap_phat' ng-readonly="true"/>
+				</td>
+				<td>
+					<input type='text' style='min-width:80px' format='number' round="f_sl" class='form-control' ng-model='r.sl_ke_hoach'/>
+				</td>
+
+				<td>
+					<input type='text' style='min-width:80px' format='number' round="f_gia_nt" class='form-control' ng-model='r.gia_nt'/>
+						<span class='form-control' ng-show="false">{{r.gia=STP.round(r.gia_nt*1,f_tien)}}</span>
+				</td>
+				<td>
+					<span class='form-control' ng-readonly="true">{{r.tien_nt=STP.round(r.gia_nt*r.sl_ke_hoach,f_tien_nt)|number:f_tien_nt}}</span>
+					<span class='form-control' ng-show="false">{{r.tien=STP.round(r.tien_nt*1,f_tien)}}</span>
+				</td>
+
+				<td>
+					<span class="form-control"  ng-readonly="true">{{r.so_ct_contract}}</span>
+				</td>
+
+				<td>
+					<input type='text' style='min-width:80px' format='number' round="f_sl" class='form-control' ng-model='r.sl_contract' ng-readonly="true"/>
+				</td>
+				<td>
+					<input type='text' style='min-width:80px' format='number' round="f_sl" class='form-control' ng-model='r.sl_da_nhap' ng-readonly="true"/>
+				</td>
+
+				<td style="min-width:200px!important">
+					<ng-typeahead
+						module='dmvt' field-model='ten_vt' field-label='ma_vt' fields='ma_vt,ten_vt,ma_dvt'
+						ng-model='r.ten_sp'  label='r.ma_sp'
+						on-select="r.ma_dvt_sp=$item.ma_dvt">
+					</ng-typeahead>
+				</td>
+				<td><span class="form-control">{{r.ma_dvt_sp}}</span></td>
+				<!--<td>
+					<input type='text' class='form-control' ng-model='r.ma_tt1_sp'/>
+				</td>
+				<td>
+					<input type='text' class='form-control' ng-model='r.ma_tt2_sp'/>
+				</td>
+				<td>
+					<input type='text' class='form-control' ng-model='r.ma_tt3_sp'/>
+				</td>-->
+
+				<td>
+					<input type="text" class="form-control " ng-model="r.ma_cum_chi_tiet"/>
+				</td>
+				<td>
+					<input type="text" class="form-control " ng-model="r.ten_cum_chi_tiet"/>
+				</td>
+				<td  style="min-width:200px!important">
+					<ng-typeahead
+						module='congdoansx' field-model='ten_cong_doan' field-label='ma_cong_doan' fields='ma_cong_doan,ten_cong_doan'
+						ng-model='r.ten_cong_doan'  label='r.ma_cong_doan'>
+					</ng-typeahead>
+				</td>
+
+				<td style="min-width:200px!important">
+					<ng-typeahead
+						module='dmkh' field-model='ten_kh' field-label='ma_kh' fields='ma_kh,ten_kh'
+						ng-model='r.ten_ncc'  label='r.ma_ncc'>
+					</ng-typeahead>
+				</td>
+
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div style='padding-bottom:13px;padding-left:10px;padding-top:10px'>
+	<div class='btn-group'>
+		<button type="button" class='btn btn-xs btn-primary'  ng-click="addDetail()">
+			<i class="fa fa-plus-square-o" aria-hidden="true"></i> {{getLabel('dong_moi','Thêm dòng mới').text}}
+		</button>
+	</div>
+</div>

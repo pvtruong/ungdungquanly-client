@@ -1,0 +1,37 @@
+<div>
+	<button-slide width="260" height="300" actions ="buttonSlideActions" top="10" text="Tùy chọn">
+		<btn-content>
+			<div>
+				<div class='form-group'>
+					<label>Mẫu <span class="required">*</span></label>
+					<div>
+						<ng-selector
+							module="rptform" fields ="_id,rptform_name" field-model="_id" field-label="rptform_name" condition="rptform_type:'PTTCT'"
+							options ="item._id as item.rptform_name for item in items" default-values ="rptform_type:'PTTCT'"
+							ng-model='condition.id_rptform' ng-required="true">
+						</ng-selector>
+					</div>
+				</div>
+				<div class='form-group'>
+					<label>{{getLabel('tu_ngay','Từ ngày').text}}<span class="required">*</span></label>
+					<div>
+						<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+					</div>
+				</div>
+				<div class='form-group'>
+					<label>{{getLabel('den_ngay','Đến ngày').text}}<span class="required">*</span></label>
+					<div>
+						<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+					</div>
+				</div>
+				<div class='form-group'>
+					<button class='btn btn-default' ng-click="fetchData();buttonSlideActions.hide()">Nhận</button>
+				</div>
+			</div>
+		</btn-content>
+	</button-slide>
+	
+
+	<div id="chart">
+	</div>
+</div>

@@ -1,0 +1,244 @@
+﻿<form-input><form-input-body>
+	<div class="col-md-4">
+		<div class="form-group">
+			<label class="col-sm-4"></label>
+			<div class="col-sm-8 text-center">
+				<img style="width:100px"  ng-if="data.exfields.picture_thumb"  img-cache ic-src="{{server_url}}{{data.exfields.picture_thumb}}">
+				<img style="width:100px" ng-if="!data.exfields.picture_thumb" img-cache ic-src="images/avatar.jpg">
+				<input type="file" image-upload  model ='data.exfields.picture' model-thumb='data.exfields.picture_thumb'/>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label col-sm-4">Họ và tên <span style='color:red' title='Tên nhân viên không được trống'>(*)</span></label>
+			<div class="col-sm-8">
+				<input type="text" name ='ten_nv' class="form-control" ng-model='data.ten_nv'  ng-required="true">
+			</div>
+			
+			
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label  col-sm-4 ">Mã</label>
+			<div class=" col-sm-8">
+				<input type="text" name ='ma_nv'  style="text-transform:uppercase" class="form-control" ng-model='data.ma_nv'>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label col-sm-4">Nhóm</label>
+			<div class=" col-sm-8">
+				<ng-selector
+					module="group" fields="_id,group_name" field-model="_id" field-label = "group_name"
+					condition ="group_type:'DMNV'"  ng-model='data.nh_nv' default-values="group_type:'DMNV'">
+				</ng-selector>
+			</div>
+			
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label  col-sm-4">Phụ trách</label>
+			<div class=" col-sm-8">
+				<select ng-model="data.phu_trach" ng-options="r.email as r.name for r in members" class="form-control">
+					
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-4">Bộ phận  <span style='color:red'>(*)</span></label>
+			<div class=" col-sm-8">
+				<ng-selector
+					module="dmbp" fields="ma_bp,ten_bp" field-model="ma_bp" field-label = "ten_bp"
+					ng-model='data.ma_bp' ng-required="true">
+				</ng-selector>
+			</div>
+			
+		</div>
+		<div class="form-group">
+			
+			<label class="control-label  col-sm-4">Chức vụ</label>
+			<div class=" col-sm-8">
+				<ng-selector
+					module="dmchucvu" fields="_id,group_name" field-model="_id" field-label = "group_name"
+					condition ="group_type:'DMCV'"  ng-model='data.chuc_vu' default-values="group_type:'DMCV'">
+				</ng-selector>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-4">Công việc</label>
+			<div class=" col-sm-8">
+				<ng-selector
+					module="group" fields="_id,group_name" field-model="_id" field-label = "group_name"
+					condition ="group_type:'DMCVIEC'"  ng-model='data.cong_viec' default-values="group_type:'DMCVIEC'">
+				</ng-selector>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class=" col-sm-offset-4  col-sm-8">
+				<div class="checkbox">
+					<label><input type="checkbox" ng-model="data.status" /> Còn hoạt động</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-8">
+		<uib-tabset class="col-sm-12">
+			<uib-tab heading="{{getLabel('TT_CHUNG','Thông tin chung').text}}">
+				<div class="form-group">
+					<label class="control-label col-sm-2">Nơi sinh</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control"  ng-model='data.noi_sinh'>
+					</div>
+					<label class="control-label col-sm-2">Ngày sinh</label>
+					<div class="col-sm-4">
+						<ng-datepicker ng-model='data.ngay_sinh'></ng-datepicker>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">Giới tính</label>
+					<div class="col-sm-4">
+						<select class="form-control"  ng-model='data.gioi_tinh'>
+							<option value="NAM">Nam</option>
+							<option value="NU">Nữ</option>
+						</select>
+					</div>
+					<label class="control-label col-sm-2">T.trạng hôn nhân</label>
+					<div class="col-sm-4">
+						<select class="form-control"  ng-model='data.tinh_trang_hon_nhan'>
+							<option value="ĐỘC THÂN">Độc thân</option>
+							<option value="CÓ GIA ĐINH">Có gia đình</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">Nguyên quán</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control"  ng-model='data.nguyen_quan'>
+					</div>
+					
+					<label class="control-label col-sm-2">Địa chỉ</label>
+					<div class="col-sm-4">
+						<input type="text" name ='dia_chi' class="form-control"  ng-model='data.dia_chi'>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">Điện thoại</label>
+					<div class="col-sm-4">
+						<input type="text" name ='dien_thoai' class="form-control"  ng-model='data.dien_thoai'>
+					</div>
+					<label class="control-label col-sm-2">Fax</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control"  ng-model='data.fax'>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label col-sm-2">Email</label>
+					<div class="col-sm-4">
+						<input type="email" name ='email' class="form-control"  ng-model='data.email'>
+					</div>
+					<label class="control-label col-sm-2">Website</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control"  ng-model='data.website'>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">Ghi chú</label>
+					<div class="col-sm-10">
+						<textarea rows="2" class="form-control"  ng-model='data.ghi_chu'>
+						</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 text-right">Có giá trị với </label>
+					<div class="col-sm-10">
+						<label ng-repeat="item in [{v:0,t:'Mọi người'},{v:1,t:'Chỉ người tạo'},{v:2,t:'Những người sau'}]" style="padding-right:10px">
+							<input type='radio' ng-model='data.visible_to' name='visible_to' ng-value="item.v"/> {{item.t}}
+						</label>
+						<ui-select ng-show='data.visible_to==2'  multiple ng-model="data.visible_to_users" theme="bootstrap"  close-on-select="false"  title="Chọn một user">
+							 <ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+							 <ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+
+								 <small>
+									 {{person.name}}
+
+								 </small>
+							 </ui-select-choices>
+						 </ui-select>
+					</div>
+				</div>
+			</uib-tab>
+			<uib-tab heading="{{getLabel('TT_LUONG','Thông tin chấm công và lương').text}}">
+				<div class="form-group">
+					<label class="control-label col-sm-2">Lương căn bản</label>
+					<div class="col-sm-4">
+						<input type="text" format ="number" class="form-control"  ng-model='data.luong_co_ban'>
+					</div>
+					
+					<label class="control-label col-sm-2">Lương BHXH</label>
+					<div class="col-sm-4">
+						<input type="text" format ="number" class="form-control"  ng-model='data.luong_bhxh'>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-3 checkbox">
+						<label><input type="checkbox" ng-model="data.lam_viec" /> Làm việc</label>
+					</div>
+					<div class="col-sm-3 checkbox">
+						<label><input type="checkbox" ng-model="data.cham_cong" /> Chấm công</label>
+					</div>
+					<div class="col-sm-3 checkbox">
+						<label><input type="checkbox" ng-model="data.tinh_luong" /> Tính lương</label>
+					</div>
+					
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-3 checkbox">
+						<label><input type="checkbox" ng-model="data.bhxh" /> Tham gia BHXH</label>
+					</div>
+					<div class="col-sm-3 checkbox">
+						<label><input type="checkbox" ng-model="data.bhyt" /> Tham gia BHYT</label>
+					</div>
+					<div class="col-sm-3 checkbox">
+						<label><input type="checkbox" ng-model="data.bhtn" /> Tham gia BHTN</label>
+					</div>
+					
+				</div>
+				
+				<div class="form-group">
+					<fieldset>
+						<legend>Phụ cấp</legend>
+					
+						<table class="table table-bordered">
+							<tr ng-repeat="phu_cap in data.phu_cap">
+								<td>
+									<ng-selector placeholder="<Chọn một loại phụ cấp>"
+										module="group" fields="_id,group_name,exfields" field-model="_id" field-label = "group_name"
+										condition ="group_type:'PHUCAP'"  ng-model='phu_cap.ma_phu_cap' default-values="group_type:'PHUCAP'"
+										on-select="phu_cap.tien = $item.exfields.default_value;phu_cap.ten_phu_cap = $item.group_name">
+									</ng-selector>
+								</td>
+								<td>
+									<input type="text" format="number" class="form-control" ng-model="phu_cap.tien" placeholder="Số tiền"/>
+								</td>
+								<td>
+									<button class="btn btn-default" ng-click="data.phu_cap = STP.reject(data.phu_cap,{line:phu_cap.line})">Xóa</button>
+								</td>
+							</tr>
+							
+						</table>
+						<button class="btn btn-default" ng-click="!data.phu_cap?data.phu_cap =[{line:0,tien:0}]:data.phu_cap.push({line:data.phu_cap.length,tien:0})">Thêm phụ cấp</button>
+						
+					</fieldset>
+					
+				</div>
+				
+			</uib-tab>
+			
+		</uib-tabset>
+		
+		
+		
+	</div>
+</form-input-body></form-input>

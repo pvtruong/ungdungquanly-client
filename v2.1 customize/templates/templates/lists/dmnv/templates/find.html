@@ -1,0 +1,86 @@
+﻿<div class="modal-header">
+	<button type="button" class="close" ng-click ='cancelFind()' aria-hidden="true"> &times;</button>
+	<h4 class="modal-title" id="findModalLabel">
+	   {{getLabel('TIM_nhan_vien','Tìm nhân viên').text}}
+	</h4>
+ </div>
+ <div class="modal-body">
+	<form name="formFind" novalidate class="css-form form-horizontal">
+		<div class="form-group">
+			
+			<label class="control-label col-md-2">{{getLabel('ma_nv','Mã nhân viên').text}}</label>
+			<div class="col-md-3">
+				<input type='text' class='form-control' ng-model='vcondition.ma_nv'/>
+			</div>
+			
+			<label class="control-label col-md-2">{{getLabel('ten_nv','Tên nhân viên').text}}</label>
+			<div class="col-md-3">
+				<input type='text' class='form-control' ng-model='vcondition.ten_nv'/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-2">{{getLabel('dia_chi','Địa chỉ').text}}</label>
+			<div class="col-md-3">
+				<input type='text' class='form-control' ng-model='vcondition.dia_chi'/>
+			</div>
+			
+			<label class="control-label col-md-2">{{getLabel('dien_thoai','Điện thoại').text}}</label>
+			<div class="col-md-3">
+				<input type='text' class='form-control' ng-model='vcondition.dien_thoai'/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-2">{{getLabel('fax','Fax').text}}</label>
+			<div class="col-md-3">
+				<input type='text' class='form-control' ng-model='vcondition.fax'/>
+			</div>
+			
+			<label class="control-label col-md-2">{{getLabel('email','Email').text}}</label>
+			<div class="col-md-3">
+				<input type='text' class='form-control' ng-model='vcondition.email'/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-2">{{getLabel('bo_phan','Bộ phận').text}}</label>
+			<div class="col-md-3">
+				<ng-selector
+					module="dmbp" fields="ma_bp,ten_bp" field-model="ma_bp" field-label = "ten_bp"
+					ng-model='vcondition.ma_bp'>
+				</ng-selector>
+			</div>
+			
+			<label class="control-label col-sm-2">Chức vụ</label>
+			<div class="col-sm-3">
+				<ng-selector
+					module="group" fields="_id,group_name" field-model="_id" field-label = "group_name"
+					condition ="group_type:'DMCV'"  ng-model='vcondition.chuc_vu' default-values="group_type:'DMCV'">
+				</ng-selector>
+			</div>
+			
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-2">{{getLabel('NHOM','Nhóm').text}}</label>
+			<div class="col-md-3">
+				<ng-selector
+					module="group" fields="_id,group_name" field-model="_id" field-label = "group_name"
+					condition ="group_type:'CUSTOMER'"  ng-model='vcondition.nh_nv' default-values="group_type:'CUSTOMER'">
+				</ng-selector>
+			</div>
+			<label class="control-label col-md-2">{{getLabel('phu_trach','Phụ trách').text}}</label>
+			<div class="col-md-3">
+				<select ng-model="vcondition.phu_trach" ng-options="r.email as r.name for r in members" class="form-control">
+					<option value="">--</option>
+				</select>
+			</div>
+		</div>
+		
+		
+		
+	</form>
+ </div>
+ <div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="okFind()" ng-disabled='formFind.$invalid'  ng-disabled="formFind.$invalid">
+	   {{getLabel('TIM','Tìm').text}}
+	</button>
+	<button type="button" class="btn btn-default" ng-click='cancelFind()'>{{getLabel('HUY','Hủy').text}}</button>
+ </div>

@@ -1,0 +1,31 @@
+<div class="modal-dialog">
+	<div class="modal-header">
+		 <button type="button" class="close" ng-click ='close()' aria-hidden="true"> &times;</button>
+		 <div class="text-center" style="padding:15px">
+				<h4 class="modal-title" id="findModalLabel">
+				  <b><span ng-if="data.ten_kh">{{data.ten_kh}} - </span>{{data.phone}}</b> {{getLabel('calling','đang gọi...').text}}
+				</h4>
+				<br/>
+				<a  ng-show="data.id_kh"  class="btn btn-lg btn-primary" ng-click="editKh(data)">
+					{{getLabel('kh_view_call','Xem thông tin khách hàng ').text}}
+				</a>
+				<a ng-show="!data.id_kh" class="btn btn-lg btn-danger" ng-click="addKh(data)">
+				{{getLabel('add_new_kh','Thêm khách hàng mới ').text}}
+				</a>
+				<a ng-show="data.id_kh" class="btn btn-lg btn-info" ng-click="addTask(data)">
+				{{getLabel('add_task','Thêm công việc').text}}
+				</a>
+				<!--<a ng-show="data.id_kh" class="btn btn-lg btn-info" ng-click="addSo1(data)">
+				{{getLabel('add_so1','Thêm đơn hàng').text}}
+			</a>-->
+				<a ng-show="data.id_kh" class="btn btn-lg btn-info" ng-click="addHd2(data)">
+				{{getLabel('add_hd2','Thêm hoá đơn bán hàng').text}}
+				</a>
+				<!--<a ng-show="data.id_kh" class="btn btn-lg btn-info" ng-click="addHd1(data)">
+				{{getLabel('add_hd1','Thêm hoá đơn bán dịch vụ').text}}
+			</a>-->
+			</div>
+	 </div>
+	<div class="modal-body">
+	</div>
+</div>

@@ -1,0 +1,78 @@
+<voucher options="text:getLabel('TUY_CHON','Tùy chọn').text">
+  <voucher-ext-toolbar></voucher-ext-toolbar>
+  <voucher-body>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <tr>
+          <th class="text-center" style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll" ng-change="selectionAllChange(selectionAll)"/></th>
+          <th style="width:30px"></th>
+          <th>{{getLabel('ma_hd','Hợp đồng').text}}</th>
+
+          <th>{{getLabel('SO_LUONG','Số lượng').text}}</th>
+          <th>{{getLabel('tien','Tiền').text}}</th>
+          <th>{{getLabel('TIEN_THUE','Tiền thuế').text}}</th>
+          <th>{{getLabel('tien_phi','Tiền phí').text}}</th>
+          <th>{{getLabel('tien_phi_khac','Tiền phí khác').text}}</th>
+          <th>{{getLabel('TONG_TIEN','Tổng cộng').text}}</th>
+        </tr>
+
+        <tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)">
+          <td width='30px' class="text-center" ng-show="multiSelect">
+            <input type="checkbox" ng-model="r.sel"/>
+          </td>
+          <td class="text-center" style="width:30px">
+            <div ng-include="'templates/sys/quick-actions.html'"></div>
+          </td>
+          <td style='cursor:pointer' ng-click='edit(r._id)'>
+            <div>
+              <span ng-if='r.ten_trang_thai' class="label bg-{{r.color}}">[{{ r.ten_trang_thai}}]</span>
+              <small>{{getLabel('so_ct','Số').text}}:</small>
+              <span style='color:transparent'>_</span>{{ r.so_ct }},
+              <small>{{getLabel('ngay','Ngày').text}}:</small>
+              <span style='color:transparent'>_</span>{{ r.ngay_ct|date:'dd/MM/yyyy'}}
+              ({{r.ma_nt}})</div>
+            <div ng-if='r.dien_giai'>{{STP.tructed(r.dien_giai,32,"left")}}</div>
+
+            <div ng-if="r.ten_kh">
+              <small>{{getLabel('NCC','NCC').text}}:</small>
+              {{r.ten_kh}}</div>
+
+            <div style='cursor:pointer' ng-click='edit(r._id)' ng-repeat="field in r.exfields.options.fields" ng-if="r.exfields[field.name]">
+              <small>{{field.title}}:
+              </small>
+              <span>
+                <span ng-if="field.type=='text'">{{r.exfields[field.name]}}</span>
+                <span ng-if="field.type=='number'">{{r.exfields[field.name]|number}}</span>
+                <span ng-if="field.type=='date'">{{r.exfields[field.name]|date}}</span>
+              </span>
+            </div>
+          </td>
+          <td style='cursor:pointer' ng-click='edit(r._id)'>
+            {{ r.t_sl|number:app_info.options.f_sl }}
+          </td>
+
+          <td style='cursor:pointer' ng-click='edit(r._id)'>
+            {{ r.t_tien_nt|number: (r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt) }}
+          </td>
+
+          <td style='cursor:pointer' ng-click='edit(r._id)'>
+            {{ r.t_thue_nt|number:0 }}
+          </td>
+
+          <td style='cursor:pointer' ng-click='edit(r._id)'>
+            {{ r.t_phi_nt|number:0 }}
+          </td>
+
+          <td style='cursor:pointer' ng-click='edit(r._id)'>
+            {{ r.t_phi_khac_nt|number:0 }}
+          </td>
+
+          <td style='cursor:pointer' ng-click='edit(r._id)'>
+            {{ r.t_tien_nt + r.t_thue_nt + r.t_phi_nt+r.t_phi_khac_nt|number:2}}
+          </td>
+        </tr>
+      </table>
+      <ng-page></ng-page>
+    </div>
+  </voucher-body>
+</voucher>

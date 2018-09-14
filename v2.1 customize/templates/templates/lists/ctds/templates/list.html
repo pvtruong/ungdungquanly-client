@@ -1,0 +1,105 @@
+
+<div class="scrollable">
+	<div class="scrollable-header">
+		<stplistheader></stplistheader>
+	</div>
+	<div class="row scrollable-content  page-frame">
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<tr>
+					<th class="text-center" style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll"></th>
+					<th style="width:30px"></th>
+					<th>{{getLabel('nhom_ke_hoach','Nhóm kế hoạch').text}}</th>
+					<th>{{getLabel('nam','Năm').text}}</th>
+					<th>{{getLabel('thang','Tháng').text}}</th>
+
+					<th>{{getLabel('kho_cua_hang','Kho/cửa hàng').text}}</th>
+					<th>{{getLabel('nhan_vien','Nhân viên').text}}</th>
+					<th>{{getLabel('bo_phan_cty','Bộ phận').text}}</th>
+					<th>{{getLabel('vu_viec','Vụ việc/dự án').text}}</th>
+					<th>{{getLabel('dt_cp','Doanh thu/chi phí').text}}</th>
+					<th>{{getLabel('tk_no','TK nợ').text}}</th>
+					<th>{{getLabel('tk_co','TK có').text}}</th>
+					<th>{{getLabel('ke_hoach','Kế hoạch').text}}</th>
+
+				</tr>
+				<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)">
+					<td width='30px' class="text-center" ng-show="multiSelect"> <input type="checkbox" ng-model="r.sel" /> </td>
+					<td class="text-center" style="width:30px">
+						<div ng-include="'templates/sys/quick-actions-list.html'"></div>
+					</td>
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+
+						{{ r.group_name }}
+
+					</td>
+
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+
+						{{ r.nam }}
+
+
+					</td>
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+
+						{{ r.thang }}
+
+
+					</td>
+
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+
+						{{ r.ten_kho }}
+
+
+					</td>
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+
+						{{ r.ten_nv }}
+
+
+					</td>
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+
+						{{ r.ten_bp }}
+
+
+					</td>
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+
+						{{ r.ten_dt }}
+
+
+					</td>
+
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+
+						{{ r.ten_phi }}
+
+
+					</td>
+
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+
+						{{r.tk_no.join(",")}} <span ng-if="r.tk_no_gt">(Giảm trừ)</span>
+
+
+					</td>
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+
+						{{r.tk_co.join(",")}} <span ng-if="r.tk_co_gt">(Giảm trừ)</span>
+
+					</td>
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+
+						{{ r.chi_tieu|number:f_tien }}
+
+					</td>
+
+				</tr>
+			</table>
+			<ng-page></ng-page>
+		</div>
+
+	</div>
+</div>

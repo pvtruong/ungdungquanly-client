@@ -1,0 +1,67 @@
+<div ng-class="scrollable?'scrollable page-frame':'page-frame'">
+	<div ng-class="scrollable?'scrollable-header':''">
+		<div style="background-color:white;">
+			<div class="input-group">
+				<input type='text' ng-model="condition" autofocus="autofocus" style="border:none!important" ng-keyup="searchKeyup($event,condition)" class="form-control always-focus" placeholder="Nhập mã hoặc tên sản phẩm để tìm..."/>
+				<span class='btn  input-group-addon' ng-click="filter(condition)"><i class="fa fa-search" aria-hidden="true"></i></span>
+				<a class="btn input-group-addon" ng-click="searchBarcode()">
+					<i class="fa fa-barcode" aria-hidden="true"></i>
+				</a>
+				<a class='btn input-group-addon' ng-click="add()">+</a>
+
+				<a class='btn input-group-addon'  ng-click="changeView()">
+					<i ng-class="currentView==='gridview'?'fa fa-align-justify':'fa fa-th'" aria-hidden="true"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div ng-class="scrollable?'scrollable-content':''"  ng-style="scrollable?{overflowX: 'hidden',padding:'10px',paddingTop:'40px'}:{}">
+
+		<react-t-grid-products ng-show="currentView ==='gridview'" data="list" loai-gia="loaiGia" app-info="app_info" on-product-click="onClick($product)">
+		</react-t-grid-products>
+		<div ng-show="currentView!=='gridview'" class="table-responsive">
+			<table class="table  table-hover">
+					<tr>
+						<th>Mã sản phẩm</th>
+						<th>Tên sản phẩm</th>
+						<th ng-show="loaiGia==='B' || app_info.show_gia_von">Giá</th>
+					</tr>
+					<tr ng-repeat="r in list"  ng-click='onClick(r)' style="cursor:pointer">
+						<td>{{r.ma_vt}}</td>
+						<td>{{r.ten_vt}}</td>
+						<td ng-show="loaiGia==='B' || app_info.show_gia_von">
+							<span ng-if="loaiGia=='B'">
+								<b>{{r.gia_ban_le|number:f_gia}}</b>
+							</span>
+							<b ng-if="loaiGia!=='B'">{{r.gia_mua|number:f_gia}}</b>
+						</td>
+					</tr>
+			</table>
+		</div>
+		<!--<div class="ui two doubling cards">
+			<div class="ui card" ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" title="{{r.ma_vt}} - {{r.ten_vt}}">
+				<div class="content text-center">
+					{{r.ma_vt}}
+				</div>
+				<div class="image">
+
+					<a ng-click='onClick(r)'>
+						<img ng-if="r.picture_thumb && r.picture_thumb.indexOf('noimage')<0" img-cache="img-cache" ic-src="{{server_url}}{{r.picture_thumb}}">
+						<img ng-if="!r.picture_thumb || r.picture_thumb.indexOf('noimage')>=0" img-cache="img-cache" ic-src="images/product.png">
+					</a>
+				</div>
+				<div class="content">
+					<div ng-click='onClick(r)' style="cursor:pointer;white-space: nowrap; text-overflow:ellipsis; overflow: hidden; width:100%">
+						{{r.ten_vt}}
+					</div>
+					<span ng-if="loaiGia=='B'">
+						<b>{{r.gia_ban_le|number:f_gia}}</b>
+					</span>
+					<b ng-if="loaiGia!=='B'">{{r.gia_mua|number:f_gia}}</b>
+				</div>
+
+			</div>
+		</div>-->
+
+	</div>
+</div>

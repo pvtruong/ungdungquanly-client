@@ -1,0 +1,68 @@
+﻿
+ <form-detail><form-detail-body>
+		
+		
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('TK_NO','TK nợ').text}} <span class='required' title="{{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+			<div class="col-sm-4">
+				<ng-typeahead 
+					module='dmtk' field-model='tk' field-label='ten_tk' fields='tk,ten_tk'
+					placeholder="Nhập tài khoản nợ..."
+					ng-model='dt_current.tk_no'  label='dt_current.ten_tk_no' ng-required='true' condition ="loai_tk:1">
+				</ng-typeahead>
+			</div>
+			<div class=' col-sm-6'>{{dt_current.ten_tk_no}}</div>
+		</div>
+		
+		
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('TIEN','Tiền').text}} {{data.ma_nt}}</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" format="number" round="f_tien_nt" ng-model="dt_current.tien_nt"/>
+			</div>
+				
+			<label class="control-label col-sm-2"  ng-show="data.ma_nt!='VND'">{{getLabel('TIEN','Tiền').text}} VND</label>
+			<div class="col-sm-4"  ng-show="data.ma_nt!='VND'">
+				<input type="text" class="form-control " format="number" round="f_tien" ng-model="dt_current.tien"/>
+			</div>
+			
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('NCC_KHAC','Nhà cung cấp khác').text}}</label>
+			<div class="col-sm-10">
+				<ng-typeahead 
+					module='dmkh' field-model='ten_kh' field-label='ma_kh' fields='ma_kh,ten_kh'
+					placeholder="Nhập NCC..."
+					ng-model='dt_current.ten_kh'  label='dt_current.ma_kh'>
+				</ng-typeahead>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('VU_VIEC','Vụ việc').text}}</label>
+			<div class="col-sm-4">
+				<ng-typeahead
+					module='dmdt' field-model='ten_dt' field-label='ma_dt' fields ='ma_dt,ten_dt'
+					ng-model='dt_current.ten_dt' label='dt_current.ma_dt'>
+				</ng-typeahead>
+			</div>
+			<label class="control-label col-sm-2">{{getLabel('HOP_DONG','Hợp đồng').text}}</label>
+			<div class="col-sm-4">
+				<ng-typeahead
+					module='contract' field-model='ten_hd' field-label='so_hd' fields ='so_hd,ten_hd'
+					ng-model='dt_current.ten_hd' label='dt_current.ma_hd'>
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('MA_PHI','Mã phí').text}}</label>
+			<div class="col-sm-4">
+				<ng-typeahead
+					module='dmphi' field-model='ten_phi' field-label='ma_phi' fields ='ma_phi,ten_phi'
+					ng-model='dt_current.ten_phi' label='dt_current.ma_phi'>
+				</ng-typeahead>
+			</div>
+		</div>
+		
+</form-detail-body></form-detail>

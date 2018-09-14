@@ -1,0 +1,277 @@
+<!--master form-->
+<form-input>
+	<form-input-body>
+		<div class="form-group">
+			<div class="col-md-9" ng-style="!isMobile?{height:(innerHeight-80).toString()+'px'}:{}">
+				<div ng-class="!isMobile?'scrollable':''">
+					<div class="scrollable-content">
+						<div class="form-group session session-default">
+							<div class="col-md-3">
+								<label class="control-label disable-medium-screen">{{getLabel('khach_hang','Khách hàng').text}} <span class='required'>(*)</span></label>
+								<ng-typeahead module='dmkh' fields='ma_kh,ten_kh,dia_chi,quan_huyen,tinh_thanh,dien_thoai,fax,email' field-model='ten_kh' field-label='ma_kh' ng-model='data.ten_kh' label='data.ma_kh' placeholder="Khách hàng" on-select="data.ten_nguoi_nhan = $item.ten_kh;
+										data.dia_chi = $item.dia_chi;
+										data.dien_giai=$item.dien_thoai;
+										data.email = $item.email;
+										data.quan_huyen = $item.quan_huyen;
+										data.tinh_thanh = $item.tinh_thanh"></ng-typeahead>
+							</div>
+							<div class="col-md-9">
+								<div class="disable-small-screen text-center">
+									<div class="ui fluid mini ordered steps">
+
+										<div ng-class="data.trang_thai>=trang_thai.ma_trang_thai?'completed step':'active step'" ng-repeat="trang_thai in ds_trang_thai" ng-click="data.trang_thai=trang_thai.ma_trang_thai">
+
+											<div class="content">
+												<div class="title">{{trang_thai.ten_trang_thai}}</div>
+
+											</div>
+										</div>
+
+									</div>
+								</div>
+								<div class="col-md-9 disable-medium-screen">
+									<label class="control-label">{{getLabel('trang_thai','Trạng thái').text}} <span class='required'>(*)</span></label>
+									<div>
+										<ng-selector module='trangthai' fields='ma_trang_thai,ten_trang_thai' field-model='ma_trang_thai' field-label='ten_trang_thai' condition="ma_ct:'SO1'" show-button-list="false" ng-model="data.trang_thai" ng-required="true">
+										</ng-selector>
+									</div>
+								</div>
+							</div>
+						</div>
+						<uib-accordion close-others="true">
+							<uib-accordion-group heading="Danh sách sản phẩm" is-open="true">
+								<so1-detail-table ng-master-data='data'></so1-detail-table>
+							</uib-accordion-group>
+							<uib-accordion-group heading="{{getLabel('CP_BH','Phí').text}}">
+								<ng-ctcpbh ng-data='data.ctcpbhs' ng-master-data='data'></ng-ctcpbh>
+							</uib-accordion-group>
+							<uib-accordion-group heading="Chiết khấu theo hóa đơn">
+								<div class="form-group">
+									<label class="control-label col-sm-2">Tỷ lệ CK</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" format="number" ng-model="data.ty_le_ck_hd" />
+									</div>
+
+									<label class="control-label col-sm-2">Tiền CK</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" format="number" ng-model="data.tien_ck_hd" />
+									</div>
+								</div>
+							</uib-accordion-group>
+							<uib-accordion-group heading="Địa chỉ giao hàng (*)">
+								<div class="form-group">
+									<label class="control-label col-sm-2">Tên người nhận</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" ng-model="data.ten_nguoi_nhan" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-sm-2">Điện thoại<span class='required'>(*)</span></label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" ng-model="data.dien_thoai" />
+									</div>
+
+									<label class="control-label col-sm-2">Email</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" ng-model="data.email" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Địa chỉ<span class='required' title="Đơn vị cơ sở không được trống">(*)</span></label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" ng-model="data.dia_chi" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-sm-2">Xã/phường</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" ng-model="data.xa_phuong" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-sm-2">Tỉnh/thành</label>
+									<div class="col-sm-4">
+										<select ng-model='data.tinh_thanh' class='form-control'>
+									<option ng-repeat='tt in province' ng-value='tt'>{{tt}}</option>
+								</select>
+									</div>
+
+									<label class="control-label col-sm-2">Quận/huyện</label>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" ng-model="data.quan_huyen" />
+									</div>
+								</div>
+							</uib-accordion-group>
+							<uib-accordion-group heading="Phương thức giao hàng">
+								<div class="form-group">
+									<label class="control-label col-sm-2">P.t giao hàng
+							</label>
+									<div class="col-sm-10">
+										<select ng-model="data.pt_giao_hang" class="form-control">
+									<option value="1">Tự giao</option>
+									<option value="2">Dịch vụ giao hàng</option>
+									<option value="3">Nhân viên giao hàng</option>
+								</select>
+									</div>
+								</div>
+								<div class="form-group" ng-if="data.pt_giao_hang!='1'">
+									<label class="control-label col-sm-2">{{data.pt_giao_hang=='2'?'Dịch vụ':'Nhân viên'}}</label>
+									<div class="col-sm-10">
+										<ng-typeahead module='dmkh' fields='ma_kh,ten_kh' field-model='ten_kh' field-label='ma_kh' condition="ncc_yn:true" ng-model='data.ten_dich_vu_giao_hang' label='data.dich_vu_giao_hang'></ng-typeahead>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Trạng thái</label>
+									<div class="col-sm-10">
+										<select ng-model="data.trang_thai_giao_hang" class="form-control">
+									<option value="1">Thành công</option>
+									<option value="2">Thất bại</option>
+								</select>
+									</div>
+								</div>
+
+								<div class="form-group" ng-if="data.pt_giao_hang=='2'">
+									<label class="control-label col-sm-2">Mã kiểm soát</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" ng-model="data.ma_kiem_soat">
+									</div>
+								</div>
+
+								<div class="form-group" ng-if="data.pt_giao_hang=='1' && data.trang_thai_giao_hang=='2' ">
+									<label class="control-label col-sm-2">Lý do thất bại</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" ng-model="data.ly_do_that_bai">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Ghi chú</label>
+									<div class="col-sm-10">
+										<textarea class="form-control" ng-model="data.note_payment"></textarea>
+									</div>
+								</div>
+							</uib-accordion-group>
+							<uib-accordion-group heading="Có giá trị với">
+								<div class="form-group">
+
+									<div class="col-sm-10">
+										<label ng-repeat="item in [{v:0,t:'Mọi người'},{v:1,t:'Chỉ người tạo'},{v:2,t:'Những người sau'}]" style="padding-right:10px">
+									<input type='radio' ng-model='data.visible_to' name='visible_to' ng-value="item.v"/>
+									{{item.t}}
+								</label>
+										<ui-select ng-show='data.visible_to==2' multiple="multiple" ng-model="data.visible_to_users" theme="bootstrap" close-on-select="false" title="Chọn một user">
+											<ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+											<ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+
+												<small>
+											{{person.name}}
+
+										</small>
+											</ui-select-choices>
+										</ui-select>
+									</div>
+								</div>
+							</uib-accordion-group>
+							<uib-accordion-group heading="{{getLabel('BO_XUNG','Đặc thù').text}} (*)" ng-show="data.options && data.options.fields && data.options.fields.length>0">
+								<!--extra fields-->
+								<div class="form-group" ng-repeat="field in  data.options.fields">
+									<label class="control-label col-md-3">{{field.title}}
+								<span class="required" ng-show="field.required">(*)</span></label>
+									<div class="col-md-9">
+										<input type="text" ng-if="field.type=='text'" ng-model="data.exfields[field.name]" class="form-control" ng-required="field.required" />
+										<input type="text" format='number' ng-if="field.type=='number'" ng-model="data.exfields[field.name]" class="form-control" ng-required="field.required" />
+										<ng-datepicker ng-model="data.exfields[field.name]" ng-if="field.type=='date'" ng-required="field.required"></ng-datepicker>
+
+									</div>
+								</div>
+								<!--end extra fields-->
+							</uib-accordion-group>
+						</uib-accordion>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3" ng-style="!isMobile?{height:(innerHeight-80).toString()+'px'}:{}">
+				<div ng-class="!isMobile?'scrollable':''">
+					<div class="scrollable-content">
+						<uib-accordion close-others="true">
+							<uib-accordion-group heading="Thông tin chung" is-open="true">
+								<div class="form-group">
+									<label class="control-label">Số đơn hàng</label>
+									<div class="">
+										<input type="text" style='text-transform:uppercase' class="form-control" ng-model='data.so_ct' />
+									</div>
+
+									<label class="control-label">Ngày đơn hàng
+								<span class='required'>(*)</span></label>
+									<div class="">
+										<ng-datepicker ng-model='data.ngay_ct' ng-required='true'></ng-datepicker>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label">Kho xuất<span class='required'>(*)</span></label>
+									<div class="">
+										<ng-selector module='dmkho' fields='ma_kho,ten_kho' field-model='ma_kho' field-label='ten_kho' ng-model='data.ma_kho' label='data.ten_kho' ng-required="true"></ng-selector>
+									</div>
+
+									<label class="control-label">P.t thanh toán<span class="required">(*)</span></label>
+									<div class="">
+										<ng-selector module="ptthanhtoan" fields="_id,ten" field-model="_id" field-label="ten" ng-model='data.pt_thanh_toan' ng-required="true" condition="hinh_thuc:{$in:[1,2,undefined]},ds_ma_kho:'{{data.ma_kho}}'"></ng-selector>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label">Ngày giao hàng<span ng-show="data.trang_thai>=3" class='required'>(*)</span></label>
+									<div class="">
+										<ng-datepicker ng-model="data.ngay_giao_hang" ng-required="data.trang_thai>=3"></ng-datepicker>
+									</div>
+								</div>
+								<div class="form-group" ng-show="data.trang_thai==5">
+									<label class="control-label">Ngày trả lại<span ng-show="data.trang_thai==5" class='required'>(*)</span></label>
+									<div class="">
+										<ng-datepicker ng-model="data.ngay_tra_lai" ng-required="data.trang_thai==5"></ng-datepicker>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label">Diễn giải</label>
+									<div class="">
+										<input type="text" name='dien_giai' class="form-control" ng-model='data.dien_giai' />
+									</div>
+									<label class="control-label">{{getLabel('dvcs','Đơn vị cơ sở').text}}<span class='required'>(*)</span></label>
+
+									<div class="">
+										<ng-selector module='dvcs' fields='_id,ten_dvcs' field-model='_id' field-label='ten_dvcs' options="item._id as item.ten_dvcs for item in items" ng-model="data.ma_dvcs" ng-required="true"></ng-selector>
+									</div>
+								</div>
+
+
+							</uib-accordion-group>
+						</uib-accordion>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</form-input-body>
+	<form-input-footer>
+
+		<label class="control-label col-md-3 disable-small-screen">Tiền hàng:
+			{{data.t_tien_hang|number:0}}
+			đ</label>
+
+		<label class="control-label col-md-3 disable-small-screen">Chiết khấu:
+			{{data.t_ck+data.tien_ck_hd|number:0}}
+			đ</label>
+
+		<label class="control-label col-md-3 disable-small-screen" ng-model="data.t_cp_cpb" ng-sum="tien_cp" ng-data="data.ctcpbhs">Phí:
+			{{data.t_cp_cpb|number:0}}
+			đ</label>
+
+		<label class="control-label col-md-3 disable-small-screen">Thanh toán:
+			{{(data.t_tien_hang-data.t_ck-data.tien_ck_hd + data.t_cp_cpb)|number:0}}
+			đ</label>
+
+	</form-input-footer>
+</form-input>

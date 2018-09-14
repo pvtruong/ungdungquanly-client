@@ -1,0 +1,25 @@
+﻿<form-input  auto-height="true">
+<form-input-body>
+	<div class="form-group">
+		<label class="control-label col-md-3">Tên chức vụ <span class="required">(*)</span></label>
+		<div class="col-md-9">
+			<input type="text" name ='group_name' class="form-control input-md" ng-model='data.group_name' required>
+		</div>
+	</div>
+	
+	<!--<div class="form-group">
+		<label class="control-label col-md-3">Mức tiêu biểu (điểm)</label>
+		<div class="col-md-9">
+			<input type="text" format ='number' class="form-control input-md"  ng-model='data.muc_tieu_bieu' >
+		</div>
+	</div>-->
+	<div class="form-group">
+		<div class="col-md-offset-3 col-md-9">
+			<div class="checkbox">
+				<label class="checkbox-inline custom-checkbox nowrap"><input type="checkbox" ng-model="data.status" /> <span>Còn sử dụng</span></label>
+			</div>
+		</div>
+	</div>
+
+</form-input-body>
+</form-input>

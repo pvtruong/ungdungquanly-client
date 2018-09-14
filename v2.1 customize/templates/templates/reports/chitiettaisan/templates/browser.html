@@ -1,0 +1,68 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label class='control-label'>{{getLabel('loai','Loại').text}}</label>
+			<div>
+				<select ng-model="condition.ma_gd" class="form-control" ng-options="gd.ma_gd as gd.ten for gd in gds" ng-required="true">
+					</select>
+
+			</div>
+
+		</div>
+		<div class='form-group'>
+			<label class='control-label'>{{getLabel('thang','Tháng').text}}</label>
+			<div>
+				<select ng-model="condition.thang" class="form-control" ng-options="thang for thang in thangs" ng-required="true">
+					</select>
+
+			</div>
+
+		</div>
+		<div class='form-group'>
+
+			<label class='control-label'>{{getLabel('NAM','Năm').text}}</label>
+			<div>
+				<select ng-model="condition.nam" class="form-control" ng-options="nam for nam in nams" ng-required="true">
+					</select>
+			</div>
+		</div>
+	</report-filter>
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<table class='table  table-striped  table-hover'>
+				<tr>
+					<th>{{getLabel('ten_ts','Tên tài sản').text}}</th>
+					<th>{{getLabel('so_the_ts','Số thẻ').text}}</th>
+					<th>{{getLabel('ngay_tang','Ngày tăng').text}}</th>
+					<th>{{getLabel('nguyen_gia','Nguyên giá').text}}</th>
+					<th>{{getLabel('so_ky_kh','Số kỳ khấu hao').text}}</th>
+					<th>{{getLabel('da_khau_hao','Đã khấu hao').text}}</th>
+					<th>{{getLabel('con_lai','Còn lại').text}}</th>
+				</tr>
+				<tr ng-repeat='r in data' ng-click='viewVoucher(r.ma_ct,r._id)' ng-class="r.bold?'cbold':'cnormal'">
+					<td>
+						{{::r.ten_ts}}
+					</td>
+					<td>
+						{{::r.so_the_ts}}
+					</td>
+					<td>
+						{{::r.ngay_tang|date:'dd/MM/yyyy'}}
+					</td>
+					<td>
+						{{::r.nguyen_gia|number:0}}
+					</td>
+					<td>
+						{{::r.so_ky_kh|number:0}}
+					</td>
+					<td>
+						{{::r.gia_tri_kh_luy_ke|number:0}}
+					</td>
+					<td>
+						{{::r.gia_tri_con_lai|number:0}}
+					</td>
+				</tr>
+			</table>
+		</div>
+	</report-viewer>
+</report>

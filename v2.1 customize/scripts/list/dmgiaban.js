@@ -1,0 +1,1 @@
+var dmgiabanModule = new baseInput('dmgiaban','dmgiaban',["ma_vt","ma_nvt","ma_kh","nh_kh"],'Danh mục giá bán');

@@ -1,0 +1,33 @@
+<div class="scrollable">
+	<div class="scrollable-header">
+		<stplistheader></stplistheader>
+	</div>
+	<div class="row scrollable-content">
+		<div class="table-list">
+			<table class="table">
+				<tbody>
+
+					<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)">
+						<td width='30px' class="text-center" ng-show="multiSelect">
+							 <input type="checkbox" ng-model="r.sel"/>
+						 </td>
+						<td class="text-center" style="width:30px">
+			 					 <div  ng-include="'templates/sys/quick-actions-list.html'"></div>
+			 			</td>
+						<td>
+
+							<div style='cursor:pointer' ng-click='edit(r._id)' class="pull-left">
+								<div>{{ r.group_name }}</div>
+							</div>
+							<div class="pull-right">
+								<a href="#!/assign/{{r.id_app}}/{{r._id}}?name={{r.group_name}}" class="btn btn-xs btn-primary" ng-if="user.appAdmin">Phân quyền</a>
+							</div>
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+			<ng-page></ng-page>
+		</div>
+	</div>
+</div>

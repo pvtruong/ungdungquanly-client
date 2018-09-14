@@ -1,0 +1,87 @@
+<voucher master-detail="true">
+	<voucher-body-master>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<tr>
+					<th class="text-center" style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll" ng-change="selectionAllChange(selectionAll)"/></th>
+					<th style="width:100px"></th>
+					<th>{{getLabel('ma_gd','Loại phiếu').text}}</th>
+					<th>
+						<a ng-click="reverse=!reverse;order('ngay_ct',reverse)">{{getLabel('chung_tu','Chứng từ').text}}</a>
+					</th>
+
+					<th>
+						<a ng-click="reverse=!reverse;order('t_tien',reverse)">{{getLabel('TIEN','Tiền').text}}</a>
+					</th>
+
+					<th>
+						<a ng-click="reverse=!reverse;order('t_thue_vao',reverse)">{{getLabel('VAT','VAT').text}}</a>
+					</th>
+					<th>
+						<a ng-click="reverse=!reverse;order('t_tt',reverse)">{{getLabel('TONG_THANH_TOAN','Tổng thanh toán').text}}</a>
+					</th>
+				</tr>
+				<tr  ng-class="selectedRow && selectedRow._id===r._id?'active':''" ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)">
+					<td width='30px' class="text-center" ng-show="multiSelect">
+						<input type="checkbox" ng-model="r.sel"/>
+					</td>
+					<td class="text-center">
+						<div ng-include="'templates/sys/quick-actions2.html'"></div>
+					</td>
+					<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+						<div>{{r.ma_gd==='1'?getLabel('tien_mat','Tiền mặt').text:getLabel('chuyen_khoan','Chuyển khoản').text }}</div>
+					</td>
+					<td>
+						<div style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+							<span ng-if='r.ten_trang_thai' class="label bg-{{r.color}}">[{{ r.ten_trang_thai}}]</span>
+							<span>Số:</span>
+							<span style='color:transparent'>_</span>{{ r.so_ct }},
+							<span>ngày:</span>
+							<span style='color:transparent'>_</span>{{ r.ngay_ct|date:'dd/MM/yyyy'}}
+							({{r.ma_nt}})
+						</div>
+						<div ng-if='r.dien_giai' style='cursor:pointer' ng-click='setSelectedRow(r,true)'>{{STP.tructed(r.dien_giai,32,"left")}}</div>
+						<div ng-if="r.ten_kh" style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+							{{getLabel('kh_nhan_vien','Khách hàng/nhân viên').text}}:
+							{{ r.ten_kh}}</div>
+						<div style="margin-top:5px" ng-show="r.trang_thai==5 && !r.id_pn6">
+							<button ng-disabled="r.id_pn6 && r.trang_thai=='5'" ng-click="createPN(r)" class="btn btn-primary btn-xs">
+								<i ng-show="r.id_pn6" class="fa fa-check-square-o" aria-hidden="true"></i>
+								{{getLabel('CREATE_PN6','Thanh toán tạm ứng').text}}
+							</button>
+						</div>
+					</td>
+
+					<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+						{{ r.t_tien_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt) }}
+					</td>
+
+					<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+						{{ r.t_thue_vao_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt) }}
+					</td>
+					<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+						{{ r.t_tt_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt) }}
+					</td>
+
+				</tr>
+			</table>
+			<ng-page></ng-page>
+		</div>
+	</voucher-body-master>
+	<voucher-body-detail>
+		<uib-tabset>
+			<uib-tab heading="{{getLabel('CHI_THEO','Chi theo').text}} {{getLabel('KHACH_HANG','Khách hàng').text}}" is-open="true">
+				<div  ng-if="selectedRow">
+					<pc2-detail-table ng-master-data='selectedRow'></pc2-detail-table>
+				</div>
+			</uib-tab>
+			<uib-tab heading="{{getLabel('VAT','VAT').text}}">
+				<div  ng-if="selectedRow">
+						<span ng-show="false">{{selectedRow.tien_tinh_thue=(STP.sum(selectedRow.details,"tien"))}}</span>
+						<span ng-show="false">{{selectedRow.tien_tinh_thue_nt=(STP.sum(selectedRow.details,"tien_nt"))}}</span>
+						<ng-vatvao ng-data='selectedRow.vatvaos' ng-master-data='selectedRow' tk-du-thue='selectedRow.tk_co' t-tien-nt="selectedRow.tien_tinh_thue_nt" t-tien="selectedRow.tien_tinh_thue" ten-vt='selectedRow.dien_giai' ma-kh='selectedRow.ma_kh'></ng-vatvao>
+				</div>
+			</uib-tab>
+   </uib-tabset>
+	</voucher-body-detail>
+</voucher>

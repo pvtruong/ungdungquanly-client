@@ -1,0 +1,35 @@
+﻿<form-input><form-input-body>
+	<div class="form-group">
+		<label class="control-label col-md-3">Nội dung giảm trừ<span class="required">(*)</span></label>
+		<div class="col-md-9">
+			<input type="text" name ='ten_giam_tru' class="form-control input-md"  ng-model='data.ten_giam_tru' required>
+		</div>
+	</div>
+	
+	
+	<div class="form-group">
+		<label class="control-label col-md-3">Tỷ lệ công ty đóng (%)</label>
+		<div class="col-md-9">
+			<input type="text" format ='number' class="form-control input-md"  ng-model='data.ty_le_cty' >
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="control-label col-md-3">Tỷ lệ nhân viên đóng (%)</label>
+		<div class="col-md-9">
+			<input type="text" format ='number' class="form-control input-md"  ng-model='data.ty_le_nv' >
+		</div>
+	</div>
+	
+	
+	
+	
+	<div class="form-group">
+		<div class="col-md-offset-3 col-md-9">
+			<div class="checkbox">
+				<label><input type="checkbox" ng-model="data.status" /> Còn sử dụng</label>
+			</div>
+		</div>
+	</div>
+
+</form-input-body></form-input>

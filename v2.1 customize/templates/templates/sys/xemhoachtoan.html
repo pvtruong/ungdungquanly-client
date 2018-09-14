@@ -1,0 +1,53 @@
+<div class="modal-header">
+	<button type="button" class="close" ng-click='close()' aria-hidden="true">
+		&times;</button>
+	<h4 class="modal-title" id="findModalLabel">
+		Xem định khoản của chứng từ số
+		{{data.so_ct}}
+		ngày
+		{{data.ngay_ct|date:'dd/MM/yyyy'}}
+	</h4>
+	<div file-upload-progress="file-upload-progress">
+		<div class="throbber-loader"></div>
+		<br/>
+	</div>
+</div>
+<div class="modal-body">
+	<div class='container-fluid table-response' style="padding:20px">
+		<table class="table  table-striped">
+			<tr>
+				<th>TK nợ</th>
+				<th>TK có</th>
+				<th>Tiền ngoại tệ</th>
+				<th>Mã ngoại tệ</th>
+				<th>Tỷ giá</th>
+				<th>Tiền quy đổi VND</th>
+				<th>Nhân viên</th>
+				<th>Bộ phận</th>
+				<th>Vụ việc</th>
+				<th>Hợp đồng</th>
+				<th>Doanh thu/chi phí</th>
+				<th>Khách hàng</th>
+
+			</tr>
+			<tr ng-repeat="r in socai">
+				<td>{{r.tk_no}}</td>
+				<td>{{r.tk_co}}</td>
+				<td>{{r.tien_nt|number}}</td>
+				<td>{{r.ma_nt}}</td>
+				<td>{{r.ty_gia|number}}</td>
+				<td>{{r.tien|number}}</td>
+				<td>{{r.ma_nv}}</td>
+				<td>{{r.ma_bp}}</td>
+				<td>{{r.ma_dt}}</td>
+				<td>{{r.ma_hd}}</td>
+				<td>{{r.ma_phi}}</td>
+				<td>
+					{{r.ma_kh_no}}
+					<span ng-if='r.ma_kh_no!==r.ma_kh_co'>,{{r.ma_kh_co}}</span>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+</div>

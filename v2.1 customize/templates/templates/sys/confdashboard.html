@@ -1,0 +1,66 @@
+<div class="modal-header">
+	<button type="button" class="close" ng-click ='cancel()' aria-hidden="true"> &times;</button>
+	<h4 class="modal-title" id="findModalLabel">
+	   {{getLabel('TUY_CHON_DASHBOARD','Tùy chọn bảng điều khiển').text}}
+	</h4>
+ </div>
+ <div class="modal-body">
+	<form name="formFind" novalidate class="css-form form-horizontal">
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label><input type="checkbox" ng-model="appInfo.dashboard.pbl" /> {{getLabel('DS_SP_DANGCHO','Sản phẩm đang chờ').text}}</label>
+                </div>
+            </div>
+		</div>
+		<!--<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label><input type="checkbox" ng-model="appInfo.dashboard.reports" /> {{getLabel('BAO_CAO','Báo cáo').text}}</label>
+                </div>
+            </div>
+		</div>-->
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label><input type="checkbox" ng-model="appInfo.dashboard.tasks" /> {{getLabel('CONG_VIEC','Công việc').text}}</label>
+                </div>
+            </div>
+		</div>
+        <div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label><input type="checkbox" ng-model="appInfo.dashboard.notifications" /> {{getLabel('THONG_BAO','Thông báo').text}}</label>
+                </div>
+            </div>
+		</div>
+        <div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label><input type="checkbox" ng-model="appInfo.dashboard.emails" /> Email</label>
+                </div>
+            </div>
+		</div>
+        <div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label><input type="checkbox" ng-model="appInfo.dashboard.orders" /> {{getLabel('DON_DAT_HANG','Đơn đặt hàng').text}}</label>
+                </div>
+            </div>
+		</div>
+		
+		
+		
+		<!--<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label><input type="checkbox" ng-model="appInfo.dashboard.like" /> {{getLabel('DS_like_FOLLOW','Đang theo dõi và hay sử dụng').text}}</label>
+                </div>
+            </div>
+		</div>
+		-->
+	</form>
+ </div>
+ <div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click='cancel()'>{{getLabel('DONG','Đóng').text}}</button>
+ </div>

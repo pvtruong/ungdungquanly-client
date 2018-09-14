@@ -1,0 +1,37 @@
+<form name="form" novalidate class="css-form form-horizontal form-input" ng-style="{display:isDataLoaded?'block':'none'}">
+	<div ng-style="{backgroundColor:'white',height:(autoHeight?'auto':(innerHeight-1).toString()+'px')}" ng-class="!autoHeight?'scrollable':''">
+		<div class='scrollable-header section-info'>
+			<div class='row navbar-form form-header' ng-transclude="title" ng-style="{'padding':'5px','padding-top':(platform()=='browser'?'5px':'25px')}">
+				<!--header of form-->
+				<div class='pull-left'>
+					<div class="header-form">
+						<span class="disable-small-screen">{{getLabel('ten_ct' + code,title).text}} - </span>
+						<small style='font-size:12px' ng-if='action'>{{action}}</small>
+					</div>
+				</div>
+				<!--action-->
+				<div class='pull-right'>
+					<button type="button" class="btn btn-primary " ng-click="create()" ng-disabled="form.$invalid || isSave" title="Ctrl+S">{{save_text}}</button>
+					<button type="button" class="btn btn-primary " ng-click="create(1)" ng-disabled="form.$invalid || isSave" ng-if="printRpt">{{print_text}}</button>
+					<button type="button" class="btn btn-primary " ng-click="createAndAdd(1)" ng-disabled="form.$invalid || isSave" ng-if="createAndAdd">{{getLabel('luu_and_moi',"Lưu và mới").text}}</button>
+
+					<button type="button" class="btn btn-default " ng-click="delete(data)" ng-if="data._id && delete">{{delete_text}}</button>
+
+					<button type="button" class="btn btn-default " ng-click="cancel()">{{cancel_text}}</button>
+				</div>
+
+			</div>
+			<div ng-class="alertType" ng-if="messageError">{{messageError}}</div>
+		</div>
+		<div class="scrollable-content">
+			<div ng-transclude="body" class="form-body">
+			</div>
+		</div>
+		<div class="scrollable-footer" ng-show="!autoHeight">
+			<div class="row  form-footer page-frame page-frame-footer">
+				<div ng-transclude="footer">
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

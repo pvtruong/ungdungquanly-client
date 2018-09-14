@@ -1,0 +1,99 @@
+
+<div class="table-responsive detail-table">
+	<table class="table table-form">
+		<tr>
+			<th></th>
+			<th>{{getLabel('nvl','Nguyên vật liệu').text}} <span class="required">(*)</span></th>
+			<th>{{getLabel('dvt','ĐVT').text}}</th>
+			<th>{{getLabel('ma_tt1_nvl','Thuộc tính 1 NVL').text}}</th>
+			<th>{{getLabel('ma_tt2_nvl','Thuộc tính 2 NVL').text}}</th>
+			<th>{{getLabel('ma_tt3_nvl','Thuộc tính 3 NVL').text}}</th>
+
+			<th>{{getLabel('loai_dinh_muc','Loại định mức').text}}  <span class="required">(*)</span></th>
+			<th>{{getLabel('dinh_muc','Định mức').text}}</th>
+			<th>{{getLabel('ty_le_hao_hut','Tỷ lệ hao hụt(%)').text}}</th>
+
+
+			<th>{{getLabel('ma_tt1_sp','Áp dụng thuộc tính 1 SP').text}}</th>
+			<th>{{getLabel('ma_tt2_sp','Áp dụng thuộc tính 2 SP').text}}</th>
+			<th>{{getLabel('ma_tt3_sp','Áp dụng thuộc tính 3 SP').text}}</th>
+
+
+			<th>{{getLabel('ma_cum_chi_tiet_tp','Mã cụm chi tiết').text}}</th>
+			<th>{{getLabel('ten_cum_chi_tiet_tp','Tên cụm chi tiết').text}}</th>
+			<th>{{getLabel('cong_doan','Công đoạn').text}}</th>
+		</tr>
+		<tbody ng-repeat="r in ngMasterData.details">
+			<tr>
+				<td class="action-buttons">
+					<div>
+						<button class="btn btn-default btn-sm" style="border:none!important" ng-click='editDetail(r.line)' title="Sửa chi tiết">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+						</button>
+						<button class="btn btn-default btn-sm"  style="border:none!important"  title="Xóa dòng này" ng-click="delete1Row(r)">&times;</button>
+					</div>
+				</td>
+				<td style="min-width:200px!important">
+					<ng-typeahead
+						module='dmvt' field-model='ten_vt' field-label='ma_vt' fields='ma_vt,ten_vt,ma_dvt'
+						ng-model='r.ten_vt'  label='r.ma_vt' ng-required='true'
+						on-select="r.ma_dvt=$item.ma_dvt">
+					</ng-typeahead>
+				</td>
+				<td><span class="form-control">{{r.ma_dvt}}</span></td>
+
+				<!--<td>
+					<input type="text" class="form-control " ng-model="r.ma_tt1"/>
+				</td>
+				<td>
+					<input type="text" class="form-control " ng-model="r.ma_tt2"/>
+				</td>
+				<td>
+					<input type="text" class="form-control " ng-model="r.ma_tt3"/>
+				</td>-->
+
+				<td>
+					<select class="form-control" ng-model="r.loai_dinh_muc" ng-required="true" ng-options="v.m as v.t for v in [{m:1,t:'Định mức'},{m:2,t:'Cố định'}]">
+	        </select>
+				</td>
+				<td>
+					<input type='text' style='min-width:80px' format='number' round="f_sl" class='form-control' ng-model='r.sl_dinh_muc'/>
+				</td>
+				<td>
+					<input type='text' style='min-width:80px' format='number' round="f_sl" class='form-control' ng-model='r.ty_le_hao_hut'/>
+				</td>
+
+				<td>
+					<input type="text" class="form-control " ng-model="r.ma_tt1_sp"/>
+				</td>
+				<td>
+					<input type="text" class="form-control " ng-model="r.ma_tt2_sp"/>
+				</td>
+				<td>
+					<input type="text" class="form-control " ng-model="r.ma_tt3_sp"/>
+				</td>
+
+
+				<td>
+					<input type="text" class="form-control " ng-model="r.ma_cum_chi_tiet"/>
+				</td>
+				<td>
+					<input type="text" class="form-control " ng-model="r.ten_cum_chi_tiet"/>
+				</td>
+				<td style="min-width:200px!important">
+					<ng-typeahead
+						module='congdoansx' field-model='ten_cong_doan' field-label='ma_cong_doan' fields='ma_cong_doan,ten_cong_doan'
+						ng-model='r.ten_cong_doan'  label='r.ma_cong_doan'>
+					</ng-typeahead>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div style='padding-bottom:13px;padding-left:10px;padding-top:10px'>
+	<div class='btn-group'>
+		<button type="button" class='btn btn-xs btn-primary'  ng-click="addDetail()">
+			<i class="fa fa-plus-square-o" aria-hidden="true"></i> {{getLabel('dong_moi','Thêm dòng mới').text}}
+		</button>
+	</div>
+</div>

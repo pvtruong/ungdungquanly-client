@@ -1,0 +1,107 @@
+﻿<div>
+	<div class="table-responsive detail-table">
+		<table class="table table-hover">
+			<tr>
+				<th class='text-center'></th>
+				<th>{{getLabel('SO_HOA_DON','Số hóa đơn').text}}</th>
+
+				<th>{{getLabel('NGAY_HOA_DON','Ngày hóa đơn').text}}</th>
+				<th>{{getLabel('TIEN_HANG','Tiền hàng').text}}</th>
+
+				<th>{{getLabel('THUE_SUAT','Thuế suất').text}}</th>
+				<th>{{getLabel('TIEN_THUE','Tiền thuế').text}}</th>
+
+				<th>{{getLabel('tk_thue','TK thuế').text}}</th>
+				<th>{{getLabel('tk_du','TK đối ứng').text}}</th>
+
+				<th>{{getLabel('ma_kh','Mã khách').text}}</th>
+				<th>{{getLabel('ten_kh','Tên khách').text}}</th>
+				<th>{{getLabel('dia_chi','Địa chỉ').text}}</th>
+
+				<th>{{getLabel('ma_so_thue','Mã số thuế').text}}</th>
+
+			</tr>
+			<tr ng-repeat ="r in ngData">
+				<td class="action-buttons">
+					<div>
+						<button class="btn btn-default btn-sm" style="border:none!important" ng-click='editDetail(r.line)' title="Sửa chi tiết">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+						</button>
+						<button class="btn btn-default btn-sm"  style="border:none!important"  title="Xóa dòng này" ng-click="delete1Row(r)">&times;</button>
+					</div>
+				</td>
+				<td>
+					<input type="text" class="form-control" ng-model="r.so_hd" ng-required="true"/>
+				</td>
+
+				<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+					<ng-datepicker ng-model="r.ngay_hd" ng-required="true"></ng-datepicker>
+				</td>
+				<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+					<input type="text" class="form-control" ng-model="r.t_tien_nt" format="number" round="f_tien_nt" ng-change="r.t_thue_nt = STP.round(r.t_tien_nt * r.thue_suat/100,f_tien_nt)"/>
+
+					<span  ng-show="false">
+						{{r.t_tien=STP.round(r.t_tien_nt*ngMasterData.ty_gia,f_tien)}}
+					</span>
+				</td>
+
+				<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+					<ng-selector on-select="r.thue_suat = ($item.thue_suat||0);r.tk_thue_co=$item.tk_thue_co;r.t_thue_nt = STP.round(r.t_tien_nt * r.thue_suat/100,f_tien_nt)"
+						module="dmvat" fields="ma_thue,ten_thue,thue_suat,tk_thue_co" field-model="ma_thue" field-label="ten_thue"
+						ng-model='r.ma_thue' ng-required="true">
+					</ng-selector>
+				</td>
+				<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+					<input type="text" class="form-control" ng-model="r.t_thue_nt" format="number" round="f_tien_nt"/>
+					<span ng-show="false">
+						{{r.t_thue=STP.round(r.t_thue_nt*ngMasterData.ty_gia,0)}}
+					</span>
+				</td>
+
+				<td>
+					<ng-typeahead
+						module="dmtk" fields="tk,ten_tk" field-model="tk" field-label="ten_tk"
+						condition ="loai_tk:1"
+						ng-model='r.tk_thue_co'   ng-required="true"   label="r.ten_tk_thue_co">
+					</ng-typeahead>
+				</td>
+				<td>
+					<ng-typeahead
+						module="dmtk" fields="tk,ten_tk" field-model="tk" field-label="ten_tk"
+						condition ="loai_tk:1"
+						ng-model='r.tk_du_thue'   ng-required="true"   label="r.ten_tk_du_thue">
+					</ng-typeahead>
+				</td>
+
+				<td>
+					<ng-typeahead  on-select="r.ten_kh=$item.ten_kh;r.dia_chi=$item.dia_chi;r.ma_so_thue=$item.ma_so_thue"
+						module="dmkh" fields="ma_kh,ten_kh,dia_chi,ma_so_thue" field-model="ma_kh" field-label="ten_kh"
+						ng-model='r.ma_kh' ng-required-cn = "r.tk_du_thue" label="ten_kh">
+					</ng-typeahead>
+				</td>
+				<td class="col-sm-5">
+					<input type="text"   class="form-control"
+
+						ng-model='r.ten_kh'/>
+				</td>
+				<td class="col-sm-5">
+					<input type="text"   class="form-control"
+						 ng-model='r.dia_chi'/>
+				</td>
+
+				<td>
+					<input type="text"   class="form-control"
+						ng-model='r.ma_so_thue'/>
+				</td>
+
+			</tr>
+		</table>
+	</div>
+	<div style='padding-bottom:13px;padding-left:10px;padding-top:10px'>
+		<div class='btn-group'>
+			<button type="button" class='btn btn-xs btn-primary'  ng-click="addDetail()">
+				<i class="fa fa-plus-square-o" aria-hidden="true"></i> {{getLabel('dong_moi','Thêm dòng mới').text}}
+			</button>
+		</div>
+	</div>
+</div>

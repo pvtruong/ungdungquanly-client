@@ -1,0 +1,1 @@
+var ckgtluongModule = new baseInput('ckgtluong','ckgtluong',["ten_giam_tru"],'Giảm trừ theo lương',{cache_data:false});

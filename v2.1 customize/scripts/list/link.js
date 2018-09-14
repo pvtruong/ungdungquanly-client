@@ -1,0 +1,1 @@
+var linkModule = new baseInput('link','link',["ma_dvt","ten_dvt"],'link');

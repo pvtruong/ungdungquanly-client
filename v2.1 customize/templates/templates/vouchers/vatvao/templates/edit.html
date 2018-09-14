@@ -1,0 +1,154 @@
+
+<form-detail>
+	<form-detail-title>
+		{{getLabel('THONG_TIN_THUE_DAU_VAO','Chi tiết VAT').text}}
+	</form-detail-title>
+	<form-detail-body>
+		<div class="form-group">
+			<label class="control-label col-md-1">{{getLabel('MA_TC','Mã tính chất').text}} <span class='required' title="{{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+			<div class="col-md-5">
+				<ng-selector
+					module="dmtc" fields="ma_tc,ten_tc" field-model="ma_tc" field-label="ten_tc"
+					ng-model='dt_current.ma_tc' ng-required="true">
+				</ng-selector>
+			</div>
+
+			<label class="control-label col-md-1">{{getLabel('SO_HOA_DON','Số hóa đơn').text}} <span class='required' title="{{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+			<div class="col-md-2">
+				<input type="text" style='text-transform:uppercase'  class="form-control" ng-model='dt_current.so_hd' ng-required="true"/>
+
+			</div>
+
+			<label class="control-label col-md-1">{{getLabel('SO_SERI','Số seri').text}} </label>
+			<div class="col-md-2">
+				<input type="text" style='text-transform:uppercase' class="form-control"  ng-model='dt_current.so_seri'/>
+
+			</div>
+		</div>
+		<div class="form-group">
+
+
+			<label class="control-label col-md-1">{{getLabel('NGAY_HOA_DON','Ngày hóa đơn').text}} <span class='required' title="{{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+			<div class="col-md-2">
+				<ng-datepicker ng-model="dt_current.ngay_hd" ng-required="true"></ng-datepicker>
+			</div>
+
+			<label class="control-label col-md-1">{{getLabel('THUE_SUAT','Thuế suất').text}} <span class='required' title="{{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+			<div class="col-md-2">
+				<ng-selector
+					module="dmvat" fields="ma_thue,ten_thue,thue_suat,tk_thue_no" field-model="ma_thue" field-label="ten_thue"
+					ng-model='dt_current.ma_thue' ng-required="true" on-select="dt_current.thue_suat=($item.thue_suat||0);dt_current.tk_thue_no=$item.tk_thue_no">
+				</ng-selector>
+
+			</div>
+
+
+			<label class="control-label col-md-1">{{getLabel('TK_THUE','TK thuế').text}} <span class='required' title="{{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+			<div class="col-md-2" >
+				<ng-typeahead
+					module="dmtk" fields="tk,ten_tk"
+					field-model="tk" field-label="ten_tk"
+					condition ="loai_tk:1"
+					ng-model='dt_current.tk_thue_no'  ng-required="true" ng-disabled="true"  label="ten_tk_du">
+				</ng-typeahead>
+			</div>
+
+			<label class="control-label col-md-1">{{getLabel('TK_DU','TK đối ứng').text}} <span class='required' title="{{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+			<div class="col-md-2">
+				<ng-typeahead
+					module="dmtk" fields="tk,ten_tk"
+					field-model="tk" field-label="ten_tk"
+					condition ="loai_tk:1"
+					ng-model='dt_current.tk_du_thue'  ng-required="true"  label="ten_tk_du"
+					>
+
+				</ng-typeahead>
+			</div>
+		</div>
+
+
+
+		<div class="form-group">
+			<label class="control-label col-md-1">{{getLabel('TIEN_HANG','Tiền hàng').text}} {{ngMasterData.ma_nt}} <span class='required' title="{{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+			<div class="col-md-2">
+				<input type="text" class="form-control" format="number" round="f_tien_nt" ng-model="dt_current.t_tien_nt"   ng-required="true"/>
+			</div>
+
+			<label class="control-label col-md-1" ng-show="ngMasterData.ma_nt!='VND'">{{getLabel('TIEN_HANG','Tiền hàng').text}} quy đổi</label>
+			<div class="col-md-2" ng-show="ngMasterData.ma_nt!='VND'">
+				<input type="text" class="form-control" format="number" round="f_tien" ng-model="dt_current.t_tien"  ng-required="true"/>
+			</div>
+
+			<label class="control-label col-md-1">{{getLabel('TIEN_THUE','Tiền thuế').text}} {{ngMasterData.ma_nt}} <span class='required' title="{{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+			<div class="col-md-2">
+				<input type="text" class="form-control" format="number" round="f_tien_nt" ng-model="dt_current.t_thue_nt" ng-required="true"/>
+			</div>
+
+			<label class="control-label col-md-1"  ng-show="ngMasterData.ma_nt!='VND'">{{getLabel('TIEN_THUE','Tiền thuế').text}} quy đổi</label>
+			<div class="col-md-2"  ng-show="ngMasterData.ma_nt!='VND'">
+				<input type="text" class="form-control" format="number" round="f_tien" ng-model="dt_current.t_thue"  ng-required="true"/>
+			</div>
+		</div>
+
+
+
+
+
+		<div class="form-group">
+			<label class="control-label col-md-1">{{getLabel('KHACH_HANG','Khách hàng').text}} <span class='required'>(*)</span></label>
+			<div class="col-md-5">
+				<ng-typeahead on-select="dt_current.ten_kh=$item.ten_kh;dt_current.dia_chi=$item.dia_chi;dt_current.ma_so_thue=$item.ma_so_thue"
+					module='dmkh' fields='ma_kh,ten_kh,dia_chi,ma_so_thue'
+					field-model='ma_kh' field-label='ten_kh'
+					ng-model='dt_current.ma_kh' ng-required-cn = "dt_current.tk_du_thue" label="ten_kh">
+
+				</ng-typeahead>
+			</div>
+
+			<label class="control-label col-md-1">{{getLabel('TEN_KHACH_HANG','Tên khách hàng').text}}</label>
+			<div class="col-md-5">
+				<input type="text"   class="form-control"
+					ng-model='dt_current.ten_kh'/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-1">{{getLabel('DIA_CHI','Địa chỉ').text}}</label>
+			<div class="col-md-5">
+				<input type="text"   class="form-control"
+
+					 ng-model='dt_current.dia_chi'/>
+
+			</div>
+			<label class="control-label col-md-1">{{getLabel('MA_SO_THUE','Mã số thuế').text}}</label>
+			<div class="col-md-5">
+				<input type="text"   class="form-control"
+
+					ng-model='dt_current.ma_so_thue'/>
+
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-1">{{getLabel('TEN_SP_DV','Sản phẩm, dịch vụ').text}}</label>
+			<div class="col-md-5">
+				<input type="text"   class="form-control" ng-model='dt_current.ten_vt'/>
+			</div>
+
+			<label class="control-label col-md-1">{{getLabel('DIEN_GIAI','Diễn giải').text}}</label>
+			<div class="col-md-5">
+				<input type="text"   class="form-control" ng-model='dt_current.dien_giai'/>
+			</div>
+		</div>
+        <div class="form-group">
+			<label class="control-label col-sm-1">{{getLabel('ma_hoa_don','Mã hoá đơn').text}}</label>
+			<div class="col-sm-5">
+				<input type="text" class="form-control" ng-model='dt_current.ma_hoa_don'/>
+
+			</div>
+
+			<label class="control-label col-sm-1">{{getLabel('ky_hieu_hd','K.hiệu số h.đơn').text}}</label>
+			<div class="col-sm-5">
+				<input type="text"  class="form-control" ng-model='dt_current.ky_hieu_hoa_don'/>
+			</div>
+		</div>
+	</form-detail-body>
+</form-detail>

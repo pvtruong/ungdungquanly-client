@@ -1,0 +1,1 @@
+var groupModule = new baseInput('group','group',["group_name","group_type"],'Nhóm',{cache_data:false});

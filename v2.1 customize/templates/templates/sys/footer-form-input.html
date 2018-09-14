@@ -1,0 +1,18 @@
+<hr />
+<div class='form-group'  style="padding:10px">
+	<div class='col-md-7 text-left  disable-small-screen'>
+		<div ng-if="action=='Sửa'">
+		<div><i>{{getLabel('nguoi_tao','Người tạo').text}}:<a ng-click="openProfile(data.user_created)">{{data.user_created}}</a></i></div>
+		<div><i>{{getLabel('ngay_tao','Ngày tạo').text}}:{{data.date_created|date:'dd/MM/yyyy HH:mm:ss'}}</i></div>
+		<div><i>{{getLabel('nguoi_sua','Người sửa').text}}:<a ng-click="openProfile(data.user_updated)">{{data.user_updated}}</a></i></div>
+		<div><i>{{getLabel('ngay_sua','Ngày sửa').text}}:{{data.date_updated|date:'dd/MM/yyyy HH:mm:ss'}}</i></div>
+		</div>
+	</div>
+	<!--action-->
+	<div class='col-xs-12 col-md-5 text-right'>
+		<button class="btn btn-danger navbar-btn" ng-click="create()" ng-disabled="form.$invalid || isSave" title="Ctrl+S">{{getLabel('luu','Lưu').text}}</button>
+		<button class="btn btn-primary" ng-click="create(1)" ng-disabled="form.$invalid || isSave" ng-if="print">{{getLabel('in','In').text}}</button>
+        <button class="btn btn-info" ng-click="delete(data)" ng-if="data._id && delete" >{{getLabel('Delete','Xoá').text}}</button>
+		<button class="btn btn-default" ng-click="cancel()">{{getLabel('huy','Hủy').text}}</button>
+	</div>
+</div>

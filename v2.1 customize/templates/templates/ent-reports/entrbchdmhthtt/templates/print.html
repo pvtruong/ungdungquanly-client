@@ -1,0 +1,91 @@
+﻿<div id="printView">
+<div><b>{{appInfo.name}}</b></div>
+<div><i>{{appInfo.address}}</i></div>
+<h3 class='text-center'>{{title}}</h3>
+<div>
+	<table class='table  table-striped  table-hover table-bordered'>
+			<tr>
+				<th>Số chứng từ</th>
+				<th>Ngày chứng từ</th>
+				<th>Số hóa đơn</th>
+				<th>Ngày hóa đơn</th>
+				<th>Mã khách</th>
+				<th>Tên khách hàng</th>
+				<th>Tổng tiền HD</th>
+				<th>Ngoại tệ</th>
+				<th>Đã thanh toán</th>
+				<th>Còn lại</th>
+				<th>Hạn thanh toán</th>
+				<th>Ngày phải thanh toán</th>
+				<th>Trong hạn</th>
+				<th>Quá hạn từ 1 đến {{condition.khoang_tg}} ngày</th>
+				<th>Quá hạn từ {{condition.khoang_tg}} đến {{condition.khoang_tg * 2}} ngày</th>
+				<th>Quá hạn từ {{condition.khoang_tg * 2}} đến {{condition.khoang_tg * 3}} ngày</th>
+				<th>Quá hạn trên {{condition.khoang_tg * 3}} ngày</th>
+				
+			</tr>
+			<tr ng-repeat='r in data' ng-class="r.bold?'cbold':'cnormal'">
+				<td>
+					{{::r.so_ct}}
+				</td>
+				<td>
+					{{::r.ngay_ct|date:'dd/MM/yyyy'}}
+				</td>
+				<td>
+					{{::r.so_hd}}
+				</td>
+				<td>
+					{{::r.ngay_hd|date:'dd/MM/yyyy'}}
+				</td>
+				<td>
+					{{::r.ma_kh}}
+				</td>
+				<td>
+					{{::r.ten_kh}}
+				</td>
+				<td>
+					{{::r.t_tt_nt|number:0}}
+				</td>
+				<td>
+					{{::r.ma_nt_tt}}
+				</td>
+				
+				<td>
+					{{::r.da_tt_nt|number:0}}
+				</td>
+				<td>
+					{{::r.con_lai_nt|number:0}}
+				</td>
+				<td>
+					{{::r.han_tt|number:0}}
+				</td>
+				<td>
+					{{::r.ngay_ptt|date:'dd/MM/yyyy'}}
+				</td>
+				<td>
+					{{::r.trong_han_nt|number:0}}
+				</td>
+				<td>
+					{{::r.qua_han_nt1|number:0}}
+				</td>
+				<td>
+					{{::r.qua_han_nt2|number:0}}
+				</td>
+				<td>
+					{{::r.qua_han_nt3|number:0}}
+				</td>
+				<td>
+					{{::r.qua_han_nt4|number:0}}
+				</td>
+				
+				
+			</tr>
+		</table>
+</div>
+<div type='margin-top:30px' class='row'>
+	<span class='col-xs-12'>
+		<div style='float:left;width:30%;text-align:center'>Kế toán trưởng</div>
+		<div style='float:right;width:30%;text-align:center'>Người lập</div>
+	</span>
+</div>
+</div>

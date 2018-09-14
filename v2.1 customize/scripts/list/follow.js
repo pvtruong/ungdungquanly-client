@@ -1,0 +1,1 @@
+var followModule = new baseInput('follow','follow',["ma_dvt","ten_dvt"],'Follow');

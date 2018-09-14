@@ -1,0 +1,62 @@
+<form role="form">
+  <div class='form-group'>
+    <label>Tài khoản <span class="required">*</span></label>
+    <div>
+      <ng-typeahead module="dmtk" fields="tk,ten_tk" field-model="tk" field-label="ten_tk" config="tk_cn:true" ng-model='config.tk' label="config.ten_tk" ng-required="true">
+      </ng-typeahead>
+    </div>
+
+    <div class="checkbox">
+      <label><input type="checkbox" ng-model="config.du_co_yn"/> Số dư có</label>
+    </div>
+  </div>
+
+  <div class='form-group'>
+    <label>Khách hàng/nhà cung cấp</label>
+    <div>
+      <ng-typeahead module="dmkh" fields="ma_kh,ten_kh" field-model="ten_kh" field-label="ma_kh" ng-model='config.ten_kh' label="config.ma_kh">
+      </ng-typeahead>
+    </div>
+  </div>
+
+  <div class='form-group'>
+    <label>Kho/cửa hàng</label>
+    <div>
+      <ng-typeahead module="dmkho" fields="ma_kho,ten_kho" field-model="ten_kho" field-label="ma_kho" ng-model='config.ten_kho' label="config.ma_kho"></ng-typeahead>
+    </div>
+  </div>
+  <div class='form-group'>
+    <label>Bộ phận</label>
+    <div>
+      <ng-typeahead module="dmbp" fields="ma_bp,ten_bp" field-model="ten_bp" field-label="ma_bp" ng-model='config.ten_bp' label="config.ma_bp"></ng-typeahead>
+    </div>
+  </div>
+
+  <div class='form-group'>
+    <label>Nhân viên</label>
+    <div>
+      <ng-typeahead module="dmnv" fields="ma_nv,ten_nv" field-model="ten_nv" field-label="ma_nv" ng-model='config.ten_nv' label="config.ma_nv"></ng-typeahead>
+    </div>
+  </div>
+
+  <div class='form-group'>
+    <label>Vụ việc/dự án</label>
+    <div>
+      <ng-typeahead module="dmdt" fields="ma_dt,ten_dt" field-model="ten_dt" field-label="ma_dt" ng-model='config.ten_dt' label="config.ma_dt"></ng-typeahead>
+    </div>
+  </div>
+
+  <div class='form-group'>
+    <label>Hợp đồng</label>
+    <div>
+      <ng-typeahead module="contract" fields="so_hd,ten_hd" field-model="ten_hd" field-label="so_hd" ng-model='config.ten_hd' label="config.ma_hd"></ng-typeahead>
+    </div>
+  </div>
+
+  <div class='form-group'>
+    <label>Doanh thu/phí</label>
+    <div>
+      <ng-typeahead module="dmphi" fields="ma_phi,ten_phi" field-model="ten_phi" field-label="ma_phi" ng-model='config.ten_phi' label="config.ma_phi"></ng-typeahead>
+    </div>
+  </div>
+</form>

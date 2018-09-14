@@ -1,0 +1,74 @@
+<div class="scrollable">
+	<div class="scrollable-header">
+		<div class="label-warning " >
+			<div class=" row" style="padding:5px;padding-left:10px">
+				<div  class="col-xs-6">
+					<div  class="dropdown" style="padding-top:5px">
+						<a style="text-decoration:none" class="dropdown-toggle"  ng-click="toggleDropdown('dklocban')" href="javascript:;">
+							Ngày {{today|date:'dd/MM/yyyy'}} <span class="caret"></span>
+						</a>
+						<div  class="dropdown-menu" role="menu" style="padding:5px"
+							ui-outer-click="turnOffDropdown('dklocban')"
+							ui-outer-click-if="Ui.active('dklocban')"
+							ui-show="dklocban"
+							ui-state="dklocban">
+							 <div  role="presentation">
+								<div>
+
+									   <uib-datepicker ng-model="today" ></uib-datepicker>
+
+								</div>
+								<div>
+									<div>
+										<label>Cửa hàng</label>
+										<div>
+											<ng-selector
+												module='dmkho' fields='ma_kho,ten_kho' field-model='ma_kho' field-label='ten_kho'
+												ng-model='ma_kho' label='ten_kho' ng-required="true">
+											</ng-selector>
+										</div>
+									</div>
+									<div>
+										<label>Nhóm theo</label>
+										<div>
+											<select ng-model='groupBy' class='form-control'>
+												<option value='ARIA'>Nhóm bàn</option>
+												<option value='TYPE'>Loại bàn</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-md-12 field-label">
+										Ghi chú:
+										<div class="label" style="cursor:default!important;border:1px solid silver;background-color:#FACDCF!important;color:black">Đang có khách</div>
+										<div class="label"  style="cursor:default!important;border:1px solid silver;background-color:#F8FACD!important;color:black">Đặt trước</div>
+										<div class="label"  style="cursor:default!important;border:1px solid silver;background-color:white!important;color:black">Trống</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="col-xs-6 text-right">
+					<button class="btn btn-danger" ng-click="add()"><i class="glyphicon glyphicon-plus"></i> Bàn mới</button>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="scrollable-content" style="overflow-x: hidden!important">
+		<div class="col-md-8" style="height:100%">
+			<div class="scrollable">
+				<div class="scrollable-content">
+					<div  ng-include="'templates/lists/dmban/templates/dsban.html'"></div>
+					<ng-page></ng-page>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 disable-small-screen" style="height:100%">
+			<pbl-list-view template-url="list-view" not-load-data="!selectedRow || !today"  require-reload="{cuoi_ngay:cuoi_ngay,ma_ban:selectedRow.ma_ban,pbls:pbls}" on-before-reload="$item.filter={ma_ban:selectedRow.ma_ban,tu_ngay:{$lte:cuoi_ngay},den_ngay:{$gte:dau_ngay}}" default-values="{ma_ban:selectedRow.ma_ban,ten_ban:selectedRow.ten_ban,ngay_ct:today,tu_ngay:today,den_ngay:today,trang_thai:'1',ma_kho:ma_kho}"></pbl-list-view>
+		</div>
+
+	</div>
+</div>

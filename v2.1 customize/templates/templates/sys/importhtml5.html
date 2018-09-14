@@ -1,0 +1,41 @@
+<div class="modal-header">
+	<button type="button" class="close" ng-click='cancel()' aria-hidden="true"> &times;</button>
+	<h4 class="modal-title" id="findModalLabel">
+	   Import from excel
+       <br/><small><a href="{{template}}">Download Template</a></small>
+	</h4>
+	<div file-upload-progress>
+		<div class="throbber-loader"></div>
+		<br/>
+	</div>
+</div>
+<div class="modal-body">
+	<div class='container' style="padding:20px">
+		<div style="padding-bottom:20px">
+			<input type="file" name="xlsx" ng-model="xlsx" file-upload="action + '?update=' + update" />
+		</div>
+		<div class="checkbox"><label><input type="checkbox" ng-model="update"/> Thay thế nối đã tồn tại</label></div>
+		<div ng-if="result">
+			<div style="color:red"><span ng-if="!result.rows_error">{{result}}</span><span ng-if="result.rows_error">Result: {{result.rows_imported|number:0}} rows was imported, {{result.rows_error.length|number:0}} row(s) have error</span></div>
+			<div class="table-responsive" ng-if="result.rows_error && result.rows_error.length>0">
+				<table class="table  table-striped">
+					<tr>
+						<th>Error</th>
+						<th ng-repeat="c in result.columns_name">
+							{{result.columns[c]}}
+						</th>
+					</tr>
+					<tr ng-repeat="r in result.rows_error">
+						<td style="color:red">
+							<p ng-repeat="e in r.error">{{e}}</p>
+						</td>
+						<td ng-repeat="c in result.columns_name">
+							{{r.row[c]}}
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</div>

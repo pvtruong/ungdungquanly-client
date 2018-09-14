@@ -1,0 +1,31 @@
+﻿<div class="scrollable">
+<div class="scrollable-header"><stplistheader btn1="text:'Báo cáo',click:function(){$location.url('/bcdkt');}"></stplistheader></div>
+<div class="row scrollable-content"> <div class="table-list">
+	<table class ="table table-striped">
+		<tr><th class="text-center"  style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll"></th><th style="width:30px"></th><th>Mẫu số</th><th>Chỉ tiêu</th></tr>
+		<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)"  ng-class="r.bold?'cbold':'cnormal'">
+			<td width='30px' class="text-center" ng-show="multiSelect"> <input type="checkbox" ng-model="r.sel"/> </td><td class="text-center" style="width:30px"><div  ng-include="'templates/sys/quick-actions-list.html'"></div></td>
+			<td   style='cursor:pointer' ng-click='edit(r._id)'>
+					{{ r.stt }} - {{ r.ma_so }}
+			</td>
+			
+			<td   style='cursor:pointer' ng-click='edit(r._id)'>
+					{{ r.chi_tieu }}
+					<div ng-if="r.chi_tieu2">{{ r.chi_tieu2 }}</div>
+					<div ng-if="r.tk" style="font-weight:normal">
+						TK:
+						<span style='color:green'>{{ r.tk }}</span>
+						
+					</div>
+					<div ng-if="r.cong_thuc" style="font-weight:normal">
+						CT:
+						<span style='color:green'>{{ r.cong_thuc}}</span>
+						
+					</div>
+			</td>
+			
+			
+		</tr>
+	</table><ng-page></ng-page></div>
+
+</div></div>

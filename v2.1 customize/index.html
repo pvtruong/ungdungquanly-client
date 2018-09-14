@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+
+<html lang="vi">
+  <!--<![endif]-->
+  <!-- BEGIN HEAD -->
+
+  <head>
+    <meta charset="utf-8"/>
+    <title>ỨNG DỤNG QUẢN LÝ</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport"/>
+    <meta content="Accounting, crm, pos, hrm, software" name="description"/>
+    <meta content="Phạm Văn Trường" name="author"/>
+    <meta content="#34AADC" name="theme-color"/>
+    <!--<link rel="manifest" href="/manifest.json">-->
+    <!--service worker-->
+    <script>
+      var endpoint,
+        key,
+        authSecret;
+      if (!Notification) {
+        console.log("Trinh duyet cua ban khong ho tro notification");
+      } else {
+
+        if (navigator.serviceWorker) {
+          navigator.serviceWorker.register('sw.js').then(function (serviceWorkerRegister) {
+            return serviceWorkerRegister.pushManager.getSubscription().then(function (subscription) {
+              if (subscription) {
+                return subscription;
+              }
+              return serviceWorkerRegister.pushManager.subscribe({userVisibleOnly: true});
+            });
+
+          }).then(function (subscription) {
+            endpoint = subscription.endpoint;
+
+            if (!endpoint) {
+              //alert("Trình duyệt của bạn không hỗ trợ push notification. Hãy sử dụng trình duyệt Chrome bản mới nhất để chương trình chạy tốt nhất")
+              console.log("Trình duyệt của bạn không hỗ trợ push notification. Hãy sử dụng trình duyệt Chrome bản mới nhất để chương trình chạy tốt nhất");
+            }
+
+          });
+        } else {
+          console.log("Trình duyệt của bạn không hỗ trợ service worker. Hãy sử dụng chrome bản mới nhất để chương trình chạy tốt nhất")
+        }
+        if (Notification.permission !== "granted") {
+          Notification.requestPermission();
+        }
+      }
+    </script>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+
+    <link href="libs/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="libs/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="libs/angular-xeditable/dist/css/xeditable.css" rel="stylesheet" type="text/css"/>
+
+    <link href="libs/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css" rel="stylesheet" type="text/css"/>
+
+
+
+    <link rel="stylesheet" href="libs/angular-chart.js/dist/angular-chart.css">
+
+    <link rel="stylesheet" href="libs/ui-select/dist/select.min.css">
+
+
+
+    <link href="libs/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
+    <link href='libs/fullcalendar/fullcalendar.print.min.css' rel='stylesheet' media='print'/>
+
+    <link href='libs/floating-button/mfb-smallchild.css' rel='stylesheet'/>
+    <!-- Only required for desktop -->
+    <link rel="stylesheet" href="libs/mobile-angular-ui/dist/css/mobile-angular-ui-hover.min.css"/>
+
+    <!-- Always required -->
+    <link rel="stylesheet" href="libs/mobile-angular-ui/dist/css/mobile-angular-ui-base.min.css"/>
+
+    <!-- Only required for desktop -->
+    <link rel="stylesheet" href="libs/mobile-angular-ui/dist/css/mobile-angular-ui-desktop.min.css"/>
+
+    <link href="libs/jquery.qtip/jquery.qtip.min.css" rel="stylesheet" type="text/css"/>
+    <link href="libs/angular-toastr/dist/angular-toastr.min.css" rel="stylesheet" type="text/css"/>
+
+
+
+    <!-- BEGIN THEME STYLES -->
+    <!--<link rel="stylesheet" href="css/ionicons.min.css" rel="stylesheet" type="text/css">-->
+
+    <!--<link rel='stylesheet' href='libs/textAngular/dist/textAngular.css'>-->
+
+    <link href="libs/pivottable/dist/pivot.min.css" rel="stylesheet" type="text/css"/>
+
+    <link rel='stylesheet' href='libs/mermaid/dist/mermaid.forest.css'/>
+
+    <link href="libs/semantic-ui-step/step.min.css" rel="stylesheet" type="text/css"/>
+    <link href="libs/semantic-ui-card/card.min.css" rel="stylesheet" type="text/css"/>
+    <!--<link href="libs/semantic-ui-sticky/sticky.min.css" rel="stylesheet" type="text/css"/>-->
+
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/css/bootstrap-material-design.min.css">-->
+
+     <!-- styles -->
+       <link href="css/multiple-select.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/angular-dashboard-framework.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.min.css" type="text/css">
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="images/favicon.ico"/>
+
+
+  </head>
+  <!-- END HEAD -->
+
+  <body>
+    <div
+      id="page-app"
+      style="width:100%;height:100%;display:none"
+      oncontextmenu="return (_platform!='ios' && _platform!='android')"
+      ng-app="accApp"
+      ng-controller="homeController"
+      class="page-header-fixed page-quick-sidebar-over-content page-full-width ng-cloak">
+      <!-- Sidebars -->
+      <!--<div class="sidebar sidebar-left  ng-cloak" ng-if="app_info && (!interface || interface=='dashboard')" onclick='hidechat()'>
+        <div class="scrollable">
+          <div class="scrollable-header">
+            <app-header></app-header>
+            <div class="input-group">
+              <input type="text" ng-readonly="!app_info" class="form-control" placeholder="{{getLabel('TIM','Tìm').text}}..." ng-model='searchword' ng-keyup="searchAllKeyup($event,searchword)">
+              <span class="input-group-addon">
+                <a ng-click="searchAll(searchword)" ng-disabled='!searchword' class=" submit">
+                  <i class="icon-magnifier"></i>
+                </a>
+              </span>
+            </div>
+          </div>
+          <div class="scrollable-content">
+            <react-t-menu commands ="commands" color = "blue" size="massive"></react-t-menu>
+          </div>
+        </div>
+
+      </div>-->
+      <div class="sidebar sidebar-right  ng-cloak" style="background-color:white" onclick='hidechat()'>
+        <div class="scrollable">
+          <div class="scrollable-content">
+            <ul class="list-group" ui-toggle="uiSidebarRight">
+              <li class="list-group-item" ng-show="user">
+                <a href="#!/profile">
+                  <i class="icon-user"></i>
+                  {{getLabel('THONG_TIN_CA_NHAN','Thông tin cá nhân').text}}
+                </a>
+              </li>
+
+              <li class="list-group-item">
+                <a href="#!/notification">
+                  <i class="icon-bell"></i>
+                  {{getLabel('thong_bao','Thông báo').text}}
+                </a>
+                <span class="badge badge-default" ng-show="notifies_count">
+                  {{notifies_count?notifies_count:0|number:0}}
+                </span>
+              </li>
+
+              <li class="list-group-item">
+                <a href="#!/message">
+                  <i class="fa fa-comment"></i>
+                  {{getLabel('tin_nhan','Tin nhắn').text}}
+                </a>
+                <span class="badge badge-default" ng-show="messages_count">
+                  {{messages_count?messages_count:0|number:0}}
+                </span>
+              </li>
+
+              <li class="list-group-item" ng-show="app_info">
+                <a href="#!/task">
+                  <i class="icon-rocket"></i>
+                  {{getLabel('CONG_VIEC','Công việc').text}}
+                </a>
+                <span class="badge badge-default" ng-show="task_count">
+                  {{task_count?task_count:0|number:0}}
+                </span>
+              </li>
+
+              <li class="list-group-item" ng-show="app_info">
+                <a href="#!/mailbox">
+                  <i class="icon-envelope-open"></i>
+                  {{getLabel('HOP_THU','Hộp thư').text}}
+                </a>
+              </li>
+
+              <!--<li class="list-group-item" ng-show="user"> <a href="#!/colleague"> <i class="fa fa-group fa-fw"></i> {{getLabel('NHOM','Nhóm').text}} </a> </li>-->
+              <li class="list-group-item" ng-show="user">
+                <a href="#!/app">
+                  <i class="fa fa-building fa-fw"></i>
+                  {{getLabel('DS_CONG_TY','Danh sách công ty').text}}
+                </a>
+              </li>
+
+              <li class="list-group-item" ng-show="user && user.admin">
+                <a href="#!/admin">
+                  <i class="fa fa-cog fa-fw"></i>
+                  {{getLabel('QUAN_TRI_HT','Quản trị hệ thống').text}}
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="http://saotienphong.com.vn">
+                  <i class="fa fa-home fa-fw"></i>
+                  Support</a>
+              </li>
+
+              <li class="list-group-item">
+                <a href="#!/comment">
+                  <i class="fa fa-exclamation-circle fa-fw"></i>
+                  Issues</a>
+              </li>
+
+              <!--<li class="list-group-item" ng-if="!lang || lang=='VN'"> <a ng-click="setLang('EN')"> <i></i> English </a> </li> <li class="list-group-item" ng-if="lang=='EN'"> <a ng-click = 'setLang("VN")'> <i></i> Tiếng Việt </a> </li> <li
+              class="list-group-item"> <a href="#!/labelinfo"> <i></i> Dịch </a> </li>-->
+
+              <li class="list-group-item">
+                <a href="#!/logout">
+                  <i class="icon-key"></i>
+                  {{getLabel('DANG_XUAT','Đăng xuất').text}}
+                </a>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="app" ui-swipe-right="Ui.turnOn('uiSidebarLeft')" onclick='hidechat()'>
+        <!-- Top Navbar -->
+        <div class="navbar navbar-app navbar-absolute-top  ng-cloak bar-top section-info">
+          <div class="btn-group pull-left" ng-show="app_info">
+            <div>
+              <react-t-menu commands ="commands" app-info="app_info" handle-search="searchAll($value)"></react-t-menu>
+            </div>
+          </div>
+          <div class="navbar-brand navbar-brand-left" ui-yield-to="title">
+            <a href="{{function_code?'#!' + function_code:'#!/'}}">
+              <span ng-show="false">{{ztitle = function_code?getLabel('ten_ct'+function_code,function_title).text:function_title}}</span>
+              <span class="">{{STP.tructed(ztitle,(innerWidth<=500?15:45),"left")}}</span>
+
+            </a>
+            <div ui-yield-to="extTitle"></div>
+          </div>
+          <span server-loader="server-loader">
+            <i class="fa fa-spinner fa-spin loading-spinner-small"></i>
+          </span>
+
+          <div class="pull-right">
+            <div class="btn-group pull-right" ui-yield-to="navbarAction" ng-if="user">
+              <div ui-toggle="uiSidebarRight" class="btn sidebar-right-toggle">
+                <img alt="" class="img-circle" style="width:32px;height:32px" img-cache="img-cache" ic-src="{{server_url}}{{user.picture?user.picture:'/images/avatar.jpg'}}"/>
+                <a href="javascript:;" class="disable-small-screen">{{user.last_name}}
+                </a>
+                <small>
+                  <i class="fa fa-angle-down"></i>
+                </small>
+              </div>
+            </div>
+
+            <div class="btn-group pull-right disable-small-screen" ui-yield-to="navbarAction" ng-if="user">
+              <a class="btn" href="#!/message">
+                <i class="fa fa-comment"></i>
+                <span class="badge badge-default" ng-show="messages_count">
+                  {{messages_count?messages_count:0|number:0}}
+                </span>
+              </a>
+            </div>
+
+            <div class="btn-group pull-right disable-small-screen" ui-yield-to="navbarAction" ng-if="user">
+              <a class="btn" href="#!/notification">
+                <i class="icon-bell"></i>
+                <span class="badge badge-default" ng-show="notifies_count">
+                  {{notifies_count?notifies_count:0|number:0}}
+                </span>
+              </a>
+            </div>
+
+            <div class="btn-group pull-right disable-small-screen" ui-yield-to="navbarAction" ng-if="user">
+              <a class="btn" href="#!/task">
+                <i class="icon-calendar"></i>
+                <span class="badge badge-default" ng-show="task_count">
+                  {{task_count?task_count:0|number:0}}
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- App body -->
+        <div ng-class="'app-body ' + (user?'app-body-sm':'')" style="background-color:white">
+          <!--<div class="app-content-loading" route-loader="route-loader"> <i class="fa fa-spinner fa-spin loading-spinner"></i> </div>-->
+          <div>
+            <div class="alert alert-danger" ng-show="app_info.so_ngay_con_lai==0">Chương trình cho
+              <b>{{app_info.name}}</b>
+              đã hết hạn sử dụng. Hãy liên lạc với Sao Tiên Phong để mua thêm thời gian sử dụng.</div>
+            <div class="alert alert-warning" ng-show="app_info.so_ngay_con_lai<=10 && app_info.so_ngay_con_lai>0">Chương trình cho
+              <b>{{app_info.name}}</b>
+              sẽ hết hạn sử dụng vào ngày
+              <b>{{app_info.expire_date|date:'dd/MM/yyyy'}}
+                (còn
+                {{app_info.so_ngay_con_lai}}
+                ngày)</b>. Để tránh dán đoạn việc sử dụng, bạn hãy liên lạc với Sao Tiên Phong để mua thêm thời gian sử dụng.</div>
+            <div class="alert alert-danger" ng-show="error && !printing">{{error}}</div>
+            <div class="alert alert-danger" ng-show="!online && platform()=='browser'">{{getLabel('NGOAI_TUYEN','Bạn đang ngoại tuyến. Chương trình này yêu cầu phải có kết nối internet để sử dụng.').text}}</div>
+
+          </div>
+          <div class='app-content' shortcut="shortcut" style="max-width: 100%;overflow-x: hidden;">
+            <div class="scrollable">
+              <div class='scrollable-content ng-cloak page' ng-view="ng-view" style="max-width: 100%;overflow-x: hidden;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <iframe name="printframe" id="printframe"></iframe>
+
+
+      <!--chat box-->
+      <!--<div class="chat_box disable-small-screen" id="chat">
+        <div class="chatheader" onclick='showhidechat()'>
+          <i class="fa fa-comment" aria-hidden="true"></i>
+          Hỗ trợ người dùng
+
+        </div>
+        <div class="pesan_chat">
+          <p onclick='showhidechat()'>Nếu bạn cần hỗ trợ sử dụng chương trình, Hãy liên hệ với chúng tôi qua email
+            <a href='mailto:info@saotienphong.com.vn'>info@saotienphong.com.vn</a>
+          </p>
+          <p>hoặc</p>
+          <a href="javascript: void(0)" onclick="popup('https://m.me/saotienphongsoftware');showhidechat()" title="Chat on Messenger">
+            <span class="chat_button">Facebook Messenger</span></a>
+        </div>
+      </div>-->
+    </div>
+    <div id="page-loading" class="app-content-loading">
+      <img style="display:block; margin:0 auto;padding-top:200px;height:50%" src="images/page-loading.gif">
+    </div>
+    <!--end chat box-->
+
+    <script src="libs/jquery/dist/jquery.min.js"></script>
+    <script src="libs/jquery-ui/jquery-ui.min.js"></script>
+    <script src="libs/jquery-ui-touch.js"></script>
+    <script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="libs/c3/c3.min.css">
+    <script type="text/javascript" src="libs/c3/c3.min.js"></script>
+
+    <script src="libs/pivottable/dist/pivot.min.js"></script>
+    <script src="libs/pivottable/dist/c3_renderers.min.js"></script>
+
+    <script src="libs/SocketIO.js"></script>
+    <script src="libs/mermaid/dist/mermaid.min.js"></script>
+    <script src="libs/file-saver/FileSaver.min.js"></script>
+
+    <script src="libs/angular/angular.min.js"></script>
+    <script src="libs/angular-locale_vi-vn.js"></script>
+    <script src="libs/angular-cookies/angular-cookies.min.js"></script>
+    <script src="libs/angular-route/angular-route.min.js"></script>
+
+    <script src="libs/mobile-angular-ui/dist/js/mobile-angular-ui.min.js"></script>
+    <script src="libs/mobile-angular-ui/dist/js/mobile-angular-ui.gestures.min.js"></script>
+
+    <script type="text/javascript" src="libs/angular-bootstrap/ui-bootstrap.js"></script>
+    <script type="text/javascript" src="libs/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+    <script src="libs/checklist-model.js"></script>
+    <script src="libs/angular-xeditable/dist/js/xeditable.min.js"></script>
+
+    <script src="libs/angular-animate/angular-animate.min.js"></script>
+
+    <script src="libs/Highcharts/js/highcharts.js"></script>
+    <script src="libs/Highcharts/js/modules/exporting.js"></script>
+
+    <script src="libs/multiple-select.js"></script>
+    <script src="libs/ui-select/dist/select.min.js"></script>
+
+    <script src="libs/underscore/underscore.js"></script>
+    <script src="libs/async/dist/async.min.js"></script>
+    <script src="libs/scrollglue.js"></script>
+
+    <script src="libs/floating-button/modernizr.touch.js"></script>
+    <script src="libs/floating-button/mfb-directive.js"></script>
+
+    <script src="libs/cache.js"></script>
+    <script src="libs/stp.js"></script>
+
+    <script src="libs/ng-textcomplete/ng-textcomplete.min.js"></script>
+
+    <script src='libs/moment/min/moment-with-locales.min.js'></script>
+
+    <script src='libs/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.min.js'></script>
+
+    <script src="libs/jquery.qtip/jquery.qtip.min.js"></script>
+    <script src="libs/fullcalendar/lib/moment.min.js"></script>
+    <script src="libs/fullcalendar/fullcalendar.min.js"></script>
+    <script src='libs/fullcalendar/locale-all.js'></script>
+    <script src="libs/fullcalendar/gcal.min.js"></script>
+
+    <script src="libs/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js"></script>
+
+
+    <script src="libs/jsbarcode/dist/JsBarcode.all.min.js"></script>
+    <script src="libs/angular-barcode/dist/angular-barcode.js"></script>
+
+    <script src="libs/imgcache.js/js/imgcache2.js"></script>
+    <script src="libs/angular-imgcache/angular-imgcache2.js"></script>
+
+    <script src="libs/webshim/js-webshim/minified/polyfiller.js"></script>
+
+    <script type="text/javascript" src="libs/tinymce/tinymce.js"></script>
+    <script type="text/javascript" src="libs/angular-ui-tinymce/src/tinymce.js"></script>
+
+    <script type="text/javascript" src="libs/Sortable/Sortable.js"></script>
+    <script src="libs/angular-toastr/dist/angular-toastr.tpls.min.js"></script>
+    <!--<script src="libs/semantic-ui-sticky/sticky.min.js"></script>-->
+
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function (event) {
+        setTimeout(function () {
+          $('#page-loading').fadeOut('slow');
+          $('#page-app').css("display", "");
+        }, 1000);
+
+        webshims.setOptions('forms-ext', {
+          datepicker: {
+            dateFormat: 'dd/mm/yy'
+          }
+        });
+        webshims.activeLang('en-AU');
+        webshims.polyfill('forms forms-ext');
+        mermaid.initialize({
+          startOnLoad: false,
+          flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true
+          }
+        });
+      });
+
+      /*function showhidechat() {
+        var o = document.getElementById("chat");
+        "0px" !== o.style.bottom
+          ? o.style.bottom = "0px"
+          : o.style.bottom = "-210px"
+      }*/
+
+      function hidechat() {
+        //var o = document.getElementById("chat");
+        //o.style.bottom = "-210px";
+      }
+
+      function popup(o) {
+        var t = 650,
+          n = 400,
+          e = (screen.width - t) / 2,
+          i = (screen.height - n) / 2,
+          s = "width=" + t + ", height=" + n;
+        return s += ", top=" + i + ", left=" + e,
+        s += ", directories=no",
+        s += ", location=no",
+        s += ", menubar=no",
+        s += ", resizable=no",
+        s += ", scrollbars=no",
+        s += ", status=no",
+        s += ", toolbar=no",
+        newwin = window.open(o, "windowname5", s),
+        window.focus && newwin.focus(),
+        !1
+      };
+    </script>
+    <!--cordova-->
+    <script src="libs/ng-cordova-master/dist/ng-cordova.js"></script>
+    <script src="cordova.js"></script>
+    <!--main-->
+    <script src="configs.js"></script>
+    <script src="templates.js"></script>
+    <script src="react.js"></script>
+    <script src="app.min.js"></script>
+
+
+  </body>
+  <!-- END BODY -->
+
+</html>

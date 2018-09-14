@@ -1,0 +1,141 @@
+<form-input auto-height="true">
+	<form-input-body>
+		<uib-tabset>
+			<uib-tab heading='Thông tin chính'>
+				<div class="form-group">
+					<label class="control-label col-md-3">{{getLabel('ten_pt_thanh_toan','Tên').text}}
+						<span class="required">(*)</span></label>
+					<div class="col-md-9">
+						<input type="text" class="form-control" ng-model='data.ten' required="required">
+					</div>
+
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-3">{{getLabel('khos','Áp dụng cho cửa hàng').text}}</label>
+					<div class="col-md-9">
+						<ng-selector module="dmkho" fields="ma_kho,ten_kho" multiple="multiple" field-model="ma_kho" field-label="ten_kho" ng-model='data.ds_ma_kho'></ng-selector>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 text-right">{{getLabel('hinh_thuc_ban_hang','Hình thức bán hàng').text}}</label>
+					<div class="col-md-9">
+						<label ng-repeat="item in [{v:0,t:'Offline'},{v:1,t:'Online'},{v:2,t:'Cả hai'}]" style="padding-right:10px">
+							<input type='radio' ng-model='data.hinh_thuc' ng-value="item.v"/>
+							{{item.t}}
+						</label>
+					</div>
+				</div>
+
+				<div class="form-group" ng-show="data.hinh_thuc==1 || data.hinh_thuc==2 || data.hinh_thuc==undefined">
+					<div class="col-md-offset-3 col-md-9 checkbox">
+						<label><input type="checkbox" ng-model="data.tra_truoc"/>
+							{{getLabel('tra_truoc','Trả trước').text}}</label>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-3">{{getLabel('dt_cong_no','Ghi nhận công nợ cho').text}}</label>
+					<div class="col-md-9">
+						<ng-typeahead module='dmkh' fields='ma_kh,ten_kh' field-model='ten_kh' field-label='ma_kh' ng-model='data.ten_kh' label='data.ma_kh'></ng-typeahead>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 text-right">{{getLabel('co_gia_tri_voi','Có giá trị với').text}}
+					</label>
+					<div class="col-sm-9">
+						<label ng-repeat="item in [{v:0,t:'Mọi người'},{v:1,t:'Chỉ người tạo'},{v:2,t:'Những người sau'}]" style="padding-right:10px">
+							<input type='radio' ng-model='data.visible_to' name='visible_to' ng-value="item.v"/>
+							{{item.t}}
+						</label>
+						<ui-select ng-show='data.visible_to==2' multiple="multiple" ng-model="data.visible_to_users" theme="bootstrap" close-on-select="false" title="Chọn một user">
+							<ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+							<ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+
+								<small>
+									{{person.name}}
+
+								</small>
+							</ui-select-choices>
+						</ui-select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-md-offset-3 col-md-10">
+						<div class="checkbox">
+							<label><input type="checkbox" ng-model="data.status"/>
+								{{getLabel('con_su_dung','Còn sử dụng').text}}</label>
+						</div>
+					</div>
+				</div>
+			</uib-tab>
+			<uib-tab heading='TK mặc định'>
+				<div class="form-group">
+					<label class="control-label col-md-3">{{getLabel('tk_tien','TK tiền').text}}</label>
+					<div class="col-md-9">
+						<ng-typeahead module='dmtk' fields='tk,ten_tk' field-model='tk' field-label='ten_tk' ng-model='data.tk_tien' label='data.ten_tk_tien' condition="loai_tk:1"></ng-typeahead>
+					</div>
+				</div>
+
+				<!--<div class="form-group"> <label class="control-label col-md-3">{{getLabel('tk_dien_dc','Tiền đang chuyển').text}}</label> <div class="col-md-9"> <ng-typeahead module='dmtk' fields='tk,ten_tk' field-model='tk' field-label='ten_tk'
+				ng-model='data.tk_tien_dc' label='data.ten_tk_tien_dc' condition="loai_tk:1"></ng-typeahead> </div> </div>-->
+
+				<div class="form-group">
+					<label class="control-label col-md-3">{{getLabel('tk_cn','TK công nợ').text}}</label>
+					<div class="col-md-9">
+						<ng-typeahead module='dmtk' fields='tk,ten_tk' field-model='tk' field-label='ten_tk' ng-model='data.tk_cn' label='data.ten_tk_cn' condition="loai_tk:1"></ng-typeahead>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-3">{{getLabel('tk_dt','TK doanh thu').text}}</label>
+					<div class="col-md-9">
+						<ng-typeahead module='dmtk' fields='tk,ten_tk' field-model='tk' field-label='ten_tk' ng-model='data.tk_dt' label='data.ten_tk_dt' condition="loai_tk:1"></ng-typeahead>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-3">{{getLabel('tk_tl','TK trả lại').text}}</label>
+					<div class="col-md-9">
+						<ng-typeahead module='dmtk' fields='tk,ten_tk' field-model='tk' field-label='ten_tk' ng-model='data.tk_tl' label='data.ten_tk_tl' condition="loai_tk:1"></ng-typeahead>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-3">{{getLabel('tk_ck','TK chiết khấu').text}}</label>
+					<div class="col-md-9">
+						<ng-typeahead module='dmtk' fields='tk,ten_tk' field-model='tk' field-label='ten_tk' ng-model='data.tk_ck' label='data.ten_tk_ck' condition="loai_tk:1"></ng-typeahead>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-3">{{getLabel('tk_gv','TK giá vốn').text}}</label>
+					<div class="col-md-9">
+						<ng-typeahead module='dmtk' fields='tk,ten_tk' field-model='tk' field-label='ten_tk' ng-model='data.tk_gv' label='data.ten_tk_gv' condition="loai_tk:1"></ng-typeahead>
+					</div>
+				</div>
+			</uib-tab>
+			<uib-tab heading='Khác'>
+				<div class="form-group">
+					<label class="control-label col-md-3">{{getLabel('tk_nh','TK ngân hàng').text}}</label>
+					<div class="col-md-9">
+						<input type="text" class="form-control" ng-model='data.tai_khoan_nh'>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">{{getLabel('chu_tk','Chủ tài khoản').text}}</label>
+					<div class="col-md-9">
+						<input type="text" class="form-control" ng-model='data.chu_tai_khoan'>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-md-3">{{getLabel('tai_ngan_hang','Tại ngân hàng').text}}</label>
+					<div class="col-md-9">
+						<input type="text" class="form-control" ng-model='data.ngan_hang'>
+					</div>
+				</div>
+			</uib-tab>
+		</uib-tabset>
+	</form-input-body>
+</form-input>

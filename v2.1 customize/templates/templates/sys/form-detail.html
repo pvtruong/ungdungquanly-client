@@ -1,0 +1,39 @@
+<div class="modal-body">
+  <div ng-class="autoHeight?'':'scrollable'" ng-style="autoHeight?{'background-color':'white'}:{'height':(innerHeight-1).toString() + 'px','background-color':'white'}">
+    <div class='scrollable-header section-info'>
+      <div class='row'>
+        <!--header of form-->
+        <div class='pull-left'>
+          <div class="header-form">
+            <div ng-transclude="title" ng-style="{'padding':'5px','padding-top':(platform()!=='ios' ?'5px':'25px')}">
+              {{title?title:getLabel('chi_tiet','Chi tiết').text}}
+            </div>
+          </div>
+        </div>
+        <!--action-->
+        <div class='pull-right'>
+          <div ng-transclude="toolbar">
+            <button type="button" class="btn btn-primary" ng-click="updateDetail()" ng-disabled="formdetail.$invalid" title="Ctrl+S">
+      					   {{getLabel('nhan','Nhận').text}}
+      					</button>
+            <button type="button" class="btn btn-default" ng-click='cancelDetail()' aria-hidden="true">{{getLabel('huy','Hủy').text}}</button>
+          </div>
+        </div>
+
+      </div>
+      <div ng-class="alertType" ng-if="messageError">{{messageError}}</div>
+    </div>
+    <div class="scrollable-content">
+      <form name="formdetail" novalidate class="css-form form-horizontal">
+        <div ng-transclude="body" next-focus>
+
+        </div>
+      </form>
+    </div>
+    <div class="scrollable-footer">
+      <div ng-transclude="footer" style="padding:5px">
+
+      </div>
+    </div>
+  </div>
+</div>

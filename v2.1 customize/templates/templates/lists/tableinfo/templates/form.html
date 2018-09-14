@@ -1,0 +1,263 @@
+﻿<form-input><form-input-body>
+	<div class="form-group">
+		<label class="control-label col-md-1">Code <span class="required">(*)</span></label>
+		<div class="col-md-3">
+			<input type="text"  class="form-control" ng-model='data.code' ng-required='true'>
+		</div>
+
+		<label class="control-label col-md-1">Title <span class="required">(*)</span></label>
+		<div class="col-md-7">
+			<input type="text"  class="form-control" ng-model='data.title' ng-required='true'>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<div class="col-md-12">
+			<h3>Headers</h3>
+			<table class="table">
+				<tr ng-repeat="header  in data.headers">
+					<td>
+						<div class="close" ng-click="STP.reject(data.headers,{line:header.line})">&times;</div>
+						<div>
+							Hide when: <textarea ng-model="header.hide"></textarea>
+						</div>
+						<table class="table table-bordered">
+							<tr>
+								<th></th>
+								<th>Index<span class="required">(*)</span></th>
+								<th>Header</th>
+								<th>Field (String or Object)</th>
+								<th>Row Span</th>
+								<th>Col Span</th>
+								<th>Data type</th>
+								<th>Text Align</th>
+								<th>ReadOnly</th>
+								<th>Hide</th>
+								<th>Width</th>
+								<th>Round</th>
+
+								<th>Color</th>
+
+								<th>Label</th>
+								<th>Bold</th>
+								<th>Small</th>
+								<th>Italic</th>
+								<th>Style (Object)</th>
+							</tr>
+							<tr ng-repeat="cell  in header.cells|orderBy:'index'">
+								<td>
+									<divclass="close" ng-click="STP.reject(header.cells,{index:cell.index})">&times;</div>
+								</td>
+								<td>
+									<input type="number" ng-model="cell.index" class="form-control" ng-required="true"/>
+								</td>
+								<td>
+									<input type="text" ng-model="cell.header" class="form-control"/>
+								</td>
+								<td>
+									<textarea ng-model="cell.field" class="form-control" rows="3"></textarea>
+								</td>
+								<td>
+									<input type="number" ng-model="cell.rowSpan" class="form-control"/>
+								</td>
+								<td>
+									<input type="number" ng-model="cell.colSpan" class="form-control"/>
+								</td>
+								<td>
+									<select class="form-control" ng-model="cell.dataType">
+										<option value="String">String</option>
+										<option value="Number">Number</option>
+										<option value="Date">Date</option>
+										<option value="DateTime">Date Time</option>
+										<option value="Boolean">Boolean</option>
+										<option value="Button">Button</option>
+										<option value="Avatar">Avatar</option>
+										<option value="Image">Image</option>
+										<option value="Structure">Structure</option>
+									</select>
+								</td>
+
+								<td>
+									<select class="form-control" ng-model="cell.textAlign">
+										<option value="Left">Left</option>
+										<option value="Right">Right</option>
+										<option value="Center">Center</option>
+									</select>
+								</td>
+
+								<td>
+									<input type="checkbox" ng-model="cell.readOnly"/>
+								</td>
+								<td>
+									<input type="checkbox" ng-model="cell.hide"/>
+								</td>
+								<td>
+									<input type="number" ng-model="cell.width" class="form-control"/>
+								</td>
+								<td>
+									<input type="number" ng-model="cell.maximumFractionDigits" class="form-control"/>
+								</td>
+								<td>
+									<input type="color" ng-model="cell.color" class="form-control"/>
+								</td>
+								<td>
+									<input type="text" ng-model="cell.label" class="form-control"/>
+								</td>
+								<td>
+									<input type="checkbox" ng-model="cell.bold"/>
+								</td>
+								<td>
+									<input type="checkbox" ng-model="cell.small"/>
+								</td>
+								<td>
+									<input type="checkbox" ng-model="cell.italic"/>
+								</td>
+								<td>
+									<textarea ng-model="cell.style" class="form-control" placeholder='Example: {"width":"32px"}'></textarea>
+								</td>
+
+							</tr>
+							<tr>
+								<td colspan="17">
+									<button type="button" class="btn btn-sm btn-primary" ng-click="header.cells = STP.add(header.cells,{index:header.cells.length,dataType:'String',textAlign:'Left',readOnly:true,rowSpan:1,colSpan:1})">+</button>
+								</td>
+							</tr>
+						</table>
+					</td>
+
+				</tr>
+				<tr>
+					<td colspan="17">
+						<button type="button" class="btn btn-sm btn-primary" ng-click="data.headers = STP.add(data.headers,{cells:[]})">+</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-12">
+			<h3>Rows</h3>
+			<table class="table">
+				<tr ng-repeat="header  in data.rows">
+					<td>
+						<div class="close" ng-click="STP.reject(data.rows,{line:header.line})">&times;</div>
+						<div>
+							Hide when: <textarea ng-model="header.hide"></textarea>
+						</div>
+						<table class="table table-bordered">
+							<tr>
+								<th></th>
+								<th>Index<span class="required">(*)</span></th>
+								<th>Field (String or Obejct)</th>
+								<th>Row Span</th>
+								<th>Col Span</th>
+								<th>Data type</th>
+								<th>Text Align</th>
+								<th>ReadOnly</th>
+								<th>Hide</th>
+
+
+								<th>Round</th>
+								<th>Color</th>
+
+								<th>Label</th>
+								<th>Bold</th>
+								<th>Small</th>
+								<th>Italic</th>
+								<th>Style (Object)</th>
+							</tr>
+							<tr ng-repeat="cell  in header.cells|orderBy:'index'">
+								<td>
+									<divclass="close" ng-click="STP.reject(header.cells,{index:cell.index})">&times;</div>
+								</td>
+								<td>
+									<input type="number" ng-model="cell.index" class="form-control" ng-required="true"/>
+								</td>
+								<td>
+									<textarea ng-model="cell.field" class="form-control" rows="3"></textarea>
+								</td>
+								<td>
+									<input type="number" ng-model="cell.rowSpan" class="form-control"/>
+								</td>
+								<td>
+									<input type="number" ng-model="cell.colSpan" class="form-control"/>
+								</td>
+								<td>
+									<select class="form-control" ng-model="cell.dataType">
+										<option value="String">String</option>
+										<option value="Number">Number</option>
+										<option value="Date">Date</option>
+										<option value="DateTime">Date Time</option>
+										<option value="Boolean">Boolean</option>
+										<option value="Button">Button</option>
+										<option value="Avatar">Avatar</option>
+										<option value="Image">Image</option>
+										<option value="Structure">Structure</option>
+									</select>
+								</td>
+
+								<td>
+									<select class="form-control" ng-model="cell.textAlign">
+										<option value="Left">Left</option>
+										<option value="Right">Right</option>
+										<option value="Center">Center</option>
+									</select>
+								</td>
+
+								<td>
+									<input type="checkbox" ng-model="cell.readOnly"/>
+								</td>
+								<td>
+									<input type="checkbox" ng-model="cell.hide"/>
+									<div>
+										<div>Hide when: </div>
+										<textarea class="form-control" ng-model="cell.hide_when"></textarea>
+									</div>
+								</td>
+
+								<td>
+									<input type="number" ng-model="cell.maximumFractionDigits" class="form-control"/>
+								</td>
+								<td>
+									<input type="color" ng-model="cell.color" class="form-control"/>
+								</td>
+								<td>
+									<input type="text" ng-model="cell.label" class="form-control"/>
+								</td>
+								<td>
+									<input type="checkbox" ng-model="cell.bold"/>
+								</td>
+								<td>
+									<input type="checkbox" ng-model="cell.small"/>
+								</td>
+								<td>
+									<input type="checkbox" ng-model="cell.italic"/>
+								</td>
+								<td>
+									<textarea ng-model="cell.style" class="form-control" placeholder='Example: {"width":"32px"}'></textarea>
+								</td>
+
+							</tr>
+							<tr>
+								<td colspan="17">
+									<button type="button" class="btn btn-sm btn-primary" ng-click="header.cells = STP.add(header.cells,{index:header.cells.length,dataType:'String',textAlign:'Left',readOnly:true,rowSpan:1,colSpan:1})">+</button>
+								</td>
+							</tr>
+						</table>
+					</td>
+
+				</tr>
+				<tr>
+					<td colspan="17">
+						<button type="button" class="btn btn-sm btn-primary" ng-click="data.rows = STP.add(data.rows,{cells:[]})">+</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+
+
+</form-input-body></form-input>

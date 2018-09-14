@@ -1,0 +1,32 @@
+<div class="scrollable">
+	<div class="scrollable-header">
+		<stplistheader btnimport="show:false" btndelete="show:false"></stplistheader>
+	</div>
+	<div class="row scrollable-content">
+
+		<div class="ui five doubling cards" style="margin:2px">
+			<div class="ui card" ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin">
+				<div class="image" ng-click='open(r._id,r.active)' style='cursor:pointer'>
+					<img ng-if="!r.logo" img-cache="img-cache" ic-src="images/company.png">
+					<img ng-if="r.logo" img-cache="img-cache" ic-src="{{server_url}}{{r.logo}}">
+				</div>
+				<div class="content" ng-click='open(r._id,r.active)' style='cursor:pointer'>
+					<div class="ui sub header">{{r.exfields.short_name?r.exfields.short_name:STP.tructed(r.name,18,'right')}}</div>
+				</div>
+				<!--<div class="content"> </div>-->
+				<div class="extra content">
+					<button class="btn btn-sm btn-default" ng-click='detail(r._id,r.active)'>Xem</button>
+					<button class="btn btn-sm btn-default" ng-click='delete(r._id)'>Xóa</button>
+				</div>
+			</div>
+			<div class="ui card">
+				<div class="content" style='cursor:pointer' ng-click="add()">
+					<div class="ui sub header">
+						Tạo hồ sơ công ty mới
+					</div>
+				</div>
+			</div>
+		</div>
+		<ng-page></ng-page>
+	</div>
+</div>

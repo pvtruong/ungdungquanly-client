@@ -1,0 +1,18 @@
+﻿<div class="modal-header">
+	<header-dialog-select title="Danh mục nhóm sản phẩm"></header-dialog-select>
+ </div>
+ <div class="modal-body">
+	<div class="table-list">
+		<table  class ="table table-striped">
+			<tr ng-repeat ="r in items|orderBy:'sysorder'" style ='cursor:pointer' ng-class="r.bac==1 || r.loai_nh==0?'cbold':'cnormal'">
+				<td  ng-click="select(r)">
+					<div style="padding-left:{{r.bac-1}}em">{{r.ten_nvt}}</div>
+				</td>
+				<td style="width:50px" class='text-right'>
+					<a href='javascript:;' ng-click="quickedit(r)" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+					<a href='javascript:;' ng-click="delete(r)" ><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+ </div>

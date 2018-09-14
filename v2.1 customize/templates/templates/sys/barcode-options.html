@@ -1,0 +1,154 @@
+<div class="modal-dialog">
+	<div class="modal-header">
+		<button type="button" class="close" ng-click ='cancel()' aria-hidden="true"> &times;</button>
+		<h4 class="modal-title">
+			Tùy chọn barcode
+		</h4>
+	 </div> 
+	<div class="modal-body">
+		<div>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="format" class="col-md-2 control-label">Format</label>
+					<div class="col-md-10">
+						<select ng-model="barcode_options.format" class="form-control" id="format">
+							<optgroup label="CODE128">
+								<option>CODE128</option>
+								<option>CODE128A</option>
+								<option>CODE128B</option>
+								<option>CODE128C</option>
+							</optgroup>
+
+							<optgroup label="EAN / UPC">
+								<option>UPC</option>
+								<option>EAN</option>
+								<option>EAN8</option>
+								<option>EAN5</option>
+								<option>EAN2</option>
+							</optgroup>
+
+							<optgroup label="CODE39">
+								<option>CODE39</option>
+							</optgroup>
+
+							<optgroup label="ITF">
+								<option>ITF14</option>
+							</optgroup>
+
+							<optgroup label="MSI">
+								<option>MSI</option>
+								<option>MSI10</option>
+								<option>MSI11</option>
+								<option>MSI1010</option>
+								<option>MSI1110</option>
+							</optgroup>
+
+							<optgroup label="Pharmacode">
+								<option>pharmacode</option>
+							</optgroup>
+						</select>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="width" class="col-md-2 control-label">Width</label>
+					<div class="col-md-4">
+						<input ng-model="barcode_options.width" type="number" class="form-control" id="width" placeholder="">
+					</div>
+					
+					<label for="height" class="col-md-2 control-label">Height</label>
+					<div class="col-md-4">
+						<input ng-model="barcode_options.height" type="number" class="form-control" id="height" placeholder="">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="displayValue" class="col-md-2 control-label">Display Label</label>
+					<div class="col-md-4">
+						<input ng-model="barcode_options.displayLabel" type="checkbox" class="form-control"  placeholder="">
+					</div>
+					
+					<label for="displayValue" class="col-md-2 control-label">Display Price</label>
+					<div class="col-md-4">
+						<input ng-model="barcode_options.displayPrice" type="checkbox" class="form-control"  placeholder="">
+					</div>
+					
+				</div>
+				
+				<div class="form-group">
+					<label for="displayValue" class="col-md-2 control-label">Display Value</label>
+					<div class="col-md-4">
+						<input ng-model="barcode_options.displayValue" type="checkbox" class="form-control" id="displayValue" placeholder="">
+					</div>
+					
+					<label for="fontSize" class="col-md-2 control-label">Font Size</label>
+					<div class="col-md-4">
+						<input ng-model="barcode_options.fontSize" type="number" class="form-control" id="fontSize" placeholder="">
+					</div>
+				</div>
+				
+				
+				<div class="form-group">
+					<label for="textAlign" class="col-md-2 control-label">Text Align</label>
+					<div class="col-md-4">
+						<select ng-model="barcode_options.textAlign" class="form-control" id="textAlign">
+							<option>left</option>
+							<option>center</option>
+							<option>right</option>
+						</select>
+					</div>
+					
+					<label for="textPosition" class="col-md-2 control-label">Text Position</label>
+					<div class="col-md-4">
+						<select ng-model="barcode_options.textPosition" class="form-control" id="textPosition">
+							<option>top</option>
+							<option>bottom</option>
+						</select>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="textMargin" class="col-md-2 control-label">Text Margin</label>
+					<div class="col-md-4">
+						<input ng-model="barcode_options.textMargin" type="number" class="form-control" id="textMargin" placeholder="">
+					</div>
+					
+					<label for="margin" class="col-md-2 control-label">Margin</label>
+					<div class="col-md-4">
+						<input ng-model="barcode_options.margin" type="number" class="form-control" id="margin" placeholder="">
+					</div>
+				</div>
+				
+		
+				<div class="form-group">
+					<label for="marginTop" class="col-md-2 control-label">Margin Top</label>
+					<div class="col-md-1">
+						<input ng-model="barcode_options.marginTop" type="number" class="form-control" id="marginTop" placeholder="">
+					</div>
+					
+					<label for="marginBottom" class="col-md-2 control-label">Margin Bottom</label>
+					<div class="col-md-1">
+						<input ng-model="barcode_options.marginBottom" type="number" class="form-control" id="marginBottom" placeholder="">
+					</div>
+					
+					<label for="marginLeft" class="col-md-2 control-label">Margin Left</label>
+					<div class="col-md-1">
+						<input ng-model="barcode_options.marginLeft" type="number" class="form-control" id="marginLeft" placeholder="">
+					</div>
+					
+					<label for="marginRight" class="col-md-2 control-label">Margin Right</label>
+					<div class="col-md-1">
+						<input ng-model="barcode_options.marginRight" type="number" class="form-control" id="marginRight" placeholder="">
+					</div>
+					
+				</div>
+				
+				
+				
+				
+
+			</form>
+		</div>
+	 </div>
+ </div>
+

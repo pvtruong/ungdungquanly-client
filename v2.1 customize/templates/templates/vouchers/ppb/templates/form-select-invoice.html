@@ -1,0 +1,64 @@
+﻿<form-detail>
+	<form-detail-title>
+		{{getLabel('Chon_but_toan','Chọn bút toán').text}}
+	</form-detail-title>
+	<form-detail-toolbar>
+		<button type="button" class="btn btn-primary" ng-click="ok()"  ng-disabled="formdetail.$invalid">
+		   {{getLabel('nhan','Nhận').text}}
+		</button>
+		<button type="button" class="btn btn-default" ng-click='cancel()'>
+			{{getLabel('huy','Hủy').text}}
+		</button>
+	</form-detail-toolbar>
+	<form-detail-body>
+		<div  class="table-responsive">
+			<table class="table table-striped table-hover table-bordered">
+				<tr>
+					<th>{{getLabel('chon','Chọn').text}}</th>
+					<th>{{getLabel('STT','Số thứ tự').text}}</th>
+					<th>{{getLabel('TK_CO','Tài khoản có').text}}</th>
+					<th>{{getLabel('SO_TIEN_PB','Tiền cần phân bổ').text}}</th>
+					<th>{{getLabel('TIEN_DA_PHAN_BO','Tiền đã phân bổ').text}}</th>
+					<th>{{getLabel('TIEN_CON_LAI','Tiền còn lại').text}}</th>
+					<th>{{getLabel('TIEN_KY_NAY','Tiền phân bổ kỳ này').text}}</th>
+					<th>{{getLabel('DIEN_GIAI','Diễn giải').text}}</th>
+				</tr>
+				<tr ng-repeat="r in masters">
+					<td width='50px' style='cursor:pointer' ng-click="invoiceClick(r._id)"> <input type="checkbox" ng-model="r.sel"/> </td>
+					<td  style='cursor:pointer' ng-click="invoiceClick(r._id)">{{r.stt}}</td>
+					<td  style='cursor:pointer' ng-click="invoiceClick(r._id)">{{r.tk_co}}</td>
+					<td  style='cursor:pointer;width:150px'>
+						<input type="text" class="form-control" format="number" ng-model="r.tien_can_phan_bo"  ng-readonly="true"/>
+					</td>
+					<td  style='cursor:pointer;width:150px'>
+						<input type="text" class="form-control" format="number" ng-model="r.tien_da_phan_bo"  ng-readonly="true"/>
+					</td>
+					<td  style='cursor:pointer;width:150px'>
+						{{r.tien_can_phan_bo-r.tien_da_phan_bo|number:0}}
+					</td>
+					<td  style='cursor:pointer;width:150px'>
+						<input type="text" class="form-control" format="number" ng-model="r.tien"   ng-required="true"/>
+					</td>
+					<td  style='cursor:pointer' ng-click="invoiceClick(r._id)">{{r.dien_giai}}</td>
+				</tr>
+			</table>
+		</div>
+		<!--detail-->
+		<div  class="table-responsive">
+			<table class="table table-striped table-hover table-bordered">
+				<tr>
+					<th>{{getLabel('TK_NO','TK nợ').text}}</th><th>{{getLabel('HE_SO','Hệ số').text}}</th><th>{{getLabel('KHACH_HANG','Khách hàng').text}}</th><th>{{getLabel('BO_PHAN','Bộ phận').text}}</th><th>{{getLabel('VU_VIEC','Vụ việc').text}}</th><th>{{getLabel('HOP_DONG','Hợp đồng').text}}</th><th>{{getLabel('PHI','Phí').text}}</th></th>
+				</tr>
+				<tr ng-repeat="r in details">
+					<td>{{r.tk_no}}</td>
+					<td>{{r.he_so|number:2}}</td>
+					<td>{{r.ma_kh}} - {{r.ten_kh}}</td>
+					<td>{{r.ma_bp}} - {{r.ten_bp}}</td>
+					<td>{{r.ma_dt}} - {{r.ten_dt}}</td>
+					<td>{{r.ma_hd}} - {{r.ten_hd}}</td>
+					<td>{{r.ma_phi}} - {{r.ten_phi}}</td>
+				</tr>
+			</table>
+		</div>
+	</form-detail-body>
+</form-detail>

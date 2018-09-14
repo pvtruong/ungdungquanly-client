@@ -1,0 +1,111 @@
+<voucher options="text:getLabel('TUY_CHON','Tùy chọn').text" master-detail="true">
+  <voucher-ext-toolbar>
+    <a class="list-group-item" ng-click="printBarcode()">{{getLabel('print_Bar_code','In mã vạch').text}}</a>
+  </voucher-ext-toolbar>
+  <voucher-body-master>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <tr>
+          <th class="text-center" style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll" ng-change="selectionAllChange(selectionAll)"/></th>
+          <th style="width:100px"></th>
+          <th><a ng-click="reverse=!reverse;order('so_hd',reverse)">{{getLabel('ma_hd','Hợp đồng').text}}</a></th>
+
+          <th><a ng-click="reverse=!reverse;order('t_sl',reverse)">{{getLabel('SO_LUONG','Số lượng').text}}</a></th>
+          <th><a ng-click="reverse=!reverse;order('t_tien_nt',reverse)">{{getLabel('tien','Tiền hàng').text}}</a></th>
+          <th><a ng-click="reverse=!reverse;order('t_ck_nt',reverse)">{{getLabel('TIEN_CK','Tiền CK').text}}</a></th>
+          <th><a ng-click="reverse=!reverse;order('t_thue_nk_nt',reverse)">{{getLabel('TIEN_THUE_NK','Thuế NK').text}}</a></th>
+          <th><a ng-click="reverse=!reverse;order('t_thue_nt',reverse)">{{getLabel('TIEN_THUE','Tiền thuế').text}}</a></th>
+          <th><a ng-click="reverse=!reverse;order('t_tien_nt',reverse)">{{getLabel('TONG_TIEN','Tổng cộng').text}}</a></th>
+        </tr>
+
+        <tr  ng-class="selectedRow && selectedRow._id===r._id?'active':''" ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)">
+          <td width='30px' class="text-center" ng-show="multiSelect">
+            <input type="checkbox" ng-model="r.sel"/>
+          </td>
+          <td class="text-center">
+            <div ng-include="'templates/sys/quick-actions2.html'"></div>
+          </td>
+          <td style='cursor:pointer'>
+            <div ng-click='setSelectedRow(r,true)'>
+              <span ng-if='r.ten_trang_thai' class="label bg-{{r.color}}">[{{ r.ten_trang_thai}}]</span>
+              <span>
+                {{getLabel('hop_dong','Hợp đồng').text}}: {{r.ma_hd}} - {{ r.ten_hd }}</span>
+
+              <span>,
+                {{getLabel('ngay','ngày').text}}:
+                {{ r.ngay_ct|date:'dd/MM/yyyy'}}({{r.ma_nt}})</span>
+            </div>
+            <div ng-if="r.date_approved" style="color:gray;cursor:pointer" ng-click='setSelectedRow(r,true)'>
+              {{getLabel('nguoi_duyet','Người duyệt').text}}:
+              {{r.user_approved_name}}
+              ,
+              {{getLabel('ngay_duyet','ngày').text}}
+              {{r.date_approved|date:'dd/MM/yyyy HH:mm:ss'}}</div>
+            <div ng-if='r.dien_giai' ng-click='setSelectedRow(r,true)'>{{STP.tructed(r.dien_giai,32,"left")}}</div>
+
+            <div ng-click='setSelectedRow(r,true)' ng-if="r.ten_kh">{{r.ten_kh}}</div>
+            <div style='cursor:pointer' ng-click='setSelectedRow(r,true)' ng-repeat="field in r.exfields.options.fields" ng-if="r.exfields[field.name]">
+              <small>{{field.title}}:
+              </small>
+              <span>
+                <span ng-if="field.type=='text'">{{r.exfields[field.name]}}</span>
+                <span ng-if="field.type=='number'">{{r.exfields[field.name]|number}}</span>
+                <span ng-if="field.type=='date'">{{r.exfields[field.name]|date}}</span>
+              </span>
+            </div>
+            <div ng-if="r.trang_thai==3 || r.trang_thai==undefined">
+              <button ng-disabled="r.id_shipbook" ng-click="createShipBook(r)" class="btn btn-info btn-xs">
+                <i ng-show="r.id_shipbook" class="fa fa-check-square-o" aria-hidden="true"></i>
+                {{getLabel('CREATE_SHIPBOOK','Đặt tàu').text}}
+              </button>
+
+              <button ng-disabled="r.id_vanchuyen" ng-click="createVanChuyen(r)" class="btn btn-info btn-xs">
+                <i ng-show="r.id_vanchuyen" class="fa fa-check-square-o" aria-hidden="true"></i>
+                {{getLabel('CREATE_VC','Vận chuyển').text}}
+              </button>
+
+              <button ng-disabled="r.t_sl<=r.t_sl_da_nhap" ng-click="createPN(r)" class="btn btn-primary btn-xs">
+                <i ng-show="r.id_pn1 || r.id_pn9" class="fa fa-check-square-o" aria-hidden="true"></i>
+                {{getLabel('CREATE_PN1','Nhập hàng').text}}
+              </button>
+            </div>
+          </td>
+
+          <td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+            {{ r.t_sl|number:app_info.options.f_sl }}
+            <div ng-if="r.t_sl_da_nhap">{{getLabel('da_nhap','Đã nhập').text}}:
+              {{ r.t_sl_da_nhap|number:app_info.options.f_sl }}</div>
+          </td>
+
+          <td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+            {{ r.t_tien_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt) }}
+          </td>
+
+          <td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+            {{ r.t_ck_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt) }}
+          </td>
+          <td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+            {{ r.t_thue_nk_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt) }}
+          </td>
+          <td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+            {{ r.t_thue_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt) }}
+          </td>
+
+          <td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+            {{ r.t_tien_nt-r.t_ck_nt+r.t_thue_nt+r.t_thue_nk_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt)}}
+          </td>
+        </tr>
+      </table>
+      <ng-page></ng-page>
+    </div>
+  </voucher-body-master>
+  <voucher-body-detail>
+		<uib-tabset>
+			<uib-tab heading="{{getLabel('CHI_TIET','Chi tiết').text}}">
+        <div ng-if="selectedRow">
+			     <purchasecontract-detail-table ng-master-data='selectedRow' on-change='tinhtienhang($item,selectedRow)'></purchasecontract-detail-table>
+        </div>
+      </uib-tab>
+		</uib-tabset>
+	</voucher-body-detail>
+</voucher>

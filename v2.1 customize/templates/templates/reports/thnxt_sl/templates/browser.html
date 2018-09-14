@@ -1,0 +1,104 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>Vật tư</label>
+			<div>
+				<ng-typeahead module="dmvt" fields="ma_vt,ten_vt" field-model="ten_vt" field-label="ma_vt" ng-model='condition.ten_vt' label="condition.ma_vt">
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label">Nhóm</label>
+			<div>
+				<ng-typeahead module='dmnvt' fields='_id,ten_nvt,bac,sysorder' field-model='ten_nvt' field-label='_id' ng-model="condition.ten_nvt" label="condition.ma_nvt">
+				</ng-typeahead>
+			</div>
+
+		</div>
+		<div class="form-group">
+			<label class="control-label">{{app_info.options.ten_nvt2|| 'Nhóm 2'}}</label>
+			<div>
+				<ng-selector placeholder="" module="group" fields="_id,group_name" field-model="group_name" field-label="group_name" condition="group_type:'VT2'" ng-model='condition.ma_nvt2' default-values="group_type:'VT2'">
+				</ng-selector>
+			</div>
+
+		</div>
+		<div class="form-group">
+			<label class="control-label">{{app_info.options.ten_nvt3|| 'Nhóm 3'}}</label>
+			<div>
+				<ng-selector placeholder="" module="group" fields="_id,group_name" field-model="group_name" field-label="group_name" condition="group_type:'VT3'" ng-model='condition.ma_nvt3' default-values="group_type:'VT3'">
+				</ng-selector>
+			</div>
+
+		</div>
+		<div class="form-group">
+			<label class="control-label">{{app_info.options.ten_nvt4|| 'Nhóm 4'}}</label>
+			<div>
+				<ng-selector placeholder="" module="group" fields="_id,group_name" field-model="group_name" field-label="group_name" condition="group_type:'VT4'" ng-model='condition.ma_nvt4' default-values="group_type:'VT4'">
+				</ng-selector>
+			</div>
+
+		</div>
+
+
+		<div class="form-group">
+
+			<label class="control-label">Nhà cung cấp </label>
+			<div>
+				<ng-typeahead module='dmkh' fields='ma_kh,ten_kh' field-model='ten_kh' field-label='ma_kh' ng-model='condition.ten_ncc' label='condition.ma_ncc'>
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>Kho</label>
+			<div>
+				<ng-typeahead module="dmkho" fields="ma_kho,ten_kho" field-model="ten_kho" field-label="ma_kho" ng-model='condition.ten_kho' label="condition.ma_kho">
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<div class="checkbox">
+				<label><input type="checkbox" ng-model="condition.exclude_ct_dc"/>Không bao gồm các chứng từ điều chuyển</label>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>Báo cáo theo</label>
+			<div>
+				<multi-select ng-model="condition.groupBy" field-label='title' field-data='id' items="[{id:'ma_vt',title:'Vật tư'}
+							,{id:'ma_kho',title:'Kho'}
+							,{id:'ma_lo',title:'lô'}
+							,{id:'han_sd',title:'Hạn sử dụng'}
+							,{id:'ma_tt1',title:'Thuộc tính 1'}
+							,{id:'ma_tt2',title:'Thuộc tính 2'}
+							,{id:'ma_tt3',title:'Thuộc tính 3'}]"></multi-select>
+			</div>
+			<!--{{condition.groupBy=["ma_vt"]}}-->
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('DVCS','Đơn vị cơ sở').text}}</label>
+			<div>
+				<ng-selector module="dvcs" fields="_id,ten_dvcs" field-model="_id" field-label="ten_dvcs" options="item._id as item.ten_dvcs for item in items" ng-model='condition.ma_dvcs' empty-yn='true'>
+				</ng-selector>
+			</div>
+
+		</div>
+
+	</report-filter>
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<react-t-table structure-code='{{rptId}}' data="data" on-cell-click="openUrl('sctvt_sl',condition,null,$row)"></react-t-table>
+		</div>
+	</report-viewer>
+</report>

@@ -1,0 +1,100 @@
+﻿<form-input auto-height="true"><form-input-body>
+		<div class="form-group">
+			<label class="control-label col-sm-2">Đơn vị cơ sở  <span class="required">*</span></label>
+			<div class="col-sm-4">
+				<ng-selector ng-model='data.ma_dvcs' ng-required='true'
+					options ="item._id as item.ten_dvcs for item in items"
+					module='dvcs' fields='_id,ten_dvcs' field-model='_id' field-label='ten_dvcs'></ng-selector>
+			</div>
+
+			<label class="control-label col-sm-2">Tài khoản  <span class="required">*</span></label>
+			<div class ="col-sm-4">
+				<ng-typeahead ng-model='data.tk' ng-required='true' condition='loai_tk:1,tk_cn:true'
+					module='dmtk' fields='tk,ten_tk' field-model='tk' field-label='ten_tk' label='data.ten_tk' >
+				</ng-typeahead>
+			</div>
+
+		</div>
+		<div class="form-group">
+
+			<label class="control-label col-sm-2">Khách hàng</label>
+			<div class="col-sm-4">
+				<ng-typeahead ng-model='data.ten_kh' label='data.ma_kh'
+				module='dmkh' fields='ma_kh,ten_kh' field-model='ten_kh' field-label='ma_kh'></ng-typeahead>
+			</div>
+
+			<label class="control-label col-sm-2">Kho/cửa hàng</label>
+			<div class="col-sm-4">
+				<ng-typeahead ng-model='data.ten_kho' label='data.ma_kho'
+				module='dmkho' fields='ma_kho,ten_kho' field-model='ten_kho' field-label='ma_kho'></ng-typeahead>
+			</div>
+		</div>
+
+		<div class="form-group">
+
+
+			<label class="control-label col-sm-2">Bộ phận</label>
+			<div class="col-sm-4">
+				<ng-typeahead ng-model='data.ten_bp' label='data.ma_bp'
+				module='dmbp' fields='ma_bp,ten_bp' field-model='ten_bp' field-label='ma_bp'></ng-typeahead>
+			</div>
+
+			<label class="control-label col-sm-2">Nhân viên</label>
+			<div class="col-sm-4">
+				<ng-typeahead ng-model='data.ten_nv' label='data.ma_nv'
+				module='dmnv' fields='ma_nv,ten_nv' field-model='ten_nv' field-label='ma_nv'></ng-typeahead>
+			</div>
+		</div>
+
+		<div class="form-group">
+
+			<label class="control-label col-sm-2">Hợp đồng</label>
+			<div class="col-sm-4">
+				<ng-typeahead ng-model='data.ten_hd' label='data.ma_hd'
+				module='contract' fields='so_hd,ten_hd' field-model='ten_hd' field-label='so_hd'></ng-typeahead>
+			</div>
+
+			<label class="control-label col-sm-2">Vụ việc/dự án</label>
+			<div class="col-sm-4">
+				<ng-typeahead ng-model='data.ten_dt' label='data.ma_dt'
+				module='dmdt' fields='ma_dt,ten_dt' field-model='ten_dt' field-label='ma_dt'></ng-typeahead>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2">Phí</label>
+			<div class="col-sm-4">
+				<ng-typeahead ng-model='data.ten_phi' label='data.ma_phi'
+				module='dmphi' fields='ma_phi,ten_phi' field-model='ten_phi' field-label='ma_phi'></ng-typeahead>
+			</div>
+
+
+		</div>
+
+
+
+
+		<div class="form-group">
+			<label class="control-label col-sm-2">Đầu kỳ nợ</label>
+			<div class="col-sm-4">
+				<input  type="text" format="number" class="form-control" name ="data.du_no00" ng-model="data.du_no00"/>
+			</div>
+
+			<label class="control-label col-sm-2">Đầu kỳ có</label>
+			<div class="col-sm-4">
+				<input type="text" format="number"  class="form-control" name="data.du_co00"  ng-model="data.du_co00"/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2">Đầu năm nợ</label>
+			<div class="col-sm-4">
+				<input  type="text" format="number" class="form-control" name ="data.du_no1"  ng-model="data.du_no1"/>
+			</div>
+
+			<label class="control-label col-sm-2">Đầu năm có</label>
+			<div class="col-sm-4">
+				<input type="text" format="number"  class="form-control" name="data.du_co1"  ng-model="data.du_co1"/>
+			</div>
+		</div>
+	</form-input-body></form-input>

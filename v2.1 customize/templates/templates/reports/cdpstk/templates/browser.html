@@ -1,0 +1,45 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}} <span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}} <span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('tai_khoan','Tài khoản').text}}</label>
+			<div>
+				<ng-typeahead module="dmtk" fields="tk,ten_tk" field-model="tk" field-label="ten_tk" ng-model='condition.tk' label="condition.ten_tk">
+				</ng-typeahead>
+			</div>
+			<div>{{condition.ten_tk}}</div>
+		</div>
+		<div class='form-group'>
+			<div class='checkbox'>
+				<label><input type='checkbox' ng-model='condition.bu_tru'/>{{getLabel('bu_tru_cong_no','Bù trừ công nợ').text}}</label>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('DVCS','Đơn vị cơ sở').text}}</label>
+			<div>
+				<ng-selector module="dvcs" fields="_id,ten_dvcs" field-model="_id" field-label="ten_dvcs" options="item._id as item.ten_dvcs for item in items" ng-model='condition.ma_dvcs' empty-yn='true'>
+				</ng-selector>
+			</div>
+		</div>
+
+	</report-filter>
+
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<react-t-table data="data" structure-code="{{rptId}}" sortable="true" on-cell-click="openUrl('scttk',condition,null,{tk:$row.tk,ten_tk:$row.ten_tk})"></react-t-table>
+
+		</div>
+	</report-viewer>
+
+</report>

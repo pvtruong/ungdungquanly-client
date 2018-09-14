@@ -1,0 +1,1 @@
+var labelinfoModule = new baseInput('labelinfo','labelinfo',["labelid","textid","texte","textv"],'Khai báo nhãn');

@@ -1,0 +1,42 @@
+<form-input  auto-height="true"><form-input-body>
+	<div class="form-group">
+		<label class="control-label col-sm-2">Mã ca <span style='color:red' title='Mã ca không được trống'>(*)</span></label>
+		<div class="col-sm-10">
+			<input type="text" name ='ma_ca' style="text-transform:uppercase" class="form-control" ng-model='data.ma_ca' ng-required ="true">
+			
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2">Tên ca <span style='color:red' title='Tên ca không được trống'>(*)</span></label>
+		<div class="col-sm-10">
+			<input type="text" name ='ten_ca' class="form-control" ng-model='data.ten_ca' ng-required="true">
+		</div>
+	</div>
+	
+    <div class="form-group">
+		<label class="col-sm-2 text-right">Có giá trị với </label>
+		<div class="col-sm-10">
+			<label ng-repeat="item in [{v:0,t:'Mọi người'},{v:1,t:'Chỉ người tạo'},{v:2,t:'Những người sau'}]" style="padding-right:10px">
+				<input type='radio' ng-model='data.visible_to' name='visible_to' ng-value="item.v"/> {{item.t}}
+			</label>
+			<ui-select ng-show='data.visible_to==2'  multiple ng-model="data.visible_to_users" theme="bootstrap"  close-on-select="false"  title="Chọn một user">
+				 <ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+				 <ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+
+					 <small>
+						 {{person.name}}
+
+					 </small>
+				 </ui-select-choices>
+			 </ui-select>
+		</div>
+	</div>
+    
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<div class="checkbox">
+				<label><input type="checkbox" ng-model="data.status" /> Còn sử dụng</label>
+			</div>
+		</div>
+	</div>
+</form-input-body></form-input>

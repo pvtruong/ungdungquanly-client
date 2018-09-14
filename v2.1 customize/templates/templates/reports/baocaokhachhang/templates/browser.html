@@ -1,0 +1,107 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('KHACHHANG','Khách hàng').text}}</label>
+			<div>
+				<input type="text" ng-model="condition.ma_kh" class="form-control">
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('TENKHACHHANG','Tên khách hàng').text}}</label>
+			<div>
+				<input type="text" ng-model="condition.ten_kh" class="form-control">
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label>{{getLabel('NHOMKHACHHANG','Nhóm khách hàng').text}}</label>
+			<div>
+				<ng-selector module="group" fields="_id,group_name" field-model="_id" field-label="group_name" condition="group_type:'CUSTOMER'" ng-model='condition.nh_kh' default-values="group_type:'CUSTOMER'">
+				</ng-selector>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label>{{getLabel('NHOMSANPHAM','Nhóm sản phẩm').text}}</label>
+			<div>
+				<ng-selector module='dmnvt' fields='_id,ten_nvt,bac,sysorder' field-model='_id' field-label='ten_nvt' ng-model="condition.ma_nvt">
+				</ng-selector>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label>{{getLabel('phu_trach','Phụ trách').text}}</label>
+			<div>
+				<select ng-model="condition.phu_trach" ng-options="r.email as r.name for r in members" class="form-control">
+				    <option value=''>{{getLabel('tat_ca','Tất cả').text}}</option>
+			  </select>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('tinh_thanh','Tỉnh thành').text}}</label>
+			<div>
+				<select ng-model='condition.tinh_thanh' class='form-control' ng-options="r for r in province">
+            <option value=''>{{getLabel('tat_ca','Tất cả').text}}</option>
+        </select>
+			</div>
+		</div>
+	</report-filter>
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<table class='table  table-striped  table-hover'>
+				<tr>
+					<th>{{getLabel('ma_kh','Mã khách hàng').text}}</th>
+					<th>{{getLabel('TENKHACHHANG','Tên khách hàng').text}}</th>
+					<th>{{getLabel('dien_thoai','Điện thoại').text}}</th>
+					<th>Email</th>
+					<th>Fax</th>
+					<th>{{getLabel('dia_chi','Địa chỉ').text}}</th>
+					<th>{{getLabel('tinh_thanh','Tỉnh thành').text}}</th>
+					<th>{{getLabel('phu_trach','Phụ trách').text}}</th>
+
+				</tr>
+				<tr ng-repeat='r in data' ng-click="gotoKH(r)">
+					<td>
+						{{::r.ma_kh}}
+					</td>
+					<td>
+						{{::r.ten_kh}}
+					</td>
+					<td>
+						{{::r.dien_thoai}}
+					</td>
+					<td>
+						{{::r.email}}
+					</td>
+
+					<td>
+						{{::r.fax}}
+					</td>
+					<td>
+						{{::r.dia_chi}}
+					</td>
+					<td>
+						{{::r.tinh_thanh}}
+					</td>
+					<td>
+						{{::r.ten_phu_trach}}
+					</td>
+
+
+				</tr>
+			</table>
+		</div>
+	</report-viewer>
+</report>

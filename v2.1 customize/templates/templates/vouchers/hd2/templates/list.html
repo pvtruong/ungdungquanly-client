@@ -1,0 +1,110 @@
+<voucher options="text:getLabel('TUY_CHON','Tùy chọn').text" master-detail="true">
+	<voucher-body-master>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<tr>
+					<th class="text-center" style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll" ng-change="selectionAllChange(selectionAll)"/></th>
+					<th style="width:100px"></th>
+					<th>
+						<a ng-click="reverse=!reverse;order('ngay_ct',reverse)">{{getLabel('chung_tu','Chứng từ').text}}</a>
+					</th>
+
+					<th>
+						<a ng-click="reverse=!reverse;order('ten_kh',reverse)">{{getLabel('ten_kh','Tên khách hàng').text}}</a>
+					</th>
+					<th>
+						<a ng-click="reverse=!reverse;order('tk_no',reverse)">{{getLabel('tk_no','TK nợ').text}}</a>
+					</th>
+
+					<th>
+						<a ng-click="reverse=!reverse;order('t_sl',reverse)">{{getLabel('SO_LUONG','Số lượng').text}}</a>
+					</th>
+					<th>
+						<a ng-click="reverse=!reverse;order('t_tien',reverse)">{{getLabel('TIEN_HANG','Tiền hàng').text}}</a>
+					</th>
+					<th>
+						<a ng-click="reverse=!reverse;order('t_ck',reverse)">{{getLabel('TIEN_CK','Tiền CK').text}}</a>
+					</th>
+					<th>
+						<a ng-click="reverse=!reverse;order('t_thue',reverse)">{{getLabel('VAT','VAT').text}}</a>
+					</th>
+					<th>
+						<a ng-click="reverse=!reverse;order('t_tt',reverse)">{{getLabel('TONG_THANH_TOAN','Tổng thanh toán').text}}</a>
+					</th>
+					<!--<th><a ng-click="reverse=!reverse;order('t_tien_xuat',reverse)">{{getLabel('TIEN_VON','Tiền vốn').text}}</a></th> <th><a ng-click="reverse=!reverse;order('ten_kh',reverse)">{{getLabel('KHACH_HANG','Khách hàng').text}}</a></th> <th
+					class="disable-small-screen"><a ng-click="reverse=!reverse;order('ten_nv',reverse)">{{getLabel('NHAN_VIEN','Nhân viên').text}}</a></th> -->
+				</tr>
+				<tbody ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)">
+					<tr ng-class="selectedRow && selectedRow._id===r._id?'active':''">
+						<td width='30px' class="text-center" ng-show="multiSelect">
+							<input type="checkbox" ng-model="r.sel"/>
+						</td>
+						<td class="text-center">
+							<div ng-include="'templates/sys/quick-actions2.html'"></div>
+						</td>
+						<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+							<div>
+								<span ng-if='r.ten_trang_thai' class="label bg-{{r.color}}">[{{ r.ten_trang_thai}}]</span>
+								<span>Số: {{ r.so_ct }}</span>
+								<span>, ngày: {{ r.ngay_ct|date:'dd/MM/yyyy'}}</span> ({{r.ma_nt}})
+							</div>
+							<div ng-if='r.dien_giai'>{{STP.tructed(r.dien_giai,32,"left")}}</div>
+
+
+							<div ng-if='r.ten_nv'>{{getLabel('NHAN_VIEN','Nhân viên').text}}:
+								{{ r.ten_nv}}</div>
+							<div ng-if='r.ten_hd'>{{getLabel('hop_dong','Hợp đồng').text}}:
+								{{ r.ten_hd}}</div>
+						</td>
+
+						<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+							{{ r.ten_kh}}
+						</td>
+						<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+							{{ r.tk_no}}
+						</td>
+
+						<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+							{{ r.t_sl|number:app_info.options.f_sl }}
+						</td>
+
+						<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+							{{ r.t_tien_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt) }}
+						</td>
+
+						<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+							{{ r.t_ck_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt) }}
+						</td>
+
+						<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+							{{ r.t_thue_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt) }}
+						</td>
+						<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+							{{ r.t_tt_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt) }}
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+			<ng-page></ng-page>
+		</div>
+	</voucher-body-master>
+	<voucher-body-detail>
+
+		<uib-tabset>
+			<uib-tab heading="{{getLabel('CHI_TIET','Chi tiết').text}}">
+				<div  ng-if="selectedRow">
+					<span ng-show="false">{{selectedRow.t_tien_nt=STP.sum(selectedRow.details,"tien_nt") - STP.sum(selectedRow.details,"tien_ck_nt")}}</span>
+					<span ng-show="false">{{selectedRow.t_tien=STP.sum(selectedRow.details,"tien") - STP.sum(selectedRow.details,"tien_ck")}}</span>
+
+					<span ng-show="false">{{selectedRow.t_thue_nt=STP.round(selectedRow.t_tien_nt*selectedRow.thue_suat/100,(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt))}}</span>
+					<span ng-show="false">{{selectedRow.t_thue=STP.round(selectedRow.t_tien*selectedRow.thue_suat/100,app_info.options.f_tien)}}</span>
+
+
+					<hd2-detail-table ng-master-data='selectedRow' on-change='tinhtienhang($item,selectedRow)'></hd2-detail-table>
+				</div>
+			</uib-tab>
+		</uib-tabset>
+
+	</voucher-body-detail>
+</voucher>

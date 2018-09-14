@@ -1,0 +1,37 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}}  <span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}} <span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+	</report-filter>
+	<report-viewer>
+		<div ng-class="table-responsive" id='exportable'>
+			<table class='table  table-striped  table-hover'>
+				<tr>
+					<th>{{getLabel('nhan_vien','Nhân viên').text}}</th>
+					<th ng-repeat="col in data.cols|orderBy">
+						Ngày {{STP.toDate(col)|date:'dd/MM'}}
+					</th>
+				</tr>
+				<tr ng-repeat='r in data.data' ng-click='viewVoucher(r.ma_ct,r.id_ct)' ng-class="r.bold?'cbold':'cnormal'">
+
+					<td>
+						{{::r.ten_nv}}
+					</td>
+					<td ng-repeat="col in data.cols|orderBy">
+						<div>{{::r[col + 'ngay_cong']}}</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</report-viewer>
+</report>

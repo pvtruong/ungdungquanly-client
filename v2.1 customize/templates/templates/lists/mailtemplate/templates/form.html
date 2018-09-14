@@ -1,0 +1,117 @@
+<form-input><form-input-body>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="form-group">
+				<div class="col-md-12">
+					<label>Tên <span class="required">(*)</span></label>
+					<input type="text"  class="form-control" placeholder='Nhập tên...' ng-model='data.name' ng-required='true'>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-12">
+				<label>Nhóm</label>
+					<ng-selector
+						module="group" fields="_id,group_name" field-model="_id" field-label = "group_name"
+						condition ="group_type:'MAILTEMPLATE'"  ng-model='data.nhom' default-values="group_type:'MAILTEMPLATE'">
+					</ng-selector>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-12">
+					<label>Tiêu đề <span class="required">(*)</span></label>
+					<input type="text"  class="form-control" placeholder='Nhập tiêu đề...' ng-model='data.subject' ng-required='true'>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-12">
+					<label>Nội dung</label>
+					
+					 <div>
+						<textarea ui-tinymce="tinymceOptionsEmail" ng-model="data.mail.html"></textarea>
+					 </div>
+				 </div>
+			</div>
+            <div class="form-group">
+				<fieldset><legend>File đính kèm</legend>
+					<ul class="media-list">
+						<li class="media" ng-repeat="r in data.attachments"  ng-mouseover='r.hover=1' ng-mouseleave='r.hover=0' style="border-bottom:1px solid #ddd;padding-bottom:5px">
+							<div class="pull-left">
+								<div style="padding-top:0px" ng-if="r.file.extension!='rar' && r.file.extension!='zip' && r.file.extension!='png' && r.file.extension!='jpg' && r.file.extension!='doc' && r.file.extension!='docx' && r.file.extension!='xls' && r.file.extension!='xlsx' && r.file.extension!='pdf'">
+									<!--<i class="fa fa-file-o" style="font-size:32px"></i>-->
+									<img src ='images/file.png' style="width:32px;height:32px" />
+								</div>
+								<div style="padding-top:0px" ng-if="r.file.extension=='zip'"  target="_blank">
+									<!--<i class="fa fa-file-word-o" style="font-size:32px"></i>-->
+									<img src ='images/zip.png' style="width:32px;height:32px" />
+									
+								</div>
+								<div style="padding-top:0px" ng-if="r.file.extension=='rar'"  target="_blank">
+									<!--<i class="fa fa-file-word-o" style="font-size:32px"></i>-->
+									<img src ='images/rar.png' style="width:32px;height:32px" />
+									
+								</div>
+								<div style="padding-top:0px" ng-if="r.file.extension=='doc' || r.file.extension=='docx'" target="_blank">
+									<!--<i class="fa fa-file-word-o" style="font-size:32px"></i>-->
+									<img src ='images/docx.png' style="width:32px;height:32px" />
+									
+								</div>
+								<div style="padding-top:0px" ng-if="r.file.extension=='pdf'" target="_blank">
+									<!--<i class="fa fa-file-pdf-o" style="font-size:32px"></i>-->
+									<img src ='images/pdf.png' style="width:32px;height:32px" />
+								</div>
+								<div style="padding-top:0px" ng-if="r.file.extension=='xlsx' || r.file.extension=='xls'">
+									<!--<i class="fa fa-file-excel-o" style="font-size:32px"></i>-->
+									<img src ='images/xlsx.png' style="width:32px;height:32px" />
+									
+									
+								</div>
+								<div style="padding-top:0px" ng-if="r.file.extension=='png' || r.file.extension=='jpg'">
+									<!--<i class="fa fa-file-photo-o" style="font-size:28px"></i>-->
+									<img ng-src ='{{server_url}}/api/{{id_app}}/file/download/{{r._id}}?access_token={{token}}' style="width:32px;height:32px" />
+									
+								</div>
+							</div>
+							<div class="media-body">
+							  <div class="pull-left">
+								<a href="javascript:;" ng-click="downloadFile(r)" style="text-decoration:none">
+									 {{ r.file.originalname }}
+								</a>
+								<span ng-show='r.hover==1'>
+									<a class="btn btn-xs btn-default"  ng-click='data.attachments = STP.reject(data.attachments,{_id:r._id})'><img src='images/mini-delete.png'></a>
+								</span>
+							  </div>
+							 
+							 
+							</div>
+						</li>
+					</ul>
+					 <div  file-upload-progress>
+						<div class="throbber-loader"></div>
+						<br/>
+					 </div>
+					<input type="file" file-upload  list ='data.attachments'/>
+				</fieldset>
+			</div>
+			
+			
+			<div class="form-group">
+				<label class="col-sm-2">Có giá trị với </label>
+				<div class="col-sm-10">
+					<label ng-repeat="item in [{v:0,t:'Mọi người'},{v:1,t:'Chỉ người tạo'},{v:2,t:'Những người sau'}]" style="padding-right:10px">
+						<input type='radio' ng-model='data.visible_to' name='visible_to' ng-value="item.v"/> {{item.t}}
+					</label>
+					<ui-select ng-show='data.visible_to==2'  multiple ng-model="data.visible_to_users" theme="bootstrap"  close-on-select="false"  title="Chọn một user">
+						 <ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+						 <ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+
+							 <small>
+								 {{person.name}}
+
+							 </small>
+						 </ui-select-choices>
+					 </ui-select>
+				</div>
+			</div>
+		</div>
+	</div>
+</form-input-body></form-input>

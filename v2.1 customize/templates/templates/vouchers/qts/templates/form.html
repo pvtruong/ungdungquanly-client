@@ -1,0 +1,247 @@
+<form-input>
+	<form-input-body>
+		<div class="form-group">
+			<div class="col-sm-12">
+				<div class="page-frame">
+					<div class="form-group">
+						<label class="control-label col-sm-2">{{getLabel('KIEU','Kiểu').text}} <span class='required'>(*)</span></label>
+						<div class="col-sm-4">
+							<select ng-model="data.ma_gd" class="form-control" ng-required="true">
+								<option value="1">{{getLabel('TAI_SAN','Tài sản').text}}</option>
+								<option value="2">{{getLabel('CONG_CU_DC','Công cụ, dụng cụ').text}}</option>
+							</select>
+						</div>
+						<label class="control-label col-sm-2">{{getLabel('DVCS','Đơn vị cơ sở').text}} <span class='required' title="{{getLabel('DVCS','Đơn vị cơ sở').text}} {{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+						<div class="col-sm-4">
+							<ng-selector module='dvcs' fields='_id,ten_dvcs' field-model='_id' field-label='ten_dvcs' options="item._id as item.ten_dvcs for item in items" ng-model="data.ma_dvcs" ng-required="true">
+							</ng-selector>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2">{{getLabel('SO_CT','Số chứng từ').text}} <span class='required' title="{{getLabel('SO_CT','Số chứng từ').text}} {{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+						<div class="col-sm-4">
+							<input type="text" style='text-transform:uppercase'  class="form-control" ng-model='data.so_ct' ng-required="true" />
+						</div>
+
+						<label class="control-label col-sm-2">{{getLabel('NGAY_CT','Ngày chứng từ').text}} <span class='required' title="{{getLabel('NGAY_CT','Ngày chứng từ').text}} {{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+						<div class="col-sm-4">
+							<ng-datepicker ng-model='data.ngay_ct' ng-required='true'></ng-datepicker>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2">{{getLabel('SO_THE_TS','Số thẻ').text}}<span class='required'>(*)</span></label>
+						<div class="col-sm-4">
+							<input type="text" style='text-transform:uppercase' class="form-control" ng-model='data.so_the_ts' ng-required="true" />
+						</div>
+
+						<label class="control-label col-sm-2">{{getLabel('NGAY_TANG','Ngày tăng').text}} <span class='required'>(*)</span></label>
+						<div class="col-sm-4">
+							<ng-datepicker ng-model='data.ngay_tang' ng-required='true'></ng-datepicker>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2">{{getLabel('TEN_TAI_SAN','Tên tài sản').text}} <span class='required'>(*)</span></label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" ng-model='data.ten_ts' ng-required="true" />
+						</div>
+						<label class="control-label col-sm-2">{{getLabel('BO_PHAN_SD','Bộ phận sử dụng').text}} <span class='required'>(*)</span></label>
+						<div class="col-sm-4">
+							<ng-typeahead module='dmbp' fields='ma_bp,ten_bp' field-model='ten_bp' field-label='ma_bp' ng-model='data.ten_bp' label='data.ma_bp' ng-required='true'>
+							</ng-typeahead>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2">{{getLabel('LOAI_TAI_SAN','Loại tài sản').text}} <span class='required'>(*)</span></label>
+						<div class="col-sm-4">
+							<ng-selector module='dmloaits' fields='ma_loai_ts,ten_loai_ts' field-model='ma_loai_ts' field-label='ten_loai_ts' ng-model='data.ma_loai_ts' ng-required='true'>
+							</ng-selector>
+						</div>
+
+						<label class="control-label col-sm-2">{{getLabel('KIEU_TANG','Kiểu tăng').text}} <span class='required'>(*)</span></label>
+						<div class="col-sm-4">
+							<ng-selector module='dmtanggiamts' fields='ma_tang_giam_ts,ten_tang_giam_ts' field-model='ma_tang_giam_ts' field-label='ten_tang_giam_ts' ng-model='data.ma_tang_giam_ts' ng-required='true'>
+							</ng-selector>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2">{{getLabel('NGAY_KHAU_HAO','Ngày khấu hao').text}} <span class='required'>(*)</span></label>
+						<div class="col-sm-4">
+							<ng-datepicker ng-model='data.ngay_kh' ng-required='true'></ng-datepicker>
+						</div>
+
+						<label class="control-label col-sm-2">{{getLabel('PP_KHAU_HAO','PP khấu hao').text}} <span class='required'>(*)</span></label>
+						<div class="col-sm-4">
+							<select ng-model="data.pp_tinh_kh" class="form-control" ng-required="true">
+								<option value='1'>{{getLabel('TRUNG_BINH_THANG','Trung bình tháng').text}}</option>
+							</select>
+						</div>
+
+					</div>
+
+					<div class="form-group">
+						<label class="control-label col-sm-2">{{getLabel('SO_KY_KH','Số kỳ khấu hao').text}} <span class='required'>(*)</span></label>
+						<div class="col-sm-4">
+							<input type="text" format="number" class="form-control" ng-model='data.so_ky_kh' ng-required="true" />
+						</div>
+
+						<label class="control-label col-sm-2">{{getLabel('LAM_TRON_KH','Làm tròn khấu hao').text}}</label>
+						<div class="col-sm-4">
+							<input type="text" format="number" class="form-control" ng-model='data.lam_tron_kh' ng-required="true" />
+						</div>
+
+					</div>
+					<div class="form-group">
+						<div class="col-sm-10 col-sm-offset-2 checkbox">
+							<label>
+								<input type="checkbox" ng-model="data.tinh_kh_gia_tri_con_lai"/>
+								{{getLabel('TINH_KH_GIA_TRI_CL','Tính khấu hao trên giá trị còn lại').text}}
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="page-frame">
+				<uib-tabset>
+					<uib-tab heading="{{getLabel('NGUON_VON','Nguồn vốn').text}}">
+						<qts-detail-table ng-master-data='data'></qts-detail-table>
+					</uib-tab>
+					<uib-tab heading="{{getLabel('TK_MAC_DINH','Tài khoản mặc định').text}}">
+						<div class="form-group">
+							<label class="control-label col-sm-2">{{getLabel('TK_TAI_SAN','TK tài sản').text}} <span class='required'>(*)</span></label>
+							<div class="col-sm-4">
+								<ng-typeahead module='dmtk' fields='tk,ten_tk' field-model='tk' field-label='ten_tk' ng-model='data.tk_ts' label='data.ten_tk_ts' condition="loai_tk:1">
+								</ng-typeahead>
+							</div>
+							<div class="col-sm-6">{{data.ten_tk_ts}}</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-sm-2">{{getLabel('TK_KH','TK khấu hao').text}} <span class='required'>(*)</span></label>
+							<div class="col-sm-4">
+								<ng-typeahead module='dmtk' fields='tk,ten_tk' field-model='tk' field-label='ten_tk' ng-model='data.tk_kh' label='data.ten_tk_kh' condition="loai_tk:1">
+								</ng-typeahead>
+							</div>
+							<div class="col-sm-6">{{data.ten_tk_kh}}</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-sm-2">{{getLabel('TK_CP','TK chi phí').text}} <span class='required'>(*)</span></label>
+							<div class="col-sm-4">
+								<ng-typeahead module='dmtk' fields='tk,ten_tk' field-model='tk' field-label='ten_tk' ng-model='data.tk_cp' label='data.ten_tk_cp' condition="loai_tk:1">
+								</ng-typeahead>
+							</div>
+							<div class="col-sm-6">{{data.ten_tk_cp}}</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-sm-2">{{getLabel('khoan_muc_phi','Khoản mục phí').text}}</label>
+							<div class="col-sm-4">
+								<ng-typeahead module='dmphi' fields='ma_phi,ten_phi' field-model='ten_phi' field-label='ma_phi' ng-model='data.ten_phi' label='data.ma_phi'>
+								</ng-typeahead>
+							</div>
+
+							<label class="control-label col-sm-2">{{getLabel('hop_dong','Hợp đồng').text}}</label>
+							<div class="col-sm-4">
+								<ng-typeahead module='contract' fields='so_hd,ten_hd' field-model='ten_hd' field-label='so_hd' ng-model='data.ten_hd' label='data.ma_hd'>
+								</ng-typeahead>
+							</div>
+						</div>
+
+					</uib-tab>
+					<uib-tab heading="{{getLabel('KHAC','Khác').text}}">
+						<div class="form-group">
+							<label class="control-label col-sm-2">{{getLabel('SO_HIEU','Số hiệu tài sản').text}}</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" ng-model='data.so_hieu' />
+							</div>
+							<label class="control-label col-sm-2">{{getLabel('THONG_TIN_KY_THUAT','Thông tin kỹ thuật').text}}</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" ng-model='data.thong_tin_ky_thuat' />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2">{{getLabel('NUOC_SX','Nước sản xuất').text}}</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" ng-model='data.nuoc_san_xuat' />
+							</div>
+							<label class="control-label col-sm-2">{{getLabel('NAM_SX','Năm sản xuất').text}}</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" ng-model='data.nam_san_xuat' />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2">{{getLabel('NGAY_SD','Ngày sử dụng').text}}</label>
+							<div class="col-sm-4">
+								<ng-datepicker ng-model='data.ngay_su_dung'></ng-datepicker>
+							</div>
+
+						</div>
+
+
+						<div class="form-group">
+							<label class="control-label col-sm-2">{{getLabel('NGAY_DCHI','Ngày đình chỉ').text}}</label>
+							<div class="col-sm-4">
+								<ng-datepicker ng-model='data.ngay_dinh_chi'></ng-datepicker>
+							</div>
+							<label class="control-label col-sm-2">{{getLabel('LYDO_DCHI','Lý do đình chỉ').text}}</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" ng-model='data.ly_do_dinh_chi' />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label col-sm-2">{{getLabel('NGAY_THOI_KH','Ngày thôi khấu hao').text}}</label>
+							<div class="col-sm-4">
+								<ng-datepicker ng-model='data.ngay_thoi_kh'></ng-datepicker>
+							</div>
+
+						</div>
+					</uib-tab>
+					<uib-tab heading="{{getLabel('KHAI_BAO_GIAM','Khai báo giảm').text}}">
+
+						<div class="form-group">
+							<label class="control-label col-sm-2">{{getLabel('NGAY_GIAM','Ngày giảm').text}}</label>
+							<div class="col-sm-4">
+								<ng-datepicker ng-model='data.ngay_giam'></ng-datepicker>
+							</div>
+
+							<label class="control-label col-sm-2">{{getLabel('SO_CT_GIAM','Số chứng từ giảm').text}}</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" ng-model='data.so_ct_giam' />
+							</div>
+
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2">{{getLabel('LY_DO_GIAM','Lý do giảm').text}}</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" ng-model='data.ly_do_giam' />
+							</div>
+
+						</div>
+					</uib-tab>
+					<uib-tab heading="{{getLabel('BO_XUNG','Đặc thù').text}} (*)" ng-show="data.options && data.options.fields && data.options.fields.length>0">
+						<!--extra fields-->
+						<div class="form-group" ng-repeat="field in  data.options.fields">
+							<label class="control-label col-md-3">{{field.title}} <span class="required" ng-show="field.required">(*)</span></label>
+							<div class="col-md-9">
+								<input type="text" ng-if="field.type=='text'" ng-model="data.exfields[field.name]" class="form-control" ng-required="field.required" />
+								<input type="text" format='number' ng-if="field.type=='number'" ng-model="data.exfields[field.name]" class="form-control" ng-required="field.required" />
+								<ng-datepicker ng-model="data.exfields[field.name]" ng-if="field.type=='date'" ng-required="field.required"></ng-datepicker>
+
+							</div>
+						</div>
+						<!--end extra fields-->
+					</uib-tab>
+				</uib-tabset>
+			</div></div>
+		</div>
+	</form-input-body>
+	<form-input-footer>
+		<label class="control-label col-md-offset-9 col-md-1 col-xs-6">{{getLabel('Nguyen_gia','Nguyên giá').text}} </label>
+		<div class="col-md-2 col-xs-6">
+			<label class="form-control" ng-model='data.t_nguyen_gia' ng-sum="nguyen_gia" ng-data="data.details">{{data.t_nguyen_gia|number:2}}</label>
+		</div>
+	</form-input-footer>
+	<form-input>

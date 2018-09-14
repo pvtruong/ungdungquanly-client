@@ -1,0 +1,129 @@
+<rpt-header>
+	<div class="row">
+		<div class="col-md-3 condition-report" ng-show='condition_show'>
+			<form name='forms.form' novalidate class='form-horizontal'>
+				<fieldset>
+					<div class='form-group'>
+						<label>{{getLabel('tu_ngay','Từ ngày').text}}<span class="required">*</span></label>
+						<div>
+							<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+						</div>
+					</div>
+					<div class='form-group'>
+						<label>{{getLabel('den_ngay','Đến ngày').text}}<span class="required">*</span></label>
+						<div>
+							<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+						</div>
+					</div>
+					<div class='form-group'>
+						<label>{{getLabel('tk','Tài khoản').text}} <span class="required">*</span></label>
+						<div>
+							<ng-typeahead module="dmtk" fields="tk,ten_tk" field-model="tk" field-label="ten_tk" condition="tk_cn:true" ng-model='condition.tk' label="condition.ten_tk" ng-required="true">
+							</ng-typeahead>
+						</div>
+					</div>
+
+					<div class='form-group'>
+						<label>{{getLabel('KHACHHANG','Khách hàng').text}}</label>
+						<div>
+							<ng-typeahead module="dmkh" fields="ma_kh,ten_kh" field-model="ten_kh" field-label="ma_kh" ng-model='condition.ten_kh' label="condition.ma_kh">
+							</ng-typeahead>
+						</div>
+					</div>
+
+					<div class='form-group'>
+						<label>{{getLabel('kho','Kho/cửa hàng').text}}
+					</label>
+						<div>
+							<ng-typeahead module="dmkho" fields="ma_kho,ten_kho" field-model="ten_kho" field-label="ma_kho" ng-model='condition.ten_kho' label="condition.ma_kho"></ng-typeahead>
+						</div>
+					</div>
+					<div class='form-group'>
+						<label>{{getLabel('bp','Bộ phận').text}}
+					</label>
+						<div>
+							<ng-typeahead module="dmbp" fields="ma_bp,ten_bp" field-model="ten_bp" field-label="ma_bp" ng-model='condition.ten_bp' label="condition.ma_bp"></ng-typeahead>
+						</div>
+					</div>
+
+					<div class='form-group'>
+						<label>{{getLabel('nv','Nhân viên').text}}</label>
+						<div>
+							<ng-typeahead module="dmnv" fields="ma_nv,ten_nv" field-model="ten_nv" field-label="ma_nv" ng-model='condition.ten_nv' label="condition.ma_nv"></ng-typeahead>
+						</div>
+					</div>
+
+					<div class='form-group'>
+						<label>{{getLabel('dt','Vụ việc/dự án').text}}</label>
+						<div>
+							<ng-typeahead module="dmdt" fields="ma_dt,ten_dt" field-model="ten_dt" field-label="ma_dt" ng-model='condition.ten_dt' label="condition.ma_dt"></ng-typeahead>
+						</div>
+					</div>
+
+					<div class='form-group'>
+						<label>{{getLabel('hd','Hợp đồng').text}}</label>
+						<div>
+							<ng-typeahead module="contract" fields="so_hd,ten_hd" field-model="ten_hd" field-label="so_hd" ng-model='condition.ten_hd' label="condition.ma_hd"></ng-typeahead>
+						</div>
+					</div>
+
+					<div class='form-group'>
+						<label>{{getLabel('phi','Phí').text}}</label>
+						<div>
+							<ng-typeahead module="dmphi" fields="ma_phi,ten_phi" field-model="ten_phi" field-label="ma_phi" ng-model='condition.ten_phi' label="condition.ma_phi"></ng-typeahead>
+						</div>
+					</div>
+
+					<div class='form-group'>
+						<label>{{getLabel('DVCS','Đơn vị cơ sở').text}}</label>
+						<div>
+							<ng-selector module="dvcs" fields="_id,ten_dvcs" field-model="_id" field-label="ten_dvcs" options="item._id as item.ten_dvcs for item in items" ng-model='condition.ma_dvcs' empty-yn='true'>
+							</ng-selector>
+						</div>
+					</div>
+
+					<div class='form-group'>
+						<label>{{getLabel('nhom','Nhóm theo').text}}</label>
+						<div>
+							<multi-select ng-model="condition.groupBy" field-label='name' field-data='id' items="[
+								{id:'ma_kh',name:'Khách hàng'}
+								,{id:'ma_kho',name:'Kho/cửa hàng'}
+								,{id:'ma_bp',name:'Bộ phận'}
+								,{id:'ma_nv',name:'Nhân viên'}
+								,{id:'ma_hd',name:'Hợp đồng'}
+								,{id:'ma_dt',name:'Vụ việc/dự án'}
+								,{id:'ma_phi',name:'Doanh thu/chi phí'}
+							]">
+							</multi-select>
+						</div>
+					</div>
+
+				</fieldset>
+			</form>
+
+
+		</div>
+
+		<div ng-class="condition_show?'col-sm-9':'col-sm-12'">
+			<div class="table-report">
+				<div class="table-responsive" id='exportable'>
+
+
+					<react-t-table data="data" structure-code="{{rptId}}" sortable="true" on-cell-click="openUrl('sctcnkh',condition,null
+			,{
+				ma_kh:$row.ma_kh,ten_kh:$row.ten_kh,
+				ma_kho:$row.ma_kho,ten_kho:$row.ten_kho,
+				ma_bp:$row.ma_bp,ten_bp:$row.ten_bp,
+				ma_nv:$row.ma_nv,ten_nv:$row.ten_nv,
+				ma_hd:$row.ma_hd,ten_hd:$row.ten_hd,
+				ma_dt:$row.ma_dt,ten_dt:$row.ten_dt,
+				ma_phi:$row.ma_phi,ten_phi:$row.ten_phi,
+			}
+			)"></react-t-table>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+</rpt-header>

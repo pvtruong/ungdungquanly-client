@@ -1,0 +1,33 @@
+﻿
+	<div class="table-list col-md-12">
+		<div class="ui four doubling cards" style="margin:2px">
+			<div class="ui card" ng-repeat="r in list track by r._id">
+			  <div class="content">
+				<div class="ui right floated meta" ng-show="multiSelect"><input type="checkbox" ng-model="r.sel"/></div>
+				<div class="ui right floated meta"  ng-include="'templates/sys/quick-actions-list-right.html'"></div>
+				
+				<small>{{STP.tructed(r.ma_nv,13,"right")}}</small>
+			  </div>
+			  <div class="image">
+				<a ng-click='edit(r._id)'>
+					<img ng-if="r.exfields.picture_thumb"   img-cache ic-src="{{server_url}}{{r.exfields.picture_thumb}}">
+					<img ng-if="!r.exfields.picture_thumb"   img-cache ic-src="images/{{r.gioi_tinh?r.gioi_tinh:'NAM'}}.png">
+				</a>
+			  </div>
+			  <div class="content">
+				<b   ng-click='edit(r._id)' style="cursor:pointer"><div class="ui sub header">{{r.ten_nv}}</div>
+				</b>
+				
+			  </div>
+			  
+			</div>
+			<div class="ui card" ng-click="add(parameters)" >
+				<div class="content">
+					<a>Thêm nhân viên mới</a>
+				</div>
+			</div>
+		</div>
+		
+		<ng-page></ng-page>
+	</div>
+

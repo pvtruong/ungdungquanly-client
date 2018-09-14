@@ -1,0 +1,39 @@
+﻿<list adv-search="false" options="text:getLabel('TUY_CHON','Tùy chọn').text">
+<list-body>
+
+<div class="row scrollable-content"> <div class="table-list">
+	<table class ="table table-striped">
+		<tr class="disable-small-screen"><th class="text-center"  style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll"></th><th style="width:30px"></th>
+			<th>Ngày</th>
+			<th>Kho</th>
+			<th>Ca</th>
+			<th>Nhân viên</th>
+			<th>Tiền hàng</th>
+			<th>Tiền giao</th>
+		</tr>
+		<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)" >
+			<td width='30px' class="text-center" ng-show="multiSelect"> <input type="checkbox" ng-model="r.sel"/> </td><td class="text-center" style="width:30px"><div  ng-include="'templates/sys/quick-actions-list.html'"></div></td>
+			<td   style='cursor:pointer' ng-click='edit(r._id)'>
+					{{ r.tu_ngay|date:'dd/MM/yyyy'}} - {{ r.den_ngay|date:'dd/MM/yyyy'}} 
+			</td>
+			<td   style='cursor:pointer' ng-click='edit(r._id)'>
+					{{ r.ma_kho}} 
+			</td>
+			<td   style='cursor:pointer' ng-click='edit(r._id)'>
+					{{ r.ma_ca}} 
+			</td>
+			<td   style='cursor:pointer' ng-click='edit(r._id)'>
+					{{ r.nhan_vien}} 
+			</td>
+			<td   style='cursor:pointer' ng-click='edit(r._id)'>
+					{{ r.tien_hang|number:0}} 
+			</td>
+			<td   style='cursor:pointer' ng-click='edit(r._id)'>
+					{{ r.tien_giao|number:0}} 
+			</td>
+			
+		</tr>
+	</table><ng-page></ng-page></div>
+</div>
+</list-body>
+</list>

@@ -1,0 +1,23 @@
+<div ng-mouseleave='hide()' class='button-slide' ng-style='is_close?{height:"42px",top:top.toString() + "px",width:width.toString()+"px",right:(-width+32).toString() + "px"}:{top:top.toString() + "px",width:width.toString()+"px",right:"0px"}'>
+	<table style='width:100%'>
+		<tr>
+			<td style='vertical-align: top;width:42px;opacity:0.3'>
+				<div class='section section-info' style='padding:2px;padding-top:10px;opacity:1;cursor:pointer' ng-click='showhide()' ng-mouseover='show()'>
+					<p style='padding-left:12px'>
+						<i class="glyphicon glyphicon-chevron-left" ng-if='is_close'></i>
+						<i class="glyphicon glyphicon-chevron-right" ng-if='!is_close'></i>
+					</p>
+					<!--<p class="vertical-text" ng-repeat="c in (text||'Lọc nhanh').split(' ')">{{c}}</p>-->
+
+				</div>
+			</td>
+			<td class='button-slide-content'>
+				<div ng-transclude="title"></div>
+				<div ng-style='{"height":height.toString()+"px","overflow-y": "auto"}'>
+
+					<div ng-transclude="content"></div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>

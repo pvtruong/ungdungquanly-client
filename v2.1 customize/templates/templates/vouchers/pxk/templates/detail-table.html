@@ -1,0 +1,77 @@
+<div class="table-responsive detail-table">
+	<table class="table table-form">
+
+		<tr>
+			<th>{{getLabel('SO_LUONG_XUAT','SL xuất').text}}</th>
+			<th  ng-show="app_info.show_gia_von">{{getLabel('GIA_VON','Giá vốn').text}}</th>
+			<th  ng-show="app_info.show_gia_von">{{getLabel('TIEN_XUAT','Tiền xuất').text}}</th>
+		</tr>
+		<tbody ng-repeat="r in ngMasterData.details">
+			<tr>
+
+				<td colspan='16' style=''>
+					<div style='padding-right:10px;font-size: 18px;' title="Xóa dòng này" class="pull-left close" ng-click="delete1Row(r)">
+
+						&times;
+					</div>
+					<div style="cursor:pointer" ng-click='editDetail(r.line)'>
+						<b>{{r.ten_vt}}
+							-
+							{{r.ma_vt}}</b>
+						({{r.ma_dvt}})
+						<span ng-if='r.ma_lo'>,
+							{{getLabel('LO','Lô').text}}:
+							{{r.ma_lo}}</span>
+						<span ng-if='r.han_sd'>,
+							{{getLabel('hsd','HSD').text}}:
+							{{r.han_sd|date:'dd/MM/yyyy'}}</span>
+						<span ng-if='r.ma_tt1'>,{{getLabel('TT1','TT1').text}}:
+							{{r.ma_tt1}}</span>
+						<span ng-if='r.ma_tt2'>,{{getLabel('TT2','TT2').text}}:
+							{{r.ma_tt2}}</span>
+						<span ng-if='r.ma_tt3'>,{{getLabel('TT3','TT3').text}}:
+							{{r.ma_tt3}}</span>
+						<span>,
+							{{getLabel('ton_kho','Tồn kho').text}}:
+							{{r.ton_kho}}</span>
+					</div>
+
+				</td>
+			</tr>
+			<tr>
+				<td style=''>
+					<input type='text' style='min-width:80px' format='number' round="f_sl" class='form-control' ng-model='r.sl_xuat'/>
+				</td>
+
+				<td  ng-show="app_info.show_gia_von">
+					<input type='text' style='min-width:100px' format='number' round="f_gia_nt" class='form-control' ng-model='r.gia_von_nt' ng-readonly="!r.px_gia_dd"/>
+				</td>
+
+				<td style='cursor:pointer'  ng-show="app_info.show_gia_von">
+					<div class='form-control' ng-readonly='true' style='cursor:pointer' ng-click='editDetail(r.line)'>{{r.tien_xuat_nt = STP.round(r.sl_xuat*r.gia_von_nt,f_tien_nt)|number:f_tien_nt}}</div>
+
+					<div class='form-control' ng-show='false'>{{r.gia_von = STP.round(r.gia_von_nt * ngMasterData.ty_gia,f_gia)}}</div>
+					<div class='form-control' ng-show='false'>{{r.tien_xuat = STP.round(r.tien_xuat_nt * ngMasterData.ty_gia,f_tien)}}</div>
+				</td>
+
+			</tr>
+
+			<tr ng-click='editDetail(r.line)'>
+				<td style="cursor:pointer" colspan="17">
+					<span ng-repeat="(key,value) in r.exfields_detail" ng-show="key.indexOf('tien_phi')<0">
+						{{getLabel(key,key).text + ': ' +  value}},
+					</span>
+				</td>
+			</tr>
+		</tbody>
+
+	</table>
+</div>
+<div style='padding-bottom:13px;padding-left:10px;padding-top:10px'>
+	<div class='btn-group'>
+		<button type="button" class='btn btn-xs btn-primary'  ng-click="addDetail()">
+			<i class="fa fa-plus-square-o" aria-hidden="true"></i> {{getLabel('dong_moi','Thêm dòng mới').text}}
+		</button>
+
+	</div>
+</div>

@@ -1,0 +1,23 @@
+<div class="scrollable"> <div class="scrollable-header"><stplistheader></stplistheader></div>
+<div class="row scrollable-content"> <div class="table-list">
+	<table class ="table table-striped">
+        
+		<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)" >
+			<td width='30px' class="text-center" ng-show="multiSelect"> <input type="checkbox" ng-model="r.sel"/> </td><td class="text-center" style="width:30px"><div  ng-include="'templates/sys/quick-actions-list.html'"></div></td>
+			<td   style='cursor:pointer' ng-click='edit(r._id)'>
+			
+				<div ng-if='r.ma_vt'>Sản phẩm: <b>{{ r.ma_vt}} - {{ r.ten_vt }}</b></div>
+				<div ng-if='r.ten_nvt'>Nhóm sản phẩm: <b>{{r.ma_nvt}} - {{ r.ten_nvt }}</b></div>
+				<div class='row'>
+					<div ng-if="r.hieu_luc_tu" class='col-md-6'>Hiệu lực từ: <b>{{r.hieu_luc_tu|date:'dd/MM/yyyy'}}</b></div>
+					<div ng-if="r.hieu_luc_den" class='col-md-6'>Hiệu lực đến: <b>{{r.hieu_luc_den|date:'dd/MM/yyyy'}}</b></div>
+				</div>
+				<div class='row'>
+					<div  class='col-md-6'>Giá bán lẻ: <b>{{r.gia_ban_le|number:0}} đ</b></div>
+					<div  class='col-md-6'>Giá bán buôn: <b>{{r.gia_ban_buon|number:0}} đ</b></div>
+				</div>
+			</td>
+            
+		</tr>
+	</table><ng-page></ng-page></div>
+</div></div>

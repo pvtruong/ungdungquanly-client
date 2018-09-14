@@ -1,0 +1,26 @@
+<div  ng-style="{backgroundColor:'white',height:(innerHeight-10).toString()+'px'}" class="scrollable">
+	<div class='form-group  scrollable-header  section-info'>
+		<!--header of form-->
+		<div class='col-md-6 col-xs-2'>
+			<div class="header-form">
+				<span class="disable-small-screen">{{getLabel('ten_ct' + code,title).text}} - </span>
+				<small style='font-size:12px' ng-if='action'>{{action}}</small>
+			</div>
+		</div>
+		<!--action-->
+		<div class='col-xs-10 col-md-6 text-right'>
+			<button class="btn btn-danger" ng-click="create()" ng-disabled="form.$invalid || isSave" title="Ctrl+S">{{getLabel('luu','Lưu').text}}</button>
+			<button class="btn btn-primary" ng-click="create(1)" ng-disabled="form.$invalid || isSave" ng-if="print">{{getLabel('in','In').text}}</button>
+			<button class="btn btn-info" ng-click="delete(data)" ng-if="data._id && delete" >{{getLabel('Delete','Xoá').text}}</button>
+			<button class="btn btn-default" ng-click="cancel()">{{getLabel('huy','Hủy').text}}</button>
+		</div>
+		<div ng-class="alertType" ng-if="messageError">{{messageError}}</div>
+	</div>
+	<div class="scrollable-content" >
+		<div ng-transclude>
+			
+		</div>
+	</div>
+	
+	
+</div>

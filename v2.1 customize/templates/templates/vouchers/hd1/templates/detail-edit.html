@@ -1,0 +1,116 @@
+
+ <form-detail><form-detail-body>
+		
+		
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('TK_DOANH_THU','TK doanh thu').text}} <span class='required' title="{{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+			<div class="col-sm-4">
+				<ng-typeahead 
+					module='dmtk' field-model='tk' field-label='ten_tk' fields='tk,ten_tk'
+					ng-model='dt_current.tk_dt'  label='dt_current.ten_tk_dt' ng-required='true' condition ="loai_tk:1">
+				</ng-typeahead>
+			</div>
+			<div class="col-sm-6 field-label disable-small-screen">
+				{{dt_current.ten_tk_dt}}
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('ten_dich_vu','Tên dịch vụ').text}}</label>
+			<div class="col-sm-10">
+				<input type="text"  class="form-control" ng-model='dt_current.dien_giai'/>
+			</div>
+			
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('DVT','Đơn vị tính').text}}</label>
+			<div class="col-sm-4">
+				<ng-typeahead
+					module='dmdvt' field-model='ma_dvt' field-label='ten_dvt' fields='ma_dvt,ten_dvt'
+					ng-model='dt_current.ma_dvt' label='ten_dvt' ng-required='true'>
+				</ng-typeahead>
+			</div>
+			
+			<label class="control-label col-sm-2">{{getLabel('so_luong','Số lượng').text}}</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" format="number" round="f_sl" ng-model="dt_current.sl_xuat" ng-change="dt_current.tien_nt = STP.round(dt_current.gia_ban_nt * dt_current.sl_xuat,f_tien_nt)"/>
+			</div>
+			
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('don_gia','Giá').text}}  {{data.ma_nt}}</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" format="number" round="f_gia_nt" ng-model="dt_current.gia_ban_nt" ng-change="dt_current.tien_nt = STP.round(dt_current.gia_ban_nt * dt_current.sl_xuat,f_tien_nt)" />
+			</div>
+			
+			<label class="control-label col-sm-2" ng-show="false">{{getLabel('don_gia','Giá').text}} VND</label>
+			<div class="col-sm-4"  ng-show="false">
+				{{dt_current.gia_ban = STP.round(dt_current.gia_ban_nt * data.ty_gia,f_tien)}}
+			</div>
+			
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('DOANH_THU','Doanh thu').text}}  {{data.ma_nt}} <span class='required' title="{{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" format="number" round="f_tien_nt" ng-model="dt_current.tien_nt"  ng-required="true"/>
+			</div>
+			
+			<label class="control-label col-sm-2" ng-show="false">{{getLabel('DOANH_THU','Doanh thu').text}} VND <span class='required' title="{{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+			<div class="col-sm-4"  ng-show="false">
+				{{dt_current.tien = STP.round(dt_current.tien_nt * data.ty_gia,f_tien)}}
+			</div>
+			
+		</div>
+
+		
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('TY_LE_CK','Tỷ lệ CK').text}}</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" format="number" ng-model="dt_current.ty_le_ck"/>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('TIEN_CK','Tiền CK').text}} {{data.ma_nt}}</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" format="number" round="f_tien_nt" ng-model="dt_current.tien_ck_nt"/>
+			</div>
+				
+			<label class="control-label col-sm-2"  ng-show="data.ma_nt!='VND'">{{getLabel('TIEN_CK','Tiền CK').text}} VND</label>
+			<div class="col-sm-4"  ng-show="data.ma_nt!='VND'">
+				<input type="text" class="form-control " format="number" round="f_tien" ng-model="dt_current.tien_ck"/>
+			</div>
+			
+		</div>
+		<div class="form-group" ng-show="dt_current.tien_ck_nt!=0 || dt_current.tien_ck!=0 ">
+			<label class="control-label col-sm-2">{{getLabel('TK_CK','TK chiết khấu').text}}</label>
+			<div class="col-sm-4">
+				<ng-typeahead 
+					module='dmtk' field-model='tk' field-label='ten_tk' fields='tk,ten_tk'
+					ng-model='dt_current.tk_ck'  label='dt_current.ten_tk_ck' condition ="loai_tk:1">
+				</ng-typeahead>
+			</div>
+			<div class="col-sm-6 field-label disable-small-screen">
+				{{dt_current.ten_tk_ck}}
+			</div>
+		</div>
+		<a ng-click="khacShow=(khacShow?false:true)">{{!khacShow? getLabel('hien_other','Hiện thông tin khác').text:getLabel('an_other','Ẩn thông tin khác').text}}</a>
+		
+		<div class="form-group" ng-show="khacShow">
+			<label class="control-label col-sm-2">{{getLabel('VU_VIEC','Vụ việc').text}}</label>
+			<div class="col-sm-4">
+				<ng-typeahead
+					module='dmdt' field-model='ten_dt' field-label='ma_dt' fields ='ma_dt,ten_dt'
+					ng-model='dt_current.ten_dt' label='dt_current.ma_dt'>
+				</ng-typeahead>
+			</div>
+			<label class="control-label col-sm-2">{{getLabel('HOP_DONG','Hợp đồng').text}}</label>
+			<div class="col-sm-4">
+				<ng-typeahead
+					module='contract' field-model='ten_hd' field-label='so_hd' fields ='so_hd,ten_hd'
+					ng-model='dt_current.ten_hd' label='dt_current.ma_hd'>
+				</ng-typeahead>
+			</div>
+		</div>
+</form-detail-body></form-detail>

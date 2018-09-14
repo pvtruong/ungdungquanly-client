@@ -1,0 +1,27 @@
+<form role="form">
+  <div class='form-group'>
+      <label>Nhóm</label>
+      <div>
+          <ng-selector
+			module="group" fields="_id,group_name" field-model="_id" field-label = "group_name"
+			condition ="group_type:'TASK'"  ng-model='config.nh_cv' default-values="group_type:'TASK'">
+		</ng-selector>
+      </div>
+  </div>
+  <div class="form-group">
+	<label class="control-label">Chỉ hiện công việc do tôi phụ trách</label>
+	<ui-switch ng-model="config.my_job"></ui-switch>
+  </div>
+  <div class="form-group">
+	<label class="control-label">Chỉ hiện công việc do tôi phụ trách hoặc tham gia</label>
+	<ui-switch ng-model="config.attends"></ui-switch>
+  </div>
+  <div class="form-group">
+	<label class="control-label">Trạng thái</label>
+	<div>
+		<div ng-repeat="progress in config.progresses" class="checkbox">
+			<label><input type="checkbox" ng-model="progress.sel"/><span>{{progress.name}}</span></label>
+		</div>
+	</div>
+  </div>
+</form>

@@ -1,0 +1,59 @@
+<div class="modal-header">
+	<button type="button" class="close" ng-click='close()' aria-hidden="true">
+		&times;</button>
+	<h4 class="modal-title" id="findModalLabel">
+		Xem sổ kho của chứng từ số
+		{{data.so_ct}}
+		ngày
+		{{data.ngay_ct|date:'dd/MM/yyyy'}}
+	</h4>
+	<div file-upload-progress="file-upload-progress">
+		<div class="throbber-loader"></div>
+		<br/>
+	</div>
+</div>
+<div class="modal-body">
+	<div class='container-fluid table-response' style="padding:20px">
+		<table class="table  table-striped">
+			<tr>
+				<th>Mã kho</th>
+				<th>Mã vật tư</th>
+				<th>Tên vật tư</th>
+				<th>Đơn vị tính</th>
+				<th>Ngoại tệ</th>
+				<th>Tỷ giá</th>
+				<th>SL nhập</th>
+				<th>Tiền nhập</th>
+				<th>SL xuất</th>
+				<th>Tiền xuất</th>
+				<th>Mã khách/ncc</th>
+				<th>Mã bộ phận</th>
+				<th>Mã vụ việc, dự án</th>
+				<th>Mã hợp đồng</th>
+				<th>Mã phí</th>
+				<th>Mã sản phẩm</th>
+			</tr>
+			<tr ng-repeat="r in sokho">
+
+				<td>{{r.ma_kho}}</td>
+				<td>{{r.ma_vt}}</td>
+				<td>{{r.ten_vt}}</td>
+				<td>{{r.ma_dvt}}</td>
+				<td>{{r.ma_nt}}</td>
+				<td>{{r.ty_gia|number}}</td>
+				<td>{{r.sl_nhap|number}}</td>
+				<td>{{r.tien_nhap|number}}</td>
+				<td>{{r.sl_xuat}}</td>
+				<td>{{r.tien_xuat}}</td>
+				<td>{{r.ma_kh}}</td>
+				<td>{{r.ma_bp}}</td>
+				<td>{{r.ma_dt}}</td>
+				<td>{{r.ma_hd}}</td>
+				<td>{{r.ma_phi}}</td>
+				<td>{{r.ma_sp}}</td>
+
+			</tr>
+		</table>
+	</div>
+
+</div>

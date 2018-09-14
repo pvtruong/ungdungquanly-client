@@ -1,0 +1,45 @@
+<list btnimport ="text:'Nhập dữ liệu từ excel'">
+<list-ext-filter>
+		
+		
+</list-ext-filter>
+<list-ext-toolbar>
+	<!--<li   class="list-group-item" ng-click="btn3_click()">{{getLabel('email','Email').text}}</li>
+	<li   class="list-group-item" ng-click="setLabel()">{{getLabel('setLabel','Đặt nhãn').text}}</li>-->
+</list-ext-toolbar>
+<list-body>
+	<div>
+	<div class="table-list">
+		<table class ="table table-striped">
+			
+			<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)" >
+				<td width='30px' class="text-center" ng-show="multiSelect"> <input type="checkbox" ng-model="r.sel"/> </td><td class="text-center" style="width:30px"><div  ng-include="'templates/sys/quick-actions-list.html'"></div></td>
+				<td>
+					<div style='cursor:pointer' ng-click='view(r._id)'><b>{{ r.title }}</b></div>
+					
+				</td>
+				
+				
+				
+				
+			</tr>
+		</table>
+		<ng-page></ng-page>
+		<!--<button-slide width="250" actions ="buttonSlideActions" text="Lọc nhanh" ng-if="contactLabels.length>0">
+				<btn-content>
+					<div  style='padding-bottom:5px'><b>Nhãn</b></div>
+					<div class="list-group">
+						
+						<a ng-class="label_name?'list-group-item':'list-group-item  list-group-item-info'" ng-click="searchLabel({});buttonSlideActions.hide()">Tất cả</a>
+						<div role="presentation" ng-repeat='label in contactLabels' >
+							<a ng-class="label_name==label.label_name?'list-group-item  list-group-item-info':'list-group-item'" ng-click="searchLabel(label);buttonSlideActions.hide()">{{label.label_name}}</a>
+						</div>
+					</div>
+					
+			
+				</btn-content>
+		</button-slide>-->
+	</div>
+	</div>
+</list-body>
+</list>

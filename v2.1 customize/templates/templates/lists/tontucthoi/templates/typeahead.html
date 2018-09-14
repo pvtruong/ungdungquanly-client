@@ -1,0 +1,9 @@
+﻿<a>
+	<div class='row'>
+		<div><b>{{ match.model.ma_lo }}</b> <span ng-if="match.model.han_sd">HSD: {{match.model.han_sd|date:'dd/MM/yyyy'}} </span> </div>
+		<div ng-if="match.model.ma_tt1">{{match.model.ma_tt1}}</div>  
+		<div ng-if="match.model.ma_tt2">{{ match.model.ma_tt2 }}</div>
+		<div ng-if="match.model.ma_tt3">{{match.model.ma_tt3}}</div>  
+		<span>Tồn: {{match.model.ton00|number:2}}</span>  
+	 </div>
+</a>

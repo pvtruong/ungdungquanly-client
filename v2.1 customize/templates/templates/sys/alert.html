@@ -1,0 +1,13 @@
+﻿
+<div class="modal-header">
+	<button type="button" class="close" ng-click ='dismiss()' aria-hidden="true"> &times;</button>
+	<h4 class="modal-title" id="findModalLabel">
+	   {{title||'Cảnh báo'}}
+	</h4>
+ </div>
+ <div class="modal-body" ng-click='onClick()'>
+		<p parse-html="msg"></p>
+ </div>
+ <div class="modal-footer">
+		<button type="button" class="btn btn-default" ng-click='dismiss()'>Tắt</button>
+ </div>

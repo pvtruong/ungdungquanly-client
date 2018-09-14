@@ -1,0 +1,40 @@
+<list btnadd="show:false" btndelete="show:false" toolbar-show = "false">
+<list-body>
+<div class="table-responsive">
+	<table class ="table table-striped">
+
+		<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)" ng-if="r.ma_lo || r.ma_tt1 || r.ma_tt2 || r.ma_tt3" >
+			
+			<td  style='cursor:pointer' ng-click='edit(r._id)'>
+				{{r.ma_lo}}
+				<span ng-if="r.han_sd"> - HSD: {{r.han_sd|date:'dd/MM/yyyy'}}</span>
+				<div>Kho: {{r.ma_kho}}</div>
+			</td>
+			<td  style='cursor:pointer' ng-click='edit(r._id)'>
+				
+				<div ng-if="r.ma_tt1">TT1: {{r.ma_tt1}}</div>
+				<div ng-if="r.ma_tt2">TT2: {{r.ma_tt2}}</div>
+				<div ng-if="r.ma_tt3">TT3: {{r.ma_tt3}}</div>
+				
+				
+			</td>
+			
+			<td  style='cursor:pointer' ng-click='edit(r._id)'>
+				
+				{{ r.ton00|number:2 }}
+				
+				
+			</td>
+			<td  style='cursor:pointer' ng-click='edit(r._id)'>
+				
+				{{ r.du00|number:0 }}
+				
+				
+			</td>
+			
+		</tr>
+	</table>
+	<ng-page></ng-page>
+</div>
+</list-body>
+</list>

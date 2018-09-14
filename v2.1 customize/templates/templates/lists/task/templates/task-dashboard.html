@@ -1,0 +1,69 @@
+<div>
+	<ol class="breadcrumb" style="padding-left:20px;padding-top:10px">
+	  <li><a href="#!/task/groups">Nhóm công việc</a></li>
+	  <li class="active">{{currentGroup.group_name}}</li>
+	</ol>
+</div>
+<div class="row draggable-task">
+	<div class="col-md-3" ng-repeat="p in progresses">
+		<div class="panel panel-default">
+		<div class="panel-heading">
+	    <h3 class="panel-title">{{p.text}}</h3>
+	  </div>
+		<div class="panel-body">
+			<div dnd-list="p.list">
+				<input type="text" class="form-control" placeholder="Thêm công việc..." ng-keyup="addToDoItem($event,p.defaultValues)" ng-model="p.defaultValues.ten_cv" />
+
+				<div class="task-card" ng-repeat="data in p.list|orderBy:'stt'">
+					<div class="btn" style="width:100%">
+						<div class="content" style="white-space: normal;text-align:left" dnd-draggable="data" dnd-moved="models.selected = data;itemMoved(p.list,$index)" dnd-effect-allowed="move">
+							<div class="progress" ng-show="data.todos && data.todos.length>0"  ng-click="viewTask(data)">
+								<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{data.todos && data.todos.length>0?(done(data.todos)/data.todos.length)*100:0}}" aria-valuemin="0" aria-valuemax="100" ng-style="{'width': (data.todos && data.todos.length>0?(done(data.todos)/data.todos.length)*100:0).toString() +'%'}">
+									<span class="sr-only">{{data.todos && data.todos.length>0?(done(data.todos)/data.todos.length)*100:0}} %</span>
+								</div>
+							</div>
+							<p  ng-click="viewTask(data)">{{data.ten_cv}}</p>
+							<div class="row" style="font-size:11px">
+									<div class="pull-left">
+						        <i class="ion-paperclip"></i>
+						        	<span  file-count link='data'></span>
+						      </div>
+
+									<div class="pull-left"  style="margin-left :10px">
+										<i class="glyphicon glyphicon-comment"></i>
+											<span  comment-count link='data'></span>
+									</div>
+
+									<div class="pull-left"  style="margin-left :10px" ng-if="data.todos && data.todos.length>0">
+										<i class="glyphicon glyphicon-tasks"></i>
+											{{done(data.todos)}}/{{data.todos?data.todos.length:0}}
+									</div>
+
+									<div class='pull-right'>
+											<a ng-click="saveTask(data)"><i class="fa fa-floppy-o" aria-hidden="true"></i></a>
+									</div>
+									<div class='pull-right' style="padding-right:5px">
+											<span ng-show='data.priority==1'><span style="color:red; width:20px">!!!</span></span>
+											<span ng-show='data.priority==2'><span style="color:orange; width:20px">!!</span></span>
+											<span ng-show='data.priority==3'><span style="color:blue; width:20px">!</span></span>
+									</div>
+									<div class='pull-right' style="padding-right:5px">
+											<span>{{data.start_date|date:'dd/MM/yy'}}</span>
+									</div>
+									<div class="clearfix"></div>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="trashcan" dnd-list="deleted" dnd-inserted="dropToDelete('inserted at', index, external, type)" title="Kéo công việc vào đây để lưu trữ">
+	<a href  ng-click="viewTaskSaved()">
+		<i class="fa fa-floppy-o" aria-hidden="true"></i>
+	</a>
+</div>

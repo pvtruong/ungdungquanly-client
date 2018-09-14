@@ -1,0 +1,53 @@
+﻿<form-input auto-height="true">
+	<form-input-body>
+		<div class="row">
+			<div class="form-group">
+				<label class="control-label">Tiêu đề <span style='color:red'>(*)</span></label>
+				<div>
+					<input type="text"  class="form-control" ng-model='data.name' ng-required ="true">
+					
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label">Công việc tiếp theo sẽ được thực hiện khi</label>
+				<div class="row">
+					<div class="col-md-6">
+						<select class="form-control" ng-model="data.type"
+							ng-options="type.value as type.name for type in [
+								{name:'Sau khoảng thơi gian (phút)',value:'schedule'},
+								{name:'Khi click vào liên kết',value:'links_clicked'},
+								{name:'Khi biểu mẫu sau được gửi',value:'forms_submitted'},
+								{name:'Khi biểu mẫu sau được mở',value:'forms_opened'},
+								{name:'Khi website được ghé thăm',value:'page_visited'}
+								]">
+						</select>
+					</div>
+					<div class="col-md-6" style="padding-left:10px">
+						<input type="Number" class="form-control"
+							ng-model="data.exfields.schedule"
+							ng-show="data.type=='schedule'"/>
+						<ng-typeahead 
+							module='hlink' fields='name,_id' field-model='name' field-label='_id'
+							ng-model='data.exfields.link_name' label='data.exfields.links_clicked'
+							
+							ng-show="data.type=='links_clicked'">
+						</ng-typeahead>
+						<ng-typeahead 
+							module='form' fields='name,_id' field-model='name' field-label='_id'
+							ng-model='data.exfields.form_submited_name' label='data.exfields.forms_submitted'
+							
+							ng-show="data.type=='forms_submitted'">
+						</ng-typeahead>
+						<ng-typeahead 
+							module='form' fields='name,_id' field-model='name' field-label='_id'
+							ng-model='data.exfields.forms_opened_name' label='data.exfields.forms_opened'
+							
+							ng-show="data.type=='forms_opened'">
+						</ng-typeahead>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</form-input-body>
+</form-input>

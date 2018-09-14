@@ -1,0 +1,62 @@
+<list btnadd='show:false' btnimport="show:false">
+	<list-ext-filter></list-ext-filter>
+	<list-ext-toolbar>
+		<li class="list-group-item" ng-click="btn3_click()">{{getLabel('gui_email','Gửi Email').text}}</li>
+	</list-ext-toolbar>
+
+	<list-body>
+
+		<div>
+
+			<div class="table-list">
+				<table class="table table-striped">
+
+					<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)">
+						<td width='30px' class="text-center" ng-show="multiSelect">
+							<input type="checkbox" ng-model="r.sel"/>
+						</td>
+						<td class="text-center" style="width:30px">
+							<div ng-include="'templates/sys/quick-actions-list.html'"></div>
+						</td>
+						<td width='50px'>
+							<img img-cache="img-cache" ic-src='{{server_url}}{{r.picture_sender}}' style='width:32px;height:32px' class="img-circle" title='{{r.name_sender}}'>
+
+						</td>
+						<td>
+							<div class="row" ng-style='{"cursor":"pointer","color":r.read?"gray":"black"}' ng-click='view(r)'>
+								<div class="pull-left">
+									<b>{{r.title}}</b>
+								</div>
+								<div class="pull-right">
+									<small>{{ r.date_created|date:'dd/MM/yyyy hh:mm:ss' }}</small>
+								</div>
+							</div>
+							<div ng-if="r.exfields && r.exfields.company">
+								{{r.exfields.company}}
+							</div>
+							<div ng-click='view(r._id)'>
+								<small parse-text='r.content' limit="50" ng-if="!(r.exfields && (r.exfields.code||r.exfields.ma_ct) && r.exfields._id)"></small>
+							</div>
+
+							<div ng-if="r.exfields && (r.exfields.code||r.exfields.ma_ct) && r.exfields._id && r.exfields.id_app">
+								<a ng-show="app_info && app_info._id===r.exfields.id_app" ng-click="openUrl((r.exfields.code||r.exfields.ma_ct).toLowerCase(),{_id:r.exfields._id,_action:'edit'})">Mở chứng từ này</a>
+								<span ng-show="!(app_info && app_info._id===r.exfields.id_app)" style="color:red">Đăng nhập công ty này để xem chi tiết chứng từ này</span>
+							</div>
+							<div ng-if="r.exfields && (r.exfields.code||r.exfields.ma_ct) && r.exfields._id && r.exfields.code==='app'">
+								<a ng-click="openUrl((r.exfields.code||r.exfields.ma_ct).toLowerCase(),{_id:r.exfields._id,_action:'edit'})">Xem thông tin chi tiết</a>
+							</div>
+
+							<div ng-if="r.exfields.rq_approve">
+								<a ng-click="approve(r.exfields.rq_approve)">Duyệt yêu cầu này</a>
+							</div>
+						</td>
+
+					</tr>
+				</table>
+				<ng-page></ng-page>
+
+			</div>
+		</div>
+
+	</list-body>
+</list>

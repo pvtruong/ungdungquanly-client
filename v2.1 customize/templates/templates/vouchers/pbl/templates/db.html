@@ -1,0 +1,116 @@
+<div class="row">
+	<div class="col-md-6 panel panel-default tasks-widget">
+		<div class="panel-heading row" style="padding:3px">
+			<div class="panel-title col-xs-4">
+				<i class="fa fa-check"></i> {{getLabel('DS_SP_DANGCHO','Sản phẩm đang chờ').text}}
+			</div>	
+			<div class="actions col-xs-8 text-right">
+				<div class="btn-group">
+					<a class="btn btn-default  btn-sm" ng-click="refresh()">
+						 <i class="fa fa-refresh"></i>
+					</a>
+				</div>
+			</div>
+		
+		</div>
+		<div class="panel-body">
+			<div class="task-content">
+				<div class="scroll-body task-db" slimscroll="{slimscrollOption: 10}"  data-always-visible="1" data-rail-visible1="1" style="height:auto;min-height:50px">
+					<div ng-if="!dssanpham || dssanpham.length==0">{{getLabel('KHONG_CO_SAN_PHAM_DANG_CHO','Không có sản phẩm đang chờ').text}}</div>
+					<ul class="task-list">
+						<li ng-repeat="sanpham in dssanpham|orderBy:'date_created'" ng-if="sanpham.sl_xuat>sanpham.sl_ht && !sanpham.het_hang">
+							<div class="task-title">
+								<div class="media">
+								  <div class="pull-left">
+									<img style="width:64px;height:64px;cursor:pointer" ng-click="view(sanpham)" ng-src="{{server_url}}{{sanpham.picture_thumb}}?access_token={{token}}"/>
+								  </div>
+								  <div class="media-body">
+										<div ng-if="sanpham.ma_ban"><small>{{getLabel('BAN','Bàn').text}}:{{sanpham.ma_ban}} - {{getLabel('LUC','lúc').text}} {{sanpham.date_updated|date:'HH:mm'}}</small></div>
+										<div ng-click="view(sanpham)" style="cursor:pointer"><b style="font-size:16px">{{sanpham.ten_vt}}</b>
+										
+										
+											<sup style="color:white;color:red" ng-if="sanpham.is_new">
+												&nbsp;{{getLabel('SP_MOI','mới').text}}&nbsp;
+											</sup>
+											<sup style="color:white;color:blue" ng-if="sanpham.is_update">
+												&nbsp;{{getLabel('SP_CAP_NHAT','cập nhật').text}}&nbsp;
+											</sup>
+										
+										</div>
+										<div class="row">
+											<div class="col-xs-6">
+												<span style="font-size:18px;color:red">{{getLabel('SO_LUONG','Số lượng').text}}: {{sanpham.sl_xuat-sanpham.sl_ht}}</span>
+											</div>
+											<div class="col-xs-6 text-right">
+												<button class='btn btn-xs btn-info' ng-click='complete(sanpham)'>{{getLabel('XONG','xong').text}}</button>
+												<button class='btn btn-xs btn-default' ng-click='cancel(sanpham)'>{{getLabel('HUY','hủy').text}}</button>
+											</div>
+											
+										</div>
+										
+										<div parse-text="sanpham.ghi_chu"></div>
+								  </div>
+								  
+								</div>	
+							</div>
+						</li>		
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 panel panel-default tasks-widget">
+		<div class="panel-heading row" style="padding:3px">
+			<div class="panel-title col-xs-4">
+				<i class="fa fa-check"></i> {{getLabel('DS_SP_HOAN_THANH','Sản phẩm hoàn thành').text}}
+			</div>	
+			<div class="actions col-xs-8 text-right">
+				<div class="btn-group">
+					<a class="btn btn-default  btn-sm" ng-click="refresh()">
+						 <i class="fa fa-refresh"></i>
+					</a>
+				</div>
+			</div>
+		
+		</div>
+		<div class="panel-body">
+			<div class="task-content">
+				<div class="scroll-body task-db" slimscroll="{slimscrollOption: 10}"  data-always-visible="1" data-rail-visible1="1" style="height:auto;min-height:50px">
+					<div ng-if="!dssanpham || dssanpham.length==0">{{getLabel('KHONG_CO_SAN_PHAM_DANG_CHO','Không có sản phẩm đang chờ').text}}</div>
+					<ul class="task-list">
+						<li ng-repeat="sanpham in dssanpham|orderBy:'date_created'" ng-if="sanpham.sl_ht>0 || sanpham.het_hang">
+							<div class="task-title">
+								<div class="media">
+								  <div class="pull-left">
+									<img style="width:64px;height:64px;cursor:pointer" ng-click="view(sanpham)" ng-src="{{server_url}}{{sanpham.picture_thumb}}?access_token={{token}}"/>
+								  </div>
+								  <div class="media-body">
+										<div ng-if="sanpham.ma_ban"><small>{{getLabel('BAN','Bàn').text}}:{{sanpham.ma_ban}} - {{getLabel('LUC','lúc').text}} {{sanpham.date_updated|date:'HH:mm'}}</small></div>
+										<div ng-click="view(sanpham)" style="cursor:pointer"><b style="font-size:16px">{{sanpham.ten_vt}}</b>
+										
+										</div>
+										<div class="row">
+											<div class="col-xs-6">
+												<span style="font-size:18px;color:red">{{getLabel('SO_LUONG','Số lượng').text}}: {{sanpham.sl_ht}}</span>
+											</div>
+											<div class="col-xs-6 text-right">
+												<span style="background-color:red;padding:2px;color:white" ng-if="sanpham.het_hang">{{getLabel('HUY','Hủy').text}}</span>
+												<span style="background-color:blue;padding:2px;color:white" ng-if="!sanpham.het_hang && sanpham.sl_ht>0">{{getLabel('HOAN_THANH','Hoàn thành').text}}</span>
+												
+											</div>
+											
+										</div>
+										
+										<div parse-text="sanpham.ghi_chu"></div>
+								  </div>
+								  
+								</div>	
+							</div>
+						</li>		
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

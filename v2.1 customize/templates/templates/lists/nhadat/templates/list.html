@@ -1,0 +1,125 @@
+<div class="scrollable">
+<div class="scrollable-header"><stplistheader  btnimport ="text:'Nhập dữ liệu từ excel'">
+	<li role="presentation" class="divider" ng-show='groups.length>0'></li>
+	<li role="presentation" ng-repeat='group in groups' >
+		<a class='dropdown-header' ng-click="changeFilter({filter:{nh_nd:group._id},title:group.group_name})">{{group.group_name}}</a>
+	</li>
+	<li role="presentation" class="divider"></li>
+	<li role="presentation" >
+		<div class='dropdown-header' ng-repeat ="progress in progresses">
+			<input type="checkbox" ng-model="progress.sel"> {{progress.text}}
+		</div>
+		
+	</li>
+</stplistheader></div>
+<div class="row scrollable-content">
+<div class="table-list col-md-10">
+	<table class ="table table-striped">
+		<tr class="disable-small-screen">
+			<th class="text-center"  style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll"></th><th style="width:30px"></th>
+           
+			<th colspan="2">Nhà đất</th>
+           
+			<th>Trạng thái</th>
+			
+		</tr>
+		<tr class="disable-small-screen">
+			<td ng-show="multiSelect"></td>
+			<td></td>
+			<td colspan="2"><input type="text" class="form-control" ng-model="advCondition.ten_nd" ng-keyup="enter($event)"/></td>
+            
+			
+			<td>
+				<select type="text" class="form-control"  ng-model="advCondition.progress"  ng-change="searchAVG()">
+					<option value=''>Tất cả</option>
+					<option value='0'>Chưa thực hiện</option>
+					<option value='1'>Đang thực hiện</option>
+					<option value='2'>Hoàn thành</option>
+					<option value='3'>Tạm dừng</option>
+					<option value='4'>Đang chờ</option>
+				</select>
+			</td>
+			<td class="text-center"></td>
+		</tr>
+		<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)" >
+			<td width='30px' class="text-center" ng-show="multiSelect"> <input type="checkbox" ng-model="r.sel"/> </td><td class="text-center" style="width:30px"><div  ng-include="'templates/sys/quick-actions-list.html'"></div></td>
+           <td   style='cursor:pointer;width:80px' ng-click='view(r._id)' class="text-center">
+                <img ng-src="{{server_url}}{{r.picture_thumb}}" style="width:64px;height:64px"/>
+            </td>
+			<td   style='cursor:pointer' ng-click='view(r._id)'>
+				<div><b>{{ r.ten_nd }}</b></div>
+				<small parse-text="r.mieu_ta" limit="50"></small>
+				<div   style='cursor:pointer' ng-click='view(r._id)'>
+					Diện tích: <b>{{r.chieu_ngang}}x{{r.chieu_dai}}</b>
+				</div>
+				<div ng-if="r.gia_ban"   style='cursor:pointer' ng-click='view(r._id)'>
+					Giá bán: <b>{{r.gia_ban|number:0}}</b>
+				</div>
+				<div ng-if="r.ten_kh">
+					Chủ đất: <a href="#!/dmkh/view/{{r.id_kh}}?redirect={{location}}">{{ r.ten_kh }}</a>
+				</div>
+				<div ng-if="r.tinh_thanh">
+					Tỉnh thành: <b>{{r.tinh_thanh}}</b>
+				</div>
+				<div ng-if="r.quan_huyen">
+					Quận/huyện: <b>{{r.quan_huyen}}</b>
+				</div>
+			</td>
+            
+            
+			
+			<td >
+				<div class="dropdown"   ng-click="toggleDropdown('hd' + r._id)">
+				   <span ng-show='r.progress==0'  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='btn btn-xs btn-info dropdown-toggle'>Đang bán</span>
+				  <span ng-show='r.progress==1'  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='btn btn-xs btn-primary dropdown-toggle'>Bán gấp</span>
+				  <span ng-show='r.progress==2'  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='btn btn-xs btn-success dropdown-toggle'>Tạm ngưng</span>
+				  <span ng-show='r.progress==3'  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='btn btn-xs btn-danger dropdown-toggle'>Đã bán</span>
+				  
+				  <ul class="dropdown-menu" role="menu"   ui-show="hd{{r._id}}" 
+					ui-state="hd{{r._id}}">
+					<li role="presentation" ng-show='r.progress!=0'><a role="menuitem" tabindex="-1" ng-click="changeProgress(r,0)">Đang bán</a></li>
+					<li role="presentation" ng-show='r.progress!=1'><a role="menuitem" tabindex="-1" ng-click="changeProgress(r,1)">Bán gấp</a></li>
+					<li role="presentation" ng-show='r.progress!=2'><a role="menuitem" tabindex="-1" ng-click="changeProgress(r,2)">Tạm ngưng</a></li>
+					<li role="presentation" ng-show='r.progress!=3'><a role="menuitem" tabindex="-1" ng-click="changeProgress(r,3)">Đã bán</a></li>
+					
+				  </ul>
+				</div>
+			</td>
+			
+		</tr>
+	</table>
+	<ng-page></ng-page>
+</div>
+<div class="col-md-2 disable-small-screen">
+	
+	<div class="list-group">
+		<div class="list-group-item disabled"><b>Loại nhà đất</b></div>
+		<a ng-class="nh_nd?'list-group-item':'list-group-item active'" ng-click="searchGroup({})">Tất cả</a>
+		<div role="presentation" ng-repeat='group in groups' >
+			<a ng-class="nh_nd==group._id?'list-group-item active':'list-group-item'" ng-click="searchGroup(group)">{{group.group_name}}</a>
+		</div>
+	</div>
+    <div class="list-group">
+		<div class="list-group-item disabled"><b>Nhóm</b></div>
+		<a ng-class="nh_nd?'list-group-item':'list-group-item active'" ng-click="searchGroup({})">Tất cả</a>
+		<div role="presentation" ng-repeat='group in groups' >
+			<a ng-class="nh_nd==group._id?'list-group-item active':'list-group-item'" ng-click="searchGroup(group)">{{group.group_name}}</a>
+		</div>
+	</div>
+	<div class="list-group">
+		<div class="list-group-item disabled"><b>Lọc nhanh theo thời gian</b></div>
+		<a ng-class="!time?'list-group-item active':'list-group-item'" ng-click="reportByTime()" >Tất cả</a>
+		<a ng-class="time=='d'?'list-group-item active':'list-group-item'" ng-click="reportByTime('d')" >Nhà đất mới trong ngày</a>
+		<a ng-class="time=='w'?'list-group-item active':'list-group-item'" ng-click="reportByTime('w')" >Nhà đất mới trong tuần</a>
+		<a ng-class="time=='m'?'list-group-item active':'list-group-item'" ng-click="reportByTime('m')" >Nhà đất mới trong tháng</a>
+		<a ng-class="time=='3m'?'list-group-item active':'list-group-item'" ng-click="reportByTime('3m')" >Nhà đất mới trong quý</a>
+		<a ng-class="time=='y'?'list-group-item active':'list-group-item'" ng-click="reportByTime('y')" >Nhà đất mới trong năm</a>
+		
+	</div>
+    <div class="list-group">
+		<div class="list-group-item disabled"><b>Người phụ trách</b></div>
+		<a ng-class="phu_trach?'list-group-item':'list-group-item active'" ng-click="searchPhuTrach({})" >Tất cả</a>
+		<a ng-class="phu_trach==m.email?'list-group-item active':'list-group-item'" ng-click="searchPhuTrach(m)" ng-repeat="m in members"><img style="width:32px;height:32px" class="img-circle" ng-src='{{server_url}}/api/avatar?email={{m.email}}&access_token={{token}}'/> {{m.name}}</a>
+	</div>
+</div>
+</div></div>

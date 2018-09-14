@@ -1,0 +1,177 @@
+<form-input>
+	<form-input-body>
+	<div class="form-group">
+		<div class="col-md-6" ng-style="!isMobile?{height:(innerHeight-100).toString()+'px'}:{}" >
+            <products on-Select ='select($item)' where ="{ma_kho:data.ma_kho}" scrollable="!isMobile"></products>
+
+		</div>
+		<div class="col-md-6 scrollable" ng-style="!isMobile?{height:(innerHeight-100).toString()+'px'}:{}">
+
+			<div class="row scrollable-header">
+				<div class="col-md-2">
+					<label class="control-label">{{getLabel('khach_hang','Khách hàng').text}}</label>
+				</div>
+				<div class="col-md-6">
+
+					<ng-typeahead
+						module='dmkh' fields='ma_kh,ten_kh' field-model='ten_kh' field-label='ma_kh'
+						ng-model='data.ten_kh' label='data.ma_kh' ng-required="(data.con_no>0 && data.trang_thai==2)|| data.trang_thai==0">
+					</ng-typeahead>
+				</div>
+                <div class="col-md-2">
+				    <label class="control-label">{{getLabel('trang_thai','Trạng thái').text}} <span class='required'>(*)</span></label>
+                </div>
+                <div  class="col-md-2">
+                    <ng-selector
+                        module='trangthai' fields ='ma_trang_thai,ten_trang_thai' field-model='ma_trang_thai' field-label='ten_trang_thai'
+                        condition="ma_ct:'PBL'"
+                        ng-model="data.trang_thai" ng-required="true">
+                    </ng-selector>
+                </div>
+			</div>
+            <div class="scrollable-content">
+                <uib-tabset >
+                    <uib-tab heading="{{getLabel('CHI_TIET','Chi tiết').text}}">
+
+                        <pbl-detail-table ng-master-data='data'></pbl-detail-table>
+
+                   </uib-tab>
+                    <uib-tab heading="{{getLabel('CK','C.Khấu').text}}">
+                        <div class="form-group">
+                            <label class="control-label">{{getLabel('ty_le_ck','Tỷ lệ CK').text}}</label>
+                            <div>
+                                <input type="text" class="form-control" format="number" ng-model="data.ty_le_ck_hd"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">{{getLabel('tien_ck','Tiền CK').text}}</label>
+                            <div>
+                                <input type="text" class="form-control" format="number" ng-model="data.tien_ck_hd" ng-readonly="data.ty_le_ck_hd>0"/>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab heading="{{getLabel('MASTER','T.tin chung').text}}">
+                        <div class="form-group">
+                            <label class="control-label col-md-2">{{getLabel('so_phieu','Số phiếu').text}} </label>
+                            <div class="col-md-4">
+                                <input type="text" style='text-transform:uppercase' name ='so_ct' class="form-control" ng-model='data.so_ct' />
+                            </div>
+                            <label class="control-label col-md-2">{{getLabel('ngay','Ngày').text}} <span class='required' title="Ngày chứng từ không được trống">(*)</span></label>
+                            <div class="col-md-4">
+                                <ng-datepicker ng-model='data.ngay_ct' ng-required='true'></ng-datepicker>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2" title="Người giao dịch">{{getLabel('ONG_BA','Người mua').text}}</label>
+                            <div  class="col-md-4">
+                                <input type="text"  name ='nguoi_giao_dich' class="form-control" ng-model='data.nguoi_giao_dich'/>
+                            </div>
+                            <label class="control-label col-md-2">{{getLabel('dien_giai','Diễn giải').text}}</label>
+                            <div class="col-md-4">
+                                <input type="text"  name ='dien_giai' class="form-control" ng-model='data.dien_giai'/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">{{getLabel('thoi_gian_tu','Từ').text}} </label>
+                            <div class="col-md-10">
+                                <ng-datetimepicker ng-model='data.tu_ngay'></ng-datetimepicker>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <label class="control-label col-md-2">{{getLabel('thoi_gian_den','Đến').text}} </label>
+                            <div class="col-md-10">
+                                <ng-datetimepicker ng-model='data.den_ngay'></ng-datetimepicker>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+
+                            <label class="control-label col-md-2">{{getLabel('time','T.gian(phút)').text}} </label>
+                            <div class="col-md-4">
+                                <label class="form-control"  style="color:red">{{(data.den_ngay.getTime()-data.tu_ngay.getTime())/(1000*60)}}</label>
+                            </div>
+
+                            <label class="control-label col-md-2">{{getLabel('ban','Bàn').text}}</label>
+                            <div  class="col-md-4">
+                                <ng-typeahead
+                                    module='dmban' fields='ma_ban,ten_ban' field-model='ten_ban' field-label='ma_ban'
+                                    ng-model='data.ten_ban' label='data.ma_ban'>
+                                </ng-typeahead>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">{{getLabel('KHO','Kho').text}}</label>
+                            <div  class="col-md-4">
+                                <ng-selector
+                                    module='dmkho' fields='ma_kho,ten_kho' field-model='ma_kho' field-label='ten_kho' ng-required="true"
+                                    ng-model='data.ma_kho'>
+                                </ng-selector>
+                            </div>
+
+                            <label class="control-label col-md-2">{{getLabel('dvcs','Đơn vị').text}} <span class='required' title="Đơn vị cơ sở không được trống">(*)</span></label>
+                            <div class="col-md-4">
+                                <ng-selector
+                                    module='dvcs' fields ='_id,ten_dvcs' field-model='_id' field-label='ten_dvcs'
+                                    options ="item._id as item.ten_dvcs for item in items"
+                                    ng-model="data.ma_dvcs" ng-required="true">
+                                </ng-selector>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">{{getLabel('co_gia_tri_voi','Có giá trị với ').text}}</label>
+                            <div class="col-sm-10">
+                                <label ng-repeat="item in [{v:0,t:'Mọi người'},{v:1,t:'Chỉ người tạo'},{v:2,t:'Những người sau'}]" style="padding-right:10px">
+                                    <input type='radio' ng-model='data.visible_to' name='visible_to' ng-value="item.v"/> {{item.t}}
+                                </label>
+                                <ui-select ng-show='data.visible_to==2'  multiple ng-model="data.visible_to_users" theme="bootstrap"  close-on-select="false"  title="Chọn một user">
+									 <ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+									 <ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+
+										 <small>
+											 {{person.name}}
+
+										 </small>
+									 </ui-select-choices>
+								 </ui-select>
+                            </div>
+                        </div>
+
+
+
+                    </uib-tab>
+                </uib-tabset>
+            </div>
+		</div>
+	</div>
+	</form-input-body>
+	<form-input-footer>
+		<label class="control-label col-md-1 col-xs-6">{{getLabel('CONG','Cộng').text}} </label>
+		<div class="col-md-3 col-xs-6">
+			<span ng-hide="true" ng-model="data.t_tien_hang_nt" ng-sum="tien_hang_nt" ng-data="data.details"></span>
+			<span ng-hide="true" ng-model="data.t_ck_nt" ng-sum="tien_ck_nt" ng-data="data.details"></span>
+
+			<span ng-if="data.ty_le_ck_hd>0" ng-hide="true">{{data.tien_ck_hd = STP.round((data.t_tien_hang_nt-data.t_ck_nt) * data.ty_le_ck_hd/100,0)}}</span>
+
+			<label class='form-control'>{{data.t_tt =data.t_tien_hang_nt-data.t_ck_nt-data.tien_ck_hd|number:0}}</label>
+		</div>
+
+
+
+		<label class="control-label col-md-1 disable-small-screen">{{getLabel('TIEN_THU','Tiền thu').text}}</label>
+		<div class="col-md-3 disable-small-screen">
+			<input type="text" format='number'  class="form-control" ng-model='data.tien_thu'/>
+		</div>
+
+
+
+		<label class="control-label col-md-1 disable-small-screen">{{getLabel('con_no','Còn nợ').text}}</label>
+		<div  class="col-md-3 disable-small-screen">
+			<label  class="form-control" ng-model='data.con_no' >{{data.t_tt-data.tien_thu|number:0}}</label>
+		</div>
+
+
+	</form-input-footer>
+</form-input>

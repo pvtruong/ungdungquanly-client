@@ -1,0 +1,51 @@
+﻿<div class="table-responsive detail-table">
+	<table class="table">
+
+		<tr>
+			<th class='text-center'><th>{{getLabel('TK_NO','TK nợ').text}}</th><th>{{getLabel('TK_CO','TK có').text}}</th><th>{{getLabel('TIEN','Tiền').text}} {{ngMasterData.ma_nt}}</th> <th ng-show="ngMasterData.ma_nt!='VND'">{{getLabel('TIEN','Tiền').text}} VND</th><th>{{getLabel('TAI_SAN','Tài sản').text}}</th>
+			<th>{{getLabel('ten_bpBO_PHAN','Bộ phận').text}}</th>
+		</tr>
+
+		<tr ng-repeat="r in ngMasterData.details">
+
+			<td class="action-buttons">
+				<div>
+					<button class="btn btn-default btn-sm" style="border:none!important" ng-click='editDetail(r.line)' title="Sửa chi tiết">
+						<i class="fa fa-pencil" aria-hidden="true"></i>
+					</button>
+					<button class="btn btn-default btn-sm"  style="border:none!important"  title="Xóa dòng này" ng-click="delete1Row(r)">&times;</button>
+				</div>
+			</td>
+
+			<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+				<div>{{r.ten_tk_no}}</div>
+				<i style="font-size:12px">{{r.tk_no}}</i>
+			</td>
+			<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+				<div>{{r.ten_tk_co}}</div>
+				<i style="font-size:12px">{{r.tk_co}}</i>
+			</td>
+			<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+				{{r.tien_nt|number:2}}
+			</td>
+			<td  ng-show="ngMasterData.ma_nt!='VND'"  style='cursor:pointer' ng-click='editDetail(r.line)'>
+				{{r.tien|number:0}}
+			</td>
+			<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+				<div>{{r.ten_ts}}</div>
+				<i style="font-size:12px">{{r.so_the_ts}}</i>
+			</td>
+			<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+				<div>{{r.ten_bp}}</div>
+				<i style="font-size:12px">{{r.ma_bp}}</i>
+			</td>
+
+		</tr>
+	</table>
+</div>
+<div style='padding-bottom:13px; padding-left:10px; padding-top:10px'>
+	<div class='btn-group'>
+		<button type="button" class='btn btn-xs btn-primary'  ng-click="createBT()" ng-disabled="!ngMasterData.ma_dvcs || !ngMasterData.ngay_ct">{{getLabel('TAO_BUT_TOAN','Tạo bút toán').text}}</button>
+
+	</div>
+</div>

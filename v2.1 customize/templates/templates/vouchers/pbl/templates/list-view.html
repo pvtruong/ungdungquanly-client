@@ -1,0 +1,38 @@
+<div class="scrollable">
+	<div class="scrollable-header page-frame page-frame-toolbar" style="padding:5px">
+		<div class="navbar-left">
+			<b>Phiếu bán lẻ</b><br/>
+			<small>{{defaultValues.ten_ban?defaultValues.ten_ban:'Hãy chọn một bàn'}}</small>
+		</div>
+		<div class="navbar-right" style="padding-right:15px">
+			<button class="btn btn-primary" ng-click="add(defaultValues)" ng-disabled="!defaultValues || !defaultValues.ma_ban"><i class="glyphicon glyphicon-plus"></i> Phiếu mới</button>
+		</div>
+	</div>
+	<div class="scrollable-content">
+		<table class ="table">
+			<tr ng-repeat="r in list track by r._id|orderBy:'date_updated'"  drag-to-dismiss="delete(r._id,dismissCB)" ng-class="r.color?'bg-'+r.color:''">
+				<td width='30px' class="text-center" ng-show="multiSelect"> <input type="checkbox" ng-model="r.sel"/> </td>
+				<td class="text-center" style="width:30px">
+					<div  ng-include="'templates/sys/quick-actions.html'">
+					</div>
+				</td>
+				<td>
+					<div ng-click='edit(r._id)'>
+						<div><b> {{r.ten_kh? r.ten_kh:'Khách vãng lai'}}</b></div>
+						<div>Thời gian từ: {{r.tu_ngay|date:'HH:mm:sss dd/MM'}} đến {{r.den_ngay|date:' HH:mm:ss dd/MM'}}</div>
+						<div>SL: {{ r.t_sl|number:2 }}</div>
+						<div ng-if="r.t_ck">Tiền: {{ r.t_tien|number:0 }} đ</div>
+						<div ng-if="r.t_ck">CK: {{ r.t_ck|number:0 }} đ</div>
+						<div>Phải thu: {{ r.t_tt|number:0 }} đ</div>
+					</div>
+					<div class="text-right" ng-show="r.trang_thai<2">
+						<button type="button" class="btn btn-default" ng-click="thanhtoan(r)">Thanh toán</button>
+					</div>
+				</td>
+
+
+			</tr>
+		</table>
+		<ng-page></ng-page>
+	</div>
+</div>

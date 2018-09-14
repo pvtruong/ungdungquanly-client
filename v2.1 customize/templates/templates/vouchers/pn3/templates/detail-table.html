@@ -1,0 +1,67 @@
+<div class="table-responsive detail-table">
+	<table class="table table-form">
+
+		<tr>
+			<th>{{getLabel('SO_LUONG_NHAP','SL nhập').text}}</th>
+			<th>{{getLabel('TIEN_HANG','Tiền hàng').text}}</th>
+			<th>{{getLabel('TIEN_NHAP','Tiền nhập').text}}</th>
+			<th>{{getLabel('TIEN_PHI','Tiền phí').text}}</th>
+		</tr>
+		<tbody ng-repeat="r in ngMasterData.details">
+			<tr>
+
+				<td colspan="16" style=''>
+					<div style='padding-right:10px;font-size: 18px;' title="Xóa dòng này" class="pull-left close" ng-click="delete1Row(r)">
+
+						&times;
+					</div>
+					<div ng-click='editDetail(r.line)'>
+						<b>{{r.ten_vt}}
+							-
+							{{r.ma_vt}}</b>
+						({{r.ma_dvt}})
+						<span>,
+							{{getLabel('KHO','Kho').text}}:
+							{{r.ma_kho}}</span>
+						<span>,
+							{{getLabel('tk_vt','TK vật tư').text}}:
+							{{r.tk_vt}}</span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td style=''>
+					<div class='form-control' ng-readonly='true' style='cursor:pointer' ng-click='editDetail(r.line)'>{{r.sl_nhap|number:2}}</div>
+				</td>
+
+				<td style=''>
+					<div class='form-control' ng-readonly='true' style='cursor:pointer' ng-click='editDetail(r.line)'>{{r.tien_hang_nt|number:f_tien_nt}}</div>
+				</td>
+
+				<td style=''>
+					<div class='form-control' ng-readonly='true' style='cursor:pointer' ng-click='editDetail(r.line)'>{{r.tien_nhap_nt|number:f_tien_nt}}</div>
+				</td>
+
+				<td style=''>
+					<div class='form-control' ng-readonly='true' style='cursor:pointer' ng-click='editDetail(r.line)'>{{r.tien_phi_nt|number:f_tien_nt}}</div>
+				</td>
+
+			</tr>
+			<tr ng-click='editDetail(r.line)'>
+				<td style="cursor:pointer" colspan="17">
+					<span ng-repeat="(key,value) in r.exfields_detail" ng-show="key.indexOf('tien_phi')<0">
+						{{getLabel(key,key).text + ': ' +  value}},
+					</span>
+				</td>
+			</tr>
+
+		</tbody>
+
+	</table>
+</div>
+<div style='padding-bottom:13px;padding-left:10px;padding-top:10px'>
+	<div class='btn-group'>
+		<button type="button" class='btn btn-xs btn-primary' ng-click="getPN()">{{getLabel('LAY_PHIEU_NHAP','Lấy phiếu nhập').text}}</button>
+
+	</div>
+</div>

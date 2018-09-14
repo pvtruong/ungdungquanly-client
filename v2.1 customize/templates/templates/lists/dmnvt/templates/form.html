@@ -1,0 +1,69 @@
+﻿<form-input auto-height="true"><form-input-body>
+	<div class="form-group">
+		<label class="control-label col-md-2">Tên nhóm <span class="required">(*)</span></label>
+		<div class="col-md-8">
+			<input type="text" name ='ten_nvt' class="form-control input-md" ng-model='data.ten_nvt' required>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-md-2">Nhóm mẹ</label>
+		<div class="col-md-8">
+			<ng-typeahead
+				module='dmnvt' fields ='_id,ten_nvt,bac,sysorder' field-model='ten_nvt' field-label='_id'
+				ng-model="data.ten_nh_me" label ="data.nh_me">
+			</ng-typeahead>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-md-2">Miêu tả</label>
+		<div  class="col-md-8">
+			<textarea class="form-control" ng-model="data.description"></textarea>
+		</div>
+	</div>
+	<div class="form-group">
+	  <label class="control-label col-md-2">Logo</label>
+	  <div class="image">
+		<img  img-cache ic-src="{{server_url}}{{data.logo}}">
+	  </div>
+	  
+	  <div class="extra content">
+		<input type="file" image-upload  model ='data.logo' model-thumb='data.logo'/>
+	  </div>
+	</div>
+	
+	<div class="form-group">
+	  <label class="control-label col-md-2">Banner 1</label>
+	  <div class="image">
+		<img  img-cache ic-src="{{server_url}}{{data.banner1}}">
+	  </div>
+	  
+	  <div class="extra content">
+		<input type="file" image-upload  model ='data.banner1' model-thumb='data.banner1'/>
+	  </div>
+	</div>
+	
+	<div class="form-group">
+	  <label class="control-label col-md-2">Banner 2</label>
+	  <div class="image">
+		<img  img-cache ic-src="{{server_url}}{{data.banner2}}">
+	  </div>
+	  
+	  <div class="extra content">
+		<input type="file" image-upload  model ='data.banner2' model-thumb='data.banner2'/>
+	  </div>
+	</div>
+	
+	<div class="form-group">
+		<div class="col-md-offset-2 col-md-4">
+			<div class="checkbox">
+				<label><input type="checkbox" ng-model="data.quan_trong" /> Nhóm quan trọng</label>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="checkbox">
+				<label><input type="checkbox" ng-model="data.status" /> Còn sử dụng</label>
+			</div>
+		</div>
+	</div>
+
+</form-input-body></form-input>

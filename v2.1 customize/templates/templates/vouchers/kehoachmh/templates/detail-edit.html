@@ -1,0 +1,120 @@
+<form-detail>
+  <form-detail-body>
+    <div class="form-group">
+      <label class="control-label col-sm-3">{{getLabel('VAT_TU','Vật tư').text}} <span class='required' title="{{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+      <div class="col-sm-9">
+        <ng-typeahead module='dmvt' field-model='ten_vt' field-label='ma_vt' fields='ma_vt,ten_vt,ma_dvt' ng-model='dt_current.ten_vt' label='dt_current.ma_vt' ng-required='true' on-select="dt_current.ma_dvt=$item.ma_dvt">
+        </ng-typeahead>
+      </div>
+
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3">{{getLabel('DVT','Đơn vị tính').text}} <span class='required' title="{{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+      <div class="col-sm-3">
+        <ng-typeahead module='dmdvt' field-model='ma_dvt' field-label='ten_dvt' fields='ma_dvt,ten_dvt' ng-disabled='true' ng-model='dt_current.ma_dvt' label='ten_dvt' ng-required='true'>
+        </ng-typeahead>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-3">{{getLabel('ma_tt1_nvl','Thuộc tính NVL 1').text}}</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control " ng-model="dt_current.ma_tt1" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3">{{getLabel('ma_tt2_nvl','Thuộc tính NVL 2').text}}</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control " ng-model="dt_current.ma_tt2" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-3">{{getLabel('ma_tt3_nvl','Thuộc tính NVL 3').text}}</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control " ng-model="dt_current.ma_tt3" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-3">{{getLabel('lenhsx','Lệnh sản xuất').text}}</label>
+      <div class="col-sm-3">
+        <ng-typeahead module='lenhsx'  group="vouchers"  field-model='so_ct' field-label='_id' fields='so_ct,ngay_ct,_id,id_contract,so_ct_contract' ng-model='dt_current.so_ct_lenhsx' label='dt_current.id_lenhsx'
+        on-select="dt_current.id_contract = $item.id_contract;dt_current.so_ct_contract = $item.so_ct_contract">
+        </ng-typeahead>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-3">{{getLabel('sl_nhu_cau','Nhu cầu').text}}</label>
+      <div class="col-sm-3">
+        <input type='text' style='min-width:80px' format='number' round="f_sl" class='form-control' ng-model='dt_current.sl_nhu_cau' ng-change="dt_current.sl_ke_hoach=dt_current.sl_nhu_cau-dt_current.sl_da_cap_phat"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3">{{getLabel('sl_da_cap_phat','Đã cấp phát').text}}</label>
+      <div class="col-sm-3">
+        <input type='text' style='min-width:80px' format='number' round="f_sl" class='form-control' ng-model='dt_current.sl_da_cap_phat'  ng-readonly="true"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3">{{getLabel('sl_ke_hoach','Kế hoạch').text}}</label>
+      <div class="col-sm-3">
+        <input type='text' style='min-width:80px' format='number' round="f_sl" class='form-control' ng-model='dt_current.sl_ke_hoach' />
+      </div>
+    </div>
+
+    <div class="form-group">
+			<label class="control-label col-sm-3">{{getLabel('gia','Giá').text}} {{data.ma_nt}} </label>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" format="number" round="f_gia_nt" ng-model="dt_current.gia_nt"/>
+			</div>
+
+      <label  ng-show="false">
+        {{dt_current.gia = STP.round(dt_current.gia_nt * data.ty_gia,f_gia)|number:f_gia}}
+      </label>
+
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-3">{{getLabel('THANH_TIEN','Thành tiền').text}} {{data.ma_nt}}</label>
+			<div class="col-sm-3">
+				<label class="form-control" ng-readonly="true">
+					{{dt_current.tien_nt = STP.round(dt_current.gia_nt * dt_current.sl_ke_hoach,f_tien_nt)|number:round}}
+				</label>
+			</div>
+
+      <label ng-show="false">
+        {{dt_current.tien = STP.round(dt_current.tien_nt * data.ty_gia,f_tien)|number:f_tien}}
+      </label>
+		</div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-3">{{getLabel('contract','Đơn hàng/hợp đồng').text}}</label>
+      <div class="col-sm-3">
+        <span class="form-control" ng-readonly="true">{{dt_current.so_ct_contract}}</span>
+      </div>
+
+      <label class="control-label col-sm-3">{{getLabel('so_luong_contract','SL đơn hàng/hợp đồng').text}}</label>
+      <div class="col-sm-3">
+        <input type='text' style='min-width:80px' format='number' round="f_sl" class='form-control' ng-model='dt_current.sl_contract'  ng-readonly="true"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-3">{{getLabel('sl_da_nhap','Đã nhập').text}}</label>
+      <div class="col-sm-3">
+        <input type='text' style='min-width:80px' format='number' round="f_sl" class='form-control' ng-model='dt_current.sl_da_nhap'  ng-readonly="true"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-3">{{getLabel('ncc','Nhà cung cấp').text}}</label>
+      <div class="col-sm-3">
+        <ng-typeahead module='dmkh'  field-model='ten_kh' field-label='ma_kh' fields='ma_kh,ten_kh,_id' ng-model='dt_current.ten_ncc' label='dt_current.ma_ncc'>
+        </ng-typeahead>
+      </div>
+    </div>
+
+  </form-detail-body>
+</form-detail>

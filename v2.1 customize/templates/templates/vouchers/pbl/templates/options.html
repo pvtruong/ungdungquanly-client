@@ -1,0 +1,23 @@
+<!--<div class="form-group"> <label class="control-label col-sm-2">TK tiền</label> <div class="col-sm-4"> <ng-typeahead module='dmtk' field-model='tk' field-label='ten_tk' fields='tk,ten_tk' placeholder="Nhập tk hoặc tên tk..."
+ng-model='options.tk_tien' condition="loai_tk:1" label='options.ten_tk_tien'></ng-typeahead> </div> <div class='col-sm-6'> {{options.ten_tk_tien}} </div> </div> <div class="form-group"> <label class="control-label col-sm-2">TK công nợ</label> <div
+class="col-sm-4"> <ng-typeahead module='dmtk' field-model='tk' field-label='ten_tk' fields='tk,ten_tk' placeholder="Nhập tk hoặc tên tk..." ng-model='options.tk_cn' condition="loai_tk:1" label='options.ten_tk_cn'></ng-typeahead> </div> <div
+class='col-sm-6'> {{options.ten_tk_cn}} </div> </div> <div class="form-group"> <label class="control-label col-sm-2">TK doanh thu</label> <div class="col-sm-4"> <ng-typeahead module='dmtk' field-model='tk' field-label='ten_tk' fields='tk,ten_tk'
+placeholder="Nhập tk hoặc tên tk..." ng-model='options.tk_dt' condition="loai_tk:1" label='options.ten_tk_dt'></ng-typeahead> </div> <div class='col-sm-6'> {{options.ten_tk_dt}} </div> </div> <div class="form-group"> <label class="control-label
+col-sm-2">TK chiết khấu</label> <div class="col-sm-4"> <ng-typeahead module='dmtk' field-model='tk' field-label='ten_tk' fields='tk,ten_tk' placeholder="Nhập tk hoặc tên tk..." ng-model='options.tk_ck' condition="loai_tk:1"
+label='options.ten_tk_ck'></ng-typeahead> </div> <div class='col-sm-6'> {{options.ten_tk_ck}} </div> </div> <div class="form-group"> <label class="control-label col-sm-2">TK giá vốn</label> <div class="col-sm-4"> <ng-typeahead module='dmtk'
+field-model='tk' field-label='ten_tk' fields='tk,ten_tk' placeholder="Nhập tk hoặc tên tk..." ng-model='options.tk_gv' condition="loai_tk:1" label='options.ten_tk_gv'></ng-typeahead> </div> <div class='col-sm-6'> {{options.ten_tk_gv}} </div>
+</div>-->
+
+<div class="form-group">
+	<label class="control-label">Kho</label>
+	<div class="">
+		<ng-typeahead module='dmkho' field-model='ten_kho' field-label='ma_kho' fields='ma_kho,ten_kho' ng-model='locals.ten_kho' label='locals.ma_kho'></ng-typeahead>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label">Phương thức thanh toán</label>
+	<div class="">
+		<ng-selector module='ptthanhtoan' fields='_id,ten' field-model='_id' field-label='ten' ng-model='locals.pt_thanh_toan' label='ten_pt_thanh_toan' condition="ds_ma_kho:'{{locals.ma_kho}}',hinh_thuc:{$in:[0,2,undefined]}"></ng-selector>
+	</div>
+</div>
+<!--<div class="form-group"> <label class="control-label col-sm-2">Gửi yêu cầu in cho người sử dụng</label> <div class="col-sm-10"> <input type="text" class="form-control" ng-model="locals.system.print_by_user"> </div> </div>-->

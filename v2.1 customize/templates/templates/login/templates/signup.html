@@ -1,0 +1,35 @@
+<div class='container'>
+	<div class="col-sm-6 col-sm-offset-3  ksoft" style="margin-top:50px">
+
+		<h1 style="padding:10px;">
+			<span class="fa fa-sign-in"></span>
+			{{getLabel('DANG_KY','Đăng ký').text}}</h1>
+		<div ng-class="alertType" ng-show="messageError">{{messageError}}</div>
+
+		<!-- LOGIN FORM -->
+		<form novalidate="novalidate" name="form_signup" style="padding:10px;">
+			<div class="form-group">
+				<label>{{getLabel('TEN_DANG_NHAP','Tên đăng nhập').text}}
+					<span class='required'>(*)</span></label>
+				<input type="email" class="form-control" ng-model="data.email" ng-required="true"/>
+
+			</div>
+			<div class="form-group">
+				<label>{{getLabel('HO_VA_TEN','Họ và tên').text}}
+					<span class='required'>(*)</span></label>
+				<input type="text" class="form-control" ng-model="data.name" ng-required="true"/>
+
+			</div>
+			<!--<div class="form-group"> <label>{{getLabel('MAT_KHAU','Mật khẩu').text}} <span class='required'>(*)</span></label> <input type="password" class="form-control" ng-model="data.password" ng-required="true"/> </div> <div class="form-group">
+			<label>Nhập lại mật khẩu <span class='required'>(*)</span></label> <input type="password" class="form-control" ng-model="data.repassword" ng-required="true"/> </div> -->
+			<button class="btn btn-primary btn-md" ng-click="signup()" ng-disabled="form_signup.$invalid">{{getLabel('DANG_KY','Đăng ký').text}}</button>
+		</form>
+
+		<hr>
+
+		<p style="">{{getLabel('BAN_DA_CO_TK','Bạn đã có một tài khoản?').text}}
+			<a href="#!/login">{{getLabel('DANG_NHAP','Đăng nhập').text}}</a>
+		</p>
+	</div>
+
+</div>

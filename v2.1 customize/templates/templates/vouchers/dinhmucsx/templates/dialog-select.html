@@ -1,0 +1,24 @@
+﻿<div class="modal-header">
+	<header-dialog-select title="Định mức sản xuất"></header-dialog-select>
+ </div>
+ <div class="modal-body">
+	<div class="table-list">
+		<table  class ="table table-striped">
+			<tr ng-repeat ="item in items | limitTo: 50" style ='cursor:pointer'>
+				<td  ng-click="select(item)">
+					<div>Mã định mức: {{ item.so_ct }}, ngày lập: {{item.ngay_ct|date:'dd/MM/yyyy'}}</div>
+					<div>Sản phẩm: {{item.ten_sp}} ({{item.ma_sp}})
+						 <span ng-if="item.ma_tt1">, thuộc tính 1: {{item.ma_tt1}}</span>
+						 <span ng-if="item.ma_tt2">, thuộc tính 2: {{item.ma_tt2}}</span>
+						 <span ng-if="item.ma_tt3">, thuộc tính 3: {{item.ma_tt3}}</span>
+					 </div>
+					 <div ng-if="item.id_contract">Đơn hàng/hợp đồng: {{item.so_ct_contract}}</div>
+				</td>
+				<td style="width:50px" class='text-right'>
+					<a href='javascript:;' ng-click="quickedit(item)" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+					<a href='javascript:;' ng-click="delete(item)" ><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+ </div>

@@ -1,0 +1,8 @@
+<div class="text-center">
+    <div class="alert alert-info" ng-if="!config.tk">
+        Hãy chọn một tài khoản
+    </div>
+    <h3 ng-if="config.tk" ng-style="du00<0?{'color':'red'}:{'color':''}">
+        {{du00?du00:0|number:0}} đ
+    </h3>
+</div>

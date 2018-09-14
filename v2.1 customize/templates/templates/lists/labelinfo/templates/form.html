@@ -1,0 +1,27 @@
+﻿<form-input auto-height="true"><form-input-body>
+	<div class="form-group" ng-if ="user && user.admin">
+		<label class="control-label col-md-3">Form <span class="required">(*)</span></label>
+		<div class="col-md-9">
+			<input type="text"  class="form-control" ng-model='data.labelid' ng-required='true'>
+		</div>
+	</div>
+	<div class="form-group" ng-if ="user && user.admin">
+		<label class="control-label col-md-3">ID <span class="required">(*)</span></label>
+		<div class="col-md-9">
+			<input type="text"  class="form-control" ng-model='data.textid' ng-required='true'>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-md-3">Tiếng Việt <span class="required">(*)</span></label>
+		<div class="col-md-9">
+			<input type="text"  class="form-control" ng-model='data.textv' ng-required='true'>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-md-3">English <span class="required">(*)</span></label>
+		<div class="col-md-9">
+			<input type="text"  class="form-control" ng-model='data.texte' ng-required='true'>
+		</div>
+	</div>
+
+</form-input-body></form-input>

@@ -1,0 +1,66 @@
+﻿<div class="table-responsive detail-table">
+	<table class="table table-form">
+		<tr>
+			<th class='text-center'></th>
+			<th>{{getLabel('nguon_von','Nguồn vốn').text}}<span class='required' >(*)</span></th>
+			<th>{{getLabel('nguyen_gia','Nguyên giá').text}}</th>
+
+			<th>{{getLabel('da_kh','Đã khấu hao').text}}</th>
+			<th>{{getLabel('con_lai','Còn lại').text}}</th>
+			<th>{{getLabel('khau_hao_ky','Khấu hao kỳ').text}}</th>
+		</tr>
+		<tbody ng-repeat="r in ngMasterData.details">
+			<tr>
+				<td class="action-buttons">
+					<div>
+						<button class="btn btn-default btn-sm" style="border:none!important" ng-click='editDetail(r.line)' title="Sửa chi tiết">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+						</button>
+						<button class="btn btn-default btn-sm"  style="border:none!important"  title="Xóa dòng này" ng-click="delete1Row(r)">&times;</button>
+					</div>
+				</td>
+
+				<td>
+					<ng-typeahead
+						module='dmnguonvon' field-model='ten_nguon_von' field-label='ma_nguon_von' fields='ma_nguon_von,ten_nguon_von'
+						ng-model='r.ten_nguon_von'  label='r.ma_nguon_von' ng-required='true' >
+					</ng-typeahead>
+				</td>
+
+				<td>
+					<input type="text" class="form-control" format="number" round="f_tien" ng-model="r.nguyen_gia"
+					ng-change="r.gia_tri_kh_ky=
+						ngMasterData.so_ky_kh?
+							STP.round(
+								(r.nguyen_gia-(ngMasterData.tinh_kh_gia_tri_con_lai && r.gia_tri_da_kh?r.gia_tri_da_kh:0))/ngMasterData.so_ky_kh
+								,f_tien)
+							:0"
+					/>
+				</td>
+				<td>
+					<input type="text" class="form-control" format="number" round="f_tien" ng-model="r.gia_tri_da_kh"
+					ng-change="r.gia_tri_kh_ky=
+						ngMasterData.so_ky_kh?
+							STP.round(
+								(r.nguyen_gia-(ngMasterData.tinh_kh_gia_tri_con_lai && r.gia_tri_da_kh?r.gia_tri_da_kh:0))/ngMasterData.so_ky_kh
+								,f_tien)
+							:0"
+					/>
+				</td>
+				<td>
+					<span class="form-control">{{r.gia_tri_con_lai=(r.nguyen_gia||0)-(r.gia_tri_da_kh||0)|number:f_tien}}</span>
+				</td>
+				<td>
+					<input type="text" class="form-control" format="number" round="f_tien" ng-model="r.gia_tri_kh_ky"/>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div style='padding-bottom:13px;padding-left:10px;padding-top:10px'>
+	<div class='btn-group'>
+		<button type="button" class='btn btn-xs btn-primary'  ng-click="addDetail()">
+			<i class="fa fa-plus-square-o" aria-hidden="true"></i> {{getLabel('dong_moi','Thêm dòng mới').text}}
+		</button>
+	</div>
+</div>

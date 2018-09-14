@@ -1,0 +1,30 @@
+﻿<div class="modal-header">
+	<button type="button" class="close" ng-click ='cancel()' aria-hidden="true"> &times;</button>
+	<h4 class="modal-title" id="findModalLabel">
+	   Tùy chọn
+	</h4>
+ </div>
+ <div class="modal-body">
+	<form name="formFind" novalidate class="css-form form-horizontal">
+		<div class="form-group">
+			<label class="control-label col-sm-2">Mẫu in</label>
+			<div class="col-sm-10">
+				<textarea class="form-control" cols="20" rows="10" ng-model="options.system.templateRpt">
+				</textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">Gửi yêu cầu in cho người sử dụng</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" ng-model="locals.system.print_by_user">
+			
+			</div>
+		</div>
+	</form>
+ </div>
+ <div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="save()" ng-disabled='formFind.$invalid'  ng-disabled="formFind.$invalid">
+	   Lưu
+	</button>
+	<button type="button" class="btn btn-default" ng-click='cancel()'>Hủy</button>
+ </div>

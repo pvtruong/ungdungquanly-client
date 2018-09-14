@@ -1,0 +1,22 @@
+
+<div ng-style='{"background-color":"white","overflow-y": "auto","padding":"10px","border-radius":"5px","margin":"10px"}' >
+	
+	<h1 ng-if="$ctrl.data.title">{{$ctrl.data.title}}</h1>
+	<h3 ng-if="$ctrl.data.subtitle">{{$ctrl.data.subtitle}}</h3>
+	<p ng-if="$ctrl.data.description">{{$ctrl.data.description}}</p>
+	<hr/>
+	<div ng-show='$ctrl.data.success' style='color:green'>{{$ctrl.data.success_message}}</div>
+	<div ng-show='$ctrl.data.error' style='color:red'>{{$ctrl.data.error_message}}</div>
+	<form name='form'  novalidate ng-show='!$ctrl.data.success'>
+		<div class="form-group" ng-repeat="field in $ctrl.data.fields">
+			<label class="control-label">{{field.label}}<span style='color:red' ng-if='field.required' title='Không được trống'>(*)</span></label>
+			<div>
+				<input type="{{field.type}}"  class="form-control" ng-model='field.value' ng-required ="!$ctrl.design && field.required">
+				
+			</div>
+		</div>
+		<div class="form-group text-center" ng-if="$ctrl.send || $ctrl.design">
+			<button type="button" class="btn btn-primary" ng-disabled="!$ctrl.send || form.$invalid" ng-click ="$ctrl.send()">Gửi</button>
+		</div>
+	</form>
+</div>

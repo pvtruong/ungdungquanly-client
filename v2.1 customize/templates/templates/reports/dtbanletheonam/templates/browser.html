@@ -1,0 +1,38 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label>{{getLabel('tu_nam','Từ năm').text}}</label>
+			<div>
+				<select class='form-control' ng-model='condition.tu_nam' ng-options='n as n for n in nams'>
+				</select>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_nam','Đến năm').text}}</label>
+			<div>
+				<select class='form-control' ng-model='condition.den_nam' ng-options='n as n for n in nams'>
+				</select>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('kho','Kho').text}}</label>
+			<div>
+				<ng-selector module="dmkho" fields="ma_kho,ten_kho" field-model="ma_kho" field-label="ten_kho" ng-model='condition.ma_kho' empty-yn='true'>
+				</ng-selector>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('DVCS','Đơn vị cơ sở').text}}</label>
+			<div>
+				<ng-selector module="dvcs" fields="_id,ten_dvcs" field-model="_id" field-label="ten_dvcs" options="item._id as item.ten_dvcs for item in items" ng-model='condition.ma_dvcs' empty-yn='true'>
+				</ng-selector>
+			</div>
+		</div>
+
+	</report-filter>
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<react-t-table structure-code='{{rptId}}' data="data" on-cell-click="drilldown($row)"></react-t-table>
+		</div>
+	</report-viewer>
+</report>

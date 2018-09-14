@@ -1,0 +1,77 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}}</label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}}</label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label>{{getLabel('nha_vien','Nhân viên').text}}</label>
+			<select ng-model="data.user_created" ng-options="r.email as r.name for r in members" class="form-control">
+					<option value="">{{getLabel('tat_ca','Tất cả').text}}</option>
+				</select>
+		</div>
+
+	</report-filter>
+
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<table class='table  table-striped  table-hover'>
+				<tr>
+
+					<th>{{getLabel('nhanvien','Nhân viên').text}}</th>
+					<th>{{getLabel('socongviec','Số công việc').text}}</th>
+					<th>{{getLabel('chua_thuc_hien','Chưa thực hiện').text}}</th>
+					<th>{{getLabel('dang_thuc_hien','Đang thực hiện').text}}</th>
+					<th>{{getLabel('hoan_thanh','Hoàn thành').text}}</th>
+					<th>{{getLabel('tam_dung','Tạm dừng').text}}</th>
+					<th>{{getLabel('dang_cho','Đang chờ').text}}</th>
+					<th>{{getLabel('cham_tien_do','Chậm tiến độ').text}}</th>
+					<th>{{getLabel('diem','Điểm').text}}</th>
+				</tr>
+				<tr ng-repeat='r in data'  ng-click='drilldown(r)' ng-class="r.bold?'cbold':'cnormal'">
+
+
+					<td>
+						{{::r.name}}
+						<div><small>{{::r.phu_trach}}</small></div>
+					</td>
+
+					<td>
+						{{::r.t_so_luong|number:0}}
+					</td>
+					<td>
+						{{::r.chua_thuc_hien|number:0}}
+					</td>
+					<td>
+						{{::r.dang_thuc_hien|number:0}}
+					</td>
+					<td>
+						{{::r.hoan_thanh|number:0}}
+					</td>
+					<td>
+						{{::r.tam_dung|number:0}}
+					</td>
+					<td>
+						{{::r.cho|number:0}}
+					</td>
+					<td style="color:red">
+						{{::r.cham_tien_do|number:0}}
+					</td>
+					<td style="color:blue">
+						{{::r.diem|number:0}}
+					</td>
+				</tr>
+			</table>
+		</div>
+
+	</report-viewer>
+</report>

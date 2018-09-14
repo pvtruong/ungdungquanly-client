@@ -1,0 +1,58 @@
+<voucher master-detail="true">
+	<voucher-body-master>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<tr>
+					<th class="text-center" style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll" ng-change="selectionAllChange(selectionAll)"/></th>
+					<th style="width:100px"></th>
+					<th><a ng-click="reverse=!reverse;order('so_the_ts',reverse)">{{getLabel('tai_san','Tài sản').text}}</a></th>
+					<th><a ng-click="reverse=!reverse;order('t_nguyen_gia',reverse)">{{getLabel('nguyen_gia','Nguyên giá').text}}</a></th>
+					<th><a ng-click="reverse=!reverse;order('t_gia_tri_da_kh',reverse)">{{getLabel('gia_tri_da_kh','Giá trị đã khấu hao').text}}</a></th>
+					<th><a ng-click="reverse=!reverse;order('t_gia_tri_con_lai',reverse)">{{getLabel('gia_tri_con_lai','Giá trị còn lại').text}}</a></th>
+					<th><a ng-click="reverse=!reverse;order('t_gia_tri_kh_ky',reverse)">{{getLabel('gia_tri_kh_ky','Giá trị khấu hao kỳ').text}}</a></th>
+				</tr>
+				<tr  ng-class="selectedRow && selectedRow._id===r._id?'active':''" ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)">
+					<td width='30px' class="text-center" ng-show="multiSelect">
+						<input type="checkbox" ng-model="r.sel"/>
+					</td>
+					<td class="text-center">
+						<div ng-include="'templates/sys/quick-actions2.html'"></div>
+					</td>
+					<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+						<div>{{ r.ten_ts }}</div>
+						<div>
+							<i>{{ r.so_the_ts}}</i>
+						</div>
+					</td>
+
+					<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+						{{ r.t_nguyen_gia|number:0 }}
+					</td>
+
+					<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+						{{ r.t_gia_tri_da_kh|number:0 }}
+					</td>
+
+					<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+						{{ r.t_gia_tri_con_lai|number:0 }}
+					</td>
+
+					<td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+						{{ r.t_gia_tri_kh_ky|number:0 }}
+					</td>
+
+				</tr>
+			</table>
+			<ng-page></ng-page>
+		</div>
+	</voucher-body-master>
+	<voucher-body-detail>
+		<uib-tabset>
+			<uib-tab heading="{{getLabel('NGUON_VON','Nguồn vốn').text}}">
+				<div ng-if="selectedRow">
+					<qts-detail-table ng-master-data='selectedRow'></qts-detail-table>
+				</div>
+			</uib-tab>
+		</uib-tabset>
+	</voucher-body-detail>
+</voucher>

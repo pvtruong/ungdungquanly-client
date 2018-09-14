@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+<meta charset="utf-8"/>
+<title>ỨNG DỤNG QUẢN LÝ</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Accounting, crm, pos, software" name="description"/>
+<meta content="Phạm Văn Trường" name="author"/>
+<meta content="#34AADC" name="theme-color"/>
+<link rel="manifest" href="/manifest.json">
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+
+<link href="libs/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="images/favicon.ico"/>
+</head>
+<!-- END HEAD -->
+<body  ng-app="accApp" style="background-color:gray;padding:20px" id="controller" ng-controller="homeController as $ctrl" class="page-header-fixed page-quick-sidebar-over-content page-full-width ng-cloak">
+	<div ng-view >
+	<div ng-include="'templates/sys/render-form.html'" ng-show='!$ctrl.success'>
+	</div>
+	</div>
+	<script src="libs/angular/angular.min.js"></script>
+	<script>
+		var accApp = angular.module("accApp",[]);
+		accApp.controller("homeController",function($scope,$http,$location){
+			var form_id = $location.search().id;
+			var cid = $location.search().cid;
+			//this.innerHeight = window.innerHeight-100;
+			this.innerWidth = window.innerWidth>600?600:(window.innerWidth-10);
+
+			//this.innerWidth = window.innerWidth;
+			var ctrl =this;
+			ctrl.data ={};
+			ctrl.data.error = 1;
+			ctrl.data.success = 1;
+			ctrl.data.success_message ="Đang tải khuân mẫu..."
+			ctrl.data.error_message = "";
+
+			if(!form_id) return;
+			var url_form = "https://ungdungquanly.vn/public/form/" + form_id;
+			if(cid) url_form = url_form + "?cid=" + cid;
+			$http.get(url_form).then(function(res){
+				ctrl.data = res.data;
+				ctrl.send = function(){
+					ctrl.data.error = 0;
+					$http.post(url_form,ctrl.data).then(function(res){
+						if(!ctrl.data.url_forwarding_in_the_form){
+							ctrl.data.success = 1;
+						}else{
+              if(ctrl.data.exfields && ctrl.data.exfields.openNewTab){
+                var a = document.createElement("a");
+                 a.target = "_blank";
+                 a.href = ctrl.data.url_forwarding_in_the_form;
+                 a.click();
+              }else{
+                window.location.href = ctrl.data.url_forwarding_in_the_form;
+              }
+						}
+					},function(error){
+						ctrl.data.error = 1;
+					})
+				}
+			},function(error){
+				ctrl.data.error = 1;
+				ctrl.data.success = 1;
+				ctrl.data.success_message =""
+				ctrl.data.error_message = error.data || "Không thể tải biểu mẫu";
+			})
+
+		})
+	</script>
+</body>
+</html>

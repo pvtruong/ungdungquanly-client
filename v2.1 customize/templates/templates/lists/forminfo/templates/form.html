@@ -1,0 +1,49 @@
+﻿<form-input><form-input-body>
+	<div class="form-group">
+		<label class="control-label col-md-1">Code <span class="required">(*)</span></label>
+		<div class="col-md-3">
+			<input type="text"  class="form-control" ng-model='data.code' ng-required='true'>
+		</div>
+
+		<label class="control-label col-md-1">Title <span class="required">(*)</span></label>
+		<div class="col-md-7">
+			<input type="text"  class="form-control" ng-model='data.title' ng-required='true'>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-12">
+			<h3>Fields</h3>
+			<table class="table">
+				<tr ng-repeat="field  in data.fields">
+					<td>
+						<div class="close" ng-click="STP.reject(data.fields,{line:field.line})">&times;</div>
+					</td>
+					<td>
+						<select ng-model="field.type" class="form-control">
+							<option value="text">Text</option>
+							<option value="number">Text</option>
+							<option value="date">Text</option>
+							<option value="email">Text</option>
+							<option value="checkbox">Checkbox</option>
+						</select>
+					</td>
+					<td>
+						<input type="text" class="form-control" ng-model="field.id" placeholder="ID"/>
+					</td>
+					<td>
+						<input type="text" class="form-control" ng-model="field.label" placeholder="Label"/>
+					</td>
+					<td>
+						<label><input type="checkbox" class="form-control" ng-model="field.required"/></label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="17">
+						<button type="button" class="btn btn-sm btn-primary" ng-click="data.fields = STP.add(data.fields,{type:'text'})">+</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</form-input-body></form-input>

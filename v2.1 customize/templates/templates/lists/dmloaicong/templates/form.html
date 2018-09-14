@@ -1,0 +1,55 @@
+﻿<form-input><form-input-body>
+	<div class="form-group">
+		<label class="control-label col-sm-2">Mã loại công <span style='color:red' title='Không được trống'>(*)</span></label>
+		<div class="col-sm-4">
+			<input type="text" style="text-transform:uppercase" class="form-control" ng-model='data.ma_loai_cong' ng-required ="true">
+			
+		</div>
+		
+		<label class="control-label col-sm-2">Tên loại công <span style='color:red' title='Không được trống'>(*)</span></label>
+		<div class="col-sm-4">
+			<input type="text" class="form-control" ng-model='data.ten_loai_cong' ng-required="true">
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="control-label col-sm-2">Ngày công</label>
+		<div class="col-sm-4">
+			<input type="text" format="number"  class="form-control" ng-model='data.ngay_cong'>
+			
+		</div>
+		<label class="control-label col-sm-2">Ngày phép</label>
+		<div class="col-sm-4">
+			<input type="text" format="number"  class="form-control" ng-model='data.ngay_phep'>
+			
+		</div>
+		
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2">Ngày không lương</label>
+		<div class="col-sm-4">
+			<input type="text"  format="number" class="form-control" ng-model='data.ngay_khong_luong'>
+			
+		</div>
+		<label class="control-label col-sm-2">Ngày không phép</label>
+		<div class="col-sm-4">
+			<input type="text" format="number"  class="form-control" ng-model='data.ngay_khong_phep'>
+			
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<div class="checkbox">
+				<label><input type="checkbox" ng-model="data.status" /> Còn sử dụng</label>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-md-2">Màu</label>
+		<div class="col-md-10" style=''>
+			<div ng-repeat="c in ['aqua','aquamarine','beige','bisque','blue','lightBlue','cornflowerBlue','green','yellow','Gold','red','brown','gray','silver']" ng-style="{'cursor':'pointer','float':'left','width':'50px','height':'50px','margin':'2px','border':'1px solid ' + (data.color==c?'black':c),'background-color':'{{c}}'}" ng-click="data.color=c">
+			</div>
+			
+		</div>
+	</div>
+</form-input-body></form-input>

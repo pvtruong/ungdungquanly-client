@@ -1,0 +1,43 @@
+ <ul mfb-menu position="br" effect="zoomin" bgcolor='red'  label="{{getLabel('soan_email','Soạn email').text}}"
+		 active-icon="glyphicon glyphicon-pencil" resting-icon="glyphicon glyphicon-envelope"
+		 toggling-method="hover" ng-click="add()">
+
+	   <!--<li mfb-button  mfb-button-close bgcolor="red" icon="glyphicon glyphicon-plus" ng-click="add()" label="{{getLabel('soan_email','Soạn email').text}}"></li>
+	 <li mfb-button  mfb-button-close bgcolor="#009688" ng-show='import_show' icon="glyphicon glyphicon-save-file" ng-click="importhtml5()" label="{{getLabel('nhap_tu_excel','Nhập từ Excel').text}}"></li>
+	  <li mfb-button  mfb-button-close bgcolor="#5D4037" ng-show='delete_show' icon="glyphicon glyphicon-trash" ng-click="delete()" label="{{getLabel('xoa','Xóa').text}}"></li>
+	  -->
+
+
+ </ul>
+<div class='container-fluid'>
+	<div class="scrollable">
+	<!--<div class="scrollable-header">
+		<div class="row">
+			<div class="col-sm-12 text-right"  style="padding:5px">
+				<a class="btn btn-md btn-danger" ng-click ="add()">Soạn email</a>
+			</div>
+		</div>
+	</div>-->
+	<div class="scrollable-content tab-custom">
+	<uib-tabset class="col-sm-12">
+		<uib-tab heading='Đã nhận'  active="tab_active_received" select ="selectTab('received')">
+
+			<mail-received link='current_user'></mail-received>
+		</uib-tab>
+		<uib-tab heading='Đã gửi'  active="tab_active_sent"  select ="selectTab('sent')">
+			<mail-sent link='current_user'></mail-sent>
+		</uib-tab>
+		<uib-tab heading="Lịch gửi" active="tab_active_schedule"  select ="selectTab('schedule')">
+			<mail-schedule mail-schedule-added ='mailScheduleAdded' link='current_user'></mail-schedule>
+		</uib-tab>
+		<uib-tab heading="Mẫu"  active="tab_active_template"  select ="selectTab('template')">
+			<mail-template link='current_user'></mail-template>
+		</uib-tab>
+		<uib-tab heading="Tài khoản"  active="tab_active_account"  select ="selectTab('account')">
+			<mail-account link='current_user'></mail-account>
+		</uib-tab>
+	</uib-tabset>
+	</div>
+
+	</div>
+</div>

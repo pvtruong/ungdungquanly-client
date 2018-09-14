@@ -1,0 +1,48 @@
+<div class="dropdown">
+	<a role="menu" class="btn btn-xs btn-default" ng-click="toggleDropdown('pbl' + r._id)" href="javascript:;">
+		<i class="fa fa-cog"></i>
+	</a>
+	<ul class="dropdown-menu" ui-show="pbl{{r._id}}" ui-outer-click="turnOffDropdown('pbl' + r._id)" ui-outer-click-if="Ui.active('pbl' + r._id)" ui-state="pbl{{r._id}}" ui-turn-off="pbl{{r._id}}">
+		<li ng-show="chooseTemplate">
+			<a href="javascript:;" ng-click="chooseTemplate('',r)">
+				{{getLabel('print','In').text}}
+			</a>
+		</li>
+		<li ng-show="app_info.show_gia_von">
+			<a href="javascript:;" ng-click="xemhoachtoan(r)">
+				{{getLabel('HOACHTOAN','Xem định khoản của chứng từ này').text}}
+			</a>
+		</li>
+		<li ng-show="app_info.show_gia_von">
+			<a href="javascript:;" ng-click="xemsokho(r)">
+				{{getLabel('sokho','Xem sổ kho').text}}
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;" ng-click="copy(r)">
+				{{getLabel('COPY','Sao chép chứng từ này').text}}
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;" ng-click="edit(r._id)">
+				{{getLabel('SUA','Sửa').text}}
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;" ng-click="delete(r._id)">
+				{{getLabel('XOA','Xóa').text}}
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;" ng-click="xemlogs(r)">
+				{{getLabel('history','Lịch sử').text}}
+			</a>
+		</li>
+	</ul>
+	<a  class="btn btn-xs btn-default" ng-click="edit(r._id)" href="javascript:;">
+		<i class="fa fa-pencil"></i>
+	</a>
+	<a  class="btn btn-xs btn-primary" ng-if="selectedRow && selectedRow._id===r._id && !isEqual(selectedRow,r)" ng-click="update(selectedRow,null,r)" href="javascript:;">
+		<i class="fa fa-save"></i>
+	</a>
+</div>

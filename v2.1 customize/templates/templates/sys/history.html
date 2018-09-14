@@ -1,0 +1,20 @@
+﻿
+<table>
+	<tr ng-repeat="row in history|orderBy:'-date_created'">
+		<td>
+			{{row.action_text}} {{getLabel('BOI','bởi').text}} <a ng-click='openProfile(row.user_created)'>{{row.user_created}}</a> {{getLabel('LUC','lúc').text}} {{row.date_created|date:'HH:mm'}} {{getLabel('NGAY','ngày').text}} {{row.date_created|date:'dd/MM/yyyy'}}
+		</td>
+	</tr>
+	<tr ng-if="link.date_created!==link.date_updated && history.length==0">
+		<td>
+			 {{getLabel('UPDATED_BY','Được cập nhật bởi ').text}} <a ng-click='openProfile(link.user_updated)'>{{link.user_updated}}</a> {{getLabel('LUC','lúc').text}} {{link.date_updated|date:'HH:mm'}} {{getLabel('NGAY','ngày').text}} {{link.date_updated|date:'dd/MM/yyyy'}}
+		</td>
+		
+	</tr>
+	<tr ng-if ="history.length==0">
+		
+		<td>
+			 {{getLabel('CREATED_BY','Được tạo bởi ').text}} <a ng-click='openProfile(link.user_created)'>{{link.user_created}}</a> {{getLabel('LUC','lúc').text}} {{link.date_created|date:'HH:mm'}} {{getLabel('NGAY','ngày').text}} {{link.date_created|date:'dd/MM/yyyy'}}
+		</td>
+	</tr>
+</table>

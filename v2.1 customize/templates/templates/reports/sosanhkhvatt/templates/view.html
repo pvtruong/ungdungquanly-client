@@ -1,0 +1,55 @@
+<div class="table-responsive">
+    <table class='table' id ='exportable'>
+    <tr>
+
+        <th>{{getLabel('nam','Năm').text}}</th>
+        <th>{{getLabel('thang','Tháng').text}}</th>
+        <th>{{getLabel('kho','Kho/cửa hàng').text}}</th>
+        <th>{{getLabel('nhan_vien','Nhân viên').text}}</th>
+
+        <th>{{getLabel('bo_phan_cty','Bộ phận').text}}</th>
+        <th>{{getLabel('vu_viec','Vụ việc/dự án').text}}</th>
+        <th>{{getLabel('phi','Phí').text}}</th>
+
+        <th>{{getLabel('ke_hoach','Kế hoạch').text}}</th>
+        <th>{{getLabel('thuc_te','Thực tế').text}}</th>
+        <th>{{getLabel('chenh_lech','Chênh lệch').text}}</th>
+
+    </tr>
+    <tr ng-repeat='r in data' ng-class="r.bold?'cbold':'cnormal'">
+
+        <td>
+            <span ng-if="r.nam">{{::r.nam}}</span>
+        </td>
+        <td>
+            <span ng-if="r.thang">{{::r.thang}}</span>
+        </td>
+        <td>
+            {{::r.ten_kho}}
+        </td>
+        <td>
+            {{::ten_nv}}
+        </td>
+        <td>
+            {{::ten_bp}}
+        </td>
+        <td>
+            {{::ten_dt}}
+        </td>
+        <td>
+            {{::ten_phi}}
+        </td>
+
+        <td>
+            {{::r.chi_tieu|number:0}}
+        </td>
+        <td>
+            {{::r.ps|number:0}}
+        </td>
+        <td>
+            {{::r.cl|number:0}}
+        </td>
+
+    </tr>
+    </table>
+</div>

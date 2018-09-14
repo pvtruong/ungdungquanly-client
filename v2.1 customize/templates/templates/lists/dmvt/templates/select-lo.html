@@ -1,0 +1,39 @@
+<div class="modal-header">
+	<button type="button" class="close" ng-click ='cancel()' aria-hidden="true"> &times;</button>
+	<h4 class="modal-title" id="findModalLabel">
+	   Chọn lô và thuộc tính
+	</h4>
+   
+ </div>
+ <div class="modal-body" ng-style="{'height':(innerHeight-100).toString() + 'px'}">
+	<div class="table-list" ng-if='!buy'>
+		
+		<tontucthoi-list-view on-list-item-click="select($item)" not-load-data="!item.ma_vt" parameters ="parameters"></tontucthoi-list-view>
+	</div>
+	<form  name="form" novalidate class ="css-form form-horizontal form-input"  ng-if='buy'>
+		<div class="form-group">
+			<label>Lô  <span style='color:red' ng-if="item.ma_lo_yn">(*)</span></label>
+			<input type="text"  style='text-transform:uppercase' class="form-control" ng-model='item.ma_lo' ng-required="item.ma_lo_yn"/>
+		</div>
+		<div class="form-group">
+			<label>Hạn sử dụng  <span style='color:red' ng-if="item.ma_lo_yn">(*)</span></label>
+			<ng-datepicker ng-model='item.han_sd' ng-required="item.ma_lo_yn"></ng-datepicker>
+		</div>
+		
+		<div class="form-group">
+			<label>Thuộc tính 1 <span style='color:red' ng-if="item.ma_tt1_yn">(*)</span></label>
+			<input type="text"  style='text-transform:uppercase' class="form-control" ng-model='item.ma_tt1' ng-required="item.ma_tt1_yn"/>
+		</div>
+		<div class="form-group">
+			<label>Thuộc tính 2 <span style='color:red' ng-if="item.ma_tt2_yn">(*)</span></label>
+			<input type="text"  style='text-transform:uppercase' class="form-control" ng-model='item.ma_tt2' ng-required="item.ma_tt2_yn"/>
+		</div>
+		<div class="form-group">
+			<label>Thuộc tính 3 <span style='color:red' ng-if="item.ma_tt3_yn">(*)</span></label>
+			<input type="text"  style='text-transform:uppercase' class="form-control" ng-model='item.ma_tt3' ng-required="item.ma_tt3_yn"/>
+		</div>
+		<div class="form-group">
+			<button class="btn btn-primary" ng-disabled='form.$invalid'  ng-click="select({ma_lo:item.ma_lo,han_sd:item.han_sd,ma_tt1:item.ma_tt1,ma_tt2:item.ma_tt2,ma_tt3:item.ma_tt3})">Nhận</button>
+		</div>
+	</form>
+ </div>

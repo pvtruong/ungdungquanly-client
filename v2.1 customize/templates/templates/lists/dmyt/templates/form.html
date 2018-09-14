@@ -1,0 +1,125 @@
+<form-input auto-height="true"><form-input-body>
+    <div class="form-group">
+		<label class="control-label col-md-2">Mã yếu tố <span class="required">(*)</span></label>
+		<div class="col-md-2">
+			<input type="text" class="form-control input-md" ng-model='data.ma_yt' required>
+		</div>
+        <div class="col-md-4 checkbox">
+            <label><input type="checkbox" ng-model="data.co_do_dang" /> Có dở dang</label>
+        </div>
+        <div class="col-md-4 checkbox">
+            <label><input type="checkbox" ng-model="data.yt_trung_gian" /> Yếu tố trung gian</label>
+        </div>  
+	</div>
+	<div class="form-group">
+		<label class="control-label col-md-2">Tên yếu tố <span class="required">(*)</span></label>
+		<div class="col-md-10">
+			<input type="text" class="form-control input-md" ng-model='data.ten_yt' required>
+		</div>
+	</div>
+    <div class="form-group">
+		<label class="control-label col-sm-2">Nhóm yếu tố</label>
+		<div class="col-sm-10">
+			<ng-selector
+				module="group" fields="_id,group_name" field-model="_id" field-label = "group_name"
+				condition ="group_type:'YEUTOGT'"  ng-model='data.nh_yt' default-values="group_type:'YEUTOGT'">
+			</ng-selector>
+		</div>
+	</div>
+    <div class="form-group">
+		<label class="control-label col-sm-2">Bộ phận</label>
+		<div class="col-sm-10">
+			<ng-selector
+				module="dmbp" fields="ma_bp,ten_bp" field-model="ma_bp" field-label = "ten_bp"
+				ng-model='data.ma_bp'>
+			</ng-selector>
+		</div>
+	</div>
+	
+    <fieldset><legend>Phương thức tập hợp chi phí</legend>
+        <div class="form-group">
+            <label class="control-label col-sm-2" >Cộng/trừ</label>
+            <div class="col-sm-10">
+                <select ng-model="data.cong_tru" class="form-control">
+                        <option value="1">Cộng</option>
+                        <option value="2">Trừ</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" >Tài khoản nợ</label>
+            <div class="col-sm-10">
+                <ng-selector
+                    module='dmtk' fields='tk,ten_tk' field-model='tk' field-label='ten_tk'
+                    multiple="true" ng-model='data.tk_no' empty_yn='true'>
+                </ng-selector>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" >Tài khoản có</label>
+            <div class="col-sm-10">
+                <ng-selector
+                    module='dmtk' fields='tk,ten_tk' field-model='tk' field-label='ten_tk'
+                    multiple="true" ng-model='data.tk_co' empty_yn='true'>
+                </ng-selector>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset><legend>Tập hợp chi phí theo</legend>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-md-2">
+                <div class="checkbox">
+                    <label><input type="checkbox" ng-model="data.th_sp" /> Sản phẩm</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="checkbox">
+                    <label><input type="checkbox" ng-model="data.th_nvl" /> Nguyên vật liệu</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="checkbox">
+                    <label><input type="checkbox" ng-model="data.th_bp" /> Bộ phận</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="checkbox">
+                    <label><input type="checkbox" ng-model="data.th_lsx" /> Lệnh sản xuất</label>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+	<fieldset ng-if="!data.th_sp"><legend>Phương thức phân bổ</legend>
+        <div class="form-group">
+            <label class="control-label col-sm-2" >Kiểu phân bổ</label>
+            <div class="col-sm-10">
+                <select ng-model="data.pt_phan_bo" class="form-control">
+                        <option value="0">Không phân bổ</option>
+                        <option value="1">Phân bổ theo số lượng sản phẩm</option>
+                        <option value="2">Phân bổ theo yếu tố chi phí</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" ng_if="data.pt_phan_bo==='2'">
+            <label class="control-label col-sm-2" >Yếu tố tính hệ số phân bổ</label>
+            <div class="col-sm-10">
+                <ng-selector
+                    module='dmyt' fields='ma_yt,ten_yt' field-model='ma_yt' field-label='ten_yt'
+                    ng-model='data.yt_tinh_hs_pb' empty_yn='true'>
+                </ng-selector>
+            </div>
+        </div>
+        <div class="form-group"  ng_if="data.pt_phan_bo==='2'">
+            <label class="control-label col-sm-2" >Tính hệ số theo</label>
+            <div class="col-sm-4">
+                <select ng-model="data.pt_tinh_hs_pb" class="form-control">
+                        <option value="1">Phát sinh trong kỳ</option>
+                        <option value="2">Giá thành</option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+    
+	
+
+</form-input-body></form-input>

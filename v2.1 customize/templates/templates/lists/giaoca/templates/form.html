@@ -1,0 +1,69 @@
+<form-input><form-input-body>
+    <div class="form-group">
+        <label class="control-label col-md-2">{{getLabel('tu_ngay','Từ ngày').text}} <span class='required'>(*)</span></label>
+        <div class="col-md-6">
+            <ng-datepicker ng-model='data.tu_ngay' ng-required='true'></ng-datepicker>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">{{getLabel('den_ngay','Đến ngày').text}} <span class='required'>(*)</span></label>
+        <div class="col-md-6">
+            <ng-datepicker ng-model='data.den_ngay' ng-required='true'></ng-datepicker>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-xs-2">Kho  <span class='required'>(*)</span></label>
+        <div class="col-xs-6">
+            <ng-selector 
+                module='dmkho' fields='ma_kho,ten_kho' field-model='ma_kho' field-label='ten_kho' ng-required="true"
+                ng-model='data.ma_kho'>
+            </ng-selector>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-2">Ca <span class='required'>(*)</span></label>
+        <div class="col-xs-6">
+           <ng-selector 
+                module='dmca' fields='ma_ca,ten_ca' field-model='ma_ca' field-label='ten_ca' ng-required="true"
+                ng-model='data.ma_ca'>
+            </ng-selector>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-2">Tiền hàng</label>
+        <div class="col-xs-6">
+          <input type="text" format='number'  class="form-control" ng-model='data.tien_hang' ng-readonly="true"/>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-xs-2">Đã giao</label>
+        <div class="col-xs-6">
+          <input type="text" format='number'  class="form-control" ng-model='data.da_giao'  ng-readonly="true"/>
+        </div>
+        <span ng-hide="true">{{data.con_lai = data.tien_hang-data.da_giao}}</span>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-xs-2">Còn lại</label>
+        <div class="col-xs-6">
+          <input type="text" format='number'  class="form-control" ng-model='data.con_lai'  ng-readonly="true"/>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-xs-2">Tiền giao</label>
+        <div class="col-xs-6">
+          <input type="text" format='number'  class="form-control" ng-model='data.tien_giao'/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-2">Ghi chú</label>
+        <div class="col-xs-6">
+          <input type="text"  class="form-control" ng-model='data.ghi_chu'/>
+        </div>
+    </div>
+</form-input-body></form-input>

@@ -1,0 +1,90 @@
+<div class="table-responsive detail-table">
+	<table class="table table-form">
+		<tr>
+			<th>
+				{{getLabel('so_luong','Số lượng').text}}
+			</th>
+			<th>
+				{{getLabel('gia','Giá').text}}
+			</th>
+			<th>
+				{{getLabel('tien','Tiền').text}}
+			</th>
+			<th>
+				{{getLabel('profit_share','Profit share').text}}
+			</th>
+			<th>
+				{{getLabel('tien_phi_khac','Phí khác').text}}
+			</th>
+		</tr>
+		<tbody ng-repeat="r in ngMasterData.details">
+			<tr>
+
+				<td colspan="16">
+					<div style='padding-right:10px;font-size: 18px;' title="Xóa dòng này" class="pull-left close" ng-click="delete1Row(r)">
+
+						&times;
+					</div>
+					<div style='cursor:pointer' ng-click='editDetail(r.line)'>
+						<b>{{r.ten_vt}}
+							-
+							{{r.ma_vt}}</b>
+						({{r.ma_dvt}})
+						<span ng-if='r.ma_tt1'>,
+							{{getLabel('TT1','TT1').text}}:
+							{{r.ma_tt1}}</span>
+						<span ng-if='r.ma_tt2'>,
+							{{getLabel('TT2','TT2').text}}:
+							{{r.ma_tt2}}</span>
+						<span ng-if='r.ma_tt3'>,
+							{{getLabel('TT3','TT3').text}}:
+							{{r.ma_tt3}}</span>
+					</div>
+
+					<div>
+						{{r.dien_giai}}
+					</div>
+
+				</td>
+			</tr>
+			<tr>
+				<td style="">
+					<input type='text' format='number' round="f_sl" class="form-control" ng-model='r.so_luong' ng-change="r.tien_nt=STP.round(r.so_luong*r.gia_nt,f_tien_nt)"/>
+				</td>
+				<td style="">
+					<input type='text' format='number' round="f_gia_nt" class="form-control" ng-model='r.gia_nt' ng-change="r.tien_nt = STP.round(r.so_luong*r.gia_nt,f_tien_nt)"/>
+					<span class="form-control" ng-hide="true">{{r.gia = STP.round(r.gia_nt*ngMasterData.ty_gia,0)}}</span>
+				</td>
+				<td style="">
+					<input type='text' format='number' round="f_tien_nt" class="form-control" ng-model='r.tien_nt'/>
+					<span class="form-control" ng-hide="true">{{r.tien = STP.round(r.tien_nt*ngMasterData.ty_gia,0)}}</span>
+				</td>
+				<td style="">
+					<input type='text' format='number' round="f_tien_nt" class="form-control" ng-model='r.exfields_detail.tien_phi_nt'/>
+					<span class="form-control" ng-hide="true">{{r.exfields_detail.tien_phi = STP.round(r.exfields_detail.tien_phi_nt*ngMasterData.ty_gia,0)}}</span>
+				</td>
+				<td style="">
+					<input type='text' format='number' round="f_tien_nt" class="form-control" ng-model='r.exfields_detail.tien_phi_khac_nt'/>
+					<span class="form-control" ng-hide="true">{{r.exfields_detail.tien_phi_khac = STP.round(r.exfields_detail.tien_phi_khac_nt*ngMasterData.ty_gia,0)}}</span>
+				</td>
+			</tr>
+			<tr ng-click='editDetail(r.line)'>
+				<td style="cursor:pointer" colspan="17">
+					<span ng-repeat="(key,value) in r.exfields_detail" ng-show="key.indexOf('tien_phi')<0">
+						{{getLabel(key,key).text + ': ' +  value}},
+					</span>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+</div>
+<div style='padding-bottom:13px;padding-left:10px;padding-top:10px'>
+	<div class='btn-group'>
+		<button type="button" class='btn btn-xs btn-primary'  ng-click="addDetail()">
+			<i class="fa fa-plus-square-o" aria-hidden="true"></i> {{getLabel('dong_moi','Thêm dòng mới').text}}
+		</button>
+
+	</div>
+</div>

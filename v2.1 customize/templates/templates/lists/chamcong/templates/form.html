@@ -1,0 +1,9 @@
+﻿<header-form-input-full>
+	<div class="form-group">
+		<dmloaicong-list-view template-url="list-view" selected-row = "{ma_loai_cong:data.ma_loai_cong}" on-list-item-click="data.ma_loai_cong=$item.ma_loai_cong;create()"></dmloaicong-list-view>
+		<div class="checkbox">
+			<label><input type="checkbox" ng-model="data.is_default_cong"/> Mặc định chọn công này</label>
+		</div>
+	</div>
+</header-form-input-full>
+

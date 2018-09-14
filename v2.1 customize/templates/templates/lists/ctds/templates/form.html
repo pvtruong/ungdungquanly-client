@@ -1,0 +1,105 @@
+﻿<form-input auto-height="true"><form-input-body>
+
+
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('nam','Năm').text}}  <span class="required">*</span></label>
+			<div class="col-sm-4">
+				<input type="Number" class="form-control" ng-model="data.nam" ng-required="true" min='1990' max="2999"/>
+			</div>
+
+			<label class="control-label col-sm-2">{{getLabel('thang','Tháng').text}}  <span class="required">*</span></label>
+			<div class="col-sm-4">
+				<input type="Number" class="form-control" ng-model="data.thang" ng-required="true" min='1' max="12"/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('nhom_ke_hoach','Nhóm kế hoạch').text}} </label>
+			<div class="col-sm-10">
+				<ng-selector ng-model='data.group_id' label='group_name'
+				module='group' fields='_id,group_name' field-model='_id' field-label='group_name' condition="group_type:'KEHOACH'" default-values="group_type:'KEHOACH'"></ng-selector>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('kho_cua_hang','Kho/cửa hàng').text}} </label>
+			<div class="col-sm-10">
+				<ng-typeahead ng-model='data.ten_kho' label='data.ma_kho'
+				module='dmkho' fields='ma_kho,ten_kho' field-model='ten_kho' field-label='ma_kho'></ng-typeahead>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('nhan_vien','Nhân viên').text}} </label>
+			<div class ="col-sm-10">
+				<ng-typeahead ng-model='data.ten_nv' label="data.ma_nv"
+					module='dmnv' fields='ma_nv,ten_nv' field-model='ten_nv' field-label='ma_nv' >
+				</ng-typeahead>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('bo_phan_cty','Bộ phận').text}} </label>
+			<div class ="col-sm-10">
+				<ng-typeahead ng-model='data.ten_bp' label="data.ma_bp"
+					module='dmbp' fields='ma_bp,ten_bp' field-model='ten_bp' field-label='ma_bp' >
+				</ng-typeahead>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('vu_viec','Vụ việc/dự án').text}} </label>
+			<div class ="col-sm-10">
+				<ng-typeahead ng-model='data.ten_dt' label="data.ma_dt"
+					module='dmdt' fields='ma_dt,ten_dt' field-model='ten_dt' field-label='ma_dt' >
+				</ng-typeahead>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('dt_cp','Doanh thu/chi phí').text}} </label>
+			<div class ="col-sm-10">
+				<ng-typeahead ng-model='data.ten_phi' label="data.ma_phi"
+					module='dmphi' fields='ma_phi,ten_phi' field-model='ten_phi' field-label='ma_phi' >
+				</ng-typeahead>
+			</div>
+		</div>
+
+
+
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('tk_no','TK nợ').text}} </label>
+			<div class="col-sm-8">
+				<ng-selector ng-model='data.tk_no' multiple="true" empty_yn='true'
+				module='dmtk' fields='tk,ten_tk' field-model='tk' field-label='tk,ten_tk'></ng-selector>
+			</div>
+			<div class="col-sm-2">
+					<div class="checkbox">
+							<label><input type="checkbox" ng-model="data.tk_no_gt" /> {{getLabel('giam_tru','Giảm trừ').text}}</label>
+					</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('tk_co','TK có').text}} </label>
+			<div class="col-sm-8">
+				<ng-selector ng-model='data.tk_co' multiple="true" empty_yn='true'
+				module='dmtk' fields='tk,ten_tk' field-model='tk' field-label='tk,ten_tk'></ng-selector>
+			</div>
+
+			<div class="col-sm-2">
+					<div class="checkbox">
+							<label><input type="checkbox" ng-model="data.tk_co_gt" /> {{getLabel('giam_tru','Giảm trừ').text}}</label>
+					</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('ke_hoach','Kế hoạch').text}}</label>
+			<div class="col-sm-4">
+				<input  type="text" format="number" class="form-control" ng-model="data.chi_tieu"/>
+			</div>
+
+
+		</div>
+
+
+	</form-input-body></form-input>

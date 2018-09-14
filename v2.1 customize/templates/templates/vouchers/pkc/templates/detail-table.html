@@ -1,0 +1,45 @@
+﻿<div class="table-responsive detail-table">
+	<table class="table">
+		<tr>
+			<th class='text-center' style='width:30px'><th>{{getLabel('TK_NO','TK nợ').text}}</th>
+			<th>{{getLabel('TK_CO','TK có').text}}</th>
+			<th>{{getLabel('TIEN_NT','Tiền nt').text}}</th>
+			<th>{{getLabel('TIEN','Tiền').text}} VND</th>
+			<th>{{getLabel('MA_KH','Khách hàng').text}}</th>
+
+		</tr>
+		<tr ng-repeat="r in ngMasterData.details">
+			<td class='text-center'  title="Xóa dòng này" ng-click="delete1Row(r)">
+				<div class="close" style='font-size:18px;'>&times;</div>
+			</td>
+			<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+				<div>{{r.ten_tk_no}}</div>
+				<i style="font-size:12px">{{r.tk_no}}</i>
+			</td>
+			<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+				<div>{{r.ten_tk_co}}</div>
+				<i style="font-size:12px">{{r.tk_co}}</i>
+			</td>
+			<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+				{{r.tien_nt|number:2}} {{r.ma_nt}}
+			</td>
+
+			<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+				{{r.tien|number:0}}
+			</td>
+			<td  style='cursor:pointer' ng-click='editDetail(r.line)'>
+				<div>{{r.ten_kh_no}}</div>
+
+			</td>
+		</tr>
+	</table>
+</div>
+<div style='padding-bottom:13px;padding-left:10px;padding-top:10px'>
+	<div class='btn-group'>
+		<button type="button" class='btn btn-xs btn-primary'  ng-click="createKC()" ng-disabled="!ngMasterData.ma_dvcs || !ngMasterData.ngay_ct">
+			{{getLabel('TAO_BUT_TOAN','Tạo bút toán').text}}
+		</button>
+		<a class='btn btn-xs btn-default'  ng-click="openUrl('dmkc')">{{getLabel('KHAI_BAO_BUT_TOAN','Khai báo bút toán').text}}</a>
+
+	</div>
+</div>

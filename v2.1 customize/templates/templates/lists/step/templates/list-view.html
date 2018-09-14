@@ -1,0 +1,59 @@
+<div class="row">
+	<div class="col-md-4">
+		<ul class ="list-group">
+			<li ng-repeat="r in list" style="cursor:pointer" ng-class="r._id==selectedStep._id_o?'list-group-item active':'list-group-item'" ng-click='selectStep(r)'>
+				{{ r.title }}
+			</li>
+		</u>
+		
+	</div>
+	<div class="col-md-8" style="padding:0 20px 0 20px!important">
+		<div class="form-group">
+			<label class="control-label">Tên bước <span style='color:red'>(*)</span></label>
+			<div class="">
+				<input type="text" name ='title' class="form-control" ng-model='selectedStep.title'  ng-required="true"/>
+			</div>
+		</div>
+		<div class="form-group" ng-show="selectedStep.step_style=='form'">
+			<label class="control-label">Chọn biểu mẫu</label>
+			<ng-typeahead 
+				module='form' fields='name,_id' field-model='name' field-label='_id'
+				ng-model='selectedStep.exfields.model_name' label='selectedStep.model_id'>
+			</ng-typeahead>
+			
+			<label class="control-label">Liên kết tới form</label>
+			<div>
+				<textarea class="form-control" ng-readonly="true">{{formShare({_id:selectedStep.model_id}).url}}</textarea>
+			</div>
+			
+			<label class="control-label">Code để copy tới website của bạn</label>
+			<div>
+				<textarea class="form-control" ng-readonly="true">{{formShare({_id:selectedStep.model_id}).frame}}</textarea>
+				
+			</div>
+		</div>
+		
+		<div class="form-group" ng-show="selectedStep.step_style=='mailtemplate'">
+			<label class="control-label">Chọn mẫu email</label>
+			<ng-typeahead 
+				module='mailtemplate' fields='name,_id' field-model='name' field-label='_id'
+				ng-model='selectedStep.exfields.model_name' label='selectedStep.model_id'
+				on-select ="selectedStep.action_model ='mailtemplate';selectedStep.action_func='send'">
+			</ng-typeahead>
+		</div>
+		
+		<div class="form-group" ng-show="selectedStep.step_style=='waitevent'">
+			<label class="control-label">Chọn sự kiện</label>
+			<ng-typeahead 
+				module='waitevent' fields='name,_id,type' field-model='name' field-label='_id'
+				ng-model='selectedStep.exfields.model_name' label='selectedStep.model_id'
+				on-select="selectedStep.action_model =$item.type;selectedStep.action_func='run'">
+			</ng-typeahead>
+		</div>
+		
+		<div class="form-group">
+			<button class="btn btn-primary" ng-click="ok()">Lưu</button>
+			<button  ng-click="remove()" class="btn btn-danger">Xóa</button>
+		</div>
+	</div>
+</div>

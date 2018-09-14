@@ -1,0 +1,15 @@
+<form-input auto-height="true"><form-input-body>
+	<div class="form-group" ng-hide ='data.is_reply || data.id_product'>
+		<label class="control-label">Tiêu đề <span class="required">(*)</span></label>
+		<div class="">
+			<input type="text"  class="form-control" placeholder='Nhập tiêu đề...' ng-model='data.title' ng-required='true'>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label">Nội dung <span class="required">(*)</span></label>
+		<div class="">
+			<textarea  ng-model="data.content" class="form-control" rows="20"></textarea>
+		</div>
+	</div>
+	
+</form-input-body></form-input>

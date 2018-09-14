@@ -1,0 +1,72 @@
+<form-input>
+	<form-input-body>
+		<div class="form-group">
+			<label class="control-label col-md-3">Mã báo cáo
+				<span class="required">(*)</span></label>
+			<div class="col-md-9">
+				<input type="text" ng-readonly="true" class="form-control" ng-model='data.code_rpt' ng-required='true'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Chọn mẫu</label>
+			<div class="col-md-9">
+				<select
+					ng-model="template"
+					ng-options="item as item.ten_obj for item in [
+					{ma_obj:'ma_dt',ten_obj:'Báo cáo theo vụ việc, dự án',model_obj:'dmdt',value_field:'ma_dt',header_field:'ten_dt'},
+					{ma_obj:'ma_kh',ten_obj:'Báo cáo theo khách hàng, nhà cung cấp',model_obj:'customer',value_field:'ma_kh',header_field:'ten_kh'},
+					{ma_obj:'ma_hd',ten_obj:'Báo cáo theo hợp đồng',model_obj:'dmhd',value_field:'ma_hd',header_field:'ten_hd'},
+					{ma_obj:'ma_phi',ten_obj:'Báo cáo theo khoản mục phí',model_obj:'dmphi',value_field:'ma_phi',header_field:'ten_phi'},
+					{ma_obj:'ma_bp',ten_obj:'Báo cáo theo bộ phận',model_obj:'dmbp',value_field:'ma_bp',header_field:'ten_bp'},
+					{ma_obj:'ma_nv',ten_obj:'Báo cáo theo nhân viên',model_obj:'dmnv',value_field:'ma_nv',header_field:'ten_nv'},
+					{ma_obj:'ma_kho',ten_obj:'Báo cáo theo kho/cửa hàng',model_obj:'dmkho',value_field:'ma_kho',header_field:'ten_kho'},
+
+					{ma_obj:'',ten_obj:'Tùy chỉnh',model_obj:'',value_field:'',header_field:''}
+				]"
+					ng-change="data.ma_obj = template.ma_obj;
+					data.ten_obj= template.ten_obj;
+					data.model_obj= template.model_obj;
+					data.value_field= template.value_field;
+					data.header_field= template.header_field;
+					"
+					class="form-control"></select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Mã
+				<span class="required">(*)</span></label>
+			<div class="col-md-9">
+				<input type="text" placeholder="Ví dụ: ma_dt" class="form-control" ng-model='data.ma_obj' ng-required='true'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Tên
+				<span class="required">(*)</span></label>
+			<div class="col-md-9">
+				<input type="text" placeholder="Ví dụ: Báo cáo theo vụ việc, dự án" class="form-control" ng-model='data.ten_obj' ng-required='true'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Model
+				<span class="required">(*)</span></label>
+			<div class="col-md-9">
+				<input type="text" placeholder="ví dụ: dmdt" class="form-control" ng-model='data.model_obj' ng-required='true'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Trường giá trị
+				<span class="required">(*)</span></label>
+			<div class="col-md-9">
+				<input type="text" placeholder="Ví dụ: ma_dt" class="form-control" ng-model='data.value_field' ng-required='true'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Trường tên
+				<span class="required">(*)</span></label>
+			<div class="col-md-9">
+				<input type="text" placeholder="Ví dụ: ten_dt" class="form-control" ng-model='data.header_field' ng-required='true'>
+			</div>
+		</div>
+
+	</form-input-body>
+</form-input>

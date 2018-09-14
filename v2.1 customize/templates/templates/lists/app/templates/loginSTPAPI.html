@@ -1,0 +1,38 @@
+﻿<div class="row">
+	<div  class="col-md-offset-4 col-md-4">
+		<div class="login">
+			<div class="content">
+				<form class="login-form" name ="form_login"  style="padding:10px">
+					<h3 class="form-title">Đăng nhập STP Enterpise</h3>
+					<div class="alert alert-danger" ng-show="messageError">
+						
+						<span>
+						{{messageError}} </span>
+					</div>
+					<div class="form-group">
+						<label class="control-label visible-ie8 visible-ie9">Tên đăng nhập</label>
+						<div class="input-icon">
+							
+							<input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Tên đăng nhập" name="username" ng-model="data.username" ng-required="true"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label visible-ie8 visible-ie9">Mật khẩu</label>
+						<div class="input-icon">
+							
+							<input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Mật khẩu " name="password" ng-model="data.password"  ng-required="true"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label> </label>
+						<button ng-click='getToken()' ng-disabled="form_login.$invalid" class="btn btn-md btn-primary green pull-right">
+						Đăng nhập <i class="m-icon-swapright m-icon-white"></i>
+						</button>
+					</div>
+					
+					
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

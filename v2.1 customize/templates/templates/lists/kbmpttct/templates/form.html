@@ -1,0 +1,142 @@
+<form-input>
+	<form-input-body>
+		<div class="form-group">
+			<label class="control-label col-sm-2">STT</label>
+			<div class="col-sm-4">
+				<input type="text" format='number' name='stt' class="form-control" ng-model='data.stt' ng-required='true'>
+			</div>
+
+			<label class="control-label col-sm-2">Mã số</label>
+			<div class="col-sm-4">
+				<input type="text" name='ma_so' style='text-transform:uppercase' class="form-control" ng-model='data.ma_so' ng-required='true'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">Chỉ tiêu</label>
+			<div class="col-sm-10">
+				<input type="text" name='chi_tieu' class="form-control" placeholder='Tên chỉ tiêu' ng-model='data.chi_tieu' ng-required='true'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">Chỉ tiêu 2(English)</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" placeholder='Tên chỉ tiêu bằng tiếng anh' ng-model='data.chi_tieu2'>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class='col-sm-offset-2 col-sm-2'>
+				<div class='checkbox'>
+					<label><input type='checkbox' ng-model='data.print'/>In</label>
+				</div>
+			</div>
+			<div class='col-sm-4'>
+				<div class='checkbox'>
+					<label><input type='checkbox' ng-model='data.bold'/>In đậm</label>
+				</div>
+			</div>
+
+			<label class="control-label col-sm-2">Kiểu đồ thị</label>
+			<div class="col-sm-2">
+				<select class="form-control" ng-model='data.chart'>
+					<option value='bar'>Bar</option>
+					<option value='line'>Line</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2">Phương pháp tính</label>
+			<div class="col-sm-10">
+				<select class='form-control' name='cach_tinh' ng-model='data.cach_tinh' ng-required='true'>
+					<option value='1'>Mã số (công thức)</option>
+					<option value='2'>Tài khoản (lấy từ sổ cái)</option>
+					<option value='9'>Query</option>
+				</select>
+			</div>
+		</div>
+		<!--tinh theo tai khoan-->
+		<div ng-show="data.cach_tinh =='2'">
+			<div class="form-group">
+				<label class="control-label col-sm-2">Tài khoản nợ</label>
+				<div class="col-sm-8">
+					<ng-selector module='dmtk' fields='tk,ten_tk' field-model='tk' field-label='tk,ten_tk' multiple="true" ng-model='data.tk_no' empty_yn='true'></ng-selector>
+				</div>
+				<div class='col-sm-2'>
+					<div class='checkbox'>
+						<label><input type='checkbox' ng-model='data.giam_tru_no'/>Giảm trừ</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">Tài khoản có</label>
+				<div class="col-sm-8">
+					<ng-selector module='dmtk' fields='tk,ten_tk' field-model='tk' field-label='tk,ten_tk' multiple="true" ng-model='data.tk_co' empty_yn='true'></ng-selector>
+				</div>
+
+				<div class='col-sm-2'>
+					<div class='checkbox'>
+						<label><input type='checkbox' ng-model='data.giam_tru_co'/>Giảm trừ</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">Mã phí</label>
+				<div class="col-sm-4">
+					<ng-typeahead module='dmphi' field-model='ten_phi' field-label='ma_phi' fields='ma_phi,ten_phi' ng-model='data.ten_phi' label='data.ma_phi'></ng-typeahead>
+				</div>
+
+				<label class="control-label col-sm-2">Mã kho</label>
+				<div class="col-sm-4">
+					<ng-typeahead module='dmkho' field-model='ten_kho' field-label='ma_kho' fields='ma_kho,ten_kho' ng-model='data.ten_kho' label='data.ma_kho'></ng-typeahead>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">Điều kiện khác</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model='data.dieu_kien_khac'>
+				</div>
+			</div>
+		</div>
+		<!--tinh theo cong thuc-->
+		<div class="form-group" ng-show="data.cach_tinh =='1'">
+			<label class="control-label col-sm-2">Công thức tính</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" placeholder='Nhập công thức tính' ng-model='data.cong_thuc'>
+			</div>
+		</div>
+		<!--tinh theo query-->
+		<div class="form-group" ng-show="data.cach_tinh=='9'">
+			<label class="control-label col-sm-2">Query</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" placeholder="Ví dụ: {collection:'dmdt',field:'ty_le_hoa_hong',condition:{ma_dt:'m.ma_dt'}}" ng-model='data.query'>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-4" ng-show="!rptform_type || rptform_type!=='PTCTTCT'">
+				<div class="checkbox">
+					<label><input type="checkbox" ng-model="data.khong_tinh_tong"/>
+						Không tính tổng</label>
+				</div>
+			</div>
+
+			<div class="col-sm-offset-2 col-sm-4" ng-show="(!rptform_type || rptform_type==='PTCTTCT') && data.cach_tinh =='2'">
+				<div class="checkbox">
+					<label><input type="checkbox" ng-model="data.ct_socai"/>
+						Chi tiết từng chứng từ</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group" ng-show="(!rptform_type || rptform_type==='PTCTTCT') && data.cach_tinh =='1'">
+			<label class="control-label col-sm-2">Chỉ tính cho các cột</label>
+			<div class="col-sm-10">
+				<select
+					class="form-control"
+					ng-options="item.name as item.title for item in [{name:'so_luong',title:'Số lượng'},{name:'thue',title:'Thuế'},{name:'so_kn',title:'Tiền'},{name:'t_tt',title:'Tổng cộng'}]"
+					multiple="multiple"
+					ng-model="data.chi_tinh_cac_cot"></select>
+			</div>
+		</div>
+	</form-input-body>
+</form-input>

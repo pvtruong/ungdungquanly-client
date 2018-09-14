@@ -1,0 +1,76 @@
+<div class="modal-body">
+	<div class="container-fluid">
+		<br/>
+		<form name="form" novalidate class ="form-horizontal" >
+			<div class='form-group'>
+				<div class='col-sm-3'>
+					<label class='control-label'>Tên đăng nhập(email): <span class="required">(*)</span></label>
+				</div>
+				<div class='col-sm-9'>
+					<input type='text' class='form-control'  ng-model='email_coll' ng-required="true"/>
+				</div>
+			</div>
+			<div class='form-group'>
+				<div class='col-sm-3'>
+					<label class='control-label'>Họ và tên: <span class="required">(*)</span></label>
+				</div>
+				<div class='col-sm-9'>
+					<input type='text' class='form-control'  ng-model='name_coll'  ng-required="true"/>
+				</div>
+			</div>
+			
+			<div class='form-group'>
+				<div class='col-sm-3'>
+					<label class='control-label'>Nhóm:</label>
+				</div>
+				<div class='col-sm-9'>
+					<ng-selector
+						module="usergroup" fields="_id,group_name" field-model="_id" field-label = "group_name"
+						 ng-model='group_id'>
+					</ng-selector>
+				</div>
+			</div>
+			<div class='form-group'>
+				<div class='col-sm-3'>
+					
+				</div>
+				<div class='col-sm-9 checkbox'>
+					<label><input type='checkbox' ng-model='admin'/>Là người quản trị</label>
+				</div>
+			</div>
+            
+            
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <div class="checkbox">
+                        <label><input type="checkbox" ng-model="auto_create_user" /> Tạo người dùng này nếu người dùng này chưa được tạo</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class='form-group' ng-show="auto_create_user">
+				<div class='col-sm-3'>
+					<label class='control-label'>Mật khẩu: <span class="required">(*)</span></label>
+				</div>
+				<div class='col-sm-9'>
+					<input type='password' class='form-control'  ng-model='password'/>
+				</div>
+			</div>
+			<div class='form-group' ng-show="auto_create_user">
+				<div class='col-sm-3'>
+					<label class='control-label'>Nhắc lại mật khẩu: <span class="required">(*)</span></label>
+				</div>
+				<div class='col-sm-9'>
+					<input type='password' class='form-control'  ng-model='re_password'/>
+				</div>
+			</div>
+            
+			<div class='form-group'>
+				<div class='col-sm-12'>
+					<button class='btn btn-md btn-primary' ng-click='save()' ng-disabled="form.$invalid || (auto_create_user && (password!=re_password || !password))">Lưu</button>
+					<button class='btn btn-md btn-default' ng-click='cancel()'>Hủy</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

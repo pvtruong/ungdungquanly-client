@@ -1,0 +1,144 @@
+
+ <form-detail><form-detail-body>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('VAT_TU','Vật tư').text}} <span class='required' title="{{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+			<div class="col-sm-10">
+				<ng-typeahead
+					module='dmvt' field-model='ten_vt' field-label='ma_vt' fields='ma_vt,ten_vt,ma_dvt,tk_vt,thue_suat_nk'
+					ng-model='dt_current.ten_vt'  label='dt_current.ma_vt' ng-required='true'
+					on-select="dt_current.ma_dvt=$item.ma_dvt;dt_current.tk_vt = $item.tk_vt;dt_current.thue_suat_nk = $item.thue_suat_nk">
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('DVT','Đơn vị tính').text}} <span class='required' title="{{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+			<div class="col-sm-4">
+				<ng-typeahead
+					module='dmdvt' field-model='ma_dvt' field-label='ten_dvt' fields='ma_dvt,ten_dvt' ng-disabled='true'
+					ng-model='dt_current.ma_dvt' label='ten_dvt' ng-required='true'>
+				</ng-typeahead>
+			</div>
+		</div>
+
+		<div class="form-group">
+				<label class="control-label col-sm-2"></label>
+				<div class="col-sm-4"><a  ng-click="open_lo=open_lo?false:true">
+				Nhập thuộc tính sản phẩm...</a></div>
+		</div>
+		<div  ng-show="open_lo">
+			<div class="form-group">
+				<label class="control-label col-sm-2">{{getLabel('ma_tt1','Thuộc tính 1').text}}</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control " ng-model="dt_current.ma_tt1"/>
+				</div>
+
+				<label class="control-label col-sm-2">{{getLabel('ma_tt2','Thuộc tính 2').text}}</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control " ng-model="dt_current.ma_tt2"/>
+				</div>
+			</div>
+			<div class="form-group">
+
+				<label class="control-label col-sm-2">{{getLabel('ma_tt3','Thuộc tính 3').text}}</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control " ng-model="dt_current.ma_tt3"/>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('quy_cach','Quy cách, chất liệu...').text}}</label>
+			<div class="col-sm-10">
+				<input type='text' class="form-control" ng-model="dt_current.dien_giai"   placeholder="{{getLabel('quy_cach','Quy cách, chất liệu...').text}}"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('SO_LUONG_NHAP','Số lượng').text}} <span class='required'>(*)</span></label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" format="number" round="f_sl" ng-model="dt_current.so_luong" ng-required="true" ng-change="dt_current.tien_nt = STP.round(dt_current.gia_nt*dt_current.so_luong,round)"/>
+			</div>
+		</div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2">{{getLabel('gia','Giá').text}} {{data.ma_nt}} </label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" format="number" round="f_gia_nt" ng-model="dt_current.gia_nt" ng-change="dt_current.tien_nt = STP.round(dt_current.gia_nt*dt_current.so_luong,round)"/>
+      </div>
+
+      <label class="control-label col-sm-2"  ng-show="data.ma_nt!='VND'">{{getLabel('gia','Giá').text}} VND</label>
+      <div class="col-sm-4"  ng-show="data.ma_nt!='VND'">
+        <label class="form-control ">
+          {{dt_current.gia = STP.round(dt_current.gia_nt * data.ty_gia,0)|number:0}}
+        </label>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2">{{getLabel('THANH_TIEN','Thành tiền').text}} {{data.ma_nt}}</label>
+      <div class="col-sm-4">
+        <!--<input type="text" class="form-control" format="number" ng-model="dt_current.tien_nt"  ng-required="true"/>-->
+        <label class="form-control ">
+          {{dt_current.tien_nt = STP.round(dt_current.gia_nt * dt_current.so_luong,round)|number:round}}
+        </label>
+      </div>
+
+      <label class="control-label col-sm-2"  ng-show="data.ma_nt!='VND'">{{getLabel('THANH_TIEN','Thành tiền').text}} VND</label>
+      <div class="col-sm-4"  ng-show="data.ma_nt!='VND'">
+        <!--<input type="text" class="form-control " format="number" ng-model="dt_current.tien"  ng-required="true"/>-->
+        <label class="form-control ">
+          {{dt_current.tien = STP.round(dt_current.tien_nt * data.ty_gia,0)|number:0}}
+        </label>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2">{{getLabel('tien_phi','Tiền phí').text}} {{data.ma_nt}}</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" format="number" round="f_tien_nt" ng-model="dt_current.exfields_detail.tien_phi_nt"/>
+      </div>
+
+      <label class="control-label col-sm-2"  ng-show="data.ma_nt!='VND'">{{getLabel('tien_phi','Tiền phí').text}} VND</label>
+      <div class="col-sm-4"  ng-show="data.ma_nt!='VND'">
+        <!--<input type="text" class="form-control " format="number" ng-model="dt_current.tien_ck"/>-->
+        <label class="form-control ">
+          {{dt_current.exfields_detail.tien_phi = STP.round(dt_current.exfields_detail.tien_phi_nt * data.ty_gia,0)|number:0}}
+        </label>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2">{{getLabel('tien_phi_khac','Tiền phí khác').text}} {{data.ma_nt}}</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" format="number" round="f_tien_nt" ng-model="dt_current.exfields_detail.tien_phi_khac_nt"/>
+      </div>
+
+      <label class="control-label col-sm-2"  ng-show="data.ma_nt!='VND'">{{getLabel('tien_phi_khac','Tiền phí khác').text}} VND</label>
+      <div class="col-sm-4"  ng-show="data.ma_nt!='VND'">
+        <!--<input type="text" class="form-control " format="number" ng-model="dt_current.tien_ck"/>-->
+        <label class="form-control ">
+          {{dt_current.exfields_detail.tien_phi_khac = STP.round(dt_current.exfields_detail.tien_phi_khac_nt * data.ty_gia,0)|number:0}}
+        </label>
+      </div>
+
+    </div>
+
+    <!--<div class="form-group">
+      <label class="control-label col-sm-2">{{getLabel('mbl','MBL').text}}</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" ng-model="dt_current.exfields_detail.mbp"/>
+      </div>
+      <label class="control-label col-sm-2">{{getLabel('hbl','HBL').text}}</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" ng-model="dt_current.exfields_detail.hbl"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2">{{getLabel('so_file','Số file').text}}</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" ng-model="dt_current.exfields_detail.so_file"/>
+      </div>
+    </div>-->
+
+</form-detail-body></form-detail>

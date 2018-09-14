@@ -1,0 +1,63 @@
+﻿<form-input auto-height="true"><form-input-body>
+
+
+		<div class="form-group">
+			<label class="control-label col-sm-3">{{getLabel('nam','Năm').text}}  <span class="required">*</span></label>
+			<div class="col-sm-3">
+				<input type="Number" class="form-control" ng-model="data.nam" ng-required="true" min='1990' max="2999"/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-3">{{getLabel('kieu_ky','Kiểu kỳ').text}}  <span class="required">*</span></label>
+			<div class="col-sm-3">
+				<select ng-model="data.kieu_ky" class="form-control" ng-required="true">
+					<option value="tuan">Tuần<option>
+					<option value="thang">Tháng<option>
+					<option value="quy">Quý<option>
+					<option value="nam">Năm<option>
+				</select>
+			</div>
+
+			<label class="control-label col-sm-3" ng-show='data.kieu_ky!=="nam"'>{{getLabel('ky','Kỳ').text}}  <span class="required">*</span></label>
+			<div class="col-sm-3"  ng-show='data.kieu_ky!=="nam"'>
+				<input type="Number" class="form-control" ng-model="data.ky" ng-required="true" min='1'/>
+			</div>
+		</div>
+
+
+
+		<div class="form-group">
+			<label class="control-label col-sm-3">{{getLabel('dt_cp','Doanh thu/chi phí').text}} <span class="required">*</span></label>
+			<div class ="col-sm-9">
+				<ng-typeahead ng-model='data.ten_phi' label="data.ma_phi" ng-required="true"
+					module='dmphi' fields='ma_phi,ten_phi' field-model='ten_phi' field-label='ma_phi' >
+				</ng-typeahead>
+			</div>
+		</div>
+
+
+
+		<div class="form-group">
+			<label class="control-label col-sm-3">{{getLabel('tk','TK').text}} <span class="required">*</span></label>
+			<div class="col-sm-3">
+				<ng-typeahead ng-model='data.tk' ng-required="true"
+				module='dmtk' fields='tk,ten_tk' field-model='tk' field-label='tk,ten_tk'></ng-typeahead>
+			</div>
+
+		</div>
+
+
+		<div class="form-group">
+			<label class="control-label col-sm-3">{{getLabel('ke_hoach','Kế hoạch').text}}</label>
+			<div class="col-sm-3">
+				<input  type="text" format="number" class="form-control" ng-model="data.chi_tieu"/>
+				<div class="help-block">{{getLabel('ghi_chu_chi_tieu','Nếu là chi phí thì ghi âm').text}}</div>
+			</div>
+
+
+
+		</div>
+
+
+	</form-input-body></form-input>

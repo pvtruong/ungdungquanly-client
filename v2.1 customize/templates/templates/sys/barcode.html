@@ -1,0 +1,109 @@
+<div class="navbar navbar-default" style="padding:5px">
+	<div class="navbar-form"  style="border:none">
+		<label class="disable-small-screen">Số cột</label>
+			
+		<select ng-model="barcode_options.columns" class="form-control disable-small-screen">
+			<option value="one">1</option>
+			<option value="two">2</option>
+			<option value="three">3</option>
+			<option value="four">4</option>
+			<option value="five">5</option>
+			<option value="six">6</option>
+			<option value="seven">7</option>
+		</select>
+			
+			
+		
+		<label>Định dạng</label>
+		<select ng-model="barcode_options.format" class="form-control" id="format">
+			<optgroup label="CODE128">
+				<option>CODE128</option>
+				<option>CODE128A</option>
+				<option>CODE128B</option>
+				<option>CODE128C</option>
+			</optgroup>
+
+			<optgroup label="EAN / UPC">
+				<option>UPC</option>
+				<option>EAN</option>
+				<option>EAN8</option>
+				<option>EAN5</option>
+				<option>EAN2</option>
+			</optgroup>
+
+			<optgroup label="CODE39">
+				<option>CODE39</option>
+			</optgroup>
+
+			<optgroup label="ITF">
+				<option>ITF14</option>
+			</optgroup>
+
+			<optgroup label="MSI">
+				<option>MSI</option>
+				<option>MSI10</option>
+				<option>MSI11</option>
+				<option>MSI1010</option>
+				<option>MSI1110</option>
+			</optgroup>
+
+			<optgroup label="Pharmacode">
+				<option>pharmacode</option>
+			</optgroup>
+			<optgroup label="QR CODE">
+				<option>qrcode</option>
+			</optgroup>
+		</select>
+		<button class="btn btn-default" ng-click="printBarcode()">In</button>
+		<button class="btn btn-default" ng-click="barcodeOptionsShow()">Tùy chọn</button>
+        <button class="btn btn-default"  ng-if="onClose" ng-click="onClose()">x</button>
+	</div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div>
+            <ng-typeahead placeholder ="Thêm sản phẩm"
+                module='dmvt' field-model='ten_vt' field-label='ma_vt' fields='ma_vt,ten_vt,ma_dvt,gia_ban_le'
+                ng-model='ten_vt'  label='ma_vt'
+                on-select="STP.add(data,$item);ten_vt='';ma_vt=''">
+            </ng-typeahead>
+        </div>
+        <table class="table">
+            <tr ng-repeat="r in data">
+                <td stype='width:30px'>
+                    <button class='btn btn-xs btn-danger' ng-click='STP.reject(data,{line:r.line})'>x</button>
+                </td>
+                <td style='padding:5px'>
+                    {{r.ten_vt}}
+                </td>
+                <td  style='padding:5px;padding-right:0px;width:100px'>
+                        <input  type="number" min="0" class="form-control" ng-model="r[fieldQty]"/>
+                 </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-8">
+        <div  id="printViewBarcode">
+            <div ng-class="'ui doubling cards ' + barcode_options.columns" style="margin:2px">
+                <div class="ui card" ng-repeat="r in _data" ng-click='click(r)' title="{{r[fieldLabel]}}">
+                  <div class="content">
+                        <div class="text-center" ng-if = "barcode_options.displayLabel">{{STP.tructed(r[fieldLabel],15,'left')}}</div>
+
+                        <!--<div class="text-center">{{r['ma_vt2']}}</div>-->
+                        <!--barcode-->
+                        <div class="text-center" ng-if="barcode_options.format!=='qrcode'">
+                            <angular-barcode ng-model="r[fieldCode]" bc-options="barcode_options" bc-class="barcode" bc-type="img"></angular-barcode>
+                        </div>
+                        <!--qr code-->
+                        <div class="text-center" ng-if="barcode_options.format=='qrcode'">
+                            <img ng-src="{{server_url}}/qrcode?report={{('Mã sản phẩm: ' + r[fieldCode] + '%0D%0ATên sản phẩm: ' + r[fieldLabel] + '%0D%0AGiá bán: ' + r[fieldPrice].toString() + 'đ')}}"/>
+                        </div>
+                        <div class="text-center" ng-if = "barcode_options.displayPrice && fieldPrice">{{r[fieldPrice]|number:0}} VNĐ</div>
+                  </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

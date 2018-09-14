@@ -1,0 +1,115 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label>Mẫu <span class="required">*</span></label>
+			<div>
+				<ng-selector module="rptform" fields="_id,rptform_name" field-model="_id" field-label="rptform_name" condition="rptform_type:'PTTCT'" options="item._id as item.rptform_name for item in items" default-values="rptform_type:'PTTCT'" ng-model='condition.id_rptform'
+				  ng-required="true" label="condition.rptform_name">
+				</ng-selector>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('ma_dt','Vụ việc, dự án').text}}</label>
+			<div>
+				<ng-typeahead module='dmdt' field-model='ten_dt' field-label='ma_dt' fields='ma_dt,ten_dt' ng-model='condition.ten_dt' label='condition.ma_dt'>
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('ma_hop_dong','Hợp đồng').text}}</label>
+			<div>
+				<ng-typeahead module='contract' field-model='ten_hd' field-label='so_hd' fields='so_hd,ten_hd' ng-model='condition.ten_hd' label='condition.ma_hd'>
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('ma_nv','Nhân viên').text}}</label>
+			<div>
+				<ng-typeahead module='dmnv' field-model='ten_nv' field-label='ma_nv' fields='ma_nv,ten_nv' ng-model='condition.ten_nv' label='condition.ma_nv'>
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('DVCS','Đơn vị cơ sở').text}}</label>
+			<div>
+				<ng-selector module="dvcs" fields="_id,ten_dvcs" field-model="_id" field-label="ten_dvcs" options="item._id as item.ten_dvcs for item in items" ng-model='condition.ma_dvcs' empty-yn='true'>
+				</ng-selector>
+			</div>
+		</div>
+
+	</report-filter>
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<table class='table'>
+				<thead>
+					<tr>
+						<th>{{getLabel('chi_tieu','Chỉ tiêu').text}}</th>
+						<th>{{getLabel('ma_so','Mã số').text}}</th>
+						<th>{{getLabel('ky_truoc','Kỳ trước').text}}</th>
+						<th>{{getLabel('ky_nay','Kỳ này').text}}</th>
+					</tr>
+				</thead>
+				<tbody ng-repeat='r in data'>
+					<tr ng-class="r.bold?'cbold':'cnormal'" ng-style="{'background':r.details && r.details.length>0?'silver':''}">
+
+						<td ng-click="r.details =[]">
+							{{::lang=="EN" && r.chi_tieu2?r.chi_tieu2:r.chi_tieu}}
+						</td>
+						<td ng-click="r.details =[]">
+							{{::r.ma_so}}
+						</td>
+						<td>
+							<a href ng-click="r.details = r.details_kt;r.type='kt'" ng-style="{'color': r.details && r.details.length>0 && r.type=='kt'?'green':''}">{{r.value_string||(r.so_kt|number:0)}}</a>
+						</td>
+						<td>
+							<a href ng-click="r.details = r.details_kn;r.type='kn'" ng-style="{'color': r.details && r.details.length>0 && r.type=='kn'?'green':''}">{{r.value_string||(r.so_kn|number:0)}}</a>
+						</td>
+					</tr>
+					<tr ng-show="r.details && r.details.length>0">
+						<td colspan="4">
+							<table class="table">
+								<tr>
+									<td>Số chứng từ</td>
+									<td>Ngày chứng từ</td>
+									<td>Diễn giải</td>
+									<td>Số tiền</td>
+								</tr>
+								<tr ng-repeat="d in r.details" ng-show="r.details" style="cursor:pointer" ng-click='viewVoucher(d.ma_ct,d.id_ct)'>
+									<td>
+										{{::d.so_ct}}
+									</td>
+									<td>
+										{{::d.ngay_ct|date:'dd/MM/yyyy'}}
+									</td>
+									<td>
+										{{::d.dien_giai}}
+									</td>
+									<td>
+										{{::d.tien|number:0}}
+									</td>
+
+								</tr>
+							</table>
+						</td>
+					</tr>
+
+
+
+				</tbody>
+
+			</table>
+		</div>
+	</report-viewer>
+</report>

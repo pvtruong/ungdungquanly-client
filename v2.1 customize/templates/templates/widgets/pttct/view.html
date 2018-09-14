@@ -1,0 +1,9 @@
+<div class="alert alert-info" ng-if="!config.id_rptform">
+    Bạn hãy chọn một mẫu báo cáo
+</div>
+<div class="alert alert-danger" ng-show="error && config.id_rptform">
+    {{error}}
+</div>
+<div ng-if="config.id_rptform">Từ ngày {{config.tu_ngay|date:'dd/MM/yyyy'}}, đến ngày {{config.den_ngay|date:'dd/MM/yyyy'}}</div>
+<div id="chart{{id_widget}}" ng-if="config.id_rptform">
+</div>

@@ -1,0 +1,82 @@
+<list btnimport ="text:'Nhập dữ liệu từ excel'" adv-search = "true">
+<list-ext-filter>
+		<li role="presentation" class="divider" ng-show='groups.length>0'></li>
+		<li role="presentation" ng-repeat='group in groups' >
+			<a class='dropdown-header' ng-click="changeFilter({filter:{nh_lh:group._id},title:group.group_name})">{{group.group_name}}</a>
+		</li>
+		<li role="presentation" class="divider"></li>
+		<li role="presentation" >
+			<a class='dropdown-header' ng-click="changeFindBy({findBy:'ten_lien_he',title:'Tìm theo tên'})">Tìm theo tên</a>
+			<a class='dropdown-header' ng-click="changeFindBy({findBy:'dia_chi',title:'Tìm theo địa chỉ'})">Tìm theo địa chỉ</a>
+			<a class='dropdown-header' ng-click="changeFindBy({findBy:'dien_thoai',title:'Tìm theo điện thoại'})">Tìm theo điện thoại</a>
+			<a class='dropdown-header' ng-click="changeFindBy({findBy:'email',title:'Tìm theo email'})">Tìm theo email</a>
+		</li>
+</list-ext-filter>
+<list-ext-toolbar>
+	<li   class="list-group-item" ng-click="btn3_click()">{{getLabel('email','Email').text}}</li>
+	<li   class="list-group-item" ng-click="setLabel()">{{getLabel('setLabel','Đặt nhãn').text}}</li>
+</list-ext-toolbar>
+<list-body>
+	<div>
+	<div class="table-list">
+		<table class ="table table-striped">
+			<!--<tr  class="disable-small-screen">
+				<th class="text-center"  style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll"  ng-change ="selectionAllChange(selectionAll)"></th><th style="width:30px"></th>
+				<th> <a ng-click="reverse=!reverse;order('ten_lien_he',reverse)">Tên liên hệ</a></th>
+
+				<th>Cơ quan</th>
+
+			</tr>
+			<tr  class="disable-small-screen">
+				<td  ng-show="multiSelect"></td>
+				<td></td>
+				<td><input type="text" class="form-control" ng-model="advCondition.ten_lien_he" ng-keyup="enter($event)"/></td>
+				<td><input type="text" class="form-control" ng-model="advCondition.ten_kh" ng-keyup="enter($event)"/></td>
+
+			</tr>-->
+			<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)" >
+				<td width='30px' class="text-center" ng-show="multiSelect"> <input type="checkbox" ng-model="r.sel"/> </td><td class="text-center" style="width:30px"><div  ng-include="'templates/sys/quick-actions-list.html'"></div></td>
+				<td>
+					<div style='cursor:pointer' ng-click='view(r._id)'><b>{{ r.ten_lien_he }}</b></div>
+					<div ng-show="r.dien_thoai" style="word-break: break-all; word-wrap: break-word;width:200px">
+						Điện thoại: <a href="tel:{{r.dien_thoai}}">{{ r.dien_thoai }}</a>
+					</div>
+					<div ng-show="r.email">
+						Email: <a href="#!/mailschedule/add?to=[{name:'{{r.ten_lien_he}}',address:'{{r.email}}'}]&redirect={{location}}">{{ r.email }}</a>
+					</div>
+					<div ng-show="r.dia_chi">
+						Địa chỉ: {{ r.dia_chi }}
+					</div>
+					<div ng-show="r.id_kh">
+						Công ty: <a href="#!/dmkh/view/{{r.id_kh}}?redirect={{location}}">{{ r.ten_kh }}</a>
+					</div>
+				</td>
+
+
+
+
+			</tr>
+		</table>
+		<ng-page></ng-page>
+		<button-slide width="300" actions ="buttonSlideActions" text="Lọc nhanh" ng-if="contactLabels.length>0">
+				<btn-content>
+					<div  style='padding-bottom:5px' class="checkbox">
+						<label>
+							<input type="checkbox" ng-model="filterLabelAll"  ng-change='toggleMultiSel(contactLabels,filterLabelAll);searchAVR()'/> <b>Nhãn</b>
+						</label>
+					</div>
+					<div class="list-group">
+						<div role="presentation" ng-repeat='label in contactLabels' >
+							<div class="list-group-item checkbox">
+								<label>
+									<input type="checkbox" ng-model='label.sel' ng-change='searchAVR()'/> {{label.label_name?label.label_name:'Khác'}}
+								</label>
+							</div>
+						</div>
+					</div>
+				</btn-content>
+		</button-slide>
+	</div>
+	</div>
+</list-body>
+</list>

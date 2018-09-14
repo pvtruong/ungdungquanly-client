@@ -1,0 +1,26 @@
+﻿<div class="modal-header">
+	<button type="button" class="close" ng-click ='cancel()' aria-hidden="true"> &times;</button>
+	<h4 class="modal-title" id="detailModalLabel">
+	   Thông báo
+	</h4>
+ </div>
+<div>
+	<h4><a ng-click="openProfile(data.email_sender)">{{data.name_sender}}</a>: {{data.title}}
+		<small> lúc {{data.date_created|date:'hh:mm dd/MM/yy'}}</small>
+	</h4>
+	<div ng-if="data.exfields && data.exfields.company">
+		{{data.exfields.company}}
+	</div>
+	<p parse-html="data.content" ng-if="!(data.exfields && (data.exfields.code||data.exfields.ma_ct) && data.exfields._id)"></p>
+	<p>
+		<div ng-if="data.exfields && (data.exfields.code||data.exfields.ma_ct) && data.exfields._id && data.exfields.id_app">
+			<a href ng-show="app_info && app_info._id===data.exfields.id_app" ng-click="openUrl((data.exfields.code||data.exfields.ma_ct).toLowerCase(),{_id:data.exfields._id,_action:'edit'})">Mở chứng từ này</a>
+			<span ng-show="!(app_info && app_info._id===data.exfields.id_app)" style="color:red">Đăng nhập công ty này để xem chi tiết chứng từ này</span>
+		</div>
+		<div ng-if="data.exfields && (data.exfields.code||data.exfields.ma_ct) && data.exfields._id && data.exfields.code==='app'">
+			<a href ng-click="openUrl((data.exfields.code||data.exfields.ma_ct).toLowerCase(),{_id:data.exfields._id,_action:'edit'})">Xem thông tin chi tiết</a>
+		</div>
+	</p>
+</div>
+
+

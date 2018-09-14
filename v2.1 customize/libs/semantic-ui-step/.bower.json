@@ -1,0 +1,39 @@
+{
+  "name": "semantic-ui-step",
+  "description": "Step - Semantic UI",
+  "homepage": "http://www.semantic-ui.com",
+  "author": {
+    "name": "Jack Lukic",
+    "web": "http://www.jacklukic.com"
+  },
+  "ignore": [
+    "docs",
+    "node",
+    "server",
+    "spec",
+    "src",
+    "test"
+  ],
+  "keywords": [
+    "semantic",
+    "ui",
+    "css3",
+    "framework"
+  ],
+  "license": [
+    "http://semantic-ui.mit-license.org/"
+  ],
+  "main": [
+    "step.css"
+  ],
+  "version": "2.2.9",
+  "_release": "2.2.9",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.2.9",
+    "commit": "dc45f0ac695fc3f616c1bd42807c0f71e6d2ceb5"
+  },
+  "_source": "https://github.com/Semantic-Org/UI-Step.git",
+  "_target": "*",
+  "_originalSource": "semantic-ui-step"
+}

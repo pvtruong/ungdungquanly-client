@@ -1,0 +1,21 @@
+﻿<div class="modal-header">
+	<header-dialog-select title="Giảm trừ theo lương"></header-dialog-select>
+ </div>
+ <div class="modal-body">
+	<div class="table-list">
+		<table  class ="table table-striped">
+			<tr ng-repeat ="item in items" style ='cursor:pointer'>
+				<td ng-style="{'background-color':'{{item.color}}'}"  ng-click="select(item)">
+					<div>{{item.ten_giam_tru}}</div>
+					<div>Công ty: {{item.ty_le_cty}}%</div>
+					<div>Nhân viên: {{item.ty_le_nv}}%</div>
+				</td>
+				<td ng-style="{'width':'50px','background-color':'{{item.color}}'}" class='text-right'>
+					<a href='javascript:;' ng-click="quickedit(item)" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+					<a href='javascript:;' ng-click="delete(item)" ><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+				</td>
+				
+			</tr>
+		</table>
+	</div>
+ </div>

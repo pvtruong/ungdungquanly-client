@@ -1,0 +1,73 @@
+<nav ng-if="boxSearch || add_show || delete_show || export_show || import_show || options_show || btn1_show || btn2_show || btn3_show || btn4_show || btn5_show">
+
+		<div class="navbar navbar-default">
+
+			<form class="navbar-form navbar-right" style="border:0px">
+				<!--<div  class="form-group disable-small-screen" style="padding-left:10px" ng-show="boxSearch">
+				từ {{(current_page-1) * limit+1}} đến {{(current_page-1)*limit + list.length}} của {{rows_number|number}} dòng
+				</div>-->
+
+				<div  class="btn form-group disable-small-screen"  ng-show="boxSearch">
+          <select ng-model="limit" ng-change ="changeLimit(limit)" class="form-control" ng-options ="n.v as n.t for n in [{v:5,t:'5 dòng/trang'},{v:10,t:'10 dòng/trang'},{v:20,t:'20 dòng/trang'},{v:30,t:'30 dòng/trang'},{v:50,t:'50 dòng/trang'},{v:50000,t:'50 000 dòng/trang'}]">
+
+					</select>
+        </div>
+
+				<div class="input-group">
+						<input   ng-if="boxSearch" type='text' ng-model="condition" ng-keyup="searchKeyup($event,condition)" class="form-control" placeholder="{{getLabel('tim','Tìm').text}}..."/>
+						<!--<span class='btn  input-group-addon'  ng-click="search(condition)">{{getLabel('tim','Tìm').text}}</span>-->
+						<a   ng-if="boxSearch"  class="btn  input-group-addon" ng-click="searchBarcode()"><i class="fa fa-barcode" aria-hidden="true"></i></a>
+						<a  class="btn input-group-addon " ng-click="add()"  ng-if='add_show' title ="Ctrl+M"><i class="fa fa-file-o"></i></a>
+						<a  class="btn  input-group-addon " ng-if="delete_show" ng-click ="delete()" title ="Ctrl+D" style="color:#34AADC"><i class="glyphicon glyphicon-trash"></i></a>
+				</div>
+				<!--<div class="btn-group"  ng-show="boxSearch">
+					<a class="btn btn-default  dropdown-toggle"  ui-turn-on='listFilter'>{{filter_title?filter_title:getLabel('tat_ca','Tất cả').text}} <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu"   ui-outer-click="Ui.turnOff('listFilter')"
+					ui-outer-click-if="Ui.active('listFilter')"
+					ui-show="listFilter"
+					ui-state="listFilter"
+					ui-turn-off="listFilter">
+						<li   role="presentation">
+							<a role="menuitem" ng-click="changeFilter({title:'Tất cả'})">{{getLabel('tat_ca','Tất cả').text}}</a>
+						</li>
+						<li  role="presentation">
+							<a role="menuitem" ng-click="changeFilter({filter:{follow:1},title:getLabel('dang_theo_doi','Đang theo dõi').text})">{{getLabel('dang_theo_doi','Đang theo dõi').text}}</a>
+						</li>
+
+						<span ng-transclude></span>
+
+					  </ul>
+				</div>-->
+
+
+
+
+				<!--<a  class="btn btn-default  navbar-btn" ng-click="multiSelect=!multiSelect;selectionAll=false" ng-show="delete_show">
+					<i class="fa fa-check-square-o" aria-hidden="true"></i>
+				</a>-->
+				<span class="btn-group" ng-show="btn1_show || btn2_show || btn3_show || btn4_show || btn5_show || import_show || export_show || options_show" >
+                  <a class="btn btn-default  dropdown-toggle" ui-turn-on='btnOther'>
+                    <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                  </a>
+                  <div class="dropdown-menu list-group" role="menu"  ui-outer-click="Ui.turnOff('btnOther')"
+					ui-outer-click-if="Ui.active('btnOther')"
+
+					ui-show="btnOther"
+					ui-state="btnOther"
+					ui-turn-off="btnOther">
+
+					<a  class="list-group-item" ng-click="btn1_click()" ng-show='btn1_show'  title="{{btn1_title}}">{{getLabel('btn1_text' + code,btn1_text).text}}</a>
+					<a  class="list-group-item" ng-click="btn2_click()" ng-show='btn2_show'  title="{{btn2_title}}">{{getLabel('btn2_text' + code,btn2_text).text}}</a>
+					<a  class="list-group-item" ng-click="btn3_click()" ng-show='btn3_show' title="{{btn3_title}}">{{getLabel('btn3_text' + code,btn3_text).text}}</a>
+					<a  class="list-group-item" ng-click="btn4_click()" ng-show='btn4_show'  title="{{btn4_title}}">{{getLabel('btn4_text' + code,btn4_text).text}}</a>
+					<a  class="list-group-item" ng-click="btn5_click()" ng-show='btn5_show'  title="{{btn5_title}}">{{getLabel('btn5_text' + code,btn5_text).text}}</a>
+					<a  class="list-group-item" ng-click="importhtml5()" ng-show='import_show'>{{getLabel('nhap_tu_excel','Nhập từ Excel').text}}</a>
+					<a  class="list-group-item" ng-click="export2excel()" ng-show='export_show'>{{getLabel('xuat_excel','Xuất Excel').text}}</a>
+					<a  class="list-group-item" ng-click="options()" ng-show='options_show'>{{getLabel('tuy_chon',option_text).text}}</a>
+				  </div>
+				</span>
+			  </form>
+
+		</div>
+
+</nav>

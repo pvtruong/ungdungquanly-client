@@ -1,0 +1,52 @@
+﻿
+ <form-detail>
+	<form-detail-body>
+
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('TIEN_TRA','Tiền trả').text}} {{ngMasterData.ma_nt}} <span class='required' title="{{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" format="number" round="f_tien_nt" ng-model="dt_current.tien_nt"   ng-required="true"/>
+			</div>
+
+			<label class="control-label col-sm-2" ng-show="ngMasterData.ma_nt!='VND'">{{getLabel('TIEN_TRA','Tiền trả').text}} VND</label>
+			<div class="col-sm-4" ng-show="ngMasterData.ma_nt!='VND'">
+				<input type="text" class="form-control" format="number" round="f_tien" ng-model="dt_current.tien"  ng-required="true"/>
+			</div>
+		</div>
+		
+		
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('TIEN_TRA_QD','Tiền trả quy đổi').text}} <span class='required' title="{{getLabel('NOT_EMPTY','không được trống').text}}">(*)</span></label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" format="number" round="f_tien_nt" ng-model="dt_current.thanh_toan_qd" ng-required="true"/>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('VU_VIEC','Vụ việc').text}}</label>
+			<div class="col-sm-4">
+				<ng-typeahead
+					module='dmdt' field-model='ten_dt' field-label='ma_dt' fields ='ma_dt,ten_dt'
+					ng-model='dt_current.ten_dt' label='dt_current.ma_dt'>
+				</ng-typeahead>
+			</div>
+			<label class="control-label col-sm-2">{{getLabel('HOP_DONG','Hợp đồng').text}}</label>
+			<div class="col-sm-4">
+				<ng-typeahead
+					module='contract' field-model='ten_hd' field-label='so_hd' fields ='so_hd,ten_hd'
+					ng-model='dt_current.ten_hd' label='dt_current.ma_hd'>
+				</ng-typeahead>
+			</div>
+		</div>
+	
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('MA_PHI','Mã phí').text}}</label>
+			<div class="col-sm-4">
+				<ng-typeahead
+					module='dmphi' field-model='ten_phi' field-label='ma_phi' fields ='ma_phi,ten_phi'
+					ng-model='dt_current.ten_phi' label='dt_current.ma_phi'>
+				</ng-typeahead>
+			</div>
+		</div>
+	</form-detail-body>
+ </form-detail>

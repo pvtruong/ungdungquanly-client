@@ -1,0 +1,36 @@
+<div class='container-fluid'>
+	<div class="scrollable-header">
+		<list-view-header header-title='ten_bp'>
+			<li role="presentation" class="divider"></li>
+		</list-view-header>
+	</div>
+	<h3>{{data.ten_bp}}</h3>
+	<uib-tabset class="col-sm-12">
+		<uib-tab heading='Chi tiết' >
+			<form class='form-horizontal'>
+			<fieldset>
+				<legend>Danh sách nhân viên</legend>
+				<dmnv-list-view  template-url="grid-view" not-load-data="!data.ma_bp" parameters = "{ma_bp:data.ma_bp}"></dmnv-list-view>
+			</fieldset>
+			
+			</form>
+			<br/>
+			<file link='data'></file>
+			<br/>
+			<comment link='data' user='user' title="{{data.ten_bp}}"></comment>
+			
+		</uib-tab>
+		
+		<uib-tab heading="Ghi chú">
+			<note link='data'></note>
+		</uib-tab>
+		
+	
+		<!--<uib-tab heading="Chứng từ">
+			<bkct condition="ma_bp:'{{data.ma_bp}}'" run="data.ma_bp"></bkct>
+		</uib-tab>-->
+		<uib-tab heading="Lịch sử">
+			<history link='data' module='dmbp'></history>
+		</uib-tab>
+	</uib-tabset>
+</div>

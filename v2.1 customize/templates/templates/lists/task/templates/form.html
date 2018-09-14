@@ -1,0 +1,187 @@
+<form-input auto-height="true"><form-input-body>
+	<div class="form-group">
+		<label class="control-label col-sm-2">Tên công việc <span style='color:red' title='Không được trống'>(*)</span></label>
+		<div class="col-sm-9">
+			<input type="text" class="form-control" ng-model='data.ten_cv' ng-required="true" autofocus="true">
+		</div>
+	</div>
+	<div class="form-group" ng-show="show_full">
+		<label class="control-label col-sm-2">Nhóm công việc</label>
+		<div class="col-sm-4">
+			<ng-selector
+				module="dmnhtask" fields="_id,group_name,visible_to,visible_to_users" field-model="_id" field-label = "group_name"
+				condition ="group_type:'TASK'"  ng-model='data.nh_cv' default-values="group_type:'TASK'" on-select="data.visible_to=$item.visible_to;data.visible_to_users=$item.visible_to_users">
+			</ng-selector>
+		</div>
+		<label class="control-label col-sm-2">Độ khó</label>
+		<div class="col-sm-3">
+			<ng-selector
+				module="dokho" fields="_id,ten_dokho" field-model="_id" field-label = "ten_dokho"
+				ng-model='data.id_dokho'>
+			</ng-selector>
+		</div>
+	</div>
+	<div class="form-group" ng-show="show_full">
+		<label class="control-label col-sm-2">Người phụ trách <span style='color:red' title='Không được trống'>(*)</span></label>
+		<div class="col-sm-4">
+			<select ng-model="data.phu_trach" ng-options="r.email as r.name for r in members" ng-required="true" class="form-control">
+
+			</select>
+		</div>
+		<label class="control-label col-sm-2">Địa điểm</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" ng-model='data.location'>
+		</div>
+	</div>
+	<div class="form-group" ng-show="show_full">
+		<label class="control-label col-sm-2">Ngày bắt đầu <span style='color:red' title='Không được trống'>(*)</span></label>
+		<div class="col-sm-4">
+			<ng-datetimepicker ng-model='data.start_date'></ng-datetimepicker>
+		</div>
+
+		<label class="control-label col-sm-2">Ngày kết thúc dự kiến <span style='color:red' title='Không được trống'>(*)</span></label>
+		<div class="col-sm-3">
+			<ng-datetimepicker ng-model='data.due_date'></ng-datetimepicker>
+		</div>
+	</div>
+
+	<div class="form-group" ng-show="show_full">
+		<label class="control-label col-sm-2">Nhắc nhở</label>
+		<div class="col-sm-4">
+			<ng-datepicker ng-model='data.reminder'></ng-datepicker>
+			<div  ng-show="data.reminder">
+				<uib-timepicker ng-model="data.reminder"  hour-step="1" minute-step="1" show-meridian="true"></uib-timepicker>
+			</div>
+		</div>
+	</div>
+	<div class="form-group" ng-show="data.reminder" ng-show="show_full">
+		<label class="control-label col-sm-2">Lặp lại</label>
+		<div class="col-sm-3">
+			<select class='form-control' ng-model='data.repeat' ng-options ="r.id as r.name for r in repeats">
+			</select>
+		</div>
+	</div>
+	<div class="form-group" ng-show="show_full">
+		<label class="control-label col-sm-2">Mức ưu tiên</label>
+		<div class="col-sm-9">
+			<div class="btn-group">
+				<button class='btn btn-sm btn-default' ng-model='data.priority' uib-btn-radio='1'>&nbsp;<span style="color:red">!!!</span>&nbsp;</button>
+				<button class='btn btn-sm btn-default' ng-model='data.priority' uib-btn-radio='2'>&nbsp;&nbsp;<span style="color:orange">!!</span>&nbsp;&nbsp;</button>
+				<button class='btn btn-sm btn-default' ng-model='data.priority' uib-btn-radio='3'>&nbsp;&nbsp;&nbsp;<span style="color:blue">!</span>&nbsp;&nbsp;&nbsp;</button>
+
+			</div>
+		</div>
+	</div>
+	<div class="form-group" ng-show="show_full">
+		<label class="control-label col-sm-2">Tham gia</label>
+		<div class="col-sm-9">
+			<select multiple ng-model="data.attends" ng-options="r.email as r.name for r in members" class="form-control">
+
+			</select>
+
+		</div>
+	</div>
+	<div class="form-group" ng-show="show_full">
+		<label class="control-label col-sm-2">Trạng thái</label>
+		<div class="col-sm-9 btn-toolbar">
+			<div class='btn-group'>
+				<button class='btn btn-default btn-sm' ng-model='data.progress' uib-btn-radio='0'>Chưa thực hiện</button>
+				<button class='btn btn-default btn-sm' ng-model='data.progress' uib-btn-radio='1'>Đang thực hiện</button>
+				<button class='btn btn-default btn-sm' ng-model='data.progress' uib-btn-radio='2'>Hoàn thành</button>
+			</div>
+			<div class='btn-group'>
+				<button class='btn btn-default btn-sm' ng-model='data.progress' uib-btn-radio='3'>Tạm đừng</button>
+				<button class='btn btn-default btn-sm' ng-model='data.progress' uib-btn-radio='4'>Đang chờ</button>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label class="control-label col-sm-2">Khách hàng</label>
+		<div class="col-sm-4">
+			<ng-typeahead
+				module='dmkh' fields='_id,ten_kh' field-model='ten_kh' field-label='_id'
+				ng-model='data.ten_kh' label='data.id_kh'>
+			</ng-typeahead>
+		</div>
+		<label class="control-label col-sm-2">Vụ việc, công trình</label>
+		<div class="col-sm-3">
+			<ng-typeahead
+				module='dmdt' fields='_id,ten_dt' field-model='ten_dt' field-label='_id'
+				ng-model='data.ten_dt' label='data.id_dt'>
+			</ng-typeahead>
+		</div>
+	</div>
+
+	<div class="form-group" ng-show="show_full">
+		<label class="control-label col-sm-2">Miêu tả</label>
+		<div class="col-sm-9">
+
+			<textarea ui-tinymce="tinymceOptions" ng-model="data.mieu_ta"></textarea>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label col-sm-2">Nhãn</label>
+		<div class="col-sm-9">
+				<ng-selector
+					module='label' fields='label_name' field-model='label_name' field-label='label_name'
+					multiple="true" ng-model='data.labels' empty_yn='true'
+					condition ="label_type:'TASK'" default-values="label_type:'TASK'">
+				</ng-selector>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="control-label col-sm-2">Việc cần làm</label>
+		<div class="col-sm-9">
+
+			<div class="input-group">
+				<input type="text" class="form-control" ng-model="newTodo.title" placeholder="Thêm việc" ng-keyup="addTodo($event,newTodo)"/>
+				<a class='btn btn-default input-group-addon' ng-click='addTodo({keyCode:13},newTodo)'>+</a>
+			</div>
+
+
+			<div ng-show="max" style='padding-top:5px'>
+				<uib-progressbar max="max" value="dynamic"><span style="color:white; white-space:nowrap;">{{dynamic}} / {{max}}</span></uib-progressbar>
+			</div>
+			<div class="row"  ng-repeat="todo in data.todos" style='padding-top:5px'>
+				<div class=" col-xs-10">
+					<label style='font-weight:normal'>
+						<input type="checkbox" ng-model='todo.sel' ng-change='refresh()'/> <span ng-style="todo.sel?{'text-decoration': 'line-through'}:{}">{{todo.title}}</span>
+					</label>
+				</div>
+				<div class="col-xs-2 text-right">
+					<div  ng-click='STP.reject(data.todos,{line:todo.line})' class="close">&times;</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group" ng-show="show_full">
+		<label class="col-sm-2 text-right">Có giá trị với </label>
+		<div class="col-sm-9">
+			<label ng-repeat="item in [{v:0,t:'Mọi người'},{v:1,t:'Chỉ người tạo'},{v:2,t:'Những người sau'}]" style="padding-right:10px">
+				<input type='radio' ng-model='data.visible_to' name='visible_to' ng-value="item.v"/> {{item.t}}
+			</label>
+			<ui-select ng-show='data.visible_to==2'  multiple ng-model="data.visible_to_users" theme="bootstrap"  close-on-select="false"  title="Chọn một user">
+				 <ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+				 <ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+
+					 <small>
+						 {{person.name}}
+
+					 </small>
+				 </ui-select-choices>
+			 </ui-select>
+		</div>
+	</div>
+    <div class="form-group">
+		<label class="control-label col-sm-2"></label>
+		<div class="col-sm-9">
+			 <a href="javascript:;" ng-click="show_full=true" ng-show="!show_full">Thông tin khác</a>
+		</div>
+	</div>
+
+	</form-input-body></form-input>

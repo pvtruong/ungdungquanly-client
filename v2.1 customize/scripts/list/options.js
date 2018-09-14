@@ -1,0 +1,1 @@
+var optionsModule = new baseInput('options','options',["id_func"],'Tuỳ chọn');

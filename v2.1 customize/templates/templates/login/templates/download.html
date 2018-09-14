@@ -1,0 +1,25 @@
+﻿<h3>{{getLabel('TAI_VE','Tải về').text}}</h3>
+<div class="table-responsive">
+	<table class ="table table-striped">
+		<tr ng-repeat="r in downloads">
+			<td>
+				<a href ='{{r.url}}' target ='_blank'>
+					<strong><i class="fa fa-download"></i> {{r.title}}</strong>
+				</a>
+				<div><strong>{{getLabel('PHIEN_BAN','Phiên bản').text}}:</strong> {{r.major}}.{{r.minor}}</div>
+				<div><strong>{{getLabel('MIEU_TA','Miêu tả').text}}:</strong> {{r.description}}</div>
+				<div><strong>{{getLabel('HE_DIEU_HANH','Hệ điều hành').text}}:</strong> 
+					<span style='color:blue'>
+						<i class="fa fa-windows" ng-show="r.os=='WINDOWS'"></i>
+						<i class="fa fa-android" ng-show="r.os=='ANDROID'"></i>
+						<i class="fa fa-linux" ng-show="r.os=='LINUX'"></i>
+						 {{r.os|lowercase}}
+					</span>
+				</div>
+				
+				<hr/>
+			</td>
+			
+		</tr>
+	</table>
+</div>

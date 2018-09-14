@@ -1,0 +1,29 @@
+<div class="modal-header">
+	<button type="button" class="close" ng-click ='cancel()' aria-hidden="true"> &times;</button>
+	<h4 class="modal-title" id="detailModalLabel">
+	   Choose month/year
+	</h4>
+ </div>
+ <div class="modal-body">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<p>
+					<label style="width:100px;text-align:right">Month: </label>
+                    <select ng-model="month" ng-options="m as m for m in months">
+                    </select>
+                    
+                    <label style="width:100px;text-align:right">Year: </label>
+                    <input type="number" ng-model="year"  min="1900" max ="2999"/>
+				</p>
+                
+                
+                
+                
+				<p>
+					<a  ng-click ="ok()" class ="btn btn-primary">OK</a>
+				</p>
+			</div>
+		</div>
+	</div>
+ </div>

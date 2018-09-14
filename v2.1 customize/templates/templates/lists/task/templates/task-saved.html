@@ -1,0 +1,14 @@
+<div class="modal-header">
+	<button type="button" class="close" ng-click='close()' aria-hidden="true">
+		&times;</button>
+	<h4 class="modal-title" id="findModalLabel">
+		Các công việc đã được lưu trữ
+	</h4>
+</div>
+<div class="modal-body">
+	<div class='container-fluid page-frame'>
+		<div class="table-responsive">
+			<react-t-table data="tasks" structure-code="tasksaved" sortable="true" on-cell-click="cellClick($row,$column)"></react-t-table>
+		</div>
+	</div>
+</div>

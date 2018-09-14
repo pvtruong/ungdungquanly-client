@@ -1,0 +1,83 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}}</label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}}</label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('DVCS','Đơn vị cơ sở').text}}</label>
+			<div>
+				<ng-selector module="dvcs" fields="_id,ten_dvcs" field-model="_id" field-label="ten_dvcs" options="item._id as item.ten_dvcs for item in items" ng-model='condition.ma_dvcs' empty-yn='true'>
+				</ng-selector>
+			</div>
+		</div>
+
+	</report-filter>
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<table class='table  table-striped  table-hover'>
+				<tr>
+					<th>{{getLabel('san_pham','Sản phẩm').text}}</th>
+
+					<th>{{getLabel('so_luong_ban','SL bán').text}}</th>
+					<th>{{getLabel('tien_hang','Tiền hàng').text}}</th>
+					<th>{{getLabel('chiet_khau','Chiết khấu').text}}</th>
+					<th>{{getLabel('doanh_thu','Doanh thu').text}}</th>
+
+					<th>{{getLabel('so_luong_tl','SL trả lại').text}}</th>
+					<th>{{getLabel('tien_tl','Tiền trả lại').text}}</th>
+
+					<th>{{getLabel('tien_von','Tiền vốn').text}}</th>
+					<th>{{getLabel('tien_lai','Tiền lãi').text}}</th>
+
+				</tr>
+				<tr ng-repeat='r in data' ng-click='drilldown(r)' ng-class="r.bold?'cbold':'cnormal'">
+
+
+					<td>
+						{{::r.ten_vt}}
+						<div><small>
+                    {{::r.ma_vt}}
+                    </small></div>
+					</td>
+
+					<td>
+						{{::r.sl_xuat|number:2}}
+					</td>
+					<td>
+						{{::r.tien|number:0}}
+					</td>
+					<td>
+						{{::r.tien_ck|number:0}}
+					</td>
+					<td>
+						{{::r.doanh_thu|number:0}}
+					</td>
+
+					<td>
+						{{::r.sl_nhap|number:2}}
+					</td>
+					<td>
+						{{::r.tien_tl|number:0}}
+					</td>
+
+
+					<td>
+						{{::r.tien_xuat-r.tien_nhap|number:0}}
+					</td>
+					<td>
+						{{::r.lai|number:0}}
+					</td>
+				</tr>
+			</table>
+		</div>
+	</report-viewer>
+</report>

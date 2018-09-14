@@ -1,0 +1,93 @@
+<voucher options="text:getLabel('TUY_CHON','Tùy chọn').text">
+	<voucher-body>
+		<div class="table-responsive">
+			<table class="table table-striped table-hover">
+				<tr>
+					<th class="text-center" style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll" ng-change="selectionAllChange(selectionAll)"/></th>
+					<th style="width:30px"></th>
+					<th><a ng-click="reverse=!reverse;order('ngay_ct',reverse)">{{getLabel('CHUNG_TU','Chứng từ').text}}</a></th>
+
+					<th><a ng-click="reverse=!reverse;order('t_sl',reverse)">{{getLabel('SO_LUONG_tl','SL trả lại').text}}</a></th>
+					<th><a ng-click="reverse=!reverse;order('t_tien_nt',reverse)">{{getLabel('TIEN_TL','Tiền trả lại').text}}</a></th>
+					<th><a ng-click="reverse=!reverse;order('t_ck_nt',reverse)">{{getLabel('TIEN_CK_tl','Tiền CK trả lại').text}}</a></th>
+
+					<th><a ng-click="reverse=!reverse;order('t_thue_vao_nt',reverse)">{{getLabel('VAT_tl','VAT trả lại').text}}</a></th>
+					<th><a ng-click="reverse=!reverse;order('t_tt_nt',reverse)">{{getLabel('TONG_tl','Tổng trả lại').text}}</a></th>
+
+					<th><a ng-click="reverse=!reverse;order('t_sl_doi',reverse)">{{getLabel('SO_LUONG_doi','SL đổi').text}}</a></th>
+					<th><a ng-click="reverse=!reverse;order('t_tien_doi_dt_nt',reverse)">{{getLabel('TIEN_doi','Tiền đổi').text}}</a></th>
+					<th><a ng-click="reverse=!reverse;order('t_tien_doi_ck_nt',reverse)">{{getLabel('TIEN_CK_doi','Tiền CK đổi').text}}</a></th>
+
+					<th><a ng-click="reverse=!reverse;order('t_thue_ra_nt',reverse)">{{getLabel('VAT_doi','VAT đổi').text}}</a></th>
+					<th><a ng-click="reverse=!reverse;order('t_tien_doi_nt',reverse)">{{getLabel('TONG_doi','Tổng đổi').text}}</a></th>
+
+					<th><a ng-click="reverse=!reverse;order('t_chenh_lech_nt',reverse)">{{getLabel('chenh_lech','Chênh lệch').text}}</a></th>
+
+
+				</tr>
+				<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)">
+					<td width='30px' class="text-center" ng-show="multiSelect">
+						<input type="checkbox" ng-model="r.sel"/>
+					</td>
+					<td class="text-center" style="width:30px">
+						<div ng-include="'templates/sys/quick-actions.html'"></div>
+					</td>
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						<div>
+							<span ng-if='r.ten_trang_thai' class="label bg-{{r.color}}">[{{ r.ten_trang_thai}}]</span>
+							<span>Số:
+								{{ r.so_ct }}</span>
+							<span>, ngày:
+								{{ r.ngay_ct|date:'dd/MM/yyyy'}}</span>
+							({{r.ma_nt}})</div>
+						<div ng-if='r.dien_giai'>{{STP.tructed(r.dien_giai,32,"left")}}</div>
+						<div ng-if="r.ten_kh">{{ r.ten_kh}}</div>
+						<div ng-if="r.ten_pt_thanh_toan">{{r.ten_pt_thanh_toan}}</div>
+					</td>
+
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.t_sl|number:app_info.options.f_sl }}
+					</td>
+
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.t_tien_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt)  }}
+					</td>
+
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.t_ck_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt)  }}
+					</td>
+
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.t_thue_vao_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt)  }}
+					</td>
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.t_tt_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt)  }}
+					</td>
+					<!--doi-->
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.t_sl_doi|number:app_info.options.f_sl }}
+					</td>
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.t_tien_doi_dt_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt)  }}
+					</td>
+
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.t_tien_doi_ck_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt)  }}
+					</td>
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.t_thue_ra_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt)  }}
+					</td>
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.t_tien_doi_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt)  }}
+					</td>
+					<!--chenh lech-->
+					<td style='cursor:pointer' ng-click='edit(r._id)'>
+						{{ r.t_chenh_lech_nt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt)  }}
+					</td>
+
+				</tr>
+			</table>
+			<ng-page></ng-page>
+		</div>
+	</voucher-body>
+</voucher>

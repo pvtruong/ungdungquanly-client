@@ -1,0 +1,14 @@
+﻿<div class="modal-header">
+	<header-dialog-select title="Độ khó của công việc"></header-dialog-select>
+ </div>
+ <div class="modal-body">
+	<div class="table-list">
+		<table  class ="table table-striped">
+			<tr ng-repeat ="item in items" style ='cursor:pointer' ng-click="select(item)">
+				<td>
+					<div>{{item.ten_dokho}}</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+ </div>

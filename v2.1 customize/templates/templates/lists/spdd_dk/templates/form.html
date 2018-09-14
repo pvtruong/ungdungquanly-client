@@ -1,0 +1,61 @@
+<form-input><form-input-body>
+		<div class="form-group">
+			<label class="control-label col-sm-2">Đơn vị cơ sở  <span class="required">*</span></label>
+			<div class="col-sm-4">
+				<ng-selector ng-model='data.ma_dvcs' ng-required='true'
+					options ="item._id as item.ten_dvcs for item in items" 
+					module='dvcs' fields='_id,ten_dvcs' field-model='_id' field-label='ten_dvcs'></ng-selector>
+			</div>
+		</div>
+        <div class="form-group">
+			<label class="control-label col-sm-2">Tháng  <span class="required">*</span></label>
+			<div class="col-sm-4">
+				<input type="number" class="form-control" ng-model="data.thang" min ="1" max="12"/>
+			</div>
+            <label class="control-label col-sm-2">Năm  <span class="required">*</span></label>
+			<div class="col-sm-4">
+				<input type="number" class="form-control" ng-model="data.nam" min ="1999" max="2999"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">Sản phẩm  <span class="required">*</span></label>
+			<div class ="col-sm-10">
+				<ng-typeahead ng-model='data.ten_sp' ng-required='true' 
+					module='dmvt' fields='ma_vt,ten_vt' field-model='ten_vt' field-label='ma_vt' label='data.ma_sp' >
+				</ng-typeahead>
+			</div>
+			
+		</div>
+        <div class="form-group">
+			<label class="control-label col-sm-2">Bộ phận</label>
+			<div class ="col-sm-10">
+				<ng-typeahead ng-model='data.ten_bp'
+					module='dmbp' fields='ma_bp,ten_bp' field-model='ten_bp' field-label='ma_bp' label='data.ma_bp' >
+				</ng-typeahead>
+			</div>
+			
+		</div>
+        
+		
+		<div class="form-group">
+			<label class="control-label col-sm-2">SL dở dang</label>
+			<div class="col-sm-4">
+				<input  type="text" format="number" class="form-control"  ng-model="data.sl_dd"/>
+			</div>
+
+		</div>
+        <div class="form-group">
+			<label class="control-label col-sm-2">Tỷ lệ hoàn thành(%)</label>
+			<div class="col-sm-4">
+				<input  type="text" format="number" class="form-control"  ng-model="data.ty_le_ht"/>
+			</div>
+
+		</div>
+        <div class="form-group">
+			<label class="control-label col-sm-2">SL thành phẩm quy đổi</label>
+			<div class="col-sm-4">
+				<input  type="text" format="number" class="form-control"  ng-model="data.sl_ht_qd"/>
+			</div>
+
+		</div>
+	</form-input-body></form-input>

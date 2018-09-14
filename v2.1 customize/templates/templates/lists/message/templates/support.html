@@ -1,0 +1,43 @@
+<div>
+	<form name="form" novalidate class ="css-form form-horizontal" >
+		<div>
+			<div>
+				<h3>Hỗ trợ khách hàng</h3>
+			</div>
+			<div class="media-list" style="max-height: 450px;margin: 0; overflow-y: auto;padding:10px"  scroll-glue>
+				<div class="media"  ng-repeat='r in msgs'>
+					<!--content-->
+					<div class='media-body'>
+						<div ng-show="profile.email==r.email_sender">
+							<div style="width:90%"><b class='pull-left'>{{profile.name}}</b></div>
+							<uib-alert  class='pull-left' type="info" close="deleteMsg(r._id)" style="width:90%">
+								{{r.content}}
+								<i class='pull-right' style='font-size:10px'>{{r.date_created|date:'dd/MM/yy HH:mm:ss'}}</i>
+							</uib-alert>
+						</div>
+						<div  ng-show="profile.email!=r.email_sender">
+							<div  style="width:90%" class='pull-right text-right'><b>Sao Tiên Phong</b></div>
+							<uib-alert class='pull-right' type="success" close="deleteMsg(r._id)" style="width:90%">
+								{{r.content}}
+								<i class='pull-right' style='font-size:10px'>{{r.date_created|date:'dd/MM/yy HH:mm:ss'}}</i>
+							</uib-alert>
+						</div>
+						
+					</div>
+					
+				</div>
+				
+			</div>
+			<br/>
+			<div class='form-group'>
+				<div class="input-group">
+				  <input type='text' class='form-control' ng-model='data.content'  ng-keyup='enter2send($event)' placeholder="Nội dung tin nhắn" aria-describedby="basic-addon2">
+				  <span class="btn btn-primary input-group-addon" ng-click='send()'>Gửi</span>
+				</div>
+			</div>
+			
+		</div>
+	</form>
+</div>
+
+

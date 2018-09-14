@@ -1,0 +1,66 @@
+<report>
+
+	<report-filter>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}}  <span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}} <span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('tk','Tài khoản').text}} <span class="required">*</span></label>
+			<div>
+				<ng-typeahead module="dmtk" fields="tk,ten_tk" field-model="tk" field-label="ten_tk" ng-model='condition.tk' label="condition.ten_tk" ng-required='true'>
+				</ng-typeahead>
+			</div>
+			<div>{{condition.ten_tk}}</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('DVCS','Đơn vị cơ sở').text}}</label>
+			<div>
+				<ng-selector module="dvcs" fields="_id,ten_dvcs" field-model="_id" field-label="ten_dvcs" options="item._id as item.ten_dvcs for item in items" ng-model='condition.ma_dvcs' empty-yn='true'>
+				</ng-selector>
+			</div>
+		</div>
+
+	</report-filter>
+
+
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<table class='table  table-striped  table-hover'>
+				<tr>
+					<th>{{getLabel('tk_du','Tài khoản đối ứng').text}}</th>
+					<th>{{getLabel('ten_tk_du','Tên tài khoản đối ứng').text}}</th>
+					<th>{{getLabel('ps_no','PS nợ').text}}</th>
+					<th>{{getLabel('ps_co','PS có').text}}</th>
+
+				</tr>
+				<tr ng-repeat='r in data' ng-click='drilldown(r)' ng-class="r.bold?'cbold':'cnormal'">
+
+					<td>
+						{{::r.tk_du}}
+					</td>
+
+					<td>
+						{{::r.ten_tk_du}}
+					</td>
+					<td>
+						{{::r.ps_no|number:0}}
+					</td>
+					<td>
+						{{::r.ps_co|number:0}}
+					</td>
+
+				</tr>
+			</table>
+		</div>
+
+	</report-viewer>
+</report>

@@ -1,0 +1,70 @@
+﻿<form-input  auto-height="true"><form-input-body>
+	<uib-tabset>
+			<uib-tab heading='Thông tin chính'>
+				<div class="form-group">
+					<label class="control-label">Mã chức năng <span style='color:red' title='Không được trống'>(*)</span></label>
+					<div class="">
+						<input type="text" name ='ma_cn' class="form-control" ng-model='data.ma_cn' ng-required="true">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Tên mẫu in <span style='color:red' title='Không được trống'>(*)</span></label>
+					<div class="">
+						<input type="text" name ='ten_mau_in' class="form-control" ng-model='data.ten_mau_in' ng-required="true">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Độ rộng khổ giấy (mm)</label>
+					<div>
+						<input type="number" class="form-control" ng-model="data.exfields.width" ng-change="changeWidthPage(data.exfields.width)"/>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label">Mẫu in</label>
+					<div class="">
+						<textarea class="form-control" cols="30" rows="20" ui-tinymce="tinymceOptions" ng-model="data.html_code"></textarea>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="">
+						<div class="checkbox">
+							<label><input type="checkbox" ng-model="data.status" /> Còn sử dụng</label>
+						</div>
+					</div>
+				</div>
+			</uib-tab>
+			<uib-tab heading='Danh sách liên'>
+				
+					<table class="table">
+						<tr>
+							<th></th>
+							<th>Mã liên</th>
+							<th>Tên liên</th>
+						</tr>
+						<tr ng-repeat="r in data.exfields.liens">
+							<td>
+								<div style='padding-right:10px;font-size: 18px;' title="Xóa dòng này" class="pull-left close" ng-click='STP.reject(data.exfields.liens,{line:r.line})'>
+									&times;
+								</div>
+							</td>
+							<td>
+								<input type="number" class="form-control" ng-model="r.ma_lien" ng-required="true"/>
+							</td>
+							<td>
+								<input type="text" class="form-control" ng-model="r.ten_lien" ng-required="true"/>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								<button type="button" class="btn btn-xs btn-default" ng-click="data.exfields.liens = STP.add(data.exfields.liens,{ma_lien:(data.exfields.liens?data.exfields.liens.length+1:1),ten_lien:'Liên ' + (data.exfields.liens?data.exfields.liens.length+1:1)})">Thêm liên</button>
+							</td>
+						</tr>
+					</table>
+
+
+			</uib-tab>
+	</uib-tabset>
+
+</form-input-body></form-input>

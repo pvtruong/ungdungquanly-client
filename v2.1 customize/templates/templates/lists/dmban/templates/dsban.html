@@ -1,0 +1,35 @@
+<div>
+	<div  ng-show ='items && items.length>0' class=" alert alert-info" ng-repeat="n in groups">
+		<h3>{{n.group_name}}</h3>
+		<div class="ui five doubling cards">
+			<div  ng-class="selectedRow && selectedRow.ma_ban===r.ma_ban?'ui card  red':'ui card green'" ng-style="r.css"  ng-repeat="r in list|filter:{ma_nhom:n._id} as items" >
+				<div class="content">
+					<div  class="ui right floated meta"   ng-include="'templates/sys/quick-actions-list-right.html'"></div>
+					<div class="ui floated meta" ><a href="javascript:;" style='text-decoration:none;padding:5px' ng-click='showCalendar(r)'><i class="fa fa-calendar"></i></a> </div>
+				
+				</div>
+				<div class="content text-center" style="cursor:pointer"  ng-click='innerWidth<1000?showCalendar(r):selectBan(r)'>
+					
+					<div>{{r.ten_ban}}</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>	
+	<div ng-show ='nogroups && nogroups.length>0'  class=" alert alert-warning">
+		<h3>Khác</h3>
+		<div class="ui five doubling cards">
+			<div ng-style="r.css" ng-class="selectedRow && selectedRow.ma_ban===r.ma_ban?'ui card red':'ui card green'" ng-repeat="r in list|filter:emptyOrNull as nogroups">
+				<div class="content">
+					<div  class="ui right floated meta"   ng-include="'templates/sys/quick-actions-list-right.html'"></div>
+					<div class="ui floated meta" ><a href="javascript:;" style='text-decoration:none;padding:5px' ng-click='showCalendar(r)'><i class="fa fa-calendar"></i></a> </div>
+				
+				</div>
+				<div class="content text-center" style="cursor:pointer"  ng-click='innerWidth<1000?showCalendar(r):selectBan(r)'>
+					
+					<div>{{r.ten_ban}}</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>

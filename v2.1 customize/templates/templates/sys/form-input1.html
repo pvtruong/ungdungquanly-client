@@ -1,0 +1,45 @@
+<form name="form" novalidate class ="css-form form-horizontal form-input">
+	<div  ng-style="{backgroundColor:'white',height:(innerHeight-1).toString()+'px'}" class="scrollable">
+		
+		<div class='scrollable-header section-info'>
+			<div class='row navbar-form' ng-transclude ="title" ng-style="{'padding':'5px','padding-top':(platform()=='browser'?'5px':'25px')}">
+				<!--header of form-->
+				<div class='col-md-6 col-xs-2'>
+					<div class="header-form">
+						<span class="disable-small-screen">{{getLabel('ten_ct' + code,title).text}} - </span>
+						<small style='font-size:12px' ng-if='action'>{{action}}</small>
+					</div>
+				</div>
+				<!--action-->
+				<div class='col-xs-10 col-md-6 text-right'>
+						<button type="button" class="btn btn-danger " ng-click="create()" ng-disabled="form.$invalid || isSave" title="Ctrl+S">{{save_text}}</button>
+						<button type="button" class="btn btn-primary " ng-click="create(1)" ng-disabled="form.$invalid || isSave" ng-if="printRpt && !createAndAdd">{{print_text}}</button>
+						<button type="button" class="btn btn-primary " ng-click="createAndAdd(1)" ng-disabled="form.$invalid || isSave" ng-if="createAndAdd">Lưu và thêm mới</button>
+							
+							
+					   
+					   <button type="button" class="btn btn-warning " ng-click="delete(data)" ng-if="data._id && delete" >{{delete_text}}</button>
+						
+
+					    <button type="button" class="btn btn-default " ng-click="cancel()">{{cancel_text}}</button>
+				</div>
+				
+			</div>
+			<div ng-class="alertType" ng-if="messageError">{{messageError}}</div>
+		</div>
+		<div class="scrollable-content" >
+			
+			<div ng-transclude ="body" next-focus>
+			</div>
+		</div>
+		<div class="scrollable-footer  alert-info">
+			<div class="row" ng-transclude ="footer" style="padding:5px">
+			</div>
+		</div>
+		
+	</div>
+	
+</form>
+<div ng-hide="true" id='printView'>
+	<v-print></v-print>
+</div>

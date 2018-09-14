@@ -1,0 +1,33 @@
+<form-input auto-height="true">
+	<form-input-body>
+		<div class="form-group">
+			<label class="control-label col-md-3">Tên khách hàng sử dụng
+				<span class="required">(*)</span></label>
+			<div class="col-md-9">
+				<input type="text" class="form-control" ng-model='data.ten_kh_sd' ng-required='true'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Địa chỉ
+				<span class="required">(*)</span></label>
+			<div class="col-md-9">
+				<input type="text" class="form-control" ng-model='data.dia_chi' ng-required='true'>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-md-3">Số người dùng
+				<span class="required">(*)</span></label>
+			<div class="col-md-9">
+				<input type="text" format="number" class="form-control" ng-model='data.user_number' ng-required='true'>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-md-3">Ghi chú</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control" ng-model='data.description'>
+			</div>
+		</div>
+	</form-input-body>
+</form-input>

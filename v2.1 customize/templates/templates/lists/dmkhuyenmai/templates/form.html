@@ -1,0 +1,132 @@
+<form-input>
+	<form-input-body>
+		<div class="form-group">
+			<div class="col-md-4" ng-style="!isMobile?{height:(innerHeight-100).toString()+'px'}:{}">
+				<div class="scrollable">
+					<uib-accordion close-others="true">
+						<uib-accordion-group heading="{{getLabel('Chung','Thông tin chung').text}}" is-open="true">
+							<div class="form-group">
+								<label class="control-label">Sản phẩm</label>
+								<div class="">
+									<ng-typeahead module='dmvt' field-model='ten_vt' field-label='ma_vt' fields='ma_vt,ten_vt' ng-model='data.ten_vt' label='data.ma_vt'>
+									</ng-typeahead>
+								</div>
+
+							</div>
+
+							<div class="form-group">
+								<label class="control-label">Nhóm sản phẩm</label>
+								<div class="">
+									<ng-typeahead module='dmnvt' field-model='ten_nvt' field-label='_id' fields='_id,ten_nvt' ng-model='data.ten_nvt' label='data.ma_nvt'>
+									</ng-typeahead>
+								</div>
+
+							</div>
+
+							<div class="form-group">
+								<label class="control-label">Khách hàng</label>
+								<div class="">
+									<ng-selector module="dmkh" fields="ma_kh,ten_kh" field-model="ma_kh" field-label="ten_kh" ng-model='data.ma_kh' label="ten_kh">
+									</ng-selector>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label">Nhóm khách hàng</label>
+								<div class="">
+									<ng-selector module="group" fields="_id,group_name" field-model="_id" field-label="group_name" condition="group_type:'CUSTOMER'" ng-model='data.nh_kh' default-values="group_type:'CUSTOMER'">
+									</ng-selector>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label">Kho</label>
+								<div class="">
+									<ng-selector module="dmkho" fields="ma_kho,ten_kho" field-model="ma_kho" field-label="ten_kho" ng-model='data.ma_kho' label="ten_kho">
+									</ng-selector>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label">Hiệu lực từ <span style='color:red'>(*)</span></label>
+								<div class="">
+									<ng-datepicker ng-model='data.hieu_luc_tu' ng-required='true'></ng-datepicker>
+								</div>
+
+								<label class="control-label">Hiệu lực đến <span style='color:red'>(*)</span></label>
+								<div class="">
+									<ng-datepicker ng-model='data.hieu_luc_den' ng-required='true'></ng-datepicker>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label">SL từ </label>
+								<div class="">
+									<input type="text" format="number" class="form-control" ng-model="data.sl_tu" />
+								</div>
+								<label class="control-label">SL đến</label>
+								<div class="">
+									<input type="text" format="number" class="form-control" ng-model="data.sl_den" />
+								</div>
+							</div>
+
+							<!--<div class="form-group">
+								<label class="control-label">Giá trị từ </label>
+								<div class="">
+									<input type="text" format="number" class="form-control" ng-model="data.gt_tu"/>
+								</div>
+								<label class="control-label">Giá trị đến</label>
+								<div class="">
+									<input type="text" format="number" class="form-control" ng-model="data.gt_den"/>
+								</div>
+							</div>-->
+
+							<div class="form-group">
+								<div class="">
+									<div class="checkbox">
+										<label><input type="checkbox" ng-model="data.status" /> Còn sử dụng</label>
+									</div>
+								</div>
+							</div>
+						</uib-accordion-group>
+
+					</uib-accordion>
+				</div>
+			</div>
+			<div class="col-md-8" ng-style="!isMobile?{height:(innerHeight-100).toString()+'px'}:{}">
+				<div class="scrollable">
+					<uib-accordion close-others="true">
+						<uib-accordion-group heading="{{getLabel('sp_km','Sản phẩm khuyến mãi').text}}" is-open="true">
+							<table class="table">
+								<tr>
+									<th></th>
+									<th>Sản phẩm</th>
+									<th>Số lượng</th>
+								</tr>
+								<tr ng-repeat="r in data.details_km">
+									<td><button class='btn btn-xs btn-danger' ng-click="STP.reject(data.details_km,{line:r.line})">Xóa</button></td>
+									<td>
+										<ng-typeahead module="dmvt" fields="ma_vt,ten_vt" field-model="ten_vt" field-label="ma_vt" ng-model='r.ten_vt' label="r.ma_vt" ng-required="true">
+										</ng-typeahead>
+									</td>
+									<td>
+										<input type="text" format="number" class="form-control" ng-model="r.sl_km" />
+									</td>
+								</tr>
+								<tr>
+									<td colspan='3'>
+										<button class="btn btn-xs btn-primary" ng-click="data.details_km = STP.add(data.details_km,{sl_km:1})">Thêm dòng mới</button>
+									</td>
+								</tr>
+							</table>
+						</uib-accordion-group>
+
+
+					</uib-accordion>
+
+
+				</div>
+			</div>
+		</div>
+
+	</form-input-body>
+</form-input>

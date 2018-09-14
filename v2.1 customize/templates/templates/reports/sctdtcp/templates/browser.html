@@ -1,0 +1,86 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}}
+				<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}}
+				<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label>{{getLabel('tk','tk').text}}</label>
+			<div>
+				<ng-typeahead module="dmtk" fields="tk,ten_tk" field-model="tk" field-label="ten_tk" ng-model='condition.tk' label="condition.ten_tk"></ng-typeahead>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label>{{getLabel('phi','Doanh thu/chi phí').text}}
+				</label>
+			<div>
+				<ng-typeahead module="dmphi" fields="ma_phi,ten_phi" field-model="ten_phi" field-label="ma_phi" ng-model='condition.ten_phi' label="condition.ma_phi"></ng-typeahead>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label>{{getLabel('baocaotheo','Báo cáo theo').text}}
+				</label>
+			<div>
+				<select class="form-control" ng-model="condition.reportBy">
+					<option value="tuan">Tuần</option>
+					<option value="thang">Tháng</option>
+					<option value="quy">Quý</option>
+					<option value="nam">Năm</option>
+				</select>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label>{{getLabel('DVCS','Đơn vị cơ sở').text}}</label>
+			<div>
+				<ng-selector module="dvcs" fields="_id,ten_dvcs" field-model="_id" field-label="ten_dvcs" options="item._id as item.ten_dvcs for item in items" ng-model='condition.ma_dvcs' empty-yn='true'></ng-selector>
+			</div>
+		</div>
+	</report-filter>
+	<report-viewer>
+		<div class="table-responsive"  id='exportable'>
+			<table class="table table-bordered">
+				<tr>
+					<th class="text-center" rowspan="2">{{getLabel('ma_chi_tieu','Mã chỉ tiêu').text}}</th>
+					<th class="text-center" rowspan="2">{{getLabel('ten_chi_tieu','Tên chỉ tiêu').text}}</th>
+					<th class="text-center" colspan="2" ng-repeat="h in data[0].cols">
+						{{h}}
+					</th>
+				</tr>
+				<tr>
+					<th class="text-center" ng-repeat-start="h in data[0].cols">
+						{{getLabel('ke_hoach','Kế hoạch').text}}
+					</th>
+					<th class="text-center" ng-repeat-end>
+						{{getLabel('thuc_te','Thực tế').text}}
+					</th>
+				</tr>
+				<tr ng-repeat="row in data[0].data|orderBy:'sysorder'" ng-class="row.bold?'cbold':'cnormal'">
+					<td>{{row.ma_phi}}</td>
+					<td>{{row.ten_phi}}</td>
+
+					<td  class="text-right" ng-repeat-start="h in data[0].cols">
+						{{row[h + "tien_kh"]|number}}
+					</td>
+					<td  class="text-right" ng-repeat-end>
+						{{row[h + "tien"]|number}}
+					</td>
+				</tr>
+			</table>
+		</div>
+	</report-viewer>
+</report>

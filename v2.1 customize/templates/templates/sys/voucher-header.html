@@ -1,0 +1,84 @@
+
+<nav ng-show="boxSearch || add_show || delete_show || export_show || import_show || options_show || btn1_show || btn2_show || btn3_show || btn4_show || btn5_show">
+	<div class="navbar navbar-default">
+		<!--<div class="navbar-brand">
+			{{getLabel('ten_ct' +code,title).text}} <span ng-show="sub_title"> : {{sub_title}}</span>
+			<a ng-click="unlike()" ng-show="isLike"  style='color:#F2BF16' title="{{getLabel('bo_hay_su_dung','Bỏ khỏi mục hay sử dụng').text}}"><i class="fa fa-star"></i></a>
+			<a ng-click="like()" ng-show="!isLike"  style='color:silver' title="{{getLabel('them_hay_su_dung','Thêm vào mục hay sử dụng').text}}"><i class="fa fa-star"></i></a>
+		</div>-->
+		
+            <form class="navbar-form navbar-right" style="border:0px">
+                <!--<div  class="form-group disable-small-screen"> 
+                    từ {{(current_page-1) * limit+1}} đến {{(current_page-1)*limit + list.length}} của {{rows_number|number}} dòng
+                </div>-->
+				
+                <div  class="btn form-group disable-small-screen"> 
+                    <select ng-model="limit" ng-change ="changeLimit(limit)" class="form-control" ng-options ="n.v as n.t for n in [{v:5,t:'5 dòng/trang'},{v:10,t:'10 dòng/trang'},{v:20,t:'20 dòng/trang'},{v:30,t:'30 dòng/trang'},{v:50,t:'50 dòng/trang'},{v:50000,t:'50 000 dòng/trang'}]">
+
+                    </select>
+                </div>
+				
+                <a  class="btn btn-danger  navbar-btn" ng-click="add()" title ="Ctrl+M">{{getLabel('moi','Mới').text}}</a>
+                <a  class="btn btn-warning  navbar-btn" ng-show="!isUnSelected()" ng-click ="delete()"  title ="Ctrl+D">{{getLabel('xoa','Xóa').text}}</a>
+
+			
+                <span class="btn-group  disable-small-screen" >
+                  <a class="btn btn-default  dropdown-toggle" ui-turn-on='excelTemplate'>
+                    {{getLabel('xuat_excel','Excel').text}}
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu" role="menu"  ui-outer-click="Ui.turnOff('excelTemplate')"
+					ui-outer-click-if="Ui.active('excelTemplate')"
+					role="menu"
+					ui-show="excelTemplate" 
+					ui-state="excelTemplate"
+					ui-turn-off="excelTemplate">
+					
+                    <li role="presentation" ng-repeat='rpt in rpts'>
+                        <a role="menuitem" tabindex="-1" ng-click="printXlsx(rpt._id)" ng-show='isUnSelected()==false'>{{rpt.ten_mau_in}}</a>
+                        <span class="dropdown-header" ng-show='isUnSelected()'>{{rpt.ten_mau_in}}</span>
+                    </li>
+                    <li role="presentation" class="dropdown-header" ng-show='!rpts || rpts.length==0'>{{getLabel('chua_co_mau','Chưa có mẫu').text}}</li>
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation">
+                        <a role="menuitem" tabindex="-1" ng-click="rptManagement()">{{getLabel('khai_bao_mau','Khai báo mẫu').text}}</a>
+                    </li>
+                  </ul>
+                </span>
+
+                
+                <a  class="btn btn-default  navbar-btn" ng-click="find()">{{getLabel('tim','Tìm').text}}</a>
+                <a  class="btn btn-default  navbar-btn" ng-click="multiSelect=!multiSelect;selectionAll=false">
+					<i class="fa fa-check-square-o" aria-hidden="true"></i>
+				</a>
+				<span class="btn-group">
+                  <a class="btn btn-default  dropdown-toggle" ui-turn-on='btnOther'>
+                    {{getLabel('other','Khác').text}}
+                    <span class="caret"></span>
+                  </a>
+                  <div class="dropdown-menu list-group" role="menu"  ui-outer-click="Ui.turnOff('btnOther')"
+					ui-outer-click-if="Ui.active('btnOther')"
+					ui-show="btnOther" 
+					ui-state="btnOther"
+					ui-turn-off="btnOther">
+					
+					<a  class="list-group-item" ng-click="btn1_click()" ng-show='btn1_show'>{{getLabel('btn1_text' + code,btn1_text).text}}</a>
+					<a  class="list-group-item" ng-click="btn2_click()" ng-show='btn2_show'>{{getLabel('btn2_text' + code,btn2_text).text}}</a>
+					<a  class="list-group-item" ng-click="updateSoCt()">{{getLabel('danh_lai_so_ct','Đánh lại số chứng từ').text}}</a>
+					<a  class="list-group-item" ng-click="btn3_click()" ng-show='btn3_show'>{{getLabel('btn3_text' + code,btn3_text).text}}</a>
+					<a  class="list-group-item" ng-click="btn4_click()" ng-show='btn4_show'>{{getLabel('btn4_text' + code,btn4_text).text}}</a>
+					<a  class="list-group-item" ng-click="btn5_click()" ng-show='btn5_show'>{{getLabel('btn5_text' + code,btn5_text).text}}</a>
+					<a  class="list-group-item" ng-click="importhtml5()" ng-show='import_show'>{{getLabel('nhap_tu_excel','Nhập từ excel').text}}</a>
+					<a  class="list-group-item" ng-click="options()" ng-show='options_show'>{{getLabel('TUY_CHON','Tùy chọn').text}}</a>
+					<span ng-transclude></span>
+				
+                   
+					
+                  </div>
+                </span>
+
+               
+            </form>
+	
+	</div>
+</nav>

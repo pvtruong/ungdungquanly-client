@@ -1,0 +1,17 @@
+﻿<div class="scrollable">
+<div class="scrollable-header">
+<!--<stplistheader></stplistheader>-->
+</div>
+<div class="row scrollable-content"> 
+	<div class="table-list row">
+		<table class ="table">
+			<tr ng-repeat="r in list" >
+				<td   style='cursor:pointer' ng-click='onListItemClick({$item:r})'>
+					<div>{{ r.name }}</div>
+				</td>
+				
+			</tr>
+		</table>
+		<ng-page></ng-page>
+	</div>
+</div></div>

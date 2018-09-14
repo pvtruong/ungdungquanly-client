@@ -1,0 +1,65 @@
+<report kbm='kbmkqhdkd'>
+	<report-filter>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}} <span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}} <span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay_truoc','Từ ngày kỳ trước').text}} <span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay_kt' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày kỳ trước').text}} <span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay_kt' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('DVCS','Đơn vị cơ sở').text}}</label>
+			<div>
+				<ng-selector module="dvcs" fields="_id,ten_dvcs" field-model="_id" field-label="ten_dvcs" options="item._id as item.ten_dvcs for item in items" ng-model='condition.ma_dvcs' empty-yn='true'>
+				</ng-selector>
+			</div>
+		</div>
+	</report-filter>
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<table class='table  table-striped  table-hover'>
+				<tr>
+					<th>{{getLabel('chi_tieu','Chỉ tiêu').text}}</th>
+					<th>{{getLabel('ma_so','Mã số').text}}</th>
+					<th>{{getLabel('thuyet_minh','Thuyết minh').text}}</th>
+					<th>{{getLabel('ky_truoc','Kỳ trước').text}}</th>
+					<th>{{getLabel('ky_nay','Kỳ này').text}}</th>
+				</tr>
+				<tr ng-repeat='r in data' ng-class="r.bold?'cbold':'cnormal'">
+					<td>
+						{{::lang=="EN" && r.chi_tieu2?r.chi_tieu2:r.chi_tieu}}
+					</td>
+					<td>
+						{{::r.ma_so}}
+					</td>
+					<td>
+						{{::r.thuyet_minh}}
+					</td>
+					<td>
+						{{::r.ky_truoc|number:0}}
+					</td>
+					<td>
+						{{::r.ky_nay|number:0}}
+					</td>
+				</tr>
+			</table>
+		</div>
+	</report-viewer>
+</report>

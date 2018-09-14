@@ -1,0 +1,38 @@
+﻿<div class="scrollable">
+<div class="scrollable-header"><stplistheader btnimport="show:false" btnadd="show:false"></stplistheader></div>
+<div class="row scrollable-content"> <div class="table-responsive">
+	<table class ="table table-striped table-bordered">
+		<tr><th></th><th>Chương trình</th><th>Phiên bản</th><th>Database Key</th><th>Khách hàng sử dụng</th><th>Địa chỉ</th><th>Điện thoại</th><th>Email</th><th>Ngày đăng ký</th></tr>
+		<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)" >
+			<th class='text-center'><input type='checkbox' ng-model='r.sel'></th>
+			<td  ng-click='edit(r._id)' style="cursor:pointer">
+				{{r.app}}
+			</td>
+			<td  ng-click='edit(r._id)' style="cursor:pointer">
+				{{r.version}}
+			</td>
+			<td  ng-click='edit(r._id)' style="cursor:pointer">
+				{{r.db_key}}
+			</td>
+			<td  ng-click='edit(r._id)' style="cursor:pointer">
+				{{r.cty_name}}
+			</td>
+			<td  ng-click='edit(r._id)' style="cursor:pointer">
+				{{r.address}}
+			</td>
+			<td  ng-click='edit(r._id)' style="cursor:pointer">
+				{{r.phone}}
+			</td>
+			<td  ng-click='edit(r._id)' style="cursor:pointer">
+				{{r.email}}
+			</td>
+			<td  ng-click='edit(r._id)' style="cursor:pointer">
+				{{r.date_created|date:'dd/MM/yyyy'}}
+			</td>
+			
+		</tr>
+	</table>
+	<ng-page></ng-page>
+</div>
+
+</div></div>

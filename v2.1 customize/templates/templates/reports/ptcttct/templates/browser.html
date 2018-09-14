@@ -1,0 +1,126 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label>Mẫu <span class="required">*</span></label>
+			<div>
+				<ng-selector module="rptform" fields="_id,rptform_name" field-model="_id" field-label="rptform_name" condition="rptform_type:'PTCTTCT'" options="item._id as item.rptform_name for item in items" default-values="rptform_type:'PTCTTCT'" ng-model='condition.id_rptform'
+				  ng-required="true" label="condition.rptform_name">
+				</ng-selector>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('ma_dt','Vụ việc, dự án').text}}</label>
+			<div>
+				<ng-typeahead module='dmdt' field-model='ten_dt' field-label='ma_dt' fields='ma_dt,ten_dt' ng-model='condition.ten_dt' label='condition.ma_dt'>
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('ma_hop_dong','Hợp đồng').text}}</label>
+			<div>
+				<ng-typeahead module='contract' field-model='ten_hd' field-label='so_hd' fields='so_hd,ten_hd' ng-model='condition.ten_hd' label='condition.ma_hd'>
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('ma_nv','Nhân viên').text}}</label>
+			<div>
+				<ng-typeahead module='dmnv' field-model='ten_nv' field-label='ma_nv' fields='ma_nv,ten_nv' ng-model='condition.ten_nv' label='condition.ma_nv'>
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('DVCS','Đơn vị cơ sở').text}}</label>
+			<div>
+				<ng-selector module="dvcs" fields="_id,ten_dvcs" field-model="_id" field-label="ten_dvcs" options="item._id as item.ten_dvcs for item in items" ng-model='condition.ma_dvcs' empty-yn='true'>
+				</ng-selector>
+			</div>
+		</div>
+	</report-filter>
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<table class='table table-hover'>
+				<tr>
+					<th>{{getLabel('dien_giai','Diễn giải').text}}</th>
+					<th>{{getLabel('so_ct','Số c.từ').text}}</th>
+					<th>{{getLabel('ngay_ct','Ngày c.từ').text}}</th>
+					<th>{{getLabel('so_luong','Số lượng').text}}</th>
+					<th>{{getLabel('don_gia','Giá').text}}</th>
+					<th>{{getLabel('tien','Tiền').text}}</th>
+					<th>{{getLabel('thue','Thuế').text}}</th>
+					<th>{{getLabel('cong','Tổng cộng').text}}</th>
+				</tr>
+
+				<tbody ng-repeat='d in data'>
+					<tr ng-if="!d.socai || d.socai.length==0" ng-class="d.bold?'cbold':'cnormal'">
+						<td>
+							{{d.dien_giai && d.ct_so_cai?d.dien_giai:d.chi_tieu}}
+						</td>
+						<td>
+							{{::d.so_ct}}
+						</td>
+						<td>
+							{{::d.ngay_ct|date:'dd/MM/yyyy'}}
+						</td>
+
+
+
+						<td>
+							<span ng-show='d.so_luong'>{{d.value_string||(d.so_luong|number:2)}}</span>
+						</td>
+						<td>
+							<span ng-show='d.gia'>{{d.value_string||(d.gia|number:0)}}</span>
+						</td>
+						<td>
+							<span ng-show='d.so_kn'>{{d.value_string||(d.so_kn|number:0)}}</span>
+						</td>
+						<td>
+							<span ng-show='d.thue'>{{d.value_string||(d.thue|number:0)}}</span>
+						</td>
+						<td>
+							<span ng-show='d.t_tt!=0'>{{d.t_tt|number:0}}</span>
+						</td>
+					</tr>
+					<tr ng-if="d.socai && d.socai.length>0" ng-repeat="r in d.socai" ng-class="d.bold?'cbold':'cnormal'" style="cursor:pointer" ng-click='viewVoucher(r.ma_ct,r.id_ct)'>
+						<td>
+							{{r.dien_giai?r.dien_giai:d.chi_tieu}}
+						</td>
+						<td>
+							{{::r.so_ct}}
+						</td>
+						<td>
+							{{::r.ngay_ct|date:'dd/MM/yyyy'}}
+						</td>
+						<td>
+							<span ng-show='r.so_luong'>{{r.value_string||(r.so_luong|number:2)}}</span>
+						</td>
+						<td>
+							<span ng-show='r.gia'>{{r.value_string||(r.gia|number:0)}}</span>
+						</td>
+						<td>
+							<span ng-show='r.tien'>{{r.value_string||(r.tien|number:0)}}</span>
+						</td>
+						<td>
+							<span ng-show='r.thue'>{{r.value_string||(r.thue|number:0)}}</span>
+						</td>
+						<td>
+							<span ng-show='r.t_tt!=0'>{{r.t_tt|number:0}}</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</report-viewer>
+</report>

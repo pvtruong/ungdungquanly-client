@@ -1,0 +1,162 @@
+<list btnimport ="text:'Nhập dữ liệu từ excel'">
+<list-ext-filter>
+	<li role="presentation" class="divider" ng-show='groups.length>0'></li>
+	<li role="presentation" ng-repeat='group in groups' >
+		<a class='dropdown-header' ng-click="changeFilter({filter:{nh_dt:group._id},title:group.group_name})">{{group.group_name}}</a>
+	</li>
+	<li role="presentation" class="divider"></li>
+	<li role="presentation" >
+		<div class='dropdown-header' ng-repeat ="progress in progresses">
+			<input type="checkbox" ng-model="progress.sel"> {{progress.text}}
+		</div>
+
+	</li>
+</list-ext-filter>
+<list-ext-toolbar>
+
+</list-ext-toolbar>
+<list-body>
+	<div class="table-list col-md-12">
+		<table class ="table table-striped">
+			<tr  class="disable-small-screen">
+				<th class="text-center"  style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll"  ng-change ="selectionAllChange(selectionAll)"></th><th style="width:30px"></th>
+				<th>Vụ việc, dự án</th>
+				<th>Khách hàng</th>
+				<th>Trạng thái</th>
+
+			</tr>
+			<tr  class="disable-small-screen">
+				<td  ng-show="multiSelect"></td>
+				<td></td>
+				<td><input type="text" class="form-control" ng-model="advCondition.ten_dt" ng-keyup="enter($event)"/></td>
+				<td><input type="text" class="form-control" ng-model="advCondition.ten_kh"  ng-keyup="enter($event)"/></td>
+				<td>
+					<select type="text" class="form-control"  ng-model="advCondition.progress"  ng-change="searchAVR()">
+						<option value=''>Tất cả</option>
+						<option value='0'>Chưa thực hiện</option>
+						<option value='1'>Đang thực hiện</option>
+						<option value='2'>Hoàn thành</option>
+						<option value='3'>Tạm dừng</option>
+						<option value='4'>Đang chờ</option>
+					</select>
+				</td>
+
+			</tr>
+			<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)" >
+				<td width='30px' class="text-center" ng-show="multiSelect"> <input type="checkbox" ng-model="r.sel"/> </td><td class="text-center" style="width:30px"><div  ng-include="'templates/sys/quick-actions-list.html'"></div></td>
+				<td   style='cursor:pointer' ng-click='view(r._id)'>
+					<div><b>{{ r.ten_dt }}</b></div>
+					<div ng-if="r.ty_le_hoa_hong">% hoa hồng cho nhân viên: <span style="color:green">{{ r.ty_le_hoa_hong }}</span></div>
+					<small parse-text="r.mieu_ta" limit="50"></small>
+					<div  class="disable-medium-screen"><a href="#!/dmkh/view/{{r.id_kh}}?redirect={{location}}">{{ r.ten_kh }}</a></div>
+				</td>
+				<td  class="disable-small-screen">
+					<a href="#!/dmkh/view/{{r.id_kh}}?redirect={{location}}">{{ r.ten_kh }}</a>
+				</td>
+				<td  class="disable-small-screen">
+					<div class="dropdown" ng-click="toggleDropdown('dt' + r._id)">
+					   <span ng-show='r.progress==0'  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='btn btn-xs btn-info dropdown-toggle'>Chưa thực hiện</span>
+					  <span ng-show='r.progress==1'  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='btn btn-xs btn-primary dropdown-toggle'>Đang thực hiện</span>
+					  <span ng-show='r.progress==2'  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='btn btn-xs btn-success dropdown-toggle'>Hoàn thành</span>
+					  <span ng-show='r.progress==3'  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='btn btn-xs btn-danger dropdown-toggle'>Tạm dừng</span>
+					  <span ng-show='r.progress==4'  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" class='btn btn-xs btn-warning dropdown-toggle'>Đang chờ</span>
+
+
+					  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" ui-show="dt{{r._id}}"
+						ui-state="dt{{r._id}}">
+
+						<li role="presentation" ng-show='r.progress!=2'><a role="menuitem" tabindex="-1" ng-click="changeProgress(r,2)">Hoàn thành</a></li>
+						<li role="presentation" ng-show='r.progress!=1'><a role="menuitem" tabindex="-1" ng-click="changeProgress(r,1)">Đang thực hiện</a></li>
+						<li role="presentation" ng-show='r.progress!=3'><a role="menuitem" tabindex="-1" ng-click="changeProgress(r,3)">Tạm dừng</a></li>
+						<li role="presentation" ng-show='r.progress!=4'><a role="menuitem" tabindex="-1" ng-click="changeProgress(r,4)">Chờ</a></li>
+						<li role="presentation" ng-show='r.progress!=0'><a role="menuitem" tabindex="-1" ng-click="changeProgress(r,0)">Chưa thực hiện</a></li>
+					  </ul>
+					</div>
+				</td>
+
+			</tr>
+		</table>
+		<ng-page></ng-page>
+
+	</div>
+	<button-slide width="300" actions ="buttonSlideActions">
+		<btn-content>
+
+
+			<!--<div style='padding-bottom:5px'><b>Phụ trách</b></div>
+			<div class="list-group">
+
+				<a ng-class="phu_trach?'list-group-item':'list-group-item  list-group-item-info'" ng-click="searchPhuTrach({});buttonSlideActions.hide()" >Tất cả</a>
+				<a ng-class="phu_trach==m.email?'list-group-item  list-group-item-info':'list-group-item'" ng-click="searchPhuTrach(m);buttonSlideActions.hide()" ng-repeat="m in members"><img style="width:32px;height:32px" class="img-circle" img-cache ic-src='{{server_url}}/api/avatar?email={{m.email}}&access_token={{token}}'/> {{m.name}}</a>
+			</div>
+
+			<div style='padding-bottom:5px'><b>Nhóm</b></div>
+			<div class="list-group">
+
+				<a ng-class="nh_dt?'list-group-item':'list-group-item  list-group-item-info'" ng-click="searchGroup({});buttonSlideActions.hide()">Tất cả</a>
+				<div role="presentation" ng-repeat='group in groups' >
+					<a ng-class="nh_dt==group._id?'list-group-item  list-group-item-info':'list-group-item'" ng-click="searchGroup(group);buttonSlideActions.hide()">{{group.group_name}}</a>
+				</div>
+			</div>-->
+			<div  style='padding-bottom:5px' class="checkbox">
+				<label>
+					<input type="checkbox" ng-model="filterLabelAll"  ng-change='toggleMultiSel(contactLabels,filterLabelAll);searchAVR()'/> <b>Nhãn</b>
+				</label>
+			</div>
+			<div class="list-group">
+				<div role="presentation" ng-repeat='label in contactLabels' >
+					<div class="list-group-item checkbox">
+						<label>
+							<input type="checkbox" ng-model='label.sel' ng-change='searchAVR()'/> {{label.label_name?label.label_name:'Khác'}}
+						</label>
+					</div>
+				</div>
+			</div>
+			<!--loc theo phu trach-->
+			<div  style='padding-bottom:5px' class="checkbox">
+				<label>
+					<input type="checkbox" ng-model="filterPhuTrachAll"  ng-change='toggleMultiSel(members,filterPhuTrachAll);searchAVR()'/> <b>Phụ trách</b>
+				</label>
+			</div>
+			<div class="list-group">
+
+				<div role="presentation" ng-repeat='member in members' >
+					<div class="list-group-item checkbox">
+						<label>
+							<input type="checkbox" ng-model='member.sel' ng-change='searchAVR()'/> {{member.name}}
+						</label>
+					</div>
+				</div>
+			</div>
+			<!--loc theo nhom-->
+			<div  style='padding-bottom:5px' class="checkbox">
+				<label>
+					<input type="checkbox" ng-model="filterNhomAll"  ng-change='toggleMultiSel(groups,filterNhomAll);searchAVR()'/> <b>Nhóm vụ việc</b>
+				</label>
+			</div>
+			<div class="list-group">
+				<div role="presentation" ng-repeat='group in groups' >
+					<div class="list-group-item checkbox">
+						<label>
+							<input type="checkbox" ng-model='group.sel' ng-change='searchAVR()'/> {{group.group_name}}
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div style='padding-bottom:5px'><b>Lọc nhanh theo thời gian</b></div>
+			<div class="list-group">
+
+				<a ng-class="!time?'list-group-item  list-group-item-info':'list-group-item'" ng-click="reportByTime();buttonSlideActions.hide()" >Tất cả</a>
+				<a ng-class="time=='d'?'list-group-item  list-group-item-info':'list-group-item'" ng-click="reportByTime('d');buttonSlideActions.hide()" >Dự án mới trong ngày</a>
+				<a ng-class="time=='w'?'list-group-item  list-group-item-info':'list-group-item'" ng-click="reportByTime('w');buttonSlideActions.hide()" >Dự án mới trong tuần</a>
+				<a ng-class="time=='m'?'list-group-item  list-group-item-info':'list-group-item'" ng-click="reportByTime('m');buttonSlideActions.hide()" >Dự án mới trong tháng</a>
+				<a ng-class="time=='3m'?'list-group-item  list-group-item-info':'list-group-item'" ng-click="reportByTime('3m');buttonSlideActions.hide()" >Dự án mới trong quý</a>
+				<a ng-class="time=='y'?'list-group-item  list-group-item-info':'list-group-item'" ng-click="reportByTime('y');buttonSlideActions.hide()" >Dự án mới trong năm</a>
+
+			</div>
+		</btn-content>
+	</button-slide>
+
+</list-body>
+</list>

@@ -1,0 +1,517 @@
+<!--<ul mfb-menu="mfb-menu" position="br" effect="zoomin" bgcolor='red' label="{{getLabel('open_company','Mở công ty này').text}}" active-icon="glyphicon glyphicon-play" resting-icon="glyphicon glyphicon-play" toggling-method="hover"
+ng-click="open(data)"> </ul>-->
+<div class="scrollable">
+	<div class="scrollable-header">
+		<h3 style="padding:5px">{{data.name}}
+			<button class='btn btn-xs btn-primary' ng-if="user.appAdmin" ng-click='edit()'>Chỉnh sửa</button>
+		</h3>
+	</div>
+	<div class="scrollable-content">
+		<form class="css-form form-horizontal form-input">
+			<uib-tabset>
+				<uib-tab heading='Thông tin công ty'>
+					<div class='row'>
+						<div class='col-sm-6'>
+							<div class="form-group">
+								<label class="control-label col-sm-4">Tên công ty/cửa hàng
+								</label>
+								<div class="col-sm-8">
+									<input type="text" name='name' class="form-control" readonly="readonly" ng-model='data.name' ng-required="ng-required">
+
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-4">Tên viết tắt</label>
+								<div class="col-sm-4">
+									<input type="text" class="form-control" ng-model='data.exfields.short_name' readonly="readonly">
+
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-4">ID
+								</label>
+								<div class="col-sm-8">
+									<input type="text" name='name' class="form-control" readonly="readonly" ng-model='data._id' ng-required="ng-required">
+
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-4">Địa chỉ
+								</label>
+								<div class="col-sm-8">
+									<input type="text" name='address' class="form-control" readonly="readonly" ng-model='data.address' ng-required='true'>
+
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-4">Quận huyện</label>
+								<div class="col-sm-8">
+									<input type="text" name='city' class="form-control" readonly="readonly" ng-model='data.city'>
+
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-4">Tỉnh thành
+								</label>
+								<div class="col-sm-8">
+									<input type="text" name='city' class="form-control" readonly="readonly" ng-model='data.province'>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-4">Điện thoại
+								</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" readonly="readonly" ng-model='data.phone' ng-required='true'>
+
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-4">Email
+								</label>
+								<div class="col-sm-8">
+									<input type="email" class="form-control" readonly="readonly" ng-model='data.email' ng-required='true'>
+
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-4">Giám đốc</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" readonly="readonly" ng-model='data.giam_doc'>
+
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-4">Kế toán trưởng</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" readonly="readonly" ng-model='data.ke_toan_truong'>
+
+								</div>
+							</div>
+						</div>
+						<div class='col-sm-6'>
+							<div class="form-group">
+								<label class="control-label col-sm-6">Ngày đầu năm tài chính
+								</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" readonly="readonly" ng-value='data.ngay_dn|date:"dd/MM/yyyy"'>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-6">Ngày sử dụng chương trình
+								</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" readonly="readonly" ng-value='data.ngay_ky1|date:"dd/MM/yyyy"'>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-6">Ngày khóa sổ
+								</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" readonly="readonly" ng-value='data.ngay_ks|date:"dd/MM/yyyy"'>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-6">Người nộp thuế</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" readonly="readonly" ng-model='data.nguoi_nop_thue'>
+
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-6">Mã số thuế</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" readonly="readonly" ng-model='data.ma_so_thue'>
+
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label col-sm-6">Logo</label>
+								<div class="col-sm-6">
+									<img img-cache="img-cache" ic-src="{{server_url}}{{data.logo}}" style="width:128px;height:128px"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<a ng-click="hien_thong_tin_khac = hien_thong_tin_khac?false:true">nhiều thông tin hơn...</a>
+					<div ng-show="hien_thong_tin_khac">
+						<div class="form-group">
+							<label>Giới thiệu về công ty/cửa hàng</label>
+							<div parse-html="data.gioi_thieu"></div>
+							<div ng-if="!data.gioi_thieu">
+								Chưa cập nhật</div>
+						</div>
+						<div class="form-group">
+							<label>Ngành kinh doanh</label>
+							<div parse-html="data.nganh_nghe"></div>
+							<div ng-if="!data.nganh_nghe">
+								Chưa cập nhật</div>
+						</div>
+						<div class="form-group">
+							<div class='checkbox'>
+								<label><input type='checkbox' ng-model='data.sale_online' disabled="disabled"/>
+									Bán hàng online</label>
+							</div>
+						</div>
+						<div class="form-group" ng-if='data.sale_online'>
+							<label>Trang bán hàng</label>
+							<div>
+								<input type="text" class="form-control" readonly="readonly" ng-model='data.site_name'>
+							</div>
+						</div>
+						<div class="form-group" ng-if='data.sale_online'>
+							<label>Từ khóa để SEO</label>
+							<div>
+								<textarea class="form-control" readonly="readonly" ng-model='data.keywords'></textarea>
+							</div>
+						</div>
+						<div class="form-group" ng-if='data.sale_online'>
+							<label>Chính sách vận chuyển</label>
+							<div>
+								<textarea class="form-control" readonly="readonly" ng-model='data.van_chuyen'></textarea>
+							</div>
+						</div>
+						<div class="form-group" ng-if='data.sale_online'>
+							<label>Chính sách bảo hàng</label>
+							<div>
+								<textarea class="form-control" readonly="readonly" ng-model='data.bao_hanh'></textarea>
+							</div>
+						</div>
+
+						<!---thanh toan-->
+						<div class="form-group" ng-if='data.sale_online'>
+							<div>
+								<a href='#!/ptthanhtoan'>Phương thức thanh toán</a>
+							</div>
+
+						</div>
+
+					</div>
+
+				</uib-tab>
+
+				<uib-tab heading='Kết nối' ng-if="user.appAdmin">
+					<fieldset>
+						<legend>Kết nối tổng đài VOIP</legend>
+						<div class="form-group">
+							<label>Tạo liên kết dùng để kết nối với tổng đài VOIP. Khi có cuộc gọi đến hoặc đi thì tổng đài VOIP sẽ gọi liên kết này</label>
+							<div>
+								<button class="btn btn-info btn-md" ng-click="createLinkVoiIP(data._id)">Tạo liên kết mới</button>
+							</div>
+							<div style="margin:10px">
+								<table class="table">
+									<tr ng-repeat="token in data.voiIPTokens">
+										<td>
+											https://ungdungquanly.vn/public/{{data._id}}/callin/{so_dien_thoai}?token={{token}}&ext={so_noi_bo}&status={status}&type={type}&hotline={hotline}
+											<button class="btn btn-sm btn-danger" ng-click="deleteLinkVoiIP(data._id,token)">Xóa</button>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="form-group" ng-show="data.voiIPTokens.length>0">
+							<p>Trong đó:</p>
+							<ul>
+								<li>
+									<b>{so_dien_thoai}</b>: số điện thoại gọi đến hoặc gọi đi
+								<li>
+									<b>{status}</b>: trạng thái của cuộc gọi. status=0 là đang đổ chuông, status=1 là đã bắt máy, status=2 là kết thúc cuộc gọi</li>
+								<li>
+									<b>{type}</b>: kiểu cuộc gọi. type=1- cuộc gọi đến, type=2-cuộc gọi đi</li>
+								<li>
+									<b>{so_no_bo}</b>
+									(không bắt buộc): Số nội bộ của nhân viên</li>
+								<li>
+									<b>{hotline}</b>
+									(không bắt buộc): Số điện thoại của tổng đài</li>
+							</ul>
+						</div>
+					</fieldset>
+					<fieldset>
+						<legend>Kết nối STP Enterpise</legend>
+						<p></p>
+						<p>
+							Khi kết nối với chương trình STP Enterpise, bạn có thể xem được một số báo cáo của chương trình STP Enterpise trên
+							<b>ungdungquanly.vn</b>
+						</p>
+						<div class="form-group">
+							<label>Địa chỉ API
+								<br/>
+								<small style="font-weight:normal">(ví dụ: http://localhost:1985/database_name)</small>
+							</label>
+							<div>
+								<input type="text" class="form-control" ng-model='data.stp_api_address'>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<button class="btn btn-default" ng-click="getTokenSTPAPI()" ng-disabled="!data.stp_api_address">Lấy token</button>
+								<button class="btn btn-default" ng-click="sync()" ng-disabled="!data.stp_api_token || !data.stp_api_address || syncing">Đồng bộ dữ liệu</button>
+								<button class="btn btn-default" ng-click="deleteTokenSTPAPI()" ng-disabled="!data.stp_api_token ">Xóa token</button>
+							</div>
+						</div>
+					</fieldset>
+					<!-----------cloud--->
+					<fieldset>
+						<legend>Sử dụng dịch vụ lưu trữ cloud của bên thứ 3</legend>
+						<div class="form-group ">
+							<div>
+								<a ng-click="auth_google()"><img src="images/google_drive_folder_icon.png" style="width:64px;height:64px"></a>
+								<div>{{data.google_drive_refresh_token?'Đã liên kết với tài khoản '+ data.google_drive_email:'Chưa liên kết'}}</div>
+								<div>
+									<a ng-if="data.google_drive_refresh_token" style="color:red" ng-click="delete_google_drive()">Xóa liên kết</a>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</uib-tab>
+
+				<uib-tab heading='Người dùng'>
+
+					<table class='table table-bordered'>
+						<tr>
+							<th class="row">
+								<div class="col-xs-8 text-left">Tên</div>
+								<div class="col-xs-4 text-right" ng-if="user.appAdmin">
+									<button class="btn btn-sm btn-primary" ng-click="addUser()">Thêm mới</button>
+								</div>
+							</th>
+							<th style='width:100px' class='text-center'>Quản trị</th>
+							<th style='width:150px' class='text-center'>Nhóm</th>
+							<th>hotline</th>
+							<th>Số nội bộ</th>
+
+							<th style='width:80px'>Xóa</th>
+						</tr>
+						<tr ng-repeat='r in data.participants'>
+							<td>
+								<div>
+									<div class="media-left">
+										<img ng-src='{{server_url}}{{r.picture}}' style='width:42px;height:42px'/>
+									</div>
+									<div class="media-body">
+										<div>{{r.name}}</div>
+										<small>{{r.email}}</small>
+									</div>
+								</div>
+							</td>
+
+							<td class='text-center'>
+								<input type='checkbox' ng-model='r.admin' ng-disabled='true'/>
+							</td>
+							<td class='text-center'>
+								<ng-selector module="usergroup" fields="_id,group_name" field-model="_id" field-label="group_name" ng-model='r.group_id' ng-disabled="true"></ng-selector>
+								<!--<a href="#!/assign/{{data._id}}/{{r.email}}" ng-show ='(!r.admin && current_user.appAdmin) || (current_user.email==data.user_created)'>Phân quyền</a>-->
+							</td>
+							<td>{{r.hotline}}</td>
+							<td>{{r.ext}}</td>
+
+							<td class='text-center'>
+								<a class='btn btn-danger btn-xs' ng-click='deleteParticipant(r.email)' ng-if="user.appAdmin">Xóa</a>
+							</td>
+						</tr>
+					</table>
+
+				</uib-tab>
+				<uib-tab heading='Tuỳ chọn' ng-if="user.appAdmin">
+					<fieldset>
+						<legend>Tuỳ chọn hàng tồn kho</legend>
+						<div class="form-group">
+							<div class="checkbox">
+								<label><input type="checkbox" ng-model="data.options.khong_xuat_kho_am" ng-change="update()"/>
+									Không cho phép xuất kho khi số lượng tồn trong kho không đủ</label>
+							</div>
+
+							<div class="checkbox">
+								<label><input type="checkbox" ng-model="data.options.sl_nhap_sl_hop_dong" ng-change="update()"/>
+									Mặc định số lượng nhập mua bằng số lượng còn lại trên hợp đồng mua hàng</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox" ng-model="data.options.sl_xuat_sl_hop_dong" ng-change="update()"/>
+									Mặc định số lượng xuất bán bằng số lượng còn lại trên hợp đồng bán hàng</label>
+							</div>
+
+							<div class="checkbox">
+								<label><input type="checkbox" ng-model="data.options.sl_xuat_sl_dn" ng-change="update()"/>
+									Mặc định số lượng xuất điều chuyển bằng số lượng còn lại trên phiếu đề nghị điều chuyển</label>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label>Người dùng thấy được giá vốn</label>
+							<ui-select multiple="multiple" ng-model="data.options.ds_show_gia_von" theme="bootstrap" close-on-select="false" title="Chọn một user" ng-change="update(data)">
+								<ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+								<ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+									<small>
+										{{person.name}}
+									</small>
+								</ui-select-choices>
+							</ui-select>
+						</div>
+
+						<div class="form-group">
+							<label>Tên loại nhóm 2</label>
+							<input type='text' class='form-control' ng-model='data.options.ten_nvt2' ng-blur="update()"/>
+						</div>
+						<div class="form-group">
+							<label>Tên loại nhóm 3</label>
+							<input type='text' class='form-control' ng-model='data.options.ten_nvt3' ng-blur="update()"/>
+						</div>
+						<div class="form-group">
+							<label>Tên loại nhóm 4</label>
+							<input type='text' class='form-control' ng-model='data.options.ten_nvt4' ng-blur="update()"/>
+						</div>
+
+					</fieldset>
+					<fieldset>
+						<legend>Tuỳ chọn số lẻ</legend>
+						<div class="form-group">
+							<label>Số lẻ trường số lượng (f_sl)</label>
+							<input type='number' class='form-control' ng-model='data.options.f_sl' ng-blur="update()"/>
+						</div>
+						<div class="form-group">
+							<label>Số lẻ trường giá (f_gia)</label>
+							<input type='number' class='form-control' ng-model='data.options.f_gia' ng-blur="update()"/>
+						</div>
+						<div class="form-group">
+							<label>Số lẻ trường giá ngoại tệ (f_gia_nt)</label>
+							<input type='number' class='form-control' ng-model='data.options.f_gia_nt' ng-blur="update()"/>
+						</div>
+
+						<div class="form-group">
+							<label>Số lẻ trường tiền (f_tien)</label>
+							<input type='number' class='form-control' ng-model='data.options.f_tien' ng-blur="update()"/>
+						</div>
+
+						<div class="form-group">
+							<label>Số lẻ trường tiền ngoại tệ (f_tien_nt)</label>
+							<input type='number' class='form-control' ng-model='data.options.f_tien_nt' ng-blur="update()"/>
+						</div>
+
+						<div class="form-group">
+							<label>Số lẻ trường tiền tỷ giá (f_ty_gia)</label>
+							<input type='number' class='form-control' ng-model='data.options.f_ty_gia' ng-blur="update()"/>
+						</div>
+
+					</fieldset>
+				</uib-tab>
+				<uib-tab heading='Xét duyệt' ng-if="user.appAdmin">
+					<div style="min-height:200px">
+						<div class="form-group">
+							<label>Người duyệt chi</label>
+							<ui-select multiple="multiple" ng-model="data.options.ds_nguoi_duyet_chi" theme="bootstrap" close-on-select="false" title="Chọn một user" ng-change="update(data)">
+								<ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+								<ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+									<small>
+										{{person.name}}
+									</small>
+								</ui-select-choices>
+							</ui-select>
+
+							<div class='checkbox'>
+								<label><input type='checkbox' ng-model='data.options.phieu_chi_phai_co_phieu_de_nghi' ng-change="update(data)"/>
+									Tất cả các phiếu chi phải có phiếu đề nghị thanh toán hoặc tạm ứng đã được duyệt</label>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label>Người duyệt điều chuyển kho</label>
+							<ui-select multiple="multiple" ng-model="data.options.ds_nguoi_duyet_dc" theme="bootstrap" close-on-select="false" title="Chọn một user" ng-change="update(data)">
+								<ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+								<ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+									<small>
+										{{person.name}}
+									</small>
+								</ui-select-choices>
+							</ui-select>
+						</div>
+
+						<div class="form-group">
+							<label>Người duyệt đề nghị mua hàng</label>
+							<ui-select multiple="multiple" ng-model="data.options.ds_nguoi_duyet_dnm" theme="bootstrap" close-on-select="false" title="Chọn một user" ng-change="update(data)">
+								<ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+								<ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+									<small>
+										{{person.name}}
+									</small>
+								</ui-select-choices>
+							</ui-select>
+
+						</div>
+
+						<div class="form-group">
+							<label>Người duyệt hợp đồng mua hàng</label>
+							<ui-select multiple="multiple" ng-model="data.options.ds_nguoi_duyet_purchase_contract" theme="bootstrap" close-on-select="false" title="Chọn một user" ng-change="update(data)">
+								<ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+								<ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+									<small>
+										{{person.name}}
+									</small>
+								</ui-select-choices>
+							</ui-select>
+
+						</div>
+
+						<div class="form-group">
+							<label>Người duyệt hợp đồng bán hàng</label>
+							<ui-select multiple="multiple" ng-model="data.options.ds_nguoi_duyet_sale_contract" theme="bootstrap" close-on-select="false" title="Chọn một user" ng-change="update(data)">
+								<ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+								<ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+									<small>
+										{{person.name}}
+									</small>
+								</ui-select-choices>
+							</ui-select>
+
+						</div>
+
+						<div class="form-group">
+							<label>Người duyệt định mức sản xuất</label>
+							<ui-select multiple="multiple" ng-model="data.options.ds_nguoi_duyet_dinhmucsx" theme="bootstrap" close-on-select="false" title="Chọn một user" ng-change="update(data)">
+								<ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+								<ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+									<small>
+										{{person.name}}
+									</small>
+								</ui-select-choices>
+							</ui-select>
+
+						</div>
+						<div class="form-group">
+							<label>Người duyệt lệnh sản xuất</label>
+							<ui-select multiple="multiple" ng-model="data.options.ds_nguoi_duyet_lenhsx" theme="bootstrap" close-on-select="false" title="Chọn một user" ng-change="update(data)">
+								<ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+								<ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+									<small>
+										{{person.name}}
+									</small>
+								</ui-select-choices>
+							</ui-select>
+
+						</div>
+					</div>
+				</uib-tab>
+
+				<uib-tab heading='Lưu trữ và khôi phục dữ liệu' ng-if="user.appAdmin">
+					<div class="form-group">
+						<h3>Lưu trữ dữ liệu</h3>
+						<div>
+							<a class="btn btn-primary btn-md" ng-click="backupApp(data._id)">Lưu trữ dữ liệu</a>
+						</div>
+					</div>
+					<div class="form-group">
+						<div file-upload-progress="file-upload-progress">
+							<div class="throbber-loader"></div>
+							<br/>
+						</div>
+						<h3>Khôi phục dữ liệu</h3>
+						<label style="color:red">Cảnh báo: Khi khôi phục dữ liệu từ tập lưu trữ, tất cả các dữ liệu hiện tại sẽ bị xóa và thay bằng dữ liệu trong tệp lưu trữ</label>
+						<input type="file" name="backup" ng-model="backup" file-upload="restoreAppUrl()"/>
+					</div>
+				</uib-tab>
+
+			</uib-tabset>
+		</form>
+	</div>
+</div>

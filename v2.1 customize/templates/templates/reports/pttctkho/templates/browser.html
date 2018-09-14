@@ -1,0 +1,107 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label>Mẫu <span class="required">*</span></label>
+			<div>
+				<ng-selector module="rptform" fields="_id,rptform_name" field-model="_id" field-label="rptform_name" condition="rptform_type:'PTTCTKHO'" options="item._id as item.rptform_name for item in items" default-values="rptform_type:'PTTCTKHO'" ng-model='condition.id_rptform'
+				  ng-required="true" label="condition.rptform_name">
+				</ng-selector>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label>{{getLabel('bao_cao_theo','Báo cáo theo').text}}<span class="required">*</span></label>
+			<div>
+				<ng-selector module="rptobject" fields="ma_obj,ten_obj" field-model="ma_obj" field-label="ten_obj" condition="code_rpt:'pttctkho'" ng-model='condition.bao_cao_theo' default-values="code_rpt:'pttctkho'" ng-required="true">
+				</ng-selector>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('NHOMKHACHHANG','Nhóm khách hàng').text}}</label>
+			<div>
+				<ng-selector module="group" fields="_id,group_name" field-model="_id" field-label="group_name" condition="group_type:'CUSTOMER'" ng-model='condition.nh_kh' default-values="group_type:'CUSTOMER'">
+				</ng-selector>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('ma_dt','Vụ việc, dự án').text}}</label>
+			<div>
+				<ng-typeahead module='dmdt' field-model='ten_dt' field-label='ma_dt' fields='ma_dt,ten_dt' ng-model='condition.ten_dt' label='condition.ma_dt'>
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('phu_trach','Nhân viên phụ trách').text}}</label>
+			<div>
+
+				<select ng-model="condition.phu_trach" ng-options="r.email as r.name for r in members" class="form-control">
+
+				</select>
+
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('ma_nv','Nhân viên').text}}</label>
+			<div>
+				<ng-typeahead module='dmnv' field-model='ten_nv' field-label='ma_nv' fields='ma_nv,ten_nv' ng-model='condition.ten_nv' label='condition.ma_nv'>
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('ma_hop_dong','Hợp đồng').text}}</label>
+			<div>
+				<ng-typeahead module='contract' field-model='ten_hd' field-label='so_hd' fields='so_hd,ten_hd' ng-model='condition.ten_hd' label='condition.ma_hd'>
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('DVCS','Đơn vị cơ sở').text}}</label>
+			<div>
+				<ng-selector module="dvcs" fields="_id,ten_dvcs" field-model="_id" field-label="ten_dvcs" options="item._id as item.ten_dvcs for item in items" ng-model='condition.ma_dvcs' empty-yn='true'>
+				</ng-selector>
+			</div>
+		</div>
+
+	</report-filter>
+
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<table class='table  table-hover'>
+				<tr>
+					<th>{{getLabel('chi_tieu','Chỉ tiêu').text}}</th>
+					<th>{{getLabel('ma_so','Mã số').text}}</th>
+					<th ng-repeat="kho in data[0].columns">
+						{{::kho.ten_obj}}
+
+					</th>
+					<th>{{getLabel('tong_cong','Tổng cộng').text}}</th>
+				</tr>
+				<tr ng-repeat='r in data[0].rows' ng-class="r.bold?'cbold':'cnormal'">
+					<td>
+						{{::r.chi_tieu}}
+					</td>
+					<td>
+						{{::r.ma_so}}
+					</td>
+					<td ng-repeat="kho in data[0].columns">
+						{{r[kho.ma_obj + "_string"]||(r[kho.ma_obj]|number:0)}}
+					</td>
+					<td style='font-weight:bold'><span ng-show='r.total'>{{::r.total|number:0}}</span></td>
+				</tr>
+			</table>
+		</div>
+	</report-viewer>
+</report>

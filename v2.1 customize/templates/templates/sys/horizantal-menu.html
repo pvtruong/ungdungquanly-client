@@ -1,0 +1,50 @@
+<div class="hor-menu hor-menu-light hidden-sm hidden-xs">
+	<ul class="nav navbar-nav">
+		<!-- DOC: Remove data-hover="dropdown" and data-close-others="true" attributes below to disable the horizontal opening on mouse hover -->
+		<li ng-class="menuActive=='DASHBOARD'?'classic-menu-dropdown active':'classic-menu-dropdown'" ng-if="app_info">
+			<a ng-click="openPath('dashboard','DASHBOARD')">
+			Dashboard <span class="selected" ng-if="menuActive=='DASHBOARD'"></span>
+			</a>
+		</li>
+		<li ng-repeat ="menu in commands" ng-class="menuActive==menu.name?'classic-menu-dropdown active':'classic-menu-dropdown'"  ng-if="app_info && menu.visible">
+			<a data-hover="dropdown" data-close-others="true" data-toggle="dropdown" href="javascript:;" class="dropdown-toggle">
+			{{menu.title}}  <span class="selected" ng-if="menuActive==menu.name"></span> <i class="fa fa-angle-down"></i>
+			</a>
+			<ul class="dropdown-menu pull-left">
+				<!--type 1-->
+				<li ng-repeat='cmd in menu.input'  ng-if="cmd.visible && menu.type=='1'">
+					<a ng-click="openPath(cmd.path,menu.name)"> {{cmd.header}} <span class="bg-danger" ng-if="cmd.path=='dxd'">Đang xây dựng</span></a>
+				</li>
+				<!--type 2-->
+				<li class="dropdown-submenu" ng-repeat="module in menu.input"  ng-if="module.visible && menu.type=='2'">
+					<a href="javascript:;"> {{module.module}} </a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="item in module.items"  ng-if="item.visible">
+							<a ng-click="openPath(item.path,menu.name)">
+							{{item.header}}  <span class="bg-danger" ng-if="item.path=='dxd'">Đang xây dựng</span></a>
+						</li>
+		
+					</ul>
+				</li>
+				<!--type 3-->
+				<li class="dropdown-submenu" ng-repeat="module in menu.input"  ng-if="module.visible && menu.type=='3'">
+					<a href="javascript:;"> {{module.module}} </a>
+					<ul class="dropdown-menu">
+						<li class="dropdown-submenu"  ng-repeat="group in module.items"  ng-if="group.visible">
+							<a href="javascript:;">
+							{{group.group}} </a>
+							<ul class="dropdown-menu">
+								<li ng-repeat="item in group.items"  ng-if="item.visible">
+									<a ng-click="openPath(item.path,menu.name)">
+									{{item.header}}  <span class="bg-danger" ng-if="item.path=='dxd'">Đang xây dựng</span></a>
+								</li>
+							
+							</ul>
+						</li>
+		
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>

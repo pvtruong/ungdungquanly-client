@@ -1,0 +1,51 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}}
+				<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('ma_vt','Vật tư').text}}
+				</label>
+			<div>
+				<ng-typeahead module="dmvt" fields="ma_vt,ten_vt" field-model="ten_vt" field-label="ma_vt" ng-model='condition.ten_vt' label="condition.ma_vt"></ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('Kho','Kho').text}}</label>
+			<div>
+				<ng-typeahead module="dmkho" fields="ma_kho,ten_kho" field-model="ten_kho" field-label="ma_kho" ng-model='condition.ten_kho' label="condition.ma_kho"></ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('DVCS','Đơn vị cơ sở').text}}</label>
+			<div>
+				<ng-selector module="dvcs" fields="_id,ten_dvcs" field-model="_id" field-label="ten_dvcs" options="item._id as item.ten_dvcs for item in items" ng-model='condition.ma_dvcs' empty-yn='true'></ng-selector>
+			</div>
+		</div>
+	</report-filter>
+	<report-viewer>
+
+		<div class="table-responsive"  id='exportable'>
+			<table class="table">
+				<tr>
+					<th  class="text-center">{{getLabel('ma_vat_tu','Mã sản phẩm').text}}</th>
+					<th class="text-center">{{getLabel('ten_vat_tu','Tên sản phẩm').text}}</th>
+					<th  class="text-center" ng-repeat="h in data[0].cols">
+						{{h}}
+					</th>
+				</tr>
+				<tr ng-repeat="row in data[0].data">
+					<td>{{row.ma_vt}}</td>
+					<td>{{row.ten_vt}}</td>
+					<td  class="text-right" ng-repeat="h in data[0].cols">
+						{{row[h + "ton00"]|number}}
+					</td>
+				</tr>
+			</table>
+		</div>
+	</report-viewer>
+</report>

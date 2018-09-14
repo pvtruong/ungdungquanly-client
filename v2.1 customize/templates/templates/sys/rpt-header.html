@@ -1,0 +1,35 @@
+<div class="scrollable">
+	<div class="scrollable-header">
+		<nav class="navbar navbar-default" style="padding-left:10px;padding-right:10px">
+			<div>
+				<!--<div class="small-screen">
+				<div class="navbar-brand">
+					{{getLabel('ten_ct' + code,title).text}}
+					<a ng-click="unlike()" ng-show="isLike"  style='color:#F2BF16' title="{{getLabel('bo_hay_su_dung','Bỏ khỏi mục hay sử dụng').text}}"><i class="fa fa-star"></i></a>
+					<a ng-click="like()" ng-show="!isLike"  style='color:silver' title="{{getLabel('them_hay_su_dung','Thêm vào mục hay sử dụng').text}}"><i class="fa fa-star"></i></a>
+				</div>
+			</div>-->
+				<div>
+					<button type="button" class="btn btn-default  navbar-btn" ng-click="btn1_click()" ng-show='btn1_show' title="{{btn1_title}}">{{getLabel('btn1_text' + code,btn1_text).text}}</button>
+					<button type="button" class="btn btn-default  navbar-btn" ng-click="btn2_click()" ng-show='btn2_show' title="{{btn2_title}}">{{getLabel('btn2_text' + code,btn2_text).text}}</button>
+					<button type="button" class="btn btn-primary  navbar-btn" ng-click='getData();hideCondition(true)' ng-disabled='forms.form.$invalid || running' ng-show='btnok_show'>{{getLabel('btnok_text' + code,btnok_text).text}}</button>
+					<button type="button" class="btn btn-primary  navbar-btn" ng-click='printRpt("",{details:data})' ng-disabled='!data  || running' ng-show='btnprint_show && printRpt'>{{getLabel('in','In').text}}</button>
+					<button type="button" class="btn btn-default  navbar-btn" ng-click='exportExcel()' ng-disabled='forms.form.$invalid || running' ng-show='btnexcel_show'>{{getLabel('xuat_excel','Excel').text}}</button>
+					<button type="button" class="btn btn-default  navbar-btn" ng-show='kbm_yn' ng-click="openKbm()">{{getLabel('rpt_khai_bao_mau','Sửa mẫu').text}}</button>
+					<button type="button" class="btn btn-default  navbar-btn" ng-click="btn3_click()" ng-show='btn3_show' title="{{btn3_title}}">{{getLabel('btn3_text' + code,btn3_text).text}}</button>
+					<button type="button" class="btn btn-default  navbar-btn" ng-click="btn4_click()" ng-show='btn4_show' title="{{btn4_title}}">{{getLabel('btn4_text' + code,btn4_text).text}}</button>
+					<button type="button" class="btn btn-default  navbar-btn" ng-click="btn5_click()" ng-show='btn5_show' title="{{btn5_title}}">{{getLabel('btn5_text' + code,btn5_text).text}}</button>
+					<button type="button" class="btn btn-default  navbar-btn" ng-click="scrollTo(10);hideCondition()">{{getLabel('dieu_kien_loc','Lọc').text}}</button>
+
+					<button type="button" class="btn btn-default  navbar-btn pull-right" ng-click="options()">{{getLabel('options','Tùy chọn').text}}</button>
+
+				</div>
+			</div>
+		</nav>
+		<div class="alert alert-danger" ng-show="error">{{error}}</div>
+	</div>
+	<div class="row scrollable-content" id="rptContent" ui-scroll-bottom="loadPage()">
+
+		<div ng-transclude></div>
+	</div>
+</div>

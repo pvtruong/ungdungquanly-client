@@ -1,0 +1,61 @@
+﻿<div id="printView" ng-hide="true" >
+	<div style='width:80mm;margin: 0 auto'>
+		<!--header-->
+		<div>
+			<div><b>{{app_info.name}}</b></div>
+			<div><i>{{app_info.address}}</i></div>
+		</div>
+		<h3 class='text-center'>Phiếu tính tiền</h3>
+		<div class='text-center'>Số phiếu: {{data.so_ct}}</div>
+		<div class='text-center'>Ngày: {{data.ngay_ct|date:'dd/MM/yyyy'}}</div>
+		<div class='text-center' ng-if="data.ma_ban">Bàn: {{data.ma_ban}}</div>
+		<!--end header-->
+		<!--detail-->
+<table style='margin-top:10px;font-size:10px' class='table table-bordered'>
+			<tr>
+				<th style='text-align:center'>Sản phẩm</th>
+				<th style='text-align:center'>SL</th>
+				<th style='text-align:center'>Giá</th>
+				<th style='text-align:center'>CK</th>
+				<th style='text-align:center'>{{getLabel('TIEN','Tiền').text}}</th>
+			</tr>
+			<tbody ng-repeat='r in data.details'  class='table table-bordered'>
+				<tr>
+					<td colspan="5">
+						{{r.ten_vt}}
+					</td>
+				<tr>
+				<tr>
+					<td style="word-break: break-all; word-wrap: break-word;width:200px">
+						{{r.ma_vt}}
+					</td>
+					<td style='text-align:right'>{{r.sl_xuat|number:2}}</td>
+					<td style='text-align:right'>{{r.gia_ban|number:0}}</td>
+					<td style='text-align:right'>{{r.tien_ck|number:0}}</td>
+					<td style='text-align:right'>{{r.tien-r.tien_ck|number:0}}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!--end detail-->
+		<!--footer-->
+		<div type='margin-top:0px' class="row">
+			<div class="col-xs-6 text-right"> Tiền hàng:</div>
+			<div class="col-xs-6 text-left"> {{data.t_tien|number:0}} đ</div>
+			
+		</div>
+		<div type='margin-top:0px'  class="row">
+			<div class="col-xs-6 text-right"> Chiết khấu:</div>
+			<div class="col-xs-6 text-left"> {{data.t_ck|number:0}} đ</div>
+		</div>
+		<div type='margin-top:0px'  class="row">
+			<div class="col-xs-6 text-right"> Phải thu:</div>
+			<div class="col-xs-6 text-left"> {{data.t_tt|number:0}} đ</div>
+		</div>
+		<div type='margin-top:30px;border-top:1px solid silver' class="text-center">
+			<b>Cảm ơn, Hẹn gặp lại quý khách.</b>
+			
+		</div>
+		<!--end footer-->
+	</div>
+</div>

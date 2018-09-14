@@ -1,0 +1,76 @@
+<div class="row" style="">
+	<div class="col-md-offset-4 col-md-4">
+		<div class="login">
+			<div class="content ksoft">
+				<form class="login-form" style="padding:10px">
+					<!--<h3 class="form-title">{{getLabel('DANG_NHAP','Đăng nhập').text}}</h3>-->
+					<div class="alert alert-danger" ng-show="messageError">
+						<span>
+							{{messageError}}
+						</span>
+					</div>
+					<div class="form-group">
+						<!--<label class="control-label visible-ie8 visible-ie9">{{getLabel('TEN_DANG_NHAP','Tên đăng nhập').text}}</label>-->
+						<div class="input-icon">
+
+							<input class="form-control placeholder-no-fix input-lg text-center" type="text" autofocus autocomplete="off" placeholder="{{getLabel('TEN_DANG_NHAP','Tên đăng nhập').text}}" name="username" id="username" ng-model="data.username" ng-required="true" />
+						</div>
+					</div>
+					<div class="form-group">
+						<!--<label class="control-label visible-ie8 visible-ie9">{{getLabel('MAT_KHAU','Mật khẩu').text}}</label>-->
+						<div class="input-icon">
+							<input class="form-control placeholder-no-fix input-lg text-center" type="password" autocomplete="off" placeholder="{{getLabel('MAT_KHAU','Mật khẩu').text}}" name="password" id="password" ng-model="data.password" ng-required="true" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<select class="form-control input-lg text-center" style="text-align-last:center;text-align: center"
+							 ng-options="r.id as r.name for r in interfaces"
+							 ng-model="interface">
+						 </select>
+					</div>
+
+					<div class="form-group">
+						<div class="text-center">
+
+							<button ng-click='auth_local(interface)' ng-disabled="form_login.$invalid || isLogin" class="btn btn-lg btn-primary">
+								{{getLabel('DANG_NHAP','Đăng nhập').text}}
+
+							</button>
+						</div>
+					</div>
+
+
+					<hr/>
+					<div class="form-group">
+						<div class="text-center">
+							<a href="#!/resetpassword" id="forget-password">{{getLabel('KHOI_PHUC_MAT_KHAU','Khôi phục mật khẩu').text}}</a> |
+							<a href="#!/signup" id="register-btn">
+								{{getLabel('TAO_TK_MOI','Tạo tài khoản mới').text}}
+							</a>
+						</div>
+					</div>
+
+					<hr/>
+					<div class="form-group">
+						<!--<h4>{{getLabel('HOAC_DANG_NHAP_VOI','Hoặc đăng nhập với').text}}</h4>-->
+						<div class="text-center">
+
+							<!--<span>
+								<a class="facebook btn btn-md btn-primary" data-original-title="facebook" ng-click="auth_facebook(interface)">
+									Facebook
+								</a>
+							</span>-->
+							<span>
+								<a class="googleplus" data-original-title="Goole" ng-click="auth_google(interface)">
+									<img src="images/btn_google_signin.png" style="width:50%"/>
+								</a>
+							</span>
+
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

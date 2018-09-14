@@ -1,0 +1,125 @@
+<div class="modal-header">
+	<button type="button" class="close" ng-click='cancel()' aria-hidden="true">
+		&times;</button>
+	<h4 class="modal-title" id="findModalLabel">
+		Tùy chọn
+	</h4>
+</div>
+<div class="modal-body">
+	<form name="formFind" novalidate="novalidate" class="css-form form-horizontal">
+		<uib-tabset>
+			<uib-tab heading="Tùy chọn chứng từ">
+				<div class="form-group">
+					<label class="control-label">Kiểm tra trùng số chứng từ</label>
+					<div class="">
+						<select
+							ng-model="options.check_so_ct"
+							ng-options="op.name as op.title for op in [
+                              {name:'0',title:'Không kiểm tra'},
+                              {name:'1',title:'Theo ngày'},
+                              {name:'2',title:'Theo tháng'},
+                              {name:'8',title:'Theo năm'},
+                              {name:'9',title:'Luôn kiểm tra'}
+                          ]"
+							class="form-control"></select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Trạng thái mặc định</label>
+					<div class="">
+
+						<ng-selector module='trangthai' field-model='ma_trang_thai' field-label='ten_trang_thai' fields='ma_trang_thai,ten_trang_thai' condition="ma_ct:'{{code.toUpperCase()}}'" ng-model='options.trang_thai' label='options.ten_trang_thai'></ng-selector>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Ngoại tệ mặc định</label>
+					<div class="">
+						<ng-selector module='dmnt' field-model='ma_nt' field-label='ten_nt' fields='ma_nt,ten_nt,ty_gia'  ng-model='options.ma_nt' label='options.ten_nt' on-select="options.ty_gia=$item.ty_gia"></ng-selector>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label">Tỷ giá mặc định</label>
+					<div class="">
+						<input type="text" format="number" class="form-control" ng-model="options.ty_gia" ng-readonly ="options.ma_nt==='VND'"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Mẫu in mặc định</label>
+					<ng-selector
+						module="templaterpt" fields ="_id,ten_mau_in" field-model="_id" field-label="ten_mau_in"
+						ng-model="options.defaultRpt" label="options.ten_mau_in"
+						condition="ma_cn:'{{code.toUpperCase()}}'"
+						default-values="ma_cn:'{{code.toUpperCase()}}'">
+					</ng-selector>
+				</div>
+
+				<div ng-include="path"></div>
+			</uib-tab>
+			<uib-tab heading="Các trường bổ xung">
+				<table class="table">
+					<tr>
+						<th style="width:50px"></th>
+						<th>Mã trường
+							<span class="required">(*)</span></th>
+						<th>Tên trường
+							<span class="required">(*)</span></th>
+						<th>Kiểu
+							<span class="required">(*)</span></th>
+						<th>Bắt buộc nhập</th>
+					</tr>
+					<tr ng-repeat="field  in options.fields">
+						<td>
+							<divclass="close" ng-click="STP.reject(options.fields,{line:field.line})">&times;</div>
+						</td>
+						<td>
+							<input type="text" class="form-control" ng-model="field.name" placeholder="Mã trường" ng-required="true"/>
+						</td>
+						<td>
+							<input type="text" class="form-control" ng-model="field.title" placeholder="Tên trường" ng-required="true"/>
+						</td>
+						<td>
+							<select ng-required="true" class="form-control" ng-model="field.type" ng-options="o.name  as o.title for o in [
+												{name:'text',title:'Chuỗi'},
+												{name:'number',title:'Số'},
+												{name:'date',title:'Ngày'},
+											] "></select>
+						</td>
+						<td class="text-center">
+							<input type="checkbox" class="form-control" ng-model="field.required"/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="17">
+							<button type="button" class="btn btn-sm btn-primary" ng-click="options.fields = STP.add(options.fields,{type:'text',name:'field' + STP.toDate().getTime().toString(),title:''})">+</button>
+						</td>
+					</tr>
+				</table>
+			</uib-tab>
+			<!--<uib-tab heading="Mẫu in">
+
+				<div class="form-group">
+					<label class="control-label">Độ rộng khổ giấy (mm)</label>
+					<div>
+						<input type="number" class="form-control" ng-model="options.system.width" ng-change="changeWidthPage(options.system.width)"/>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label">Mẫu in mặc định</label>
+					<div class="col-sm-12">
+						<textarea class="form-control" cols="30" rows="20" ui-tinymce="tinymceOptions" ng-model="options.system.templateRpt"></textarea>
+					</div>
+
+				</div>
+			</uib-tab>-->
+
+		</uib-tabset>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="save()" ng-disabled="formFind.$invalid">
+		Lưu
+	</button>
+	<button type="button" class="btn btn-default" ng-click='cancel()'>Hủy</button>
+</div>

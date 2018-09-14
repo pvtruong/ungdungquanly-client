@@ -1,0 +1,14 @@
+﻿<div class="scrollable"> <div class="scrollable-header"><stplistheader></stplistheader></div>
+<div class="row scrollable-content"> <div class="table-list">
+	<table class ="table table-striped">
+		<tr><th class="text-center"  style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll"></th><th style="width:30px"></th><th>Nhóm sản phẩm</th><th width="50px">Quan trọng</th></tr>
+		<tr ng-repeat="r in list | orderBy:'sysorder'" ng-class="r.bac==1 || r.loai_nh==0?'cbold':'cnormal'">
+			<td width='30px' class="text-center" ng-show="multiSelect"> <input type="checkbox" ng-model="r.sel"/> </td><td class="text-center" style="width:30px"><div  ng-include="'templates/sys/quick-actions-list.html'"></div></td>
+			<td   style='cursor:pointer' ng-click='edit(r._id)'>
+					<div style="padding-left:{{r.bac-1}}em">{{ r.ten_nvt }}</div>
+				
+			</td>
+			<td class="text-center"  width="50px"><input type="checkbox" disabled ng-model="r.quan_trong"/></td>
+		</tr>
+	</table><ng-page></ng-page></div>
+</div></div>

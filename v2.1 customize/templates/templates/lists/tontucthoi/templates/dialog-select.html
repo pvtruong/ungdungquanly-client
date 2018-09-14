@@ -1,0 +1,36 @@
+﻿<div class="modal-header">
+	<header-dialog-select title="Tồn tức thời"></header-dialog-select>
+ </div>
+ <div class="modal-body">
+	<div class="table-list">
+		<table  class ="table table-striped">
+			<tr ng-repeat ="item in items" style ='cursor:pointer'  ng-if="item.ma_lo || item.ma_tt1 || item.ma_tt2 || item.ma_tt3">
+				<td  ng-click="select(item)">
+					<span>{{ item.ma_lo }}</span> <span ng-if="item.han_sd"> - HSD: {{item.han_sd|date:'dd/MM/yyyy'}}</span>
+					
+				</td>
+				
+				<td  ng-click="select(item)">
+					
+					{{item.ma_tt1}}
+					
+				</td>
+				<td  ng-click="select(item)">
+					
+					{{item.ma_tt2}}
+					
+				</td>
+				<td  ng-click="select(item)">
+					
+					{{item.ma_tt3}}
+					
+				</td>
+				<td  ng-click="select(item)">
+					
+					<span>{{item.ton00|number:2}}</span>  
+				</td>
+				
+			</tr>
+		</table>
+	</div>
+ </div>

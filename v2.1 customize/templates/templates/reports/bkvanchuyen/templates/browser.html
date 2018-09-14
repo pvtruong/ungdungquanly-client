@@ -1,0 +1,88 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('ma_kh','Nhà cung cấp').text}}</label>
+			<div>
+				<ng-typeahead module="dmkh" fields="ma_kh,ten_kh" field-model="ten_kh" field-label="ma_kh" ng-model='condition.ten_kh' label="condition.ma_kh">
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('ma_dt','Vụ việc, dự án').text}}</label>
+			<div>
+				<ng-typeahead module="dmdt" fields="ma_dt,ten_dt" field-model="ten_dt" field-label="ma_dt" ng-model='condition.ten_dt' label="condition.ma_dt">
+				</ng-typeahead>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('DVCS','Đơn vị cơ sở').text}}</label>
+			<div>
+				<ng-selector module="dvcs" fields="_id,ten_dvcs" field-model="_id" field-label="ten_dvcs" options="item._id as item.ten_dvcs for item in items" ng-model='condition.ma_dvcs' empty-yn='true'>
+				</ng-selector>
+			</div>
+		</div>
+	</report-filter>
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<table class='table  table-striped  table-hover'>
+				<tr>
+					<th>{{getLabel('ma_vt','Mã vật tư').text}}</th>
+					<th>{{getLabel('ten_vt','Tên hàng').text}}</th>
+
+					<th>{{getLabel('so_luong','Số lượng').text}}</th>
+					<th>{{getLabel('tien_nt','Phí vận chuyển quốc tế').text}}</th>
+					<th>{{getLabel('tien_phi_nt','Profit share').text}}</th>
+					<th>{{getLabel('tien_phi_khac_nt','Phí khác(nếu có)').text}}</th>
+					<th>{{getLabel('tong','Thành tiền').text}}</th>
+					<th>{{getLabel('so_file','Số file').text}}</th>
+					<th>{{getLabel('khach_hang','Khách hàng').text}}</th>
+					<th>{{getLabel('ghi_chu','Ghi chú').text}}</th>
+				</tr>
+				<tr ng-repeat='r in data' ng-click='viewVoucher(r.master.ma_ct,r.master._id)' ng-class="r.bold?'cbold':'cnormal'">
+					<td>
+						{{::r.ma_vt}}
+					</td>
+					<td>
+						{{::r.ten_vt}}
+					</td>
+					<td>
+						{{::r.so_luong|number:2}}
+					</td>
+					<td>
+						{{::r.tien_nt|number:0}}
+					</td>
+					<td>
+						{{::r.tien_phi_nt|number:2}}
+					</td>
+					<td>
+						{{::r.tien_phi_khac_nt|number:2}}
+					</td>
+					<td>
+						{{::r.tong_cong_nt|number:2}}
+					</td>
+					<td>
+						{{::r.master.exfields.so_file}}
+					</td>
+					<td>
+						{{::r.master.ten_kh}}
+					</td>
+					<td>
+						{{::r.master.ghi_chu}}
+					</td>
+				</tr>
+			</table>
+		</div>
+	</report-viewer>
+</report>

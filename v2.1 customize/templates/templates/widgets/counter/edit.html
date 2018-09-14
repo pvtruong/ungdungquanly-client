@@ -1,0 +1,17 @@
+<form role="form">
+    <div class="form-group">
+        <label for="collection">Đối tượng</label>
+        <select ng-model="config.collection" class="form-control" ng-options="r.name as r.title for r in [
+            {name:'so1',title:'Đơn hàng'},    
+            {name:'task',title:'Công việc'},                                                                
+            {name:'customer',title:'Khách hàng'},
+            {name:'dmnv',title:'Nhân viên'},
+            {name:'dmvt',title:'Sản phẩm'},
+            {name:'contract',title:'Hợp đồng'},
+            {name:'dmdt',title:'Vụ việc, dự án'},
+            {name:'opportunity',title:'Cơ hội'}
+            ]" >
+
+        </select>
+    </div>
+</form>

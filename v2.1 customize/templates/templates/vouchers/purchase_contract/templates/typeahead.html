@@ -1,0 +1,6 @@
+﻿<a>
+	<div class='row'>
+		<div>Số hợp đồng: {{ match.model.so_ct }}, ngày lập: {{match.model.ngay_ct|date:'dd/MM/yyyy'}}, mã hợp đồng: {{match.model.ma_hd}}</div>
+		<div ng-if="match.model.ten_kh">Nhà cung cấp: {{match.model.ten_kh}} ({{match.model.ma_kh}})</div>
+	</div>
+</a>

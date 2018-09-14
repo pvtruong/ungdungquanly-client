@@ -1,0 +1,130 @@
+<div class="container-fluid">
+	<div class="row">
+
+		<div class="pull-left" style="padding-left:10px;padding-top:10px">
+			<img img-cache="img-cache" ic-src="{{server_url}}{{data.picture}}" style="width:190px;height:auto"/>
+			<br/><br/>
+			<div file-upload-progress="file-upload-progress">
+				<div class="throbber-loader"></div>
+				<br/>
+			</div>
+			<small><input type="file" image-upload="image-upload" folder='avatars' model='data.picture'/></small>
+		</div>
+
+		<div class="pull-left" style="padding-top:32px">
+			<h1>{{data.name}}</h1>
+			<h3>{{data.email}}</h3>
+		</div>
+
+	</div>
+	<hr/>
+	<div class="row" style="padding:10px">
+		<div class="col-md-6">
+			<div class="row">
+				<div class="col-md-12">
+					<fieldset>
+						<legend>{{getLabel('THONG_TIN_CHUNG','Thông tin chung').text}}</legend>
+						<!-- Profile FORM -->
+						<form novalidate="novalidate" name="form_profile">
+							<!--<div class="form-group">
+								<label>{{getLabel('TEN_DANG_NHAP','Tên đăng nhập').text}}</label>
+								<input type="text" class="form-control" ng-model="data.email" ng-required="true" ng-readonly="true"/>
+
+							</div>-->
+
+
+
+							<div class="form-group">
+								<label>{{getLabel('HO_VA_TEN','Họ và tên').text}}
+									<span class='required'>(*)</span></label>
+								<input type="text" class="form-control" ng-model="data.name" ng-required="true"/>
+
+							</div>
+							<div class="form-group">
+								<label>{{getLabel('DIA_CHI','Địa chỉ').text}}</label>
+								<input type="text" class="form-control" ng-model="data.address"/>
+
+							</div>
+							<div class="form-group">
+								<label>{{getLabel('DIEN_THOAI','Điện thoại').text}}</label>
+								<input type="text" class="form-control" ng-model="data.phone"/>
+							</div>
+							<div class="form-group">
+								<label>{{getLabel('TO_CHUC','Tổ chức, công ty').text}}
+								</label>
+								<input type="text" class="form-control" ng-model="data.company"/>
+							</div>
+							<div class="form-group">
+								<label>{{getLabel('email2','Email khôi phục mật khẩu').text}}</label>
+								<input type="text" class="form-control" ng-model="data.email2"/>
+							</div>
+
+							<div ng-class="alertType=='danger'?'alert alert-danger':'alert alert-success'" ng-show="messageError">{{messageError}}</div>
+							<button class="btn btn-primary btn-md" ng-click="updateProfile()" ng-disabled="form_profile.$invalid">{{getLabel('CAP_NHAT','Cập nhật').text}}</button>
+						</form>
+
+					</fieldset>
+				</div>
+
+			</div>
+		</div>
+		<div class="col-md-6">
+			<fieldset>
+				<legend>{{getLabel('DOI_MAT_KHAU','Đổi mật khẩu').text}}</legend>
+				<!-- password FORM -->
+
+				<form novalidate="novalidate" name="form_password">
+					<div class="form-group">
+						<label>{{getLabel('MAT_KHAU_CU','Mật khẩu cũ').text}}</label>
+						<input type="password" class="form-control" ng-model="oldPassword"/>
+
+					</div>
+					<div class="form-group">
+						<label>{{getLabel('MAT_KHAU_MOI','Mật khẩu mới').text}}
+							<span class='required'>(*)</span></label>
+						<input type="password" class="form-control" ng-model="newPassword" ng-required="true"/>
+
+					</div>
+					<div class="form-group">
+						<label>{{getLabel('NHAP_LAI_MAT_KHAU_MOI','Nhập lại mật khẩu mới').text}}
+							<span class='required'>(*)</span></label>
+						<input type="password" class="form-control" ng-model="reNewPassword" ng-required="true"/>
+
+					</div>
+					<div ng-class="alertTypeChangePass=='danger'?'alert alert-danger':'alert alert-success'" ng-show="messageErrorChangePass">{{messageErrorChangePass}}</div>
+					<button class="btn btn-primary btn-md" ng-click="updatePassword()" ng-disabled="form_password.$invalid">{{getLabel('CAP_NHAT','Cập nhật').text}}</button>
+				</form>
+
+			</fieldset>
+			<br/><br/>
+			<fieldset>
+				<legend>{{getLabel('chuong_trinh_or_browser_khac','Chương trình/trình duyệt khác bạn đang đăng nhập').text}}</legend>
+				<div ng-repeat="token in tokens" class="row" ng-if="token.token!==user.token">
+					<div class="pull-right">
+						<a ng-click="deleteToken(token._id)" class="btn btn-xs btn-danger">Xóa</a>
+					</div>
+					<div>
+						<div><b>User Agent:</b> {{token.agent || token._id}}</div>
+						<div ng-if="token.ip"><b>IP:</b> {{token.ip}}</div>
+					</div>
+
+				</div>
+			</fieldset>
+
+			<!--<br/><br/>
+			<fieldset>
+				<legend>{{getLabel('LINK_PARTNER','Liên kết giới thiệu').text}}</legend>
+				<input type="text" class="form-control" value="https://ungdungquanly.vn/#/signup?invb={{data._id}}" ng-readonly="true"/>
+			</fieldset>
+			<br/>
+			<fieldset>
+				<legend>{{getLabel('INVITED','Danh sách người sử dụng đã giới thiệu').text}}</legend>
+				<div ng-repeat="u in data.invited">
+					{{u.name}}
+					({{u.email}})
+				</div>
+			</fieldset>-->
+		</div>
+
+	</div>
+</div>

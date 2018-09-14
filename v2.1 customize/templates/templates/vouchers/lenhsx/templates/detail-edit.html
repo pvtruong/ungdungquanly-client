@@ -1,0 +1,72 @@
+
+ <form-detail><form-detail-body>
+		<div class="form-group">
+			<label class="control-label col-sm-3">{{getLabel('san_pham','Sản phẩm').text}} <span class='required' >(*)</span></label>
+			<div class="col-sm-9">
+				<ng-typeahead
+					module='dmvt' field-model='ten_vt' field-label='ma_vt' fields='ma_vt,ten_vt,ma_dvt'
+					ng-model='dt_current.ten_sp'  label='dt_current.ma_sp' ng-required='true'
+					on-select="dt_current.ma_dvt_sp=$item.ma_dvt">
+				</ng-typeahead>
+			</div>
+
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-3">{{getLabel('DVT','Đơn vị tính').text}} <span class='required'>(*)</span></label>
+			<div class="col-sm-3">
+				<input type="text" class="form-control " ng-model="dt_current.ma_dvt_sp" ng-readonly="true"/>
+			</div>
+
+		</div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-3">{{getLabel('ma_tt1_sp','Thuộc tính SP 1').text}}</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control " ng-model="dt_current.ma_tt1_sp"/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3">{{getLabel('ma_tt2_sp','Thuộc tính SP 2').text}}</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control " ng-model="dt_current.ma_tt2_sp"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-3">{{getLabel('ma_tt3_sp','Thuộc tính SP 3').text}}</label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control " ng-model="dt_current.ma_tt3_sp"/>
+      </div>
+    </div>
+
+		<div class="form-group">
+			<label class="control-label col-sm-3">{{getLabel('sl_sx','SL sản xuất').text}}</label>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" format="number" round="f_sl" ng-model="dt_current.sl_sx"/>
+			</div>
+		</div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-3">{{getLabel('ma_dinh_muc','Định mức').text}} <span class='required'>(*)</span></label>
+      <div class="col-sm-3">
+        <ng-typeahead
+          module='dinhmucsx' group="vouchers" field-model='so_ct' field-label='_id' fields='so_ct,ngay_ct,dien_giai,ma_sp,ten_sp,id_contract,so_ct_contract,ma_tt1,ma_tt2,ma_tt3,_id'
+          ng-model='dt_current.so_ct_dinhmucsx'  label='dt_current.id_dinhmucsx' ng-required='true' condition="ma_sp:'{{dt_current.ma_sp}}',id_contract:'{{data.id_contract}}'">
+        </ng-typeahead>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-3">{{getLabel('ngay_xuat_xuong','Ngày xuất xưởng').text}}</label>
+      <div class="col-sm-3">
+        <ng-datepicker ng-model='dt_current.ngay_xuat_xuong'></ng-datepicker>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3">{{getLabel('ngay_giao','Ngày giao').text}}</label>
+      <div class="col-sm-3">
+        <ng-datepicker ng-model='dt_current.ngay_giao'></ng-datepicker>
+      </div>
+    </div>
+
+</form-detail-body></form-detail>

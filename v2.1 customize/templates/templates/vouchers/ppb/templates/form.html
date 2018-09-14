@@ -1,0 +1,74 @@
+<form-input>
+	<form-input-body>
+		<div class="form-group">
+			<div class="col-md-4" ng-style="!isMobile?{height:(innerHeight-90).toString()+'px'}:{}">
+				<div ng-class="!isMobile?'scrollable':''">
+					<div class="scrollable-content">
+						<uib-accordion close-others="true">
+							<uib-accordion-group heading="{{getLabel('Chung','Thông tin chung').text}}" is-open="true">
+								<div class="form-group">
+									<label class="control-label">{{getLabel('so_ct','Số c.từ').text}} <span class='required' title="Số chứng từ không được trống">(*)</span></label>
+									<div class="">
+										<input type="text" style='text-transform:uppercase' name='so_ct' class="form-control" ng-model='data.so_ct' ng-required="true" />
+									</div>
+
+									<label class="control-label">{{getLabel('ngay_ct','Ngày c.từ').text}} <span class='required' title="Ngày chứng từ không được trống">(*)</span></label>
+									<div class="">
+										<ng-datepicker ng-model='data.ngay_ct' ng-required='true'></ng-datepicker>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label">{{getLabel('dien_giai','Diễn giải').text}}</label>
+									<div class="">
+										<input type="text" name='dien_giai' class="form-control" placeholder='Nhập diễn giải' ng-model='data.dien_giai' />
+									</div>
+
+								</div>
+								<div class="form-group">
+
+									<label class="control-label">{{getLabel('dvcs','Đơn vị').text}} <span class='required' title="Đơn vị cơ sở không được trống">(*)</span></label>
+									<div class="">
+										<ng-selector module='dvcs' fields='_id,ten_dvcs' field-model='_id' field-label='ten_dvcs' options="item._id as item.ten_dvcs for item in items" ng-model="data.ma_dvcs" ng-required="true">
+										</ng-selector>
+									</div>
+								</div>
+							</uib-accordion-group>
+							<uib-accordion-group heading="{{getLabel('BO_XUNG','Đặc thù').text}} (*)" ng-show="data.options && data.options.fields && data.options.fields.length>0">
+								<!--extra fields-->
+								<div class="form-group" ng-repeat="field in  data.options.fields">
+									<label class="control-label col-md-3">{{field.title}} <span class="required" ng-show="field.required">(*)</span></label>
+									<div class="col-md-9">
+										<input type="text" ng-if="field.type=='text'" ng-model="data.exfields[field.name]" class="form-control" ng-required="field.required" />
+										<input type="text" format='number' ng-if="field.type=='number'" ng-model="data.exfields[field.name]" class="form-control" ng-required="field.required" />
+										<ng-datepicker ng-model="data.exfields[field.name]" ng-if="field.type=='date'" ng-required="field.required"></ng-datepicker>
+
+									</div>
+								</div>
+								<!--end extra fields-->
+							</uib-accordion-group>
+						</uib-accordion>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8" ng-style="!isMobile?{height:(innerHeight-100).toString()+'px'}:{}">
+				<div ng-class="!isMobile?'scrollable':''">
+					<div class="scrollable-content">
+						<uib-accordion close-others="false">
+							<uib-accordion-group heading="{{getLabel('chi_tiet','Chi tiết').text}}" is-open="true">
+								<ppb-detail-table ng-master-data='data'></ppb-detail-table>
+							</uib-accordion-group>
+
+						</uib-accordion>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</form-input-body>
+	<form-input-footer>
+		<label class="control-label col-md-offset-9 col-md-1 col-xs-6">{{getLabel('TONG_CONG','Tổng cộng').text}} </label>
+		<div class="col-md-2 col-xs-6">
+			<label class="form-control" ng-model='data.t_tien_nt' ng-sum="tien_nt" ng-data="data.details">{{data.t_tien_nt|number:2}}</label>
+		</div>
+	</form-input-footer>
+</form-input>

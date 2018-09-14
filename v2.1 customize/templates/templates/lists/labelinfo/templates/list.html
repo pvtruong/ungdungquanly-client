@@ -1,0 +1,30 @@
+﻿<div class="scrollable"> <div class="scrollable-header"><stplistheader></stplistheader></div>
+<div class="row scrollable-content"> <div class="table-responsive">
+	<table class ="table table-striped">
+		<tr><th class="text-center"  style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll"></th><th style="width:30px"></th><th>Form</th><th>ID</th><th>Tiếng việt</th><th>English</th><th></th></tr>
+		<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)" >
+			<td width='30px' class="text-center" ng-show="multiSelect"> <input type="checkbox" ng-model="r.sel"/> </td><td class="text-center" style="width:30px"><div  ng-include="'templates/sys/quick-actions-list.html'"></div></td>
+			<td  style='cursor:pointer;width:80px' ng-click='edit(r._id)'>
+				{{r.labelid}}
+			</td>
+			<td  style='cursor:pointer;width:80px' ng-click='edit(r._id)'>
+				{{r.textid}}
+			</td>
+			<td  style='cursor:pointer;width:80px' ng-click='edit(r._id)'>
+				{{r.textv}}
+			</td>
+			<td  style='cursor:pointer;width:80px' ng-click='edit(r._id)'>
+				{{r.texte}}
+			</td>
+			<td style='width:80px'>
+				<div class='btn-group' style='width:100px'>
+					<a class='btn btn-success btn-xs' ng-click='edit(r._id)'>{{getLabel('SUA','Sửa').text}}</a>
+					<a class='btn btn-danger btn-xs' ng-click='delete(r._id)' ng-show="user && user.admin">{{getLabel('XOA','Xóa').text}}</a>
+				</div>
+			</td>
+		</tr>
+	</table>
+	<ng-page></ng-page>
+</div>
+
+</div></div>

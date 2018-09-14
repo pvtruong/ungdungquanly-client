@@ -1,0 +1,97 @@
+<voucher options="text:getLabel('TUY_CHON','Tùy chọn').text" master-detail="true">
+  <voucher-ext-toolbar>
+    <li class="list-group-item" ng-click="giaoca()">{{getLabel('giao_ca','Giao ca').text}}</li>
+  </voucher-ext-toolbar>
+  <voucher-body-master>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <tr>
+          <th class="text-center" style="width:30px" ng-show="multiSelect">
+            <input type="checkbox" ng-model="selectionAll" ng-change="selectionAllChange(selectionAll)"/></th>
+          <th style="width:100px"></th>
+          <th>{{getLabel('CHUNG_TU','Chứng từ').text}}</th>
+          <th>{{getLabel('kho','Cửa hàng/kho').text}}</th>
+
+          <th>{{getLabel('khach_hang','Khách hàng').text}}</th>
+
+
+          <th>{{getLabel('SO_LUONG','Số lượng').text}}</th>
+          <th>{{getLabel('TIEN_HANG','Tiền hàng').text}}</th>
+          <th>{{getLabel('TIEN_CK','Tiền CK').text}}</th>
+          <th>{{getLabel('t_tt','T.TT').text}}</th>
+
+        </tr>
+        <tbody  ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)">
+          <tr ng-class="selectedRow && selectedRow._id===r._id?'active':''">
+            <td width='30px' class="text-center" ng-show="multiSelect">
+              <input type="checkbox" ng-model="r.sel"/>
+            </td>
+            <td class="text-center">
+              <div ng-include="'templates/sys/quick-actions2.html'"></div>
+            </td>
+            <td style='cursor:pointer'>
+              <div ng-click='setSelectedRow(r,true)'>
+                <span ng-if='r.ten_trang_thai' class="label bg-{{r.color}}">[{{ r.ten_trang_thai}}]</span>
+                <span>Số:
+                  {{ r.so_ct }}</span>
+                <span>, ngày:
+                  {{ r.ngay_ct|date:'dd/MM/yyyy HH:mm:ss'}}</span>
+              </div>
+
+              <div ng-if='r.dien_giai' ng-click='setSelectedRow(r,true)'>{{STP.tructed(r.dien_giai,32,"left")}}</div>
+
+              <!--<div ng-if="r.nguoi_giao_dich">{{r.nguoi_giao_dich}}</div>-->
+              <div ng-if="r.ten_pt_thanh_toan" ng-click='setSelectedRow(r,true)'>{{r.ten_pt_thanh_toan}}</div>
+
+              <div ng-if="!r.id_hd7" style="padding-top:10px">
+                <button type="button" class="btn btn-xs btn-default" ng-click="traLai(r)">Trả lại</button>
+              </div>
+              <div ng-if="r.id_hd7">
+                <a ng-click="openUrl('hd7/edit/' + r.id_hd7)">Đã trả lại. Số phiếu trả lại:
+                  {{r.so_ct_hd7}}
+                  , ngày
+                  {{r.ngay_ct_hd7|date:'dd/MM/yyyy HH:mm:ss'}}</a>
+              </div>
+
+            </td>
+
+            <td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+              {{ r.ten_kho}}
+            </td>
+
+            <td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+              {{ r.ten_kh}}
+            </td>
+
+
+            <td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+              {{ r.t_sl|number:app_info.options.f_sl }}
+            </td>
+
+            <td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+              {{ r.t_tien|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt)}}
+            </td>
+
+            <td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+              {{ r.t_ck|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt)}}
+            </td>
+            <td style='cursor:pointer' ng-click='setSelectedRow(r,true)'>
+              {{ r.t_tt|number:(r.ma_nt=='VND'?app_info.options.f_tien:app_info.options.f_tien_nt)}}
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+      <ng-page></ng-page>
+    </div>
+  </voucher-body-master>
+	<voucher-body-detail>
+    <uib-tabset>
+      <uib-tab heading="{{getLabel('CHI_TIET','Chi tiết').text}}">
+        <div  ng-if="selectedRow">
+          <pbl-detail-table ng-master-data='selectedRow' on-change='tinhtienhang($item,selectedRow)'></pbl-detail-table>
+        </div>
+      </uib-tab>
+    </uib-tabset>
+  </voucher-body-detail>
+</voucher>

@@ -1,0 +1,205 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}} <span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}} <span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('vu_viec','Vụ việc, dự án').text}}</label>
+			<div>
+				<ng-typeahead module="dmdt" fields="ma_dt,ten_dt" field-model="ten_dt" field-label="ma_dt" ng-model='condition.ten_dt' label="condition.ma_dt">
+				</ng-typeahead>
+			</div>
+		</div>
+	</report-filter>
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<table class='table  table-bordered'>
+				<tr>
+					<th rowspan="3" class="text-center">{{getLabel('ten_vu_viec','Tên vụ việc').text}}</th>
+					<th rowspan="3" class="text-center">{{getLabel('ngay_tau_di','Dự kiến ngày tàu đi').text}}</th>
+					<th rowspan="3" class="text-center">{{getLabel('ngay_tau_den','Dự kiến ngày tàu đến').text}}</th>
+					<th colspan="13" class="text-center">{{getLabel('nha_cung_cap_tt','Thanh toán nhà cung cấp').text}}</th>
+					<th colspan="13" class="text-center">{{getLabel('khach_hang_tt','Khách hàng thanh toán').text}}</th>
+					<th colspan="3" class="text-center">{{getLabel('du_chi','Số tiền hàng dự chi').text}}</th>
+
+				</tr>
+				<tr>
+					<th rowspan="2" class="text-center">{{getLabel('ten_nha_cung_cap','Nhà cung cấp').text}}</th>
+					<th colspan="4" class="text-center">{{getLabel('mua_dot1','Đợt 1').text}}</th>
+					<th colspan="4" class="text-center">{{getLabel('mua_dot2','Đợt 2').text}}</th>
+					<th colspan="4" class="text-center">{{getLabel('mua_dot3','Đợt 3').text}}</th>
+
+					<th rowspan="2" class="text-center">{{getLabel('ten_khach_hang','Khách hàng').text}}</th>
+					<th colspan="4" class="text-center">{{getLabel('ban_dot1','Đợt 1').text}}</th>
+					<th colspan="4" class="text-center">{{getLabel('ban_dot2','Đợt 2').text}}</th>
+					<th colspan="4" class="text-center">{{getLabel('ban_dot3','Đợt 3').text}}</th>
+
+					<th rowspan="2" class="text-center">{{getLabel('tien_hang','Tiền hàng').text}}</th>
+					<th rowspan="2" class="text-center">{{getLabel('phi_lam_hang','Phí làm hàng dự kiến').text}}</th>
+					<th rowspan="2" class="text-center">{{getLabel('tong_cong','Tổng cộng').text}}</th>
+
+
+
+				</tr>
+				<tr>
+
+					<!--mua-->
+					<th class="text-center">{{getLabel('ngay','Ngày').text}}</th>
+					<th class="text-center">{{getLabel('mua_dot1_tien_nt','Trị giá ngoại tệ').text}}</th>
+					<th class="text-center">{{getLabel('mua_dot1_ty_gia','Tỷ giá').text}}</th>
+					<th class="text-center">{{getLabel('mua_dot1_tien','Trị giá VNĐ').text}}</th>
+
+					<th class="text-center">{{getLabel('ngay','Ngày').text}}</th>
+					<th class="text-center">{{getLabel('mua_dot1_tien_nt','Trị giá ngoại tệ').text}}</th>
+					<th class="text-center">{{getLabel('mua_dot1_ty_gia','Tỷ giá').text}}</th>
+					<th class="text-center">{{getLabel('mua_dot1_tien','Trị giá VNĐ').text}}</th>
+
+					<th class="text-center">{{getLabel('ngay','Ngày').text}}</th>
+					<th class="text-center">{{getLabel('mua_dot1_tien_nt','Trị giá ngoại tệ').text}}</th>
+					<th class="text-center">{{getLabel('mua_dot1_ty_gia','Tỷ giá').text}}</th>
+					<th class="text-center">{{getLabel('mua_dot1_tien','Trị giá VNĐ').text}}</th>
+
+					<!--ban-->
+					<th class="text-center">{{getLabel('ngay','Ngày').text}}</th>
+					<th class="text-center">{{getLabel('ban_dot1_tien_nt','Trị giá ngoại tệ').text}}</th>
+					<th class="text-center">{{getLabel('ban_dot1_ty_gia','Tỷ giá').text}}</th>
+					<th class="text-center">{{getLabel('ban_dot1_tien','Trị giá VNĐ').text}}</th>
+
+					<th class="text-center">{{getLabel('ngay','Ngày').text}}</th>
+					<th class="text-center">{{getLabel('ban_dot1_tien_nt','Trị giá ngoại tệ').text}}</th>
+					<th class="text-center">{{getLabel('ban_dot1_ty_gia','Tỷ giá').text}}</th>
+					<th class="text-center">{{getLabel('ban_dot1_tien','Trị giá VNĐ').text}}</th>
+
+					<th class="text-center">{{getLabel('ngay','Ngày').text}}</th>
+					<th class="text-center">{{getLabel('ban_dot1_tien_nt','Trị giá ngoại tệ').text}}</th>
+					<th class="text-center">{{getLabel('ban_dot1_ty_gia','Tỷ giá').text}}</th>
+					<th class="text-center">{{getLabel('ban_dot1_tien','Trị giá VNĐ').text}}</th>
+				</tr>
+				<tr ng-repeat='r in data' ng-class='r.bold?"cbold":""'>
+
+					<td>
+						{{::r.ten_dt}}
+
+					</td>
+					<td>
+						{{::r.ngay_tau_di|date:'dd/MM/yyyy'}}
+					</td>
+					<td>
+						{{::r.ngay_tau_den|date:'dd/MM/yyyy'}}
+					</td>
+					<!--tra tien nha cung cap-->
+					<td>
+						{{::r.ten_kh}}
+					</td>
+					<!--dot tra 1-->
+					<td>
+						{{::r.dot_thanh_toan[0].ngay_tt|date:'dd/MM/yyyy'}}
+					</td>
+					<td>
+						{{::r.dot_thanh_toan[0].tien_nt|number}}
+					</td>
+					<td>
+						{{::r.ty_gia|number}}
+					</td>
+					<td>
+						{{::r.tien1=(r.ty_gia * r.dot_thanh_toan[0].tien_nt)|number}}
+					</td>
+
+					<!--dot tra 2-->
+					<td>
+						{{::r.dot_thanh_toan[1].ngay_tt|date:'dd/MM/yyyy'}}
+					</td>
+					<td>
+						{{::r.dot_thanh_toan[1].tien_nt|number}}
+					</td>
+					<td>
+						{{::r.ty_gia|number}}
+					</td>
+					<td>
+						{{::r.tien2=(r.ty_gia * r.dot_thanh_toan[1].tien_nt)|number}}
+					</td>
+
+					<!--dot tra 3-->
+					<td>
+						{{::r.dot_thanh_toan[2].ngay_tt|date:'dd/MM/yyyy'}}
+					</td>
+					<td>
+						{{::r.dot_thanh_toan[2].tien_nt|number}}
+					</td>
+					<td>
+						{{::r.ty_gia|number}}
+					</td>
+					<td>
+						{{::r.tien3=(r.ty_gia * r.dot_thanh_toan[2].tien_nt)|number}}
+					</td>
+
+					<!--khach hang tra (thu tien)-->
+					<td>
+						{{::r.ten_kh_sale}}
+					</td>
+					<!--dot thu 1-->
+					<td>
+						{{::r.dot_thanh_toan_sale[0].ngay_tt|date:'dd/MM/yyyy'}}
+					</td>
+					<td>
+						{{::r.dot_thanh_toan_sale[0].tien_nt|number}}
+					</td>
+					<td>
+						{{::r.ty_gia_sale|number}}
+					</td>
+					<td>
+						{{::r.tien_sale1 = (r.ty_gia_sale * r.dot_thanh_toan_sale[0].tien_nt)|number}}
+					</td>
+
+					<!--dot thu 2-->
+					<td>
+						{{::r.dot_thanh_toan_sale[1].ngay_tt|date:'dd/MM/yyyy'}}
+					</td>
+					<td>
+						{{::r.dot_thanh_toan_sale[1].tien_nt|number}}
+					</td>
+					<td>
+						{{::r.ty_gia_sale|number}}
+					</td>
+					<td>
+						{{::r.tien_sale2 = (r.ty_gia_sale * r.dot_thanh_toan_sale[1].tien_nt)|number}}
+					</td>
+
+					<!--dot thu 3-->
+					<td>
+						{{::r.dot_thanh_toan_sale[2].ngay_tt|date:'dd/MM/yyyy'}}
+					</td>
+					<td>
+						{{::r.dot_thanh_toan_sale[2].tien_nt|number}}
+					</td>
+					<td>
+						{{::r.ty_gia_sale|number}}
+					</td>
+					<td>
+						{{::r.tien_sale3 = (r.ty_gia_sale * r.dot_thanh_toan_sale[2].tien_nt)|number}}
+					</td>
+					<!--du toan chi tra-->
+					<td>
+						{{r.tien_chi = (r.tien2||0)+(r.tien3||0)-(r.tien_sale2||0)|number}}
+					</td>
+					<td>
+						{{::r.phi_khac|number}}
+					</td>
+					<td>
+						{{::r.tong_tien_chi = (r.tien_chi||0)+(r.phi_khac||0)|number}}
+					</td>
+
+				</tr>
+			</table>
+		</div>
+	</report-viewer>
+</report>

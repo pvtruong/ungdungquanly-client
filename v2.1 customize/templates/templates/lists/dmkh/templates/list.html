@@ -1,0 +1,155 @@
+<list adv-search="true" btnimport="text:'Nhập dữ liệu từ excel'" btnexport="show:true" options="text:getLabel('TUY_CHON','Tùy chọn').text">
+	<list-ext-filter>
+		<li role="presentation" class="divider" ng-show='groups.length>0'></li>
+		<li role="presentation" ng-repeat='group in groups'>
+			<a class='dropdown-header' ng-click="changeFilter({filter:{nh_kh:group._id},title:group.group_name})">{{group.group_name}}</a>
+		</li>
+		<li role="presentation" class="divider"></li>
+		<li role="presentation">
+			<a class='dropdown-header' ng-click="changeFindBy({findBy:'ten_kh',title:'Tìm theo tên'})">Tìm theo tên khách hàng</a>
+			<a class='dropdown-header' ng-click="changeFindBy({findBy:'ma_kh',title:'Tìm theo mã'})">Tìm theo mã khách hàng</a>
+			<a class='dropdown-header' ng-click="changeFindBy({findBy:'dia_chi',title:'Tìm theo địa chỉ'})">Tìm theo địa chỉ</a>
+			<a class='dropdown-header' ng-click="changeFindBy({findBy:'dien_thoai',title:'Tìm theo điện thoại'})">Tìm theo điện thoại</a>
+			<a class='dropdown-header' ng-click="changeFindBy({findBy:'email',title:'Tìm theo email'})">Tìm theo email</a>
+			<a class='dropdown-header' ng-click="changeFindBy({findBy:'ma_so_thue',title:'Tìm theo mã số thuế'})">Tìm theo mã số thuế</a>
+		</li>
+	</list-ext-filter>
+	<list-ext-toolbar>
+		<li class="list-group-item" ng-click="btn3_click()">{{getLabel('gui_email','Gửi Email').text}}</li>
+	</list-ext-toolbar>
+	<list-body>
+		<div>
+			<div class="table-list">
+				<table class="table table-striped">
+
+					<tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)">
+						<td width='30px' class="text-center" ng-show="multiSelect">
+							<input type="checkbox" ng-model="r.sel"/>
+						</td>
+						<td class="text-center" style="width:30px">
+							<div ng-include="'templates/sys/quick-actions-list.html'"></div>
+						</td>
+						<td>
+							<div style='cursor:pointer' ng-click='view(r._id)'>
+								<b>{{ r.ten_kh }}
+									({{ STP.tructed(r.ma_kh,16,'left') }})</b>
+
+							</div>
+							<div class="row">
+								<div class='col-md-7'>
+									Phụ trách:
+									<a editable-select="r.phu_trach" e-ng-options="r.email as r.name for r in members" onaftersave="update(r)">
+										{{r.phu_trach.split('@')[0]}}
+										<i class="fa fa-pencil-square-o"></i>
+									</a>
+								</div>
+								<div class='col-md-3' ng-if="r.ma_so_thue">
+									MST:
+									{{ STP.tructed(r.ma_so_thue,16,'left') }}
+								</div>
+
+							</div>
+
+							<div class="row">
+
+								<div class='col-md-7' ng-if="r.dien_thoai">
+									Điện thoại:
+									<a href="tel:{{r.dien_thoai}}">{{ r.dien_thoai }}</a>
+								</div>
+
+								<div class='col-md-3' ng-if="r.email">
+									Email:
+									<a ng-click="openUrl('/mailschedule/add',{to:[{name:r.ten_kh,address:r.email}]})">{{ r.email }}</a>
+								</div>
+
+							</div>
+
+							<div class="row" style='cursor:pointer' ng-click='view(r._id)'>
+
+								<div class='col-md-12' ng-if='r.dia_chi'>
+									Địa chỉ:
+									{{ r.dia_chi }}
+
+								</div>
+							</div>
+
+						</td>
+
+					</tr>
+				</table>
+				<ng-page></ng-page>
+				<button-slide width="300" actions="buttonSlideActions" text="Lọc nhanh">
+					<btn-content>
+						<div  style='padding-bottom:5px' class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="filterLabelAll"  ng-change='toggleMultiSel(contactLabels,filterLabelAll);searchAVR()'/> <b>Nhãn</b>
+							</label>
+						</div>
+
+						<div class="list-group">
+							<div role="presentation" ng-repeat='label in contactLabels'>
+								<div class="list-group-item checkbox">
+									<label>
+										<input type="checkbox" ng-model='label.sel' ng-change='searchAVR()'/>
+										{{label.label_name?label.label_name:'Khác'}}
+									</label>
+								</div>
+							</div>
+						</div>
+						<!--loc theo phu trach-->
+						<div  style='padding-bottom:5px' class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="filterPhuTrachAll"  ng-change='toggleMultiSel(members,filterPhuTrachAll);searchAVR()'/> <b>Phụ trách</b>
+							</label>
+						</div>
+						<div class="list-group">
+
+							<!--<a ng-class="phu_trach?'list-group-item':'list-group-item list-group-item-info'" ng-click="searchPhuTrach({});buttonSlideActions.hide()" >Tất cả</a> <a ng-class="phu_trach==m.email?'list-group-item list-group-item-info':'list-group-item'"
+							ng-click="searchPhuTrach(m);buttonSlideActions.hide()" ng-repeat="m in members" ><img style="width:32px;height:32px" class="img-circle" img-cache ic-src='{{server_url}}/api/avatar?email={{m.email}}&access_token={{token}}'/> {{m.name}}</a> -->
+							<div role="presentation" ng-repeat='member in members'>
+								<div class="list-group-item checkbox">
+									<label>
+										<input type="checkbox" ng-model='member.sel' ng-change='searchAVR()'/>
+										{{member.name}}
+									</label>
+								</div>
+							</div>
+						</div>
+						<!--loc theo nhom-->
+						<div  style='padding-bottom:5px' class="checkbox">
+							<label>
+								<input type="checkbox" ng-model="filterNhomAll"  ng-change='toggleMultiSel(groups,filterNhomAll);searchAVR()'/> <b>Nhóm khách hàng</b>
+							</label>
+						</div>
+
+						<div class="list-group">
+							<div role="presentation" ng-repeat='group in groups'>
+								<div class="list-group-item checkbox">
+									<label>
+										<input type="checkbox" ng-model='group.sel' ng-change='searchAVR()'/>
+										{{group.group_name}}
+									</label>
+								</div>
+							</div>
+						</div>
+						<!--loc theo thoi gian-->
+						<div style='padding-bottom:5px'>
+							<b>{{getLabel('loc_nhanh_theo_time','Lọc nhanh theo thời gian').text}}</b>
+						</div>
+						<div class="list-group">
+
+							<a ng-class="!time?'list-group-item  list-group-item-info':'list-group-item'" ng-click="reportByTime();buttonSlideActions.hide()">Tất cả</a>
+							<a ng-class="time=='d'?'list-group-item  list-group-item-info':'list-group-item'" ng-click="reportByTime('d');buttonSlideActions.hide()">Khách hàng mới trong ngày</a>
+							<a ng-class="time=='w'?'list-group-item  list-group-item-info':'list-group-item'" ng-click="reportByTime('w');buttonSlideActions.hide()">Khách hàng mới trong tuần</a>
+							<a ng-class="time=='m'?'list-group-item  list-group-item-info':'list-group-item'" ng-click="reportByTime('m');buttonSlideActions.hide()">Khách hàng mới trong tháng</a>
+							<a ng-class="time=='3m'?'list-group-item  list-group-item-info':'list-group-item'" ng-click="reportByTime('3m');buttonSlideActions.hide()">Khách hàng mới trong quý</a>
+							<a ng-class="time=='y'?'list-group-item  list-group-item-info':'list-group-item'" ng-click="reportByTime('y');buttonSlideActions.hide()">Khách hàng mới trong năm</a>
+
+						</div>
+					</btn-content>
+				</button-slide>
+			</div>
+		</div>
+
+	</list-body>
+</list>

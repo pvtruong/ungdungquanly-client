@@ -1,0 +1,106 @@
+<report>
+	<report-filter>
+		<div class='form-group'>
+			<label>{{getLabel('tu_ngay','Từ ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.tu_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+		<div class='form-group'>
+			<label>{{getLabel('den_ngay','Đến ngày').text}}<span class="required">*</span></label>
+			<div>
+				<ng-datepicker ng-model='condition.den_ngay' ng-required='true'></ng-datepicker>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label>{{getLabel('KHACHHANG','Khách hàng').text}}</label>
+			<div>
+				<ng-typeahead module="dmkh" fields="ma_kh,ten_kh" field-model="ten_kh" field-label="ma_kh" ng-model='condition.ten_kh' label="condition.ma_kh">
+				</ng-typeahead>
+			</div>
+		</div>
+
+		<div class='form-group'>
+			<label>{{getLabel('DVCS','Đơn vị cơ sở').text}}</label>
+			<div>
+				<ng-selector module="dvcs" fields="_id,ten_dvcs" field-model="_id" field-label="ten_dvcs" options="item._id as item.ten_dvcs for item in items" ng-model='condition.ma_dvcs' empty-yn='true'>
+				</ng-selector>
+			</div>
+		</div>
+
+	</report-filter>
+	<report-viewer>
+		<div class="table-responsive" id='exportable'>
+			<table class='table  table-striped  table-hover'>
+				<tr>
+					<th>{{getLabel('so_ct','Số chứng từ').text}}</th>
+					<th>{{getLabel('ngay_ct','Ngày chứng từ').text}}</th>
+					<th>{{getLabel('so_hd','Số hóa đơn').text}}</th>
+					<th>{{getLabel('ngay_hd','Ngày hóa đơn').text}}</th>
+					<th>{{getLabel('KHACHHANG','Khách hàng').text}}</th>
+					<th>{{getLabel('ma_nt','Ngoại tệ').text}}</th>
+					<th>{{getLabel('phai_tra','Phải trả').text}}</th>
+					<th>{{getLabel('da_tra','Đã trả').text}}</th>
+					<th>{{getLabel('con_no','Còn nợ').text}}</th>
+					<th>{{getLabel('han_tt','Hạn thanh toán').text}}</th>
+					<th>{{getLabel('so_ngay_qh','Số ngày quá hạn').text}}</th>
+					<th>{{getLabel('qua_han','Quá hạn').text}} 1 - 30 {{getLabel('ngay','Ngày').text}}</th>
+					<th>{{getLabel('qua_han','Quá hạn').text}} 30 - 60 {{getLabel('ngay','Ngày').text}}</th>
+					<th>{{getLabel('qua_han','Quá hạn').text}} 60 - 90 {{getLabel('ngay','Ngày').text}}</th>
+					<th>{{getLabel('qua_han','Quá hạn').text}} >90 {{getLabel('ngay','Ngày').text}}</th>
+
+				</tr>
+				<tr ng-repeat='r in data' ng-click='viewVoucher(r.ma_ct,r.id_ct)' ng-class="r.bold?'cbold':'cnormal'">
+					<td>
+						{{::r.so_ct}}
+					</td>
+					<td>
+						{{::r.ngay_ct|date:'dd/MM/yyyy'}}
+					</td>
+					<td>
+						{{::r.so_hd}}
+					</td>
+					<td>
+						{{::r.ngay_hd|date:'dd/MM/yyyy'}}
+					</td>
+
+					<td>
+						<a href="#!/dmkh/view/{{r.id_kh}}">{{::r.ten_kh}}</a>
+					</td>
+					<td class="text-center">
+						{{::r.ma_nt_hd}}
+					</td>
+					<td>
+						{{::r.tien_hd_nt|number}}
+					</td>
+					<td>
+						{{::r.da_thanh_toan_nt|number}}
+					</td>
+					<td>
+						{{::r.con_lai_nt|number}}
+					</td>
+					<td>
+						{{::r.han_tt}}
+					</td>
+					<td>
+						{{::r.so_ngay_qua_han}}
+					</td>
+					<td class="text-center">
+						<input type="checkbox" disabled="true" ng-model="r.qua_han1">
+					</td>
+					<td class="text-center">
+						<input type="checkbox" disabled="true" ng-model="r.qua_han2">
+					</td>
+					<td class="text-center">
+						<input type="checkbox" disabled="true" ng-model="r.qua_han3">
+					</td>
+					<td class="text-center">
+						<input type="checkbox" disabled="true" ng-model="r.qua_han4">
+					</td>
+
+				</tr>
+			</table>
+		</div>
+	</report-viewer>
+</report>

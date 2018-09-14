@@ -1,0 +1,75 @@
+<form-input auto-height="true">
+	<form-input-body>
+		<div class="form-group">
+			<label class="control-label col-md-3">Mã chứng từ
+				<span class="required">(*)</span></label>
+			<div class="col-md-9">
+				<input type="text" class="form-control" ng-model='data.ma_ct' ng-required='true'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Mã trạng thái
+				<span class="required">(*)</span></label>
+			<div class="col-md-9">
+				<input type="text" class="form-control" ng-model='data.ma_trang_thai' ng-required='true'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Tên trạng thái
+				<span class="required">(*)</span></label>
+			<div class="col-md-9">
+				<input type="text" class="form-control" ng-model='data.ten_trang_thai' ng-required='true'>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-9">
+				<div class="checkbox">
+					<label><input type="checkbox" ng-model="data.post"/>
+						Post sổ sách</label>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-9">
+				<div class="checkbox">
+					<label><input type="checkbox" ng-model="data.allow_update"/>
+						Cho phép sửa</label>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-9">
+				<div class="checkbox">
+					<label><input type="checkbox" ng-model="data.allow_delete"/>
+						Cho phép xoá</label>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-9">
+				<div class="checkbox">
+					<label><input type="checkbox" ng-model="data.lock_data"/>
+						Khoá số liệu</label>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Số thứ tự
+				<span class="required">(*)</span></label>
+			<div class="col-md-9">
+				<input type="number" class="form-control" ng-model='data.stt' ng-required='true'>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Màu</label>
+			<div class="col-md-9" style=''>
+				<div
+					ng-repeat="c in ['white','aqua','aquamarine','beige','bisque','blue','lightBlue','cornflowerBlue','green','yellow','Gold','red','brown','gray','silver']"
+					ng-style="{'cursor':'pointer','float':'left','width':'50px','height':'50px','margin':'2px','border':'1px solid ' + (data.color==c?'black':c),'background-color':'{{c}}'}"
+					ng-click="data.color=c"></div>
+
+			</div>
+		</div>
+
+	</form-input-body>
+</form-input>

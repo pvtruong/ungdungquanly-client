@@ -1,0 +1,31 @@
+<div class="table-responsive detail-table">
+	<table class="table">
+		<tr>
+			<th class='text-center'></th>
+			<th>{{getLabel('TIEN','Tiền').text}}</th>
+		</tr>
+		<tr ng-repeat="r in ngMasterData.details">
+				<td class="action-buttons">
+					<div>
+						<button class="btn btn-default btn-sm" style="border:none!important" ng-click='editDetail(r.line)' title="Sửa chi tiết">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+						</button>
+						<button class="btn btn-default btn-sm"  style="border:none!important"  title="Xóa dòng này" ng-click="delete1Row(r)">&times;</button>
+					</div>
+				</td>
+
+				<td>
+					<input type="text" format="number" round="f_tien_nt" class="form-control" ng-model="r.tien_nt"/>
+					<span ng-show="false">{{r.tien = STP.round(r.tien_nt * ngMasterData.ty_gia,f_tien)}}</span>
+				</td>
+		</tr>
+	</table>
+</div>
+<div style='padding-bottom:13px;padding-left:10px;padding-top:10px'>
+	<div class='btn-group'>
+		<button type="button" class='btn btn-xs btn-primary'  ng-click="addDetail()">
+			<i class="fa fa-plus-square-o" aria-hidden="true"></i> {{getLabel('dong_moi','Thêm dòng mới').text}}
+		</button>
+
+	</div>
+</div>

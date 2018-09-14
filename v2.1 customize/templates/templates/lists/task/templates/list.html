@@ -1,0 +1,58 @@
+<div class="scrollable-header"><stplistheader btndelete="show:false" btnadd="show:false" btnimport ="show:false" box-search="false">
+
+</stplistheader></div>
+<div class="row">
+<div class="col-md-12">
+    <div class="calendar"  style="padding:5px" ng-model="eventSources" calendar="myCalendar" ui-calendar="uiConfig.calendar" zevents="zevents"></div>
+	<button-slide width="300" actions ="buttonSlideActions">
+		<btn-content>
+			<div  style='padding-bottom:5px' class="checkbox">
+				<label>
+					<input type="checkbox" ng-model="filterLabelAll"  ng-change='toggleMultiSel(contactLabels,filterLabelAll);refresh()'/> <b>Nhãn</b>
+				</label>
+			</div>
+			<div class="list-group">
+				<div role="presentation" ng-repeat='label in contactLabels' >
+					<div class="list-group-item checkbox">
+						<label>
+							<input type="checkbox" ng-model='label.sel' ng-change='refresh()'/> {{label.label_name?label.label_name:'Khác'}}
+						</label>
+					</div>
+				</div>
+			</div>
+			<!--loc theo phu trach-->
+			<div  style='padding-bottom:5px' class="checkbox">
+				<label>
+					<input type="checkbox" ng-model="filterPhuTrachAll"  ng-change='toggleMultiSel(members,filterPhuTrachAll);refresh()'/> <b>Phụ trách</b>
+				</label>
+			</div>
+
+			<div class="list-group">
+				<div role="presentation" ng-repeat='member in members' >
+					<div class="list-group-item checkbox">
+						<label>
+							<input type="checkbox" ng-model='member.sel' ng-change='refresh()'/> {{member.name}}
+						</label>
+					</div>
+				</div>
+			</div>
+			<!--loc theo nhom-->
+			<div  style='padding-bottom:5px' class="checkbox">
+				<label>
+					<input type="checkbox" ng-model="filterNhomAll"  ng-change='toggleMultiSel(groups,filterNhomAll);refresh()'/> <b>Nhóm công việc</b>
+				</label>
+			</div>
+			<div class="list-group">
+				<div role="presentation" ng-repeat='group in groups' >
+					<div class="list-group-item checkbox">
+						<label>
+							<input type="checkbox" ng-model='group.sel' ng-change='refresh()'/> {{group.group_name}}
+						</label>
+					</div>
+				</div>
+			</div>
+
+		</btn-content>
+	</button-slide>
+</div>
+</div>

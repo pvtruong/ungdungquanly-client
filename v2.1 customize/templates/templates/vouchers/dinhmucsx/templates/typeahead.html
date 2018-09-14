@@ -1,0 +1,11 @@
+﻿<a>
+	<div class='row'>
+	  <div>Mã định mức: {{ match.model.so_ct }}, ngày lập: {{match.model.ngay_ct|date:'dd/MM/yyyy'}}</div>
+		<div>Sản phẩm: {{match.model.ten_sp}} ({{match.model.ma_sp}})
+			 <span ng-if="match.model.ma_tt1">, thuộc tính 1: {{match.model.ma_tt1}}</span>
+			 <span ng-if="match.model.ma_tt2">, thuộc tính 2: {{match.model.ma_tt2}}</span>
+			 <span ng-if="match.model.ma_tt3">, thuộc tính 3: {{match.model.ma_tt3}}</span>
+		 </div>
+		 <div ng-if="match.model.id_contract">Đơn hàng/hợp đồng: {{match.model.so_ct_contract}}</div>
+	</div>
+</a>

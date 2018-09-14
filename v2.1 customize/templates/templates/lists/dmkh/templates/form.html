@@ -1,0 +1,159 @@
+<form-input><form-input-body>
+	<uib-tabset>
+			<uib-tab heading='Thông tin chính'>
+				<div class="form-group">
+					<label class="control-label col-sm-2">{{getLabel('ten_kh','Tên khách hàng').text}} <span style='color:red' title='Tên khách hàng không được trống'>(*)</span></label>
+					<div class="col-sm-4">
+						<input type="text" name ='ten_kh' class="form-control" ng-model='data.ten_kh'  ng-required="true">
+					</div>
+					<label class="control-label col-sm-2">{{getLabel('ma_kh','Mã khách hàng').text}}</label>
+					<div class="col-sm-4">
+						<input type="text" name ='ma_kh'  style="text-transform:uppercase" class="form-control" ng-model='data.ma_kh'>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">{{getLabel('nhom_kh','Nhóm khách hàng').text}}</label>
+					<div class="col-sm-4">
+						<ng-selector
+							module="dmnhkh" fields="_id,group_name,details" field-model="_id" field-label = "group_name"
+							ng-model='data.nh_kh'>
+						</ng-selector>
+					</div>
+					<label class="control-label col-sm-2">{{getLabel('phu_trach','Phụ trách').text}}</label>
+					<div class="col-sm-4">
+						<select ng-model="data.phu_trach" ng-options="r.email as r.name for r in members" class="form-control">
+
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">{{getLabel('ma_so_thue','Mã số thuế').text}}</label>
+					<div class="col-sm-4">
+						<input type="text" name ='ma_so_thue' class="form-control" ng-model='data.ma_so_thue'>
+					</div>
+				</div>
+			    <div class="form-group">
+					<label class="control-label col-sm-2">{{getLabel('dia_chi','Địa chỉ').text}}</label>
+					<div class="col-sm-4">
+						<input type="text" name ='dia_chi' class="form-control"  ng-model='data.dia_chi'>
+					</div>
+			        <label class="control-label col-sm-2">{{getLabel('tinh_thanh','Tỉnh/thành').text}}</label>
+					<div class="col-sm-4">
+						<select ng-model='data.tinh_thanh' class='form-control'>
+			                <option ng-repeat='tt in province'  ng-value='tt'>{{tt}}</option>
+			            </select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">{{getLabel('dien_thoai','Điện thoại').text}} <span style='color:red' title='Tên khách hàng không được trống'>(*)</span></label>
+					<div class="col-sm-4">
+						<input type="tel" name ='dien_thoai' class="form-control"  ng-model='data.dien_thoai' ng-required="true">
+					</div>
+					<label class="control-label col-sm-2">Fax</label>
+					<div class="col-sm-4">
+						<input type="tel" class="form-control"  ng-model='data.fax'>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-sm-2">Email</label>
+					<div class="col-sm-4">
+						<input type="email" name ='email' class="form-control"  ng-model='data.email'>
+					</div>
+					<label class="control-label col-sm-2">Website</label>
+					<div class="col-sm-4">
+						<input type="url" class="form-control"  ng-model='data.website'>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">{{getLabel('ghi_chu','Ghi chú').text}}</label>
+					<div class="col-sm-10">
+						<textarea rows="3" class="form-control"  ng-model='data.ghi_chu'>
+						</textarea>
+					</div>
+				</div>
+			    <div class="form-group">
+					<div class="col-sm-offset-2 col-sm-4">
+						<div class="checkbox">
+							<label><input type="checkbox" ng-model="data.ncc_yn" /> {{getLabel('nha_cung_cap','Nhà cung cấp').text}}</label>
+						</div>
+					</div>
+			        <div class="col-sm-4">
+						<div class="checkbox">
+							<label><input type="checkbox" ng-model="data.kh_yn" /> {{getLabel('khach_hang','Khách hàng').text}}</label>
+						</div>
+					</div>
+				</div>
+
+			  <div class="form-group">
+					<label class="control-label col-sm-2">{{getLabel('nhan','Nhãn').text}}</label>
+					<div class="col-sm-10">
+							<ng-selector
+								module='label' fields='label_name' field-model='label_name' field-label='label_name'
+								multiple="true" ng-model='data.labels' empty_yn='true'
+								condition ="label_type:'CUSTOMER'" default-values="label_type:'CUSTOMER'">
+							</ng-selector>
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<label class="col-sm-2 text-right">{{getLabel('co_gia_tri_voi','Có giá trị với').text}} </label>
+					<div class="col-sm-10">
+						<label ng-repeat="item in [{v:0,t:'Mọi người'},{v:1,t:'Chỉ người tạo'},{v:2,t:'Những người sau'}]" style="padding-right:10px">
+							<input type='radio' ng-model='data.visible_to' name='visible_to' ng-value="item.v"/> {{item.t}}
+						</label>
+						<ui-select ng-show='data.visible_to==2'  multiple ng-model="data.visible_to_users" theme="bootstrap"  close-on-select="false"  title="Chọn một user">
+							 <ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+							 <ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+
+								 <small>
+									 {{person.name}}
+
+								 </small>
+							 </ui-select-choices>
+						 </ui-select>
+					</div>
+				</div>
+			    <div class="form-group">
+					<label class="col-sm-2 text-right">{{getLabel('xem_du_lieu_lien_quan','Dữ liệu liên quan').text}} </label>
+					<div class="col-sm-10">
+						<label ng-repeat="item in [{v:0,t:'Mọi người'},{v:1,t:'Chỉ người tạo'},{v:2,t:'Những người sau'}]" style="padding-right:10px">
+							<input type='radio' ng-model='data.dataview_to' name='dataview_to' ng-value="item.v"/> {{item.t}}
+						</label>
+						<ui-select ng-show='data.dataview_to==2'  multiple ng-model="data.dataview_to_users" theme="bootstrap"  close-on-select="false"  title="Chọn một user">
+						 <ui-select-match placeholder="Chọn user..">{{$item.name}}</ui-select-match>
+						 <ui-select-choices repeat="person.email as person in members | propsFilter: {name: $select.search, email: $select.search}">
+
+							 <small>
+								 {{person.name}}
+
+							 </small>
+						 </ui-select-choices>
+					 </ui-select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<div class="checkbox">
+							<label><input type="checkbox" ng-model="data.status" /> {{getLabel('con_su_dung','Còn sử dụng').text}}</label>
+						</div>
+					</div>
+				</div>
+			</uib-tab>
+			<uib-tab heading="{{getLabel('BO_XUNG','Đặc thù').text}} (*)" ng-show="data.options && data.options.fields && data.options.fields.length>0">
+				<!--extra fields-->
+				<div class="form-group" ng-repeat="field in  data.options.fields">
+					<label class="control-label col-md-2">{{field.title}} <span class="required" ng-show="field.required">(*)</span></label>
+					<div class="col-md-4">
+							<input type="text" ng-if="field.type=='text'"  ng-model="data.exfields[field.name]" class="form-control" ng-required="field.required"/>
+							<input type="text" format='number' ng-if="field.type=='number'"  ng-model="data.exfields[field.name]" class="form-control"ng-required="field.required"/>
+							<ng-datepicker ng-model="data.exfields[field.name]" ng-if="field.type=='date'" ng-required="field.required"></ng-datepicker>
+
+					</div>
+				</div>
+				<!--end extra fields-->
+			</uib-tab>
+	</uib-tabset>
+
+</form-input-body></form-input>

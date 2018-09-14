@@ -1,0 +1,76 @@
+﻿
+ <form-detail><form-detail-body>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('TK_NO','TK nợ').text}}</label>
+			<div class="col-sm-4">
+				<ng-typeahead 
+					module='dmtk' field-model='tk' field-label='ten_tk' fields='tk,ten_tk'
+					placeholder="Nhập tk hoặc tên tk..."
+					ng-model='dt_current.tk_no' condition="loai_tk:1" label='dt_current.ten_tk_no' ng-required='true'>
+				</ng-typeahead>
+			</div>
+			<div class=' col-sm-6'>{{dt_current.ten_tk_no}}</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('TK_CO','TK có').text}} </label>
+			<div class="col-sm-4">
+				<ng-typeahead 
+					module='dmtk' field-model='tk' field-label='ten_tk' fields='tk,ten_tk'
+					placeholder="Nhập tk hoặc tên tk..."
+					ng-model='dt_current.tk_co' condition="loai_tk:1" label='dt_current.ten_tk_co' ng-required='true'>
+				</ng-typeahead>
+			</div>
+			<div class='col-sm-6'>{{dt_current.ten_tk_co}}</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('TIEN_NT','Tiền nt').text}}</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" format="number" round="f_tien_nt" ng-model="dt_current.tien_nt"  ng-required="true"/>
+			</div>
+			<label class="control-label col-sm-2">{{getLabel('ma_nt','Ngoại tệ').text}}</label>
+			<div class="row col-sm-4">
+				<div class="col-xs-6">
+					<ng-selector
+						module='dmnt' fields ='ma_nt,ten_nt,ty_gia' field-model='ma_nt' field-label='ten_nt'  on-select ="dt_current.ty_gia = $item.ty_gia"
+						ng-model="dt_current.ma_nt" ng-required="true">
+					</ng-selector>
+				</div>
+				<div class="col-xs-6">
+					<input type="text" ng-data-loaded='isDataLoaded'  ng-disabled="dt_current.ma_nt=='VND' || !isDataLoaded" format="number" round="f_ty_gia"  class="form-control" placeholder='Nhập tỷ giá' ng-model='dt_current.ty_gia' ng-required="true"/>
+				</div>
+			</div>
+			
+		</div>
+		<div class="form-group">
+		
+			<label class="control-label col-sm-2">{{getLabel('TIEN_QUY_DOI','Tiền quy đổi').text}}</label>
+			<div class="col-sm-4">
+				<span class='form-control'>{{dt_current.tien = dt_current.tien_nt * dt_current.ty_gia|number:0}}</span>
+			</div>
+			
+		</div>
+			
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('KH_NO','Khách hàng nợ').text}} </label>
+			<div class="col-sm-4">
+				<ng-typeahead
+					module='dmkh' field-model='ma_kh' field-label='ten_kh' fields ='ma_kh,ten_kh'
+					placeholder ='Nhập mã hoặc tên khách hàng...'
+					ng-model='dt_current.ma_kh_no' label='dt_current.ten_kh_no' ng-required-cn='dt_current.tk_no'>
+				</ng-typeahead>
+			</div>
+			<div class='col-sm-6'>{{dt_current.ten_kh_no}}</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">{{getLabel('KH_CO','Khách hàng có').text}} </label>
+			<div class="col-sm-4">
+				<ng-typeahead
+					module='dmkh' field-model='ma_kh' field-label='ten_kh' fields ='ma_kh,ten_kh'
+					placeholder ='Nhập mã hoặc tên khách hàng...'
+					ng-model='dt_current.ma_kh_co' label='dt_current.ten_kh_co' ng-required-cn='dt_current.tk_co'>
+				</ng-typeahead>
+			</div>
+			<div class='col-sm-6'>{{dt_current.ten_kh_co}}</div>
+		</div>
+		
+</form-detail-body></form-detail>

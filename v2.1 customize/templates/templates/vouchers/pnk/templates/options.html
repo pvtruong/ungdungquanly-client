@@ -1,0 +1,20 @@
+<div class="form-group">
+	<label class="control-label ">Kho</label>
+	<div class="">
+		<ng-typeahead module='dmkho' field-model='ten_kho' field-label='ma_kho' fields='ma_kho,ten_kho' placeholder="Nhập mã hoặc tên kho..." ng-model='locals.ten_kho' label='locals.ma_kho'></ng-typeahead>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label">TK vật tư</label>
+	<div class="">
+		<ng-typeahead module='dmtk' field-model='tk' field-label='ten_tk' fields='tk,ten_tk' placeholder="Nhập tk hoặc tên tk..." ng-model='options.tk_vt' condition="loai_tk:1" label='options.ten_tk_vt'></ng-typeahead>
+	</div>
+
+</div>
+<div class="form-group">
+	<label class="control-label ">TK đối ứng</label>
+	<div class="">
+		<ng-typeahead module='dmtk' field-model='tk' field-label='ten_tk' fields='tk,ten_tk' placeholder="Nhập tk hoặc tên tk..." ng-model='options.tk_du' condition="loai_tk:1" label='options.ten_tk_du'></ng-typeahead>
+	</div>
+
+</div>

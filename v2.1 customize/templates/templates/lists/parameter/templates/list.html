@@ -1,0 +1,25 @@
+﻿<div class="scrollable">
+    <div class="scrollable-header">
+        <stplistheader box-search="false"></stplistheader>
+    </div>
+    <div class="row scrollable-content">
+        <div class="table-list">
+          <table class ="table table-striped">
+                <tr><th class="text-center"  style="width:30px" ng-show="multiSelect"><input type="checkbox" ng-model="selectionAll"></th><th style="width:30px"></th><th>Tham số</th><th>Giá trị</th></tr>
+                <tr ng-repeat="r in list|limitTo:limitOpts.limit:limitOpts.begin" drag-to-dismiss="delete(r._id,dismissCB)" >
+                    <td width='30px' class="text-center" ng-show="multiSelect"> <input type="checkbox" ng-model="r.sel"/> </td><td class="text-center" style="width:30px"><div  ng-include="'templates/sys/quick-actions-list.html'"></div></td>
+
+                    <td   style='cursor:pointer' ng-click='edit(r._id)'>
+                        {{ r.type}} - {{ r.name}}
+                    </td>
+
+                    <td   style='cursor:pointer' ng-click='edit(r._id)'>
+                        {{ r.value}}
+                    </td>
+
+                </tr>
+            </table>
+            <ng-page></ng-page>
+        </div>
+    </div>
+</div>

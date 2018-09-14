@@ -1,0 +1,1 @@
+var dmloaicongModule = new baseInput('dmloaicong','dmloaicong',["ma_loai_cong","ten_loai_cong"],'Danh mục loại công');
